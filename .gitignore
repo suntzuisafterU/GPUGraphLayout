@@ -9,8 +9,11 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+builds/linux/datasets
+
 ## Build generated
 build/
+out/
 DerivedData/
 
 ## Various settings
