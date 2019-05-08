@@ -15,6 +15,7 @@ builds/linux/datasets
 build/
 out/
 DerivedData/
+**/temp.txt
 
 ## Various settings
 *.pbxuser
