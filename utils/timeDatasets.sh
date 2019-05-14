@@ -1,8 +1,18 @@
+if [ ! -d ../out ]; then
+  mkdir ../out
+fi
+
 datasets=( "ca-AstroPh" "amazon0601" "ca-cit-HepPh" "ca-cit-HepTh" "opsahl-collaboration" "web-Google" "wiki-Talk" )
 
 for d in ${datasets[@]}; do
-  if [ ! -d ../out/"$d" ]; then
-    mkdir ../out/"$d"
+  GPU_PATH="$d""GPU"
+  CPU_PATH="$d""CPU"
+  if [ ! -d ../out/"$GPU_PATH" ]; then
+    mkdir ../out/"$GPU_PATH"
+  fi
+
+  if [ ! -d ../out/"$CPU_PATH" ]; then
+    mkdir ../out/"$CPU_PATH"
   fi
 
   (time \
@@ -15,11 +25,11 @@ for d in ${datasets[@]}; do
   1.0 \
   approximate \
   ../datasets/"$d"/out."$d" \
-  ../out/"$d"/)  \
-  > ../out/"$d"/GPUreport."$d" \
-  2> ../out/"$d"/GPUtimeReport."$d"
+  ../out/"$GPU_PATH"/ \
+  png 10000 10000)  \
+  > ../out/"$GPU_PATH"/GPUreport."$d" \
+  2> ../out/"$GPU_PATH"/GPUtimeReport."$d"
   
-
   (time \
   graph_viewer \
   cpu \
@@ -30,9 +40,10 @@ for d in ${datasets[@]}; do
   1.0 \
   approximate \
   ../datasets/"$d"/out."$d" \
-  ../out/"$d"/)  \
-  > ../out/"$d"/CPUreport."$d" \
-  2> ../out/"$d"/CPUtimeReport."$d"
+  ../out/"$CPU_PATH"/ \
+  png 10000 10000)  \
+  > ../out/"$CPU_PATH"/CPUreport."$d" \
+  2> ../out/"$CPU_PATH"/CPUtimeReport."$d"
   
 
 done
