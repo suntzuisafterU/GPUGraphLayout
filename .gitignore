@@ -13,6 +13,7 @@
 **/*.vscode
 
 ## Build generated
+**/graph_viewer
 build/
 builds/linux/graph_viewer
 builds/linux/.depend
