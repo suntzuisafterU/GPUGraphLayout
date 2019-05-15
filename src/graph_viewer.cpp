@@ -43,10 +43,17 @@
 #include "RPGPUForceAtlas2.hpp"
 #endif
 
+/**
+ * Entry point for executable.  CPU or GPU.
+ */
 int main(int argc, const char **argv)
 {
     // For reproducibility.
     srandom(1234);
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////// Parse command line    //////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Parse commandline arguments
     if (argc < 10)
@@ -55,19 +62,20 @@ int main(int argc, const char **argv)
         exit(EXIT_FAILURE);
     }
 
-    const bool cuda_requested = std::string(argv[1]) == "gpu" or std::string(argv[1]) == "cuda";
+    const bool cuda_requested = std::string(argv[1]) == "gpu" or std::string(argv[1]) == "cuda"; // using cuda
     const int max_iterations = std::stoi(argv[2]);
-    const int num_screenshots = std::stoi(argv[3]);
-    const bool strong_gravity = std::string(argv[4]) == "sg";
-    const float scale = std::stof(argv[5]);
-    const float gravity = std::stof(argv[6]);
-    const bool approximate = std::string(argv[7]) == "approximate";
-    const char *edgelist_path = argv[8];
-    const char *out_path = argv[9];
-    std::string out_format = "png";
+    const int num_screenshots = std::stoi(argv[3]); // aka: num_snaps
+    const bool strong_gravity = std::string(argv[4]) == "sg"; // strong gravity?  sg is not proportional to distance from origin.
+    const float scale = std::stof(argv[5]); // scaling for repulsion force.  paper used 80.
+    const float gravity = std::stof(argv[6]); // scaling for gravity. paper used 1.
+    const bool approximate = std::string(argv[7]) == "approximate"; // gpu only accepts BH approximation.
+    const char *edgelist_path = argv[8]; // infile
+    const char *out_path = argv[9]; // output directory for images.
+    std::string out_format = "png"; // default make png that is 1250x1250
     int image_w = 1250;
     int image_h = 1250;
 
+    // Minor, accept multiple png vs csv args.
     for (int arg_no = 10; arg_no < argc; arg_no++)
     {
         if(std::string(argv[arg_no]) == "png")
@@ -117,9 +125,16 @@ int main(int argc, const char **argv)
     }
     #endif
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////// End commandline args  //////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // Load graph.
     printf("Loading edgelist at '%s'...", edgelist_path);
     fflush(stdout);
+    /**
+     * UGraph object of adjaceny list format.
+     */
     RPGraph::UGraph graph = RPGraph::UGraph(edgelist_path);
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", graph.num_nodes(), graph.num_edges());

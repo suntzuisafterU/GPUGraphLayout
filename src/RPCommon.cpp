@@ -33,14 +33,23 @@ bool is_file_exists (const char *filename)
     return infile.good();
 }
 
+/**
+ * Common to CPU and GPU implementations. 
+ * 
+ */
 namespace RPGraph
 {
     float get_random(float lowerbound, float upperbound)
     {
+        // https://stackoverflow.com/questions/103512/why-use-static-castintx-instead-of-intx
+        // static_cast is used to specify exactly which type of casting we want to do.  static_cast is generally safe.
         return lowerbound + (upperbound-lowerbound) * static_cast <float> (random()) / static_cast <float> (RAND_MAX);
     }
 
 
+    /**
+     * Why did they have to define their own 2DVector class?
+     */
     /* Definitions for Real2DVector */
     Real2DVector::Real2DVector(float x, float y): x(x), y(y) {};
 
@@ -98,6 +107,9 @@ namespace RPGraph
         return *this;
     }
 
+    /**
+     * Partner class to 2DVector.
+     */
     /* Definitions for Coordinate */
     Coordinate::Coordinate(float x, float y) : x(x), y(y) {};
 

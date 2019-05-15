@@ -32,6 +32,9 @@
 namespace RPGraph
 {
     /* Definitions for UGraph */
+    /**
+     * Used once in main file (graph_viewer.cpp)
+     */
     UGraph::UGraph(std::string edgelist_path)
     {
         node_count = 0;
@@ -134,24 +137,28 @@ namespace RPGraph
 
 // CSRUGraph represents an undirected graph using a
 // compressed sparse row (CSR) datastructure.
+/**
+ * IMPORTANT: Ignore this data structure.  Not used in implementation.
+ */
     CSRUGraph::CSRUGraph(nid_t num_nodes, nid_t num_edges)
     {
-        // `edges' is a concatenation of all edgelists
-        // `offsets' contains offset (in `edges`) for each nodes' edgelist.
-        // `nid_to_offset` maps nid to index to be used in `offset'
+        // `edges' is a concatenation of all edgelists (i.e. flattened edge list)
+        // `offsets' contains offset (in `edges`) for each nodes' edgelist. (index into flattened edge list)
+        // `nid_to_offset` maps nid to index to be used in `offset'  (index into array of mappings id -> offset, then use offset to index into flattened array of edges.)
 
         // e.g. the edgelist of node with id `nid' starts at
-        // edges[offsets[nid_to_offset[nid]]] and ends at edges[offsets[nid_to_offset[nid]] + 1]
-        // (left bound inclusive right bound exclusive)
+        // edges[offsets[nid_to_offset[nid]]] and ends at edges[offsets[nid_to_offset[nid]] + 1] 
+        // (left bound inclusive right bound exclusive) (normal indexing of sublists)
 
         edge_count = num_edges; // num_edges counts each bi-directional edge once.
         node_count = num_nodes;
-        edges =   (nid_t *) malloc(sizeof(nid_t) * 2 * edge_count);
-        offsets = (nid_t *) malloc(sizeof(nid_t) * node_count);
+        edges =   (nid_t *) malloc(sizeof(nid_t) * 2 * edge_count); // flattened array
+        offsets = (nid_t *) malloc(sizeof(nid_t) * node_count); // map 
         offset_to_nid = (nid_t *) malloc(sizeof(nid_t) * node_count);
 
         // Create a map from original ids to ids used throughout CSRUGraph
-        nid_to_offset.reserve(node_count);
+        // std::unordered_map<nid_t, nid_t> // secret hidden header variable! 
+        nid_to_offset.reserve(node_count); // IMPORTANT: reserves space for at least n elements (dynamic datastructure.)
 
         first_free_id = 0;
         edges_seen = 0;
