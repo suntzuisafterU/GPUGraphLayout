@@ -141,7 +141,7 @@ int main(int argc, const char **argv)
 
     // Create the GraphLayout and ForceAtlas2 objects.
     RPGraph::GraphLayout layout(graph);
-    RPGraph::ForceAtlas2 *fa2;
+    RPGraph::ForceAtlas2 *fa2; // Could be CPU or GPU object.
     #ifdef __NVCC__
     if(cuda_requested)
         fa2 = new RPGraph::CUDAForceAtlas2(layout, approximate,

@@ -29,6 +29,11 @@
 
 namespace RPGraph
 {
+    /**
+     * Can be either CPU or GPU implementation.
+     * 
+     * Does this act like a jave interface??
+     */
     class ForceAtlas2 : public LayoutAlgorithm
     {
         public:

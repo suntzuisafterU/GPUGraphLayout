@@ -26,6 +26,8 @@
 #include <cmath>
 #include <fstream>
 
+// Finished reading May 15.
+
 // by http://stackoverflow.com/a/19841704
 bool is_file_exists (const char *filename)
 {

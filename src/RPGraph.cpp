@@ -29,6 +29,8 @@
 #include <algorithm>
 #include "RPGraph.hpp"
 
+// Finished reading May15, unless want to look at CSRUGraph at a later date.
+
 namespace RPGraph
 {
     /* Definitions for UGraph */

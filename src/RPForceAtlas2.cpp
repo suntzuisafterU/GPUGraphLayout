@@ -26,7 +26,8 @@
 namespace RPGraph
 {
     /**
-     * GPU version of FA2 algo.
+     * CPU version of FA2 algo.
+     * Why do we have the scope modifier ForceAtlas2::ForceAtlas2??
      */
     ForceAtlas2::ForceAtlas2(GraphLayout &layout, bool use_barneshut,
                              bool strong_gravity, float gravity, float scale)
