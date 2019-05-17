@@ -182,8 +182,7 @@ int main(int argc, const char **argv)
         // Else we print (if we need to)
         else if (iteration % print_period == 0)
         {
-            fa2->sync_layout(); // TEMP TESTING
-            printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
+          // printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
         }
     }
 

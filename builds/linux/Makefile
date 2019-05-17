@@ -12,7 +12,7 @@ ifeq ($(CUDA_SUPPORT), 1)
 endif
 
 # Debug compilation, disable by default
-DEBUG ?= 0
+DEBUG ?= 1
 ifeq ($(DEBUG), 1)
 	CXXFLAGS:=-g
 	NVCCFLAGS:=-G
@@ -80,6 +80,6 @@ $(PNGWRITER_OBJS): $(PNGWRITER_SRCS)
 clear: clean
 
 clean:
-	rm -r graph_viewer $(OBJ_DIR)/* ./.depend
+	rm -rf graph_viewer $(OBJ_DIR)/* ./.depend
 
 .PHONY: all clear clean depend
