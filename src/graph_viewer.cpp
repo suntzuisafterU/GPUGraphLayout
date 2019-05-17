@@ -49,7 +49,8 @@
 int main(int argc, const char **argv)
 {
     // For reproducibility.
-    srandom(1234);
+    // srandom(1234);
+    srandom( time(NULL) );
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// Parse command line    //////////////////////////////////////////////
@@ -162,7 +163,7 @@ int main(int argc, const char **argv)
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
         {
             std::string ip(edgelist_path);
-            printf("value of ip:   %s\n", ip);
+            printf("value of ip:   %s\n", ip.c_str());
             std::string of = ip.substr(ip.find_last_of('/')); // BUG FOUND HERE!!
             of.append("_").append(std::to_string(iteration)).append(".").append(out_format);
             std::string op = std::string(out_path).append("/").append(of);
