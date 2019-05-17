@@ -12,7 +12,7 @@ ifeq ($(CUDA_SUPPORT), 1)
 endif
 
 # Debug compilation, disable by default
-DEBUG ?= 0
+DEBUG ?= 1
 ifeq ($(DEBUG), 1)
 	CXXFLAGS:=-g
 	NVCCFLAGS:=-G
