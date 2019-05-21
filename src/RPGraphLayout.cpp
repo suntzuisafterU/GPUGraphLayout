@@ -21,19 +21,28 @@
  ==============================================================================
 */
 
+// Reading 
+
 
 #include "RPGraphLayout.hpp"
-#include "../lib/pngwriter/src/pngwriter.h"
+#include "../lib/pngwriter/src/pngwriter.h" // Is this coupled directly to the layout?
 
 #include <fstream>
 #include <cmath>
 #include <limits>
 
+/**
+ * Most of the methods on the GraphLayout class seem to be associated with the CPU implementation, and not the GPU.
+ */
 namespace RPGraph
 {
+    /**
+     * Q: What are width and height for?  Size of image?
+     */
     GraphLayout::GraphLayout(UGraph &graph, float width, float height)
         : graph(graph), width(width), height(height)
     {
+        // Mem complexity: O(|V|)
         coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));
     }
 
@@ -44,6 +53,12 @@ namespace RPGraph
 
     void GraphLayout::randomizePositions()
     {
+        /**
+         * TODO: Modify this bit when using communities to randomize node
+         *       positions within some delta of the community position in the
+         *       community layout that was produced originally.
+         * NOTE: Keep original for laying out the community graph.
+         */
         for (nid_t i = 0; i <  graph.num_nodes(); ++i)
         {
             setX(i, get_random(-width/2.0, width/2.0));
@@ -53,6 +68,8 @@ namespace RPGraph
 
     float GraphLayout::getX(nid_t node_id)
     {
+        // Q: What type of data structure is coords?
+        // A: It is a Coordinate* (array of coordinates), see RPCommon.hpp
         return coordinates[node_id].x;
     }
 
@@ -61,6 +78,12 @@ namespace RPGraph
         return coordinates[node_id].y;
     }
 
+    /**
+     * Find: 
+     *   getXRange: only this file, getSpan, getCenter, writePng
+     *   getYRange: only this file
+     *   getCenter: RPCPUForceAtlas2.cpp, not important
+     */
     float GraphLayout::minX()
     {
         float minX = std::numeric_limits<float>::max();
@@ -101,13 +124,16 @@ namespace RPGraph
     float GraphLayout::getYRange()
     {
         return maxY() - minY();
-    }
-
+    } 
+                     
     float GraphLayout::getSpan()
     {
         return ceil(fmaxf(getXRange(), getYRange()));
     }
 
+    /**
+     * Usage? CPU FA2 only.
+     */
     float GraphLayout::getDistance(nid_t n1, nid_t n2)
     {
         const float dx = getX(n1)-getX(n2);
@@ -115,11 +141,18 @@ namespace RPGraph
         return std::sqrt(dx*dx + dy*dy);
     }
 
+    /**
+     * Which of these 2 are used?
+     * Vectors are used in CPU FA2 implementation.
+     */
     Real2DVector GraphLayout::getDistanceVector(nid_t n1, nid_t n2)
     {
         return Real2DVector(getX(n2) - getX(n1), getY(n2) - getY(n1));
     }
 
+    /**
+     * Make that which of these 3 are used? IRRELEVANT: Commented out in CPU FA2 only.
+     */
     Real2DVector GraphLayout::getNormalizedDistanceVector(nid_t n1, nid_t n2)
     {
         const float x1 = getX(n1);
@@ -133,11 +166,17 @@ namespace RPGraph
         return Real2DVector(dx / len, dy / len);
     }
 
+    /**
+     * Indexes into coordinates array.
+     */
     Coordinate GraphLayout::getCoordinate(nid_t node_id)
     {
         return coordinates[node_id];
     }
 
+    /**
+     * Usage: pngwriter only.
+     */
     Coordinate GraphLayout::getCenter()
     {
         float x = minX() + getXRange()/2.0;
@@ -145,6 +184,9 @@ namespace RPGraph
         return Coordinate(x, y);
     }
 
+    /**
+     * Updates x in coordinates array.
+     */
     void GraphLayout::setX(nid_t node_id, float x_value)
     {
         coordinates[node_id].x = x_value;
@@ -155,25 +197,35 @@ namespace RPGraph
         coordinates[node_id].y = y_value;
     }
 
+    /**
+     * Why is move only used with a 2DVector?
+     */
     void GraphLayout::moveNode(nid_t n, RPGraph::Real2DVector v)
     {
         setX(n, getX(n) + v.x);
         setY(n, getY(n) + v.y);
     }
 
+    /**
+     * Never used. Why not?
+     * TODO: We will probably use this and maybe the moveNode function to specify our layout after
+     */
     void GraphLayout::setCoordinates(nid_t node_id, Coordinate c)
     {
         setX(node_id, c.x);
         setY(node_id, c.y);
     }
 
+    /**
+     * pngwriter entry point.
+     */
     void GraphLayout::writeToPNG(const int image_w, const int image_h,
                                  std::string path)
     {
         const float xRange = getXRange();
         const float yRange = getYRange();
-        const RPGraph::Coordinate center = getCenter();
-        const float xCenter = center.x;
+        const RPGraph::Coordinate center = getCenter(); // Why do we need the center?
+        const float xCenter = center.x; // Probably to set the origin for layout.
         const float yCenter = center.y;
         const float minX = xCenter - xRange/2.0;
         const float minY = yCenter - yRange/2.0;
@@ -182,6 +234,9 @@ namespace RPGraph
 
         // Here we need to do some guessing as to what the optimal
         // opacity of nodes and edges might be, given network size.
+        /**
+         * TODO: Adjust node opacity for best results.
+         */
         const float node_opacity = 10000.0  / graph.num_nodes();
         const float edge_opacity = 100000.0 / graph.num_edges();
 
@@ -206,6 +261,10 @@ namespace RPGraph
         layout_png.write_png();
     }
 
+    /**
+     * Writing to csv may be a good way to streamline testing the decompressions effectiveness.
+     * NOTE: There is no loadFromCSV method.  Would go in this file.
+     */
     void GraphLayout::writeToCSV(std::string path)
     {
         if (is_file_exists(path.c_str()))
@@ -225,6 +284,9 @@ namespace RPGraph
         out_file.close();
     }
 
+    /**
+     * Do we have any use for writing to bin?
+     */
     void GraphLayout::writeToBin(std::string path)
     {
         if (is_file_exists(path.c_str()))

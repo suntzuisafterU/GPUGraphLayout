@@ -21,6 +21,8 @@
  ==============================================================================
 */
 
+// Reading
+
 #ifndef RPForceAtlas2_hpp
 #define RPForceAtlas2_hpp
 
@@ -55,9 +57,18 @@ namespace RPGraph
             float global_speed;
 
             // Parameters used in adaptive temperature
+            /**
+             *  (What is adaptive temperature?)
+             */
             float speed_efficiency, jitter_tolerance;
+            /**
+             * Where are these magic constants used? In both GPU and CPU implementations?
+             */
             float k_s, k_s_max; // magic constants related to swinging.
 
+            /**
+             * TODO: Review and explain the Barnes-Hut parameters here.
+             */
             // Barnes-Hut parameters
             float theta;   // Accuracy
             float epssq;   // Softening (Epsilon, squared)

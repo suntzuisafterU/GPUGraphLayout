@@ -21,6 +21,8 @@
  ==============================================================================
 */
 
+// Reading: May 21st
+
 #include "RPCPUForceAtlas2.hpp"
 #include <stdlib.h>
 #include <math.h>
@@ -28,6 +30,9 @@
 #include <cmath>
 #include <chrono>
 
+/**
+ * Which classes does this file rely on? What about the GPU version? 
+ */
 namespace RPGraph
 {
     // CPUForceAtlas2 definitions.
@@ -84,6 +89,7 @@ namespace RPGraph
 
     void CPUForceAtlas2::apply_repulsion(nid_t n)
     {
+        // Approximation, only for we are using.
         if (use_barneshut)
         {
             forces[n] += (BH_Approximator.approximateForce(layout.getCoordinate(n), mass(n), theta) * k_r);
@@ -123,24 +129,34 @@ namespace RPGraph
         forces[n] += (Real2DVector(-layout.getX(n), -layout.getY(n)) * f_g);
     }
 
-    // Eq. (8)
+    /**
+     *  Eq. (8)
+     *  TODO: Equation numbers from which paper?
+     */
     float CPUForceAtlas2::swg(nid_t n)
     {
         return (forces[n] - prev_forces[n]).magnitude();
     }
 
-    // Eq. (9)
+    /**
+     *  Eq. (9)
+     */
     float CPUForceAtlas2::s(nid_t n)
     {
         return (k_s * global_speed)/(1.0f+global_speed*std::sqrt(swg(n)));
     }
 
-    // Eq. (12)
+    /**
+     *  Eq. (12)
+     */
     float CPUForceAtlas2::tra(nid_t n)
     {
         return (forces[n] + prev_forces[n]).magnitude() / 2.0;
     }
 
+    /**
+     * Implementation based on Gephis java implementation.
+     */
     void CPUForceAtlas2::updateSpeeds()
     {
         // The following speed-update procedure for ForceAtlas2 follows
@@ -158,6 +174,9 @@ namespace RPGraph
 
         // We want to find the right jitter tollerance for this graph,
         // such that totalSwinging < tolerance * totalEffectiveTraction
+        /**
+         * TODO: Do we need to concern ourselves with jitter tolerance?
+         */
 
         float estimated_optimal_jitter_tollerance = 0.05 * std::sqrt(layout.graph.num_nodes());
         float minJT = std::sqrt(estimated_optimal_jitter_tollerance);
@@ -223,6 +242,9 @@ namespace RPGraph
         }
     }
 
+    /**
+     * The tip of the spear.
+     */
     void CPUForceAtlas2::doStep()
     {
         if (use_barneshut) rebuild_bh();

@@ -27,6 +27,7 @@
  ==============================================================================
 */
 
+// Reading
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,7 +50,8 @@
 int main(int argc, const char **argv)
 {
     // For reproducibility.
-    srandom(1234);
+    // srandom(1234);
+    srandom( time(NULL) );
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// Parse command line    //////////////////////////////////////////////
@@ -144,6 +146,7 @@ int main(int argc, const char **argv)
     RPGraph::ForceAtlas2 *fa2; // Could be CPU or GPU object.
     #ifdef __NVCC__
     if(cuda_requested)
+        // GPU FA2
         fa2 = new RPGraph::CUDAForceAtlas2(layout, approximate,
                                            strong_gravity, gravity, scale);
     else
@@ -155,8 +158,15 @@ int main(int argc, const char **argv)
     const int snap_period = ceil((float)max_iterations/num_screenshots);
     const int print_period = ceil((float)max_iterations*0.05);
 
+    /**
+     * TODO: Wrap this in a function and use it twice, once for the comm layout and once for the full layout.
+     */
     for (int iteration = 1; iteration <= max_iterations; ++iteration)
     {
+        // BOOKMARK
+        /**
+         * Implementation in either RPGPUForceAtlas2.cpp or RPCPUForceAtlas2.cpp
+         */
         fa2->doStep();
         // If we need to, write the result to a png
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
@@ -182,8 +192,7 @@ int main(int argc, const char **argv)
         // Else we print (if we need to)
         else if (iteration % print_period == 0)
         {
-            fa2->sync_layout(); // TEMP TESTING
-            printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
+          printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
         }
     }
 
