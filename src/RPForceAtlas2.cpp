@@ -26,7 +26,7 @@
 namespace RPGraph
 {
     /**
-     * CPU version of FA2 algo.
+     * CPU version of FA2 algo???
      * Why do we have the scope modifier ForceAtlas2::ForceAtlas2??
      */
     ForceAtlas2::ForceAtlas2(GraphLayout &layout, bool use_barneshut,
@@ -60,6 +60,9 @@ namespace RPGraph
 
     ForceAtlas2::~ForceAtlas2(){};
 
+    /**
+     * Doesn't get called!
+     */
     void ForceAtlas2::doSteps(int n)
     {
         for (int i = 0; i < n; ++i) doStep();
