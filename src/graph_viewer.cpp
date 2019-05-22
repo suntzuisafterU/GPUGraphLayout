@@ -171,10 +171,11 @@ int main(int argc, const char **argv)
         // If we need to, write the result to a png
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
         {
-            std::string ip(edgelist_path);
-            std::string of = ip.substr(ip.find_last_of('/')); // ERROR IS HERE!
-            of.append("_").append(std::to_string(iteration)).append(".").append(out_format);
-            std::string op = std::string(out_path).append("/").append(of);
+            /**
+             * Reverted to older version after multiple issues with the line intended to extract the basename of the network
+             */
+            std::string op(out_path);
+            op.append("/").append(std::to_string(iteration)).append(".").append(out_format);
             printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100*(float)iteration/max_iterations, out_format.c_str());
             fflush(stdout);
             fa2->sync_layout();
