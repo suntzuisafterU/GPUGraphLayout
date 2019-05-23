@@ -1,6 +1,7 @@
 var searchData=
 [
   ['degree',['degree',['../classRPGraph_1_1Graph.html#a8a95d1f403c3d9860cf7399abc820c7d',1,'RPGraph::Graph::degree()'],['../classRPGraph_1_1UGraph.html#a4d3c3af1ba4787ef5ced5f5efa9d05cf',1,'RPGraph::UGraph::degree()'],['../classRPGraph_1_1CSRUGraph.html#ae2f3bb7a5ee2b53c88145a0cee6ed277',1,'RPGraph::CSRUGraph::degree()']]],
+  ['degrees',['degrees',['../classRPGraph_1_1UGraph.html#af5fbc8b87a17c9adb32020f56997993e',1,'RPGraph::UGraph']]],
   ['delta',['delta',['../classRPGraph_1_1ForceAtlas2.html#a39051fda34ae96395209e8b5657a61bd',1,'RPGraph::ForceAtlas2']]],
   ['direction',['direction',['../namespaceRPGraph.html#a18f01f18cedd3449b2bface612bde934',1,'RPGraph']]],
   ['distance',['distance',['../classRPGraph_1_1Real2DVector.html#ac4f84d862727a3e3c8d31785c8e6a098',1,'RPGraph::Real2DVector::distance()'],['../classRPGraph_1_1Coordinate.html#a71242c2da98d16e94c2cb7207401fd86',1,'RPGraph::Coordinate::distance()'],['../namespaceRPGraph.html#ac0ea5eed59279f669d6a944798a58d48',1,'RPGraph::distance()']]],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bb',['bb',['../classRPGraph_1_1BarnesHutCell.html#aded4b0bd6d7149025bcb61c2417a3340',1,'RPGraph::BarnesHutCell']]]
+  ['adjacency_5flist',['adjacency_list',['../classRPGraph_1_1UGraph.html#afcdad64953ce25d810e7f9e4d1d3d825',1,'RPGraph::UGraph']]]
 ];

@@ -5,10 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Class Members - Functions</title>
+<title>GPUGraphLayout: Class Members - Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -21,7 +29,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">GPUGraphLayout
    </div>
   </td>
  </tr>
@@ -46,6 +54,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_func.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -64,8 +88,26 @@ $(function() {
 &#160;
 
 <h3><a id="index_a"></a>- a -</h3><ul>
+<li>add_edge()
+: <a class="el" href="classRPGraph_1_1UGraph.html#a79bc283af0140126badfde808b050838">RPGraph::UGraph</a>
+</li>
 <li>add_leafcell()
 : <a class="el" href="classRPGraph_1_1BarnesHutCell.html#a1e1b9494572e56419c7d5ced4fdc9ca4">RPGraph::BarnesHutCell</a>
+</li>
+<li>add_node()
+: <a class="el" href="classRPGraph_1_1UGraph.html#a15764afe7f3ab656f7d814377f91ce4d">RPGraph::UGraph</a>
+</li>
+<li>apply_attract()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#afe1f2cc97b7a145584bc4b773717aa7e">RPGraph::CPUForceAtlas2</a>
+</li>
+<li>apply_displacement()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#a6518170916b07f2e547002125f60feed">RPGraph::CPUForceAtlas2</a>
+</li>
+<li>apply_gravity()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#abfccb4460e2477ca09da5245a43cfe4e">RPGraph::CPUForceAtlas2</a>
+</li>
+<li>apply_repulsion()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5">RPGraph::CPUForceAtlas2</a>
 </li>
 <li>approximateForce()
 : <a class="el" href="classRPGraph_1_1BarnesHutApproximator.html#a28582390211be5a653420a6ff6e2c392">RPGraph::BarnesHutApproximator</a>
@@ -130,6 +172,9 @@ $(function() {
 <li>ForceAtlas2()
 : <a class="el" href="classRPGraph_1_1ForceAtlas2.html#a4c7ce390cdedc886003571f31861eb0c">RPGraph::ForceAtlas2</a>
 </li>
+<li>freeGPUMemory()
+: <a class="el" href="classRPGraph_1_1CUDAForceAtlas2.html#ad75693550c01af4fb8d3d841d066c89a">RPGraph::CUDAForceAtlas2</a>
+</li>
 </ul>
 
 
@@ -169,6 +214,16 @@ $(function() {
 </li>
 <li>GraphLayout()
 : <a class="el" href="classRPGraph_1_1GraphLayout.html#a3d1840f5ef30c9c7a6ce5d41b54230ef">RPGraph::GraphLayout</a>
+</li>
+</ul>
+
+
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>has_edge()
+: <a class="el" href="classRPGraph_1_1UGraph.html#a9a3fd5f05e11b197e207561788c33f22">RPGraph::UGraph</a>
+</li>
+<li>has_node()
+: <a class="el" href="classRPGraph_1_1UGraph.html#afcb53badb258fa22181dca127a7e288b">RPGraph::UGraph</a>
 </li>
 </ul>
 
@@ -294,13 +349,28 @@ $(function() {
 <li>Real2DVector()
 : <a class="el" href="classRPGraph_1_1Real2DVector.html#af6c81ec0d227c6cd31047e436bf574d5">RPGraph::Real2DVector</a>
 </li>
+<li>rebuild_bh()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1">RPGraph::CPUForceAtlas2</a>
+</li>
 <li>reset()
 : <a class="el" href="classRPGraph_1_1BarnesHutApproximator.html#ae05dc350ca9e9cc89eb2263f39c9e0bd">RPGraph::BarnesHutApproximator</a>
+</li>
+<li>retrieveLayoutFromGPU()
+: <a class="el" href="classRPGraph_1_1CUDAForceAtlas2.html#ac1fa21177bc30e66f31fa1df39276963">RPGraph::CUDAForceAtlas2</a>
 </li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>s()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#ad3faa78cf3e9c2d909ce63855053a029">RPGraph::CPUForceAtlas2</a>
+</li>
+<li>sendGraphToGPU()
+: <a class="el" href="classRPGraph_1_1CUDAForceAtlas2.html#ad3151a81be03995ff3ede73d3f25d1c3">RPGraph::CUDAForceAtlas2</a>
+</li>
+<li>sendLayoutToGPU()
+: <a class="el" href="classRPGraph_1_1CUDAForceAtlas2.html#a251eade057124568b70ee17bb9e0d12f">RPGraph::CUDAForceAtlas2</a>
+</li>
 <li>setCoordinates()
 : <a class="el" href="classRPGraph_1_1GraphLayout.html#a99ad68f3edff2c5f0a78a4db3e2f15ea">RPGraph::GraphLayout</a>
 </li>
@@ -319,6 +389,9 @@ $(function() {
 <li>setY()
 : <a class="el" href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e">RPGraph::GraphLayout</a>
 </li>
+<li>swg()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#a71cf36659b8aadc2f5116b25ac556ee6">RPGraph::CPUForceAtlas2</a>
+</li>
 <li>sync_layout()
 : <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#afaada68053fce521843af0eb5ca316df">RPGraph::CPUForceAtlas2</a>
 , <a class="el" href="classRPGraph_1_1CUDAForceAtlas2.html#a474a1cd717352057859185885b8020cf">RPGraph::CUDAForceAtlas2</a>
@@ -327,9 +400,19 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_t"></a>- t -</h3><ul>
+<li>tra()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#ab9b4d94ec0adcfa61716571e11fba967">RPGraph::CPUForceAtlas2</a>
+</li>
+</ul>
+
+
 <h3><a id="index_u"></a>- u -</h3><ul>
 <li>UGraph()
 : <a class="el" href="classRPGraph_1_1UGraph.html#a2e52cd7b17ae1f839b45e26ec6ae1135">RPGraph::UGraph</a>
+</li>
+<li>updateSpeeds()
+: <a class="el" href="classRPGraph_1_1CPUForceAtlas2.html#a53714255665311a73aa4626baf03a781">RPGraph::CPUForceAtlas2</a>
 </li>
 </ul>
 
@@ -371,11 +454,14 @@ $(function() {
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Wed May 22 2019 19:39:36 for GPUGraphLayout by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
+  </ul>
+</div>
 </body>
 </html>

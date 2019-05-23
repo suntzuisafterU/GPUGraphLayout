@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jitter_5ftolerance',['jitter_tolerance',['../classRPGraph_1_1ForceAtlas2.html#a8b16236d6e7ba96fd336a6ee42409cad',1,'RPGraph::ForceAtlas2']]]
+  ['height',['height',['../classRPGraph_1_1GraphLayout.html#a86a79a0329c88ef7cef8d57fce9f0e1b',1,'RPGraph::GraphLayout']]]
 ];

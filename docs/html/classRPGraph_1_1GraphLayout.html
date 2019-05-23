@@ -5,10 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: RPGraph::GraphLayout Class Reference</title>
+<title>GPUGraphLayout: RPGraph::GraphLayout Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -21,7 +29,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">GPUGraphLayout
    </div>
   </td>
  </tr>
@@ -45,6 +53,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classRPGraph_1_1GraphLayout.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,17 +84,13 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceRPGraph.html">RPGraph</a></li><li class="navelem"><a class="el" href="classRPGraph_1_1GraphLayout.html">GraphLayout</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classRPGraph_1_1GraphLayout-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">RPGraph::GraphLayout Class Reference</div>  </div>
@@ -77,6 +98,18 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="RPGraphLayout_8hpp_source.html">RPGraphLayout.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for RPGraph::GraphLayout:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout__coll__graph.png" border="0" usemap="#RPGraph_1_1GraphLayout_coll__map" alt="Collaboration graph"/></div>
+<map name="RPGraph_1_1GraphLayout_coll__map" id="RPGraph_1_1GraphLayout_coll__map">
+<area shape="rect" id="node2" href="classRPGraph_1_1Coordinate.html" title="{RPGraph::Coordinate\n|+ x\l+ y\l|+ Coordinate()\l+ operator+()\l+ operator*()\l+ operator/()\l+ operator+()\l+ operator&#45;()\l+ operator==()\l+ operator/=()\l+ operator+=()\l+ operator+=()\l+ quadrant()\l+ distance()\l+ distance2()\l}" alt="" coords="22,697,179,965"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1UGraph.html" title="{RPGraph::UGraph\n|&#45; node_count\l&#45; edge_count\l|+ UGraph()\l+ num_nodes()\l+ num_edges()\l+ degree()\l+ in_degree()\l+ out_degree()\l+ neighbors_with_geq_id()\l&#45; has_node()\l&#45; has_edge()\l&#45; add_node()\l&#45; add_edge()\l}" alt="" coords="204,712,400,951"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1Graph.html" title="{RPGraph::Graph\n||+ num_nodes()\l+ num_edges()\l+ degree()\l+ in_degree()\l+ out_degree()\l+ neighbors_with_geq_id()\l}" alt="" coords="5,455,201,605"/>
+<area shape="rect" id="node6" title="STL class. " alt="" coords="317,285,469,377"/>
+<area shape="rect" id="node11" title="STL class. " alt="" coords="535,145,664,223"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -143,8 +176,16 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ade29dd5ff17faff96348650a99bd120c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86a79a0329c88ef7cef8d57fce9f0e1b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRPGraph_1_1GraphLayout.html#a86a79a0329c88ef7cef8d57fce9f0e1b">height</a></td></tr>
 <tr class="separator:a86a79a0329c88ef7cef8d57fce9f0e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a761ad66c98b035d0d218abb300074f62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRPGraph_1_1Coordinate.html">Coordinate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">coordinates</a></td></tr>
+<tr class="separator:a761ad66c98b035d0d218abb300074f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8hpp_source.html#l00035">35</a> of file <a class="el" href="RPGraphLayout_8hpp_source.html">RPGraphLayout.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3d1840f5ef30c9c7a6ce5d41b54230ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3d1840f5ef30c9c7a6ce5d41b54230ef">&#9670;&nbsp;</a></span>GraphLayout()</h2>
 
@@ -178,6 +219,23 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Q: What are width and height for? Size of image? </p>
 
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00042">42</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8hpp_source.html#l00038">coordinates</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, and <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        : <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>(<a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>), <a class="code" href="classRPGraph_1_1GraphLayout.html#ade29dd5ff17faff96348650a99bd120c">width</a>(<a class="code" href="classRPGraph_1_1GraphLayout.html#ade29dd5ff17faff96348650a99bd120c">width</a>), <a class="code" href="classRPGraph_1_1GraphLayout.html#a86a79a0329c88ef7cef8d57fce9f0e1b">height</a>(<a class="code" href="classRPGraph_1_1GraphLayout.html#a86a79a0329c88ef7cef8d57fce9f0e1b">height</a>)</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="comment">// Mem complexity: O(|V|)</span></div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">coordinates</a> = (Coordinate *) malloc(<a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>() * <span class="keyword">sizeof</span>(Coordinate));</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_ade29dd5ff17faff96348650a99bd120c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#ade29dd5ff17faff96348650a99bd120c">RPGraph::GraphLayout::width</a></div><div class="ttdeci">float width</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00041">RPGraphLayout.hpp:41</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a86a79a0329c88ef7cef8d57fce9f0e1b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a86a79a0329c88ef7cef8d57fce9f0e1b">RPGraph::GraphLayout::height</a></div><div class="ttdeci">float height</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00041">RPGraphLayout.hpp:41</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a761ad66c98b035d0d218abb300074f62"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">RPGraph::GraphLayout::coordinates</a></div><div class="ttdeci">Coordinate * coordinates</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00038">RPGraphLayout.hpp:38</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a3d1840f5ef30c9c7a6ce5d41b54230ef_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a3d1840f5ef30c9c7a6ce5d41b54230ef_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a3d1840f5ef30c9c7a6ce5d41b54230ef_cgraph" id="classRPGraph_1_1GraphLayout_a3d1840f5ef30c9c7a6ce5d41b54230ef_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="223,5,395,47"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="a284707481e0ba81f1dec33a03bc1293c"></a>
@@ -195,35 +253,300 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00049">49</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8hpp_source.html#l00038">coordinates</a>.</p>
+<div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        free(<a class="code" href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">coordinates</a>);</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a761ad66c98b035d0d218abb300074f62"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">RPGraph::GraphLayout::coordinates</a></div><div class="ttdeci">Coordinate * coordinates</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00038">RPGraphLayout.hpp:38</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa9a3cfeb1f895fce3c9b352200251d5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9a3cfeb1f895fce3c9b352200251d5f">&#9670;&nbsp;</a></span>getCenter()</h2>
+<a id="a9b538f82aabafa2d2f0e1a08edcf9b85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b538f82aabafa2d2f0e1a08edcf9b85">&#9670;&nbsp;</a></span>minX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::minX </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Find: getXRange: only this file, getSpan, getCenter, writePng getYRange: only this file getCenter: <a class="el" href="RPCPUForceAtlas2_8cpp.html">RPCPUForceAtlas2.cpp</a>, not important </p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00087">87</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, and <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00180">getCenter()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00119">getXRange()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">writeToPNG()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    {</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">float</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a> = std::numeric_limits&lt;float&gt;::max();</div><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> n = 0; n &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>(); ++n)</div><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n) &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a>) <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a> = <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n);</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a>;</div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a9b538f82aabafa2d2f0e1a08edcf9b85"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">RPGraph::GraphLayout::minX</a></div><div class="ttdeci">float minX()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00087">RPGraphLayout.cpp:87</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_ab3ae34f1ab88e48f43794c30c8697b74"><div class="ttname"><a href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">RPGraph::nid_t</a></div><div class="ttdeci">uint32_t nid_t</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00035">RPGraph.hpp:35</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85_cgraph" id="classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="224,5,393,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="223,71,395,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85_icgraph" id="classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="440,71,609,112"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="667,136,837,177"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748" title="RPGraph::GraphLayout\l::getXRange" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="657,5,847,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="657,71,847,112"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="895,71,1084,112"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#a805e477534bbf72275ecf8d5ec396da4" title="RPGraph::GraphLayout\l::getSpan" alt="" coords="440,5,609,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="adc5cd076f816ecca32c91c4fe3a2a57e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc5cd076f816ecca32c91c4fe3a2a57e">&#9670;&nbsp;</a></span>minY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::minY </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00103">103</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, and <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00180">getCenter()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00124">getYRange()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">writeToPNG()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    {</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">float</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a> = std::numeric_limits&lt;float&gt;::max();</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> n = 0; n &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>(); ++n)</div><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n) &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a>) <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a> = <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n);</div><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a>;</div><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_ab3ae34f1ab88e48f43794c30c8697b74"><div class="ttname"><a href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">RPGraph::nid_t</a></div><div class="ttdeci">uint32_t nid_t</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00035">RPGraph.hpp:35</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_adc5cd076f816ecca32c91c4fe3a2a57e"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">RPGraph::GraphLayout::minY</a></div><div class="ttdeci">float minY()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00103">RPGraphLayout.cpp:103</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e_cgraph" id="classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="224,5,393,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="223,71,395,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e_icgraph" id="classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="440,71,609,112"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="667,136,837,177"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276" title="RPGraph::GraphLayout\l::getYRange" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="657,5,847,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="657,71,847,112"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="895,71,1084,112"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#a805e477534bbf72275ecf8d5ec396da4" title="RPGraph::GraphLayout\l::getSpan" alt="" coords="440,5,609,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a6ec496912efecaa34efd4de6d88fc505"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ec496912efecaa34efd4de6d88fc505">&#9670;&nbsp;</a></span>maxX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::maxX </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00095">95</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, and <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00119">getXRange()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    {</div><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">float</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505">maxX</a> = std::numeric_limits&lt;float&gt;::min();</div><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> n = 0; n &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>(); ++n)</div><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n) &gt; <a class="code" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505">maxX</a>) <a class="code" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505">maxX</a> = <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n);</div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505">maxX</a>;</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_ab3ae34f1ab88e48f43794c30c8697b74"><div class="ttname"><a href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">RPGraph::nid_t</a></div><div class="ttdeci">uint32_t nid_t</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00035">RPGraph.hpp:35</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a6ec496912efecaa34efd4de6d88fc505"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505">RPGraph::GraphLayout::maxX</a></div><div class="ttdeci">float maxX()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00095">RPGraphLayout.cpp:95</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505_cgraph" id="classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="224,5,393,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="223,71,395,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505_icgraph" id="classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748" title="RPGraph::GraphLayout\l::getXRange" alt="" coords="223,73,392,115"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a805e477534bbf72275ecf8d5ec396da4" title="RPGraph::GraphLayout\l::getSpan" alt="" coords="440,8,609,49"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="440,73,609,115"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="667,136,837,177"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="657,71,847,112"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="657,5,847,47"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="895,5,1084,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a031dd59e25111ed175d6153d2cb44f9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a031dd59e25111ed175d6153d2cb44f9a">&#9670;&nbsp;</a></span>maxY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::maxY </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00111">111</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, and <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00124">getYRange()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    {</div><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordtype">float</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a">maxY</a> = std::numeric_limits&lt;float&gt;::min();</div><div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> n = 0; n &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>(); ++n)</div><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n) &gt; <a class="code" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a">maxY</a>) <a class="code" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a">maxY</a> = <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n);</div><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a">maxY</a>;</div><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_ab3ae34f1ab88e48f43794c30c8697b74"><div class="ttname"><a href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">RPGraph::nid_t</a></div><div class="ttdeci">uint32_t nid_t</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00035">RPGraph.hpp:35</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a031dd59e25111ed175d6153d2cb44f9a"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a">RPGraph::GraphLayout::maxY</a></div><div class="ttdeci">float maxY()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00111">RPGraphLayout.cpp:111</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a_cgraph" id="classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="224,5,393,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="223,71,395,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a_icgraph" id="classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276" title="RPGraph::GraphLayout\l::getYRange" alt="" coords="223,73,392,115"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a805e477534bbf72275ecf8d5ec396da4" title="RPGraph::GraphLayout\l::getSpan" alt="" coords="440,8,609,49"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="440,73,609,115"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="667,136,837,177"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="657,71,847,112"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="657,5,847,47"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="895,5,1084,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5d5912f46f1b6bf1bf1ee5850cbd818e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d5912f46f1b6bf1bf1ee5850cbd818e">&#9670;&nbsp;</a></span>randomizePositions()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRPGraph_1_1Coordinate.html">Coordinate</a> RPGraph::GraphLayout::getCenter </td>
+          <td class="memname">void RPGraph::GraphLayout::randomizePositions </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Usage: pngwriter only. </p>
+<p>TODO: Modify this bit when using communities to randomize node positions within some delta of the community position in the community layout that was produced originally. NOTE: Keep original for laying out the community graph.</p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00054">54</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPCommon_8cpp_source.html#l00044">RPGraph::get_random()</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00041">height</a>, <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00190">setX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00195">setY()</a>, and <a class="el" href="RPGraphLayout_8hpp_source.html#l00041">width</a>.</p>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> i = 0; i &lt;  <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>(); ++i)</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        {</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <a class="code" href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414">setX</a>(i, <a class="code" href="namespaceRPGraph.html#af65dfa4ca7a18662d86db71341a4478d">get_random</a>(-<a class="code" href="classRPGraph_1_1GraphLayout.html#ade29dd5ff17faff96348650a99bd120c">width</a>/2.0, <a class="code" href="classRPGraph_1_1GraphLayout.html#ade29dd5ff17faff96348650a99bd120c">width</a>/2.0));</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <a class="code" href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e">setY</a>(i, <a class="code" href="namespaceRPGraph.html#af65dfa4ca7a18662d86db71341a4478d">get_random</a>(-<a class="code" href="classRPGraph_1_1GraphLayout.html#a86a79a0329c88ef7cef8d57fce9f0e1b">height</a>/2.0, <a class="code" href="classRPGraph_1_1GraphLayout.html#a86a79a0329c88ef7cef8d57fce9f0e1b">height</a>/2.0));</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_ade29dd5ff17faff96348650a99bd120c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#ade29dd5ff17faff96348650a99bd120c">RPGraph::GraphLayout::width</a></div><div class="ttdeci">float width</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00041">RPGraphLayout.hpp:41</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_ab3ae34f1ab88e48f43794c30c8697b74"><div class="ttname"><a href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">RPGraph::nid_t</a></div><div class="ttdeci">uint32_t nid_t</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00035">RPGraph.hpp:35</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a86a79a0329c88ef7cef8d57fce9f0e1b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a86a79a0329c88ef7cef8d57fce9f0e1b">RPGraph::GraphLayout::height</a></div><div class="ttdeci">float height</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00041">RPGraphLayout.hpp:41</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a55203ccaaba03d4dd739c2e6552be90e"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e">RPGraph::GraphLayout::setY</a></div><div class="ttdeci">void setY(nid_t node_id, float y_value)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00195">RPGraphLayout.cpp:195</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a870e6ad8d7e2dab189cb591dead19414"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414">RPGraph::GraphLayout::setX</a></div><div class="ttdeci">void setX(nid_t node_id, float x_value)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00190">RPGraphLayout.cpp:190</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_af65dfa4ca7a18662d86db71341a4478d"><div class="ttname"><a href="namespaceRPGraph.html#af65dfa4ca7a18662d86db71341a4478d">RPGraph::get_random</a></div><div class="ttdeci">float get_random(float lowerbound, float upperbound)</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8cpp_source.html#l00044">RPCommon.cpp:44</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a5d5912f46f1b6bf1bf1ee5850cbd818e_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a5d5912f46f1b6bf1bf1ee5850cbd818e_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a5d5912f46f1b6bf1bf1ee5850cbd818e_cgraph" id="classRPGraph_1_1GraphLayout_a5d5912f46f1b6bf1bf1ee5850cbd818e_cgraph">
+<area shape="rect" id="node2" href="namespaceRPGraph.html#af65dfa4ca7a18662d86db71341a4478d" title="RPGraph::get_random" alt="" coords="227,5,391,32"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="223,57,395,98"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414" title="RPGraph::GraphLayout\l::setX" alt="" coords="224,122,393,163"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e" title="RPGraph::GraphLayout\l::setY" alt="" coords="224,187,393,229"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a069b03de122b6dd8e7518db18d7615c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a069b03de122b6dd8e7518db18d7615c9">&#9670;&nbsp;</a></span>getCoordinate()</h2>
+<a id="a447d80a00c47ad2fb446e3653face38c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a447d80a00c47ad2fb446e3653face38c">&#9670;&nbsp;</a></span>getX()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRPGraph_1_1Coordinate.html">Coordinate</a> RPGraph::GraphLayout::getCoordinate </td>
+          <td class="memname">float RPGraph::GraphLayout::getX </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
           <td class="paramname"><em>node_id</em></td><td>)</td>
@@ -231,7 +554,241 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Indexes into coordinates array. </p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">69</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8hpp_source.html#l00038">coordinates</a>, and <a class="el" href="RPCommon_8hpp_source.html#l00073">RPGraph::Coordinate::x</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00111">RPGraph::CPUForceAtlas2::apply_gravity()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00137">getDistance()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00148">getDistanceVector()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00156">getNormalizedDistanceVector()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00095">maxX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00087">minX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00203">moveNode()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00290">writeToBin()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00268">writeToCSV()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">writeToPNG()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    {</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="comment">// Q: What type of data structure is coords?</span></div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="comment">// A: It is a Coordinate* (array of coordinates), see RPCommon.hpp</span></div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">coordinates</a>[node_id].<a class="code" href="classRPGraph_1_1Coordinate.html#abbb78e1ac79af2c54785565f995e5d9d">x</a>;</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a761ad66c98b035d0d218abb300074f62"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">RPGraph::GraphLayout::coordinates</a></div><div class="ttdeci">Coordinate * coordinates</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00038">RPGraphLayout.hpp:38</a></div></div>
+<div class="ttc" id="classRPGraph_1_1Coordinate_html_abbb78e1ac79af2c54785565f995e5d9d"><div class="ttname"><a href="classRPGraph_1_1Coordinate.html#abbb78e1ac79af2c54785565f995e5d9d">RPGraph::Coordinate::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00073">RPCommon.hpp:73</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a447d80a00c47ad2fb446e3653face38c_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a447d80a00c47ad2fb446e3653face38c_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a447d80a00c47ad2fb446e3653face38c_icgraph" id="classRPGraph_1_1GraphLayout_a447d80a00c47ad2fb446e3653face38c_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1CPUForceAtlas2.html#abfccb4460e2477ca09da5245a43cfe4e" title="RPGraph::CPUForceAtlas2\l::apply_gravity" alt="" coords="733,5,923,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1GraphLayout.html#abdfcbd0f0fea5c5fdf237a7dc653ca13" title="RPGraph::GraphLayout\l::getDistance" alt="" coords="251,355,420,396"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#af90cdf14a0bfea5e6854ba1b2b885761" title="RPGraph::GraphLayout\l::getDistanceVector" alt="" coords="251,420,420,461"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#a3e3e2ba138f5b416a32f52d957926da5" title="RPGraph::GraphLayout\l::getNormalizedDistanceVector" alt="" coords="223,537,448,579"/>
+<area shape="rect" id="node9" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505" title="RPGraph::GraphLayout\l::maxX" alt="" coords="251,145,420,187"/>
+<area shape="rect" id="node15" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="981,224,1150,265"/>
+<area shape="rect" id="node16" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85" title="RPGraph::GraphLayout\l::minX" alt="" coords="251,228,420,269"/>
+<area shape="rect" id="node17" href="classRPGraph_1_1GraphLayout.html#a00198f453c2216d63e3afcbf8eed0122" title="RPGraph::GraphLayout\l::moveNode" alt="" coords="506,485,675,527"/>
+<area shape="rect" id="node19" href="classRPGraph_1_1GraphLayout.html#a19fb67898bdb294ac46fb098ec2b0bad" title="RPGraph::GraphLayout\l::writeToBin" alt="" coords="251,603,420,644"/>
+<area shape="rect" id="node20" href="classRPGraph_1_1GraphLayout.html#ae01b3ad2b348683c2e55d49496c32800" title="RPGraph::GraphLayout\l::writeToCSV" alt="" coords="251,668,420,709"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="1208,355,1397,396"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1CPUForceAtlas2.html#afe1f2cc97b7a145584bc4b773717aa7e" title="RPGraph::CPUForceAtlas2\l::apply_attract" alt="" coords="496,355,685,396"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title="RPGraph::CPUForceAtlas2\l::apply_repulsion" alt="" coords="496,420,685,461"/>
+<area shape="rect" id="node10" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748" title="RPGraph::GraphLayout\l::getXRange" alt="" coords="506,136,675,177"/>
+<area shape="rect" id="node11" href="classRPGraph_1_1GraphLayout.html#a805e477534bbf72275ecf8d5ec396da4" title="RPGraph::GraphLayout\l::getSpan" alt="" coords="743,71,913,112"/>
+<area shape="rect" id="node14" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="743,136,913,177"/>
+<area shape="rect" id="node12" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="971,136,1160,177"/>
+<area shape="rect" id="node13" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="971,71,1160,112"/>
+<area shape="rect" id="node18" href="classRPGraph_1_1CPUForceAtlas2.html#a6518170916b07f2e547002125f60feed" title="RPGraph::CPUForceAtlas2\l::apply_displacement" alt="" coords="733,477,923,519"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a75826cfc0cc24fd4902758bc1ad42c4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75826cfc0cc24fd4902758bc1ad42c4b">&#9670;&nbsp;</a></span>getY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::getY </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
+          <td class="paramname"><em>node_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">76</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8hpp_source.html#l00038">coordinates</a>, and <a class="el" href="RPCommon_8hpp_source.html#l00073">RPGraph::Coordinate::y</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00111">RPGraph::CPUForceAtlas2::apply_gravity()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00137">getDistance()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00148">getDistanceVector()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00156">getNormalizedDistanceVector()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00111">maxY()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00103">minY()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00203">moveNode()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00290">writeToBin()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00268">writeToCSV()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">writeToPNG()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    {</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">coordinates</a>[node_id].<a class="code" href="classRPGraph_1_1Coordinate.html#a595c47428a7ce4b3172d0372e20c6818">y</a>;</div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1Coordinate_html_a595c47428a7ce4b3172d0372e20c6818"><div class="ttname"><a href="classRPGraph_1_1Coordinate.html#a595c47428a7ce4b3172d0372e20c6818">RPGraph::Coordinate::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00073">RPCommon.hpp:73</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a761ad66c98b035d0d218abb300074f62"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">RPGraph::GraphLayout::coordinates</a></div><div class="ttdeci">Coordinate * coordinates</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00038">RPGraphLayout.hpp:38</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a75826cfc0cc24fd4902758bc1ad42c4b_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a75826cfc0cc24fd4902758bc1ad42c4b_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a75826cfc0cc24fd4902758bc1ad42c4b_icgraph" id="classRPGraph_1_1GraphLayout_a75826cfc0cc24fd4902758bc1ad42c4b_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1CPUForceAtlas2.html#abfccb4460e2477ca09da5245a43cfe4e" title="RPGraph::CPUForceAtlas2\l::apply_gravity" alt="" coords="733,5,923,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1GraphLayout.html#abdfcbd0f0fea5c5fdf237a7dc653ca13" title="RPGraph::GraphLayout\l::getDistance" alt="" coords="251,355,420,396"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#af90cdf14a0bfea5e6854ba1b2b885761" title="RPGraph::GraphLayout\l::getDistanceVector" alt="" coords="251,420,420,461"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#a3e3e2ba138f5b416a32f52d957926da5" title="RPGraph::GraphLayout\l::getNormalizedDistanceVector" alt="" coords="223,537,448,579"/>
+<area shape="rect" id="node9" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a" title="RPGraph::GraphLayout\l::maxY" alt="" coords="251,145,420,187"/>
+<area shape="rect" id="node15" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="981,224,1150,265"/>
+<area shape="rect" id="node16" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e" title="RPGraph::GraphLayout\l::minY" alt="" coords="251,228,420,269"/>
+<area shape="rect" id="node17" href="classRPGraph_1_1GraphLayout.html#a00198f453c2216d63e3afcbf8eed0122" title="RPGraph::GraphLayout\l::moveNode" alt="" coords="506,485,675,527"/>
+<area shape="rect" id="node19" href="classRPGraph_1_1GraphLayout.html#a19fb67898bdb294ac46fb098ec2b0bad" title="RPGraph::GraphLayout\l::writeToBin" alt="" coords="251,603,420,644"/>
+<area shape="rect" id="node20" href="classRPGraph_1_1GraphLayout.html#ae01b3ad2b348683c2e55d49496c32800" title="RPGraph::GraphLayout\l::writeToCSV" alt="" coords="251,668,420,709"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="1208,355,1397,396"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1CPUForceAtlas2.html#afe1f2cc97b7a145584bc4b773717aa7e" title="RPGraph::CPUForceAtlas2\l::apply_attract" alt="" coords="496,355,685,396"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title="RPGraph::CPUForceAtlas2\l::apply_repulsion" alt="" coords="496,420,685,461"/>
+<area shape="rect" id="node10" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276" title="RPGraph::GraphLayout\l::getYRange" alt="" coords="506,136,675,177"/>
+<area shape="rect" id="node11" href="classRPGraph_1_1GraphLayout.html#a805e477534bbf72275ecf8d5ec396da4" title="RPGraph::GraphLayout\l::getSpan" alt="" coords="743,71,913,112"/>
+<area shape="rect" id="node14" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="743,136,913,177"/>
+<area shape="rect" id="node12" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="971,136,1160,177"/>
+<area shape="rect" id="node13" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="971,71,1160,112"/>
+<area shape="rect" id="node18" href="classRPGraph_1_1CPUForceAtlas2.html#a6518170916b07f2e547002125f60feed" title="RPGraph::CPUForceAtlas2\l::apply_displacement" alt="" coords="733,477,923,519"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a18a15867788b88db16f0938540107748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18a15867788b88db16f0938540107748">&#9670;&nbsp;</a></span>getXRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::getXRange </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00119">119</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00095">maxX()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00087">minX()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00180">getCenter()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00129">getSpan()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">writeToPNG()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    {</div><div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505">maxX</a>()- <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a>();</div><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a9b538f82aabafa2d2f0e1a08edcf9b85"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">RPGraph::GraphLayout::minX</a></div><div class="ttdeci">float minX()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00087">RPGraphLayout.cpp:87</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a6ec496912efecaa34efd4de6d88fc505"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505">RPGraph::GraphLayout::maxX</a></div><div class="ttdeci">float maxX()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00095">RPGraphLayout.cpp:95</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748_cgraph" id="classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505" title="RPGraph::GraphLayout\l::maxX" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85" title="RPGraph::GraphLayout\l::minX" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="441,5,611,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="440,71,612,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748_icgraph" id="classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="223,73,392,115"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="450,136,619,177"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#a805e477534bbf72275ecf8d5ec396da4" title="RPGraph::GraphLayout\l::getSpan" alt="" coords="223,8,392,49"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="440,71,629,112"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="440,5,629,47"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="677,5,867,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aeba4c2af91bcc996e159eebbb049c276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeba4c2af91bcc996e159eebbb049c276">&#9670;&nbsp;</a></span>getYRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::getYRange </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00124">124</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00111">maxY()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00103">minY()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00180">getCenter()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00129">getSpan()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">writeToPNG()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    {</div><div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a">maxY</a>() - <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a>();</div><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    } </div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a031dd59e25111ed175d6153d2cb44f9a"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a">RPGraph::GraphLayout::maxY</a></div><div class="ttdeci">float maxY()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00111">RPGraphLayout.cpp:111</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_adc5cd076f816ecca32c91c4fe3a2a57e"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">RPGraph::GraphLayout::minY</a></div><div class="ttdeci">float minY()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00103">RPGraphLayout.cpp:103</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276_cgraph" id="classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a" title="RPGraph::GraphLayout\l::maxY" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e" title="RPGraph::GraphLayout\l::minY" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="441,5,611,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="440,71,612,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276_icgraph" id="classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="223,73,392,115"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="450,136,619,177"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#a805e477534bbf72275ecf8d5ec396da4" title="RPGraph::GraphLayout\l::getSpan" alt="" coords="223,8,392,49"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="440,71,629,112"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="440,5,629,47"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="677,5,867,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a805e477534bbf72275ecf8d5ec396da4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a805e477534bbf72275ecf8d5ec396da4">&#9670;&nbsp;</a></span>getSpan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::getSpan </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00129">129</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00119">getXRange()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00124">getYRange()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00040">RPGraph::CPUForceAtlas2::CPUForceAtlas2()</a>, and <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00235">RPGraph::CPUForceAtlas2::rebuild_bh()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    {</div><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> ceil(fmaxf(<a class="code" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748">getXRange</a>(), <a class="code" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276">getYRange</a>()));</div><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_aeba4c2af91bcc996e159eebbb049c276"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276">RPGraph::GraphLayout::getYRange</a></div><div class="ttdeci">float getYRange()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00124">RPGraphLayout.cpp:124</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a18a15867788b88db16f0938540107748"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748">RPGraph::GraphLayout::getXRange</a></div><div class="ttdeci">float getXRange()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00119">RPGraphLayout.cpp:119</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4_cgraph" id="classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748" title="RPGraph::GraphLayout\l::getXRange" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276" title="RPGraph::GraphLayout\l::getYRange" alt="" coords="223,136,392,177"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505" title="RPGraph::GraphLayout\l::maxX" alt="" coords="440,5,609,47"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85" title="RPGraph::GraphLayout\l::minX" alt="" coords="440,71,609,112"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="659,39,828,80"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="657,136,829,177"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a" title="RPGraph::GraphLayout\l::maxY" alt="" coords="440,136,609,177"/>
+<area shape="rect" id="node10" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e" title="RPGraph::GraphLayout\l::minY" alt="" coords="440,201,609,243"/>
+<area shape="rect" id="node9" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="659,201,828,243"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4_icgraph" id="classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="223,5,412,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="223,71,412,112"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="460,71,649,112"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -262,6 +819,33 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Usage? CPU FA2 only. </p>
 
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00137">137</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00061">RPGraph::CPUForceAtlas2::apply_attract()</a>, and <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00091">RPGraph::CPUForceAtlas2::apply_repulsion()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    {</div><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> dx = <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n1)-<a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n2);</div><div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> dy = <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n1)-<a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n2);</div><div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">return</span> std::sqrt(dx*dx + dy*dy);</div><div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13_cgraph" id="classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="223,71,392,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13_icgraph" id="classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1CPUForceAtlas2.html#afe1f2cc97b7a145584bc4b773717aa7e" title="RPGraph::CPUForceAtlas2\l::apply_attract" alt="" coords="223,5,412,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title="RPGraph::CPUForceAtlas2\l::apply_repulsion" alt="" coords="223,71,412,112"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="460,39,649,80"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="af90cdf14a0bfea5e6854ba1b2b885761"></a>
@@ -290,6 +874,33 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Which of these 2 are used? Vectors are used in CPU FA2 implementation. </p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00148">148</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00061">RPGraph::CPUForceAtlas2::apply_attract()</a>, and <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00091">RPGraph::CPUForceAtlas2::apply_repulsion()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    {</div><div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">return</span> Real2DVector(<a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n2) - <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n1), <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n2) - <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n1));</div><div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761_cgraph" id="classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="223,71,392,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761_icgraph" id="classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1CPUForceAtlas2.html#afe1f2cc97b7a145584bc4b773717aa7e" title="RPGraph::CPUForceAtlas2\l::apply_attract" alt="" coords="223,5,412,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title="RPGraph::CPUForceAtlas2\l::apply_repulsion" alt="" coords="223,71,412,112"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="460,39,649,80"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -320,33 +931,31 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Make that which of these 3 are used? IRRELEVANT: Commented out in CPU FA2 only. </p>
 
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00156">156</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    {</div><div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> x1 = <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n1);</div><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> x2 = <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n2);</div><div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> y1 = <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n1);</div><div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> y2 = <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n2);</div><div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> dx = x2 - x1;</div><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> dy = y2 - y1;</div><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> len = std::sqrt(dx*dx + dy*dy);</div><div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div><div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">return</span> Real2DVector(dx / len, dy / len);</div><div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a3e3e2ba138f5b416a32f52d957926da5_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a3e3e2ba138f5b416a32f52d957926da5_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a3e3e2ba138f5b416a32f52d957926da5_cgraph" id="classRPGraph_1_1GraphLayout_a3e3e2ba138f5b416a32f52d957926da5_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="279,5,448,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="279,71,448,112"/>
+</map>
+</div>
+
 </div>
 </div>
-<a id="a805e477534bbf72275ecf8d5ec396da4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a805e477534bbf72275ecf8d5ec396da4">&#9670;&nbsp;</a></span>getSpan()</h2>
+<a id="a069b03de122b6dd8e7518db18d7615c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a069b03de122b6dd8e7518db18d7615c9">&#9670;&nbsp;</a></span>getCoordinate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float RPGraph::GraphLayout::getSpan </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a447d80a00c47ad2fb446e3653face38c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a447d80a00c47ad2fb446e3653face38c">&#9670;&nbsp;</a></span>getX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float RPGraph::GraphLayout::getX </td>
+          <td class="memname"><a class="el" href="classRPGraph_1_1Coordinate.html">Coordinate</a> RPGraph::GraphLayout::getCoordinate </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
           <td class="paramname"><em>node_id</em></td><td>)</td>
@@ -354,235 +963,79 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Indexes into coordinates array. </p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00172">172</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8hpp_source.html#l00038">coordinates</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00091">RPGraph::CPUForceAtlas2::apply_repulsion()</a>, and <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00235">RPGraph::CPUForceAtlas2::rebuild_bh()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    {</div><div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">coordinates</a>[node_id];</div><div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a761ad66c98b035d0d218abb300074f62"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">RPGraph::GraphLayout::coordinates</a></div><div class="ttdeci">Coordinate * coordinates</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00038">RPGraphLayout.hpp:38</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a069b03de122b6dd8e7518db18d7615c9_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a069b03de122b6dd8e7518db18d7615c9_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a069b03de122b6dd8e7518db18d7615c9_icgraph" id="classRPGraph_1_1GraphLayout_a069b03de122b6dd8e7518db18d7615c9_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title="RPGraph::CPUForceAtlas2\l::apply_repulsion" alt="" coords="223,5,412,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="223,71,412,112"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="460,39,649,80"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a18a15867788b88db16f0938540107748"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18a15867788b88db16f0938540107748">&#9670;&nbsp;</a></span>getXRange()</h2>
+<a id="aa9a3cfeb1f895fce3c9b352200251d5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9a3cfeb1f895fce3c9b352200251d5f">&#9670;&nbsp;</a></span>getCenter()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float RPGraph::GraphLayout::getXRange </td>
+          <td class="memname"><a class="el" href="classRPGraph_1_1Coordinate.html">Coordinate</a> RPGraph::GraphLayout::getCenter </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Usage: pngwriter only. </p>
 
-</div>
-</div>
-<a id="a75826cfc0cc24fd4902758bc1ad42c4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75826cfc0cc24fd4902758bc1ad42c4b">&#9670;&nbsp;</a></span>getY()</h2>
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00180">180</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float RPGraph::GraphLayout::getY </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
-          <td class="paramname"><em>node_id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00119">getXRange()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00124">getYRange()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00087">minX()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00103">minY()</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00040">RPGraph::CPUForceAtlas2::CPUForceAtlas2()</a>, <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00235">RPGraph::CPUForceAtlas2::rebuild_bh()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">writeToPNG()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    {</div><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordtype">float</span> x = <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a>() + <a class="code" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748">getXRange</a>()/2.0;</div><div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordtype">float</span> y = <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a>() + <a class="code" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276">getYRange</a>()/2.0;</div><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">return</span> Coordinate(x, y);</div><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_aeba4c2af91bcc996e159eebbb049c276"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276">RPGraph::GraphLayout::getYRange</a></div><div class="ttdeci">float getYRange()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00124">RPGraphLayout.cpp:124</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a9b538f82aabafa2d2f0e1a08edcf9b85"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">RPGraph::GraphLayout::minX</a></div><div class="ttdeci">float minX()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00087">RPGraphLayout.cpp:87</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a18a15867788b88db16f0938540107748"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748">RPGraph::GraphLayout::getXRange</a></div><div class="ttdeci">float getXRange()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00119">RPGraphLayout.cpp:119</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_adc5cd076f816ecca32c91c4fe3a2a57e"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">RPGraph::GraphLayout::minY</a></div><div class="ttdeci">float minY()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00103">RPGraphLayout.cpp:103</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f_cgraph" id="classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748" title="RPGraph::GraphLayout\l::getXRange" alt="" coords="223,21,392,63"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85" title="RPGraph::GraphLayout\l::minX" alt="" coords="440,71,609,112"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276" title="RPGraph::GraphLayout\l::getYRange" alt="" coords="223,139,392,180"/>
+<area shape="rect" id="node10" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e" title="RPGraph::GraphLayout\l::minY" alt="" coords="440,201,609,243"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505" title="RPGraph::GraphLayout\l::maxX" alt="" coords="440,5,609,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="659,15,828,56"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="657,88,829,129"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a" title="RPGraph::GraphLayout\l::maxY" alt="" coords="440,136,609,177"/>
+<area shape="rect" id="node9" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="659,169,828,211"/>
+</map>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f_icgraph" id="classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1CPUForceAtlas2.html#a5a17745426c0fcce430541f5b639282e" title="RPGraph::CPUForceAtlas2\l::CPUForceAtlas2" alt="" coords="223,5,412,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="223,71,412,112"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1GraphLayout.html#ab5892ee9d2eba41d1f285f0e480d00e2" title="RPGraph::GraphLayout\l::writeToPNG" alt="" coords="233,136,402,177"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="460,71,649,112"/>
+</map>
 </div>
-<a id="aeba4c2af91bcc996e159eebbb049c276"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeba4c2af91bcc996e159eebbb049c276">&#9670;&nbsp;</a></span>getYRange()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float RPGraph::GraphLayout::getYRange </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6ec496912efecaa34efd4de6d88fc505"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ec496912efecaa34efd4de6d88fc505">&#9670;&nbsp;</a></span>maxX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float RPGraph::GraphLayout::maxX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a031dd59e25111ed175d6153d2cb44f9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a031dd59e25111ed175d6153d2cb44f9a">&#9670;&nbsp;</a></span>maxY()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float RPGraph::GraphLayout::maxY </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9b538f82aabafa2d2f0e1a08edcf9b85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b538f82aabafa2d2f0e1a08edcf9b85">&#9670;&nbsp;</a></span>minX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float RPGraph::GraphLayout::minX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Find: getXRange: only this file, getSpan, getCenter, writePng getYRange: only this file getCenter: <a class="el" href="RPCPUForceAtlas2_8cpp.html">RPCPUForceAtlas2.cpp</a>, not important </p>
-
-</div>
-</div>
-<a id="adc5cd076f816ecca32c91c4fe3a2a57e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc5cd076f816ecca32c91c4fe3a2a57e">&#9670;&nbsp;</a></span>minY()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float RPGraph::GraphLayout::minY </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a00198f453c2216d63e3afcbf8eed0122"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00198f453c2216d63e3afcbf8eed0122">&#9670;&nbsp;</a></span>moveNode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void RPGraph::GraphLayout::moveNode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
-          <td class="paramname"><em>n</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRPGraph_1_1Real2DVector.html">RPGraph::Real2DVector</a>&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Why is move only used with a 2DVector? </p>
-
-</div>
-</div>
-<a id="a5d5912f46f1b6bf1bf1ee5850cbd818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d5912f46f1b6bf1bf1ee5850cbd818e">&#9670;&nbsp;</a></span>randomizePositions()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void RPGraph::GraphLayout::randomizePositions </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>TODO: Modify this bit when using communities to randomize node positions within some delta of the community position in the community layout that was produced originally. NOTE: Keep original for laying out the community graph.</p>
-
-</div>
-</div>
-<a id="a99ad68f3edff2c5f0a78a4db3e2f15ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99ad68f3edff2c5f0a78a4db3e2f15ea">&#9670;&nbsp;</a></span>setCoordinates()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void RPGraph::GraphLayout::setCoordinates </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
-          <td class="paramname"><em>node_id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRPGraph_1_1Coordinate.html">Coordinate</a>&#160;</td>
-          <td class="paramname"><em>c</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Never used. Why not? TODO: We will probably use this and maybe the moveNode function to specify our layout after </p>
 
 </div>
 </div>
@@ -613,6 +1066,26 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Updates x in coordinates array. </p>
 
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00190">190</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8hpp_source.html#l00038">coordinates</a>, and <a class="el" href="RPCommon_8hpp_source.html#l00073">RPGraph::Coordinate::x</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00203">moveNode()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00054">randomizePositions()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00213">setCoordinates()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    {</div><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <a class="code" href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">coordinates</a>[node_id].<a class="code" href="classRPGraph_1_1Coordinate.html#abbb78e1ac79af2c54785565f995e5d9d">x</a> = x_value;</div><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a761ad66c98b035d0d218abb300074f62"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">RPGraph::GraphLayout::coordinates</a></div><div class="ttdeci">Coordinate * coordinates</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00038">RPGraphLayout.hpp:38</a></div></div>
+<div class="ttc" id="classRPGraph_1_1Coordinate_html_abbb78e1ac79af2c54785565f995e5d9d"><div class="ttname"><a href="classRPGraph_1_1Coordinate.html#abbb78e1ac79af2c54785565f995e5d9d">RPGraph::Coordinate::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00073">RPCommon.hpp:73</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a870e6ad8d7e2dab189cb591dead19414_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a870e6ad8d7e2dab189cb591dead19414_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a870e6ad8d7e2dab189cb591dead19414_icgraph" id="classRPGraph_1_1GraphLayout_a870e6ad8d7e2dab189cb591dead19414_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a00198f453c2216d63e3afcbf8eed0122" title="RPGraph::GraphLayout\l::moveNode" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1GraphLayout.html#a5d5912f46f1b6bf1bf1ee5850cbd818e" title="RPGraph::GraphLayout\l::randomizePositions" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1GraphLayout.html#a99ad68f3edff2c5f0a78a4db3e2f15ea" title="RPGraph::GraphLayout\l::setCoordinates" alt="" coords="223,136,392,177"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a6518170916b07f2e547002125f60feed" title="RPGraph::CPUForceAtlas2\l::apply_displacement" alt="" coords="440,5,629,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="677,5,867,47"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="a55203ccaaba03d4dd739c2e6552be90e"></a>
@@ -641,43 +1114,130 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00195">195</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8hpp_source.html#l00038">coordinates</a>, and <a class="el" href="RPCommon_8hpp_source.html#l00073">RPGraph::Coordinate::y</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00203">moveNode()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00054">randomizePositions()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00213">setCoordinates()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    {</div><div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <a class="code" href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">coordinates</a>[node_id].<a class="code" href="classRPGraph_1_1Coordinate.html#a595c47428a7ce4b3172d0372e20c6818">y</a> = y_value;</div><div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1Coordinate_html_a595c47428a7ce4b3172d0372e20c6818"><div class="ttname"><a href="classRPGraph_1_1Coordinate.html#a595c47428a7ce4b3172d0372e20c6818">RPGraph::Coordinate::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00073">RPCommon.hpp:73</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a761ad66c98b035d0d218abb300074f62"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a761ad66c98b035d0d218abb300074f62">RPGraph::GraphLayout::coordinates</a></div><div class="ttdeci">Coordinate * coordinates</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00038">RPGraphLayout.hpp:38</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a55203ccaaba03d4dd739c2e6552be90e_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a55203ccaaba03d4dd739c2e6552be90e_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a55203ccaaba03d4dd739c2e6552be90e_icgraph" id="classRPGraph_1_1GraphLayout_a55203ccaaba03d4dd739c2e6552be90e_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a00198f453c2216d63e3afcbf8eed0122" title="RPGraph::GraphLayout\l::moveNode" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1GraphLayout.html#a5d5912f46f1b6bf1bf1ee5850cbd818e" title="RPGraph::GraphLayout\l::randomizePositions" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1GraphLayout.html#a99ad68f3edff2c5f0a78a4db3e2f15ea" title="RPGraph::GraphLayout\l::setCoordinates" alt="" coords="223,136,392,177"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a6518170916b07f2e547002125f60feed" title="RPGraph::CPUForceAtlas2\l::apply_displacement" alt="" coords="440,5,629,47"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="677,5,867,47"/>
+</map>
+</div>
+
 </div>
 </div>
-<a id="a19fb67898bdb294ac46fb098ec2b0bad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19fb67898bdb294ac46fb098ec2b0bad">&#9670;&nbsp;</a></span>writeToBin()</h2>
+<a id="a00198f453c2216d63e3afcbf8eed0122"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00198f453c2216d63e3afcbf8eed0122">&#9670;&nbsp;</a></span>moveNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void RPGraph::GraphLayout::writeToBin </td>
+          <td class="memname">void RPGraph::GraphLayout::moveNode </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classRPGraph_1_1Real2DVector.html">RPGraph::Real2DVector</a>&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Do we have any use for writing to bin? </p>
+<p>Why is move only used with a 2DVector? </p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00203">203</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00190">setX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00195">setY()</a>, <a class="el" href="RPCommon_8hpp_source.html#l00055">RPGraph::Real2DVector::x</a>, and <a class="el" href="RPCommon_8hpp_source.html#l00055">RPGraph::Real2DVector::y</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00219">RPGraph::CPUForceAtlas2::apply_displacement()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    {</div><div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <a class="code" href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414">setX</a>(n, <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n) + v.<a class="code" href="classRPGraph_1_1Real2DVector.html#a4511632e71344b88deee5512b791e97d">x</a>);</div><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <a class="code" href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e">setY</a>(n, <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n) + v.<a class="code" href="classRPGraph_1_1Real2DVector.html#aa37f96dfb13727fdee7a82ddbd1d7f60">y</a>);</div><div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1Real2DVector_html_a4511632e71344b88deee5512b791e97d"><div class="ttname"><a href="classRPGraph_1_1Real2DVector.html#a4511632e71344b88deee5512b791e97d">RPGraph::Real2DVector::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00055">RPCommon.hpp:55</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1Real2DVector_html_aa37f96dfb13727fdee7a82ddbd1d7f60"><div class="ttname"><a href="classRPGraph_1_1Real2DVector.html#aa37f96dfb13727fdee7a82ddbd1d7f60">RPGraph::Real2DVector::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00055">RPCommon.hpp:55</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a55203ccaaba03d4dd739c2e6552be90e"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e">RPGraph::GraphLayout::setY</a></div><div class="ttdeci">void setY(nid_t node_id, float y_value)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00195">RPGraphLayout.cpp:195</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a870e6ad8d7e2dab189cb591dead19414"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414">RPGraph::GraphLayout::setX</a></div><div class="ttdeci">void setX(nid_t node_id, float x_value)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00190">RPGraphLayout.cpp:190</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122_cgraph" id="classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414" title="RPGraph::GraphLayout\l::setX" alt="" coords="223,136,392,177"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e" title="RPGraph::GraphLayout\l::setY" alt="" coords="223,201,392,243"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122_icgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122_icgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122_icgraph" id="classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122_icgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1CPUForceAtlas2.html#a6518170916b07f2e547002125f60feed" title="RPGraph::CPUForceAtlas2\l::apply_displacement" alt="" coords="223,5,412,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="460,5,649,47"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="ae01b3ad2b348683c2e55d49496c32800"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae01b3ad2b348683c2e55d49496c32800">&#9670;&nbsp;</a></span>writeToCSV()</h2>
+<a id="a99ad68f3edff2c5f0a78a4db3e2f15ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99ad68f3edff2c5f0a78a4db3e2f15ea">&#9670;&nbsp;</a></span>setCoordinates()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void RPGraph::GraphLayout::writeToCSV </td>
+          <td class="memname">void RPGraph::GraphLayout::setCoordinates </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
+          <td class="paramname"><em>node_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classRPGraph_1_1Coordinate.html">Coordinate</a>&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Writing to csv may be a good way to streamline testing the decompressions effectiveness. NOTE: There is no loadFromCSV method. Would go in this file. </p>
+<p>Never used. Why not? TODO: We will probably use this and maybe the moveNode function to specify our layout after </p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00213">213</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00190">setX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00195">setY()</a>, <a class="el" href="RPCommon_8hpp_source.html#l00073">RPGraph::Coordinate::x</a>, and <a class="el" href="RPCommon_8hpp_source.html#l00073">RPGraph::Coordinate::y</a>.</p>
+<div class="fragment"><div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    {</div><div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <a class="code" href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414">setX</a>(node_id, c.x);</div><div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <a class="code" href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e">setY</a>(node_id, c.y);</div><div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a55203ccaaba03d4dd739c2e6552be90e"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e">RPGraph::GraphLayout::setY</a></div><div class="ttdeci">void setY(nid_t node_id, float y_value)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00195">RPGraphLayout.cpp:195</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a870e6ad8d7e2dab189cb591dead19414"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414">RPGraph::GraphLayout::setX</a></div><div class="ttdeci">void setX(nid_t node_id, float x_value)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00190">RPGraphLayout.cpp:190</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a99ad68f3edff2c5f0a78a4db3e2f15ea_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a99ad68f3edff2c5f0a78a4db3e2f15ea_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a99ad68f3edff2c5f0a78a4db3e2f15ea_cgraph" id="classRPGraph_1_1GraphLayout_a99ad68f3edff2c5f0a78a4db3e2f15ea_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a870e6ad8d7e2dab189cb591dead19414" title="RPGraph::GraphLayout\l::setX" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a55203ccaaba03d4dd739c2e6552be90e" title="RPGraph::GraphLayout\l::setY" alt="" coords="223,71,392,112"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -715,25 +1275,131 @@ Protected Attributes</h2></td></tr>
 <p>pngwriter entry point. </p>
 <p>TODO: Adjust node opacity for best results.</p>
 
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">222</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00180">getCenter()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00119">getXRange()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00124">getYRange()</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00087">minX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00103">minY()</a>, <a class="el" href="RPGraph_8cpp_source.html#l00133">RPGraph::UGraph::neighbors_with_geq_id()</a>, <a class="el" href="RPGraph_8cpp_source.html#l00114">RPGraph::UGraph::num_edges()</a>, <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>, <a class="el" href="RPCommon_8hpp_source.html#l00073">RPGraph::Coordinate::x</a>, and <a class="el" href="RPCommon_8hpp_source.html#l00073">RPGraph::Coordinate::y</a>.</p>
+<div class="fragment"><div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    {</div><div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> xRange = <a class="code" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748">getXRange</a>();</div><div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> yRange = <a class="code" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276">getYRange</a>();</div><div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keyword">const</span> <a class="code" href="classRPGraph_1_1Coordinate.html">RPGraph::Coordinate</a> center = <a class="code" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f">getCenter</a>(); <span class="comment">// Why do we need the center?</span></div><div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> xCenter = center.<a class="code" href="classRPGraph_1_1Coordinate.html#abbb78e1ac79af2c54785565f995e5d9d">x</a>; <span class="comment">// Probably to set the origin for layout.</span></div><div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> yCenter = center.<a class="code" href="classRPGraph_1_1Coordinate.html#a595c47428a7ce4b3172d0372e20c6818">y</a>;</div><div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a> = xCenter - xRange/2.0;</div><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a> = yCenter - yRange/2.0;</div><div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> xScale = image_w/xRange;</div><div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> yScale = image_h/yRange;</div><div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div><div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="comment">// Here we need to do some guessing as to what the optimal</span></div><div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="comment">// opacity of nodes and edges might be, given network size.</span></div><div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="comment"></span>        <span class="keyword">const</span> <span class="keywordtype">float</span> node_opacity = 10000.0  / <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>();</div><div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> edge_opacity = 100000.0 / <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#a55a5deea9a4d456e78e24a2002f31ef2">num_edges</a>();</div><div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;</div><div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="comment">// Write to file.</span></div><div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        pngwriter layout_png(image_w, image_h, 0, path.c_str());</div><div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        layout_png.invert(); <span class="comment">// set bg. to white</span></div><div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div><div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> n1 = 0; n1 &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>(); ++n1)</div><div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        {</div><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            <span class="comment">// Plot node,</span></div><div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            layout_png.filledcircle_blend((<a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n1) - <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a>)*xScale,</div><div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                                          (<a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n1) - <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a>)*yScale,</div><div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                                          3, node_opacity, 0, 0, 0);</div><div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> n2 : <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#a8cc5be5cfd41f351d4f98de816028f90">neighbors_with_geq_id</a>(n1)) {</div><div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                <span class="comment">// ... and edge.</span></div><div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                layout_png.line_blend((<a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n1) - <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a>)*xScale, (<a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n1) - <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a>)*yScale,</div><div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                                      (<a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n2) - <a class="code" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">minX</a>)*xScale, (<a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n2) - <a class="code" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">minY</a>)*yScale,</div><div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                                      edge_opacity, 0, 0, 0);</div><div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            }</div><div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        }</div><div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="comment">// Write it to disk.</span></div><div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        layout_png.write_png();</div><div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1UGraph_html_a8cc5be5cfd41f351d4f98de816028f90"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#a8cc5be5cfd41f351d4f98de816028f90">RPGraph::UGraph::neighbors_with_geq_id</a></div><div class="ttdeci">std::vector&lt; nid_t &gt; neighbors_with_geq_id(nid_t nid) override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00133">RPGraph.cpp:133</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_aeba4c2af91bcc996e159eebbb049c276"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276">RPGraph::GraphLayout::getYRange</a></div><div class="ttdeci">float getYRange()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00124">RPGraphLayout.cpp:124</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1Coordinate_html_a595c47428a7ce4b3172d0372e20c6818"><div class="ttname"><a href="classRPGraph_1_1Coordinate.html#a595c47428a7ce4b3172d0372e20c6818">RPGraph::Coordinate::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00073">RPCommon.hpp:73</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_aa9a3cfeb1f895fce3c9b352200251d5f"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f">RPGraph::GraphLayout::getCenter</a></div><div class="ttdeci">Coordinate getCenter()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00180">RPGraphLayout.cpp:180</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a9b538f82aabafa2d2f0e1a08edcf9b85"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85">RPGraph::GraphLayout::minX</a></div><div class="ttdeci">float minX()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00087">RPGraphLayout.cpp:87</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_ab3ae34f1ab88e48f43794c30c8697b74"><div class="ttname"><a href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">RPGraph::nid_t</a></div><div class="ttdeci">uint32_t nid_t</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00035">RPGraph.hpp:35</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_a55a5deea9a4d456e78e24a2002f31ef2"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#a55a5deea9a4d456e78e24a2002f31ef2">RPGraph::UGraph::num_edges</a></div><div class="ttdeci">virtual nid_t num_edges() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00114">RPGraph.cpp:114</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a18a15867788b88db16f0938540107748"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748">RPGraph::GraphLayout::getXRange</a></div><div class="ttdeci">float getXRange()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00119">RPGraphLayout.cpp:119</a></div></div>
+<div class="ttc" id="classRPGraph_1_1Coordinate_html"><div class="ttname"><a href="classRPGraph_1_1Coordinate.html">RPGraph::Coordinate</a></div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00070">RPCommon.hpp:70</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_adc5cd076f816ecca32c91c4fe3a2a57e"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e">RPGraph::GraphLayout::minY</a></div><div class="ttdeci">float minY()</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00103">RPGraphLayout.cpp:103</a></div></div>
+<div class="ttc" id="classRPGraph_1_1Coordinate_html_abbb78e1ac79af2c54785565f995e5d9d"><div class="ttname"><a href="classRPGraph_1_1Coordinate.html#abbb78e1ac79af2c54785565f995e5d9d">RPGraph::Coordinate::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8hpp_source.html#l00073">RPCommon.hpp:73</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_ab5892ee9d2eba41d1f285f0e480d00e2_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_ab5892ee9d2eba41d1f285f0e480d00e2_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_ab5892ee9d2eba41d1f285f0e480d00e2_cgraph" id="classRPGraph_1_1GraphLayout_ab5892ee9d2eba41d1f285f0e480d00e2_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#aa9a3cfeb1f895fce3c9b352200251d5f" title="RPGraph::GraphLayout\l::getCenter" alt="" coords="241,245,411,286"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748" title="RPGraph::GraphLayout\l::getXRange" alt="" coords="477,85,647,126"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="913,70,1083,112"/>
+<area shape="rect" id="node6" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="912,194,1084,236"/>
+<area shape="rect" id="node7" href="classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85" title="RPGraph::GraphLayout\l::minX" alt="" coords="695,136,864,177"/>
+<area shape="rect" id="node8" href="classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276" title="RPGraph::GraphLayout\l::getYRange" alt="" coords="477,354,647,396"/>
+<area shape="rect" id="node10" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="913,354,1083,396"/>
+<area shape="rect" id="node11" href="classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e" title="RPGraph::GraphLayout\l::minY" alt="" coords="695,289,864,330"/>
+<area shape="rect" id="node12" href="classRPGraph_1_1UGraph.html#a8cc5be5cfd41f351d4f98de816028f90" title="RPGraph::UGraph::neighbors\l_with_geq_id" alt="" coords="223,472,429,513"/>
+<area shape="rect" id="node13" href="classRPGraph_1_1UGraph.html#a55a5deea9a4d456e78e24a2002f31ef2" title="RPGraph::UGraph::num\l_edges" alt="" coords="240,537,412,578"/>
+<area shape="rect" id="node4" href="classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505" title="RPGraph::GraphLayout\l::maxX" alt="" coords="695,70,864,112"/>
+<area shape="rect" id="node9" href="classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a" title="RPGraph::GraphLayout\l::maxY" alt="" coords="695,354,864,396"/>
+</map>
+</div>
+
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="af44bb2c10eee4ef67c95355ce93432a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af44bb2c10eee4ef67c95355ce93432a5">&#9670;&nbsp;</a></span>graph</h2>
+<a id="ae01b3ad2b348683c2e55d49496c32800"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae01b3ad2b348683c2e55d49496c32800">&#9670;&nbsp;</a></span>writeToCSV()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRPGraph_1_1UGraph.html">UGraph</a>&amp; RPGraph::GraphLayout::graph</td>
+          <td class="memname">void RPGraph::GraphLayout::writeToCSV </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Writing to csv may be a good way to streamline testing the decompressions effectiveness. NOTE: There is no loadFromCSV method. Would go in this file. </p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00268">268</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, <a class="el" href="RPCommon_8cpp_source.html#l00032">is_file_exists()</a>, <a class="el" href="RPGraph_8hpp_source.html#l00072">RPGraph::UGraph::node_map_r</a>, and <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    {</div><div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="RPCommon_8cpp.html#a041136f61c39ba0f88d18e72542c6eba">is_file_exists</a>(path.c_str()))</div><div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        {</div><div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            printf(<span class="stringliteral">&quot;Error: File exists at %s\n&quot;</span>, path.c_str());</div><div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            exit(EXIT_FAILURE);</div><div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        }</div><div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div><div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        std::ofstream out_file(path);</div><div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div><div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> n = 0; n &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>(); ++n)</div><div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        {</div><div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            <a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> <span class="keywordtype">id</span> = <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#a688250d7d12a6a901325a4ee7b3b518d">node_map_r</a>[n]; <span class="comment">// id as found in edgelist</span></div><div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            out_file &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n) &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div><div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        }</div><div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;</div><div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        out_file.close();</div><div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_ab3ae34f1ab88e48f43794c30c8697b74"><div class="ttname"><a href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">RPGraph::nid_t</a></div><div class="ttdeci">uint32_t nid_t</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00035">RPGraph.hpp:35</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_a688250d7d12a6a901325a4ee7b3b518d"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#a688250d7d12a6a901325a4ee7b3b518d">RPGraph::UGraph::node_map_r</a></div><div class="ttdeci">std::unordered_map&lt; nid_t, nid_t &gt; node_map_r</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00072">RPGraph.hpp:72</a></div></div>
+<div class="ttc" id="RPCommon_8cpp_html_a041136f61c39ba0f88d18e72542c6eba"><div class="ttname"><a href="RPCommon_8cpp.html#a041136f61c39ba0f88d18e72542c6eba">is_file_exists</a></div><div class="ttdeci">bool is_file_exists(const char *filename)</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8cpp_source.html#l00032">RPCommon.cpp:32</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_ae01b3ad2b348683c2e55d49496c32800_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_ae01b3ad2b348683c2e55d49496c32800_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_ae01b3ad2b348683c2e55d49496c32800_cgraph" id="classRPGraph_1_1GraphLayout_ae01b3ad2b348683c2e55d49496c32800_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="224,5,393,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="224,71,393,112"/>
+<area shape="rect" id="node4" href="RPCommon_8cpp.html#a041136f61c39ba0f88d18e72542c6eba" title="is_file_exists" alt="" coords="255,137,362,163"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="223,188,395,229"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a86a79a0329c88ef7cef8d57fce9f0e1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86a79a0329c88ef7cef8d57fce9f0e1b">&#9670;&nbsp;</a></span>height</h2>
+<a id="a19fb67898bdb294ac46fb098ec2b0bad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19fb67898bdb294ac46fb098ec2b0bad">&#9670;&nbsp;</a></span>writeToBin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RPGraph::GraphLayout::writeToBin </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Do we have any use for writing to bin? </p>
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8cpp_source.html#l00290">290</a> of file <a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>, <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">graph</a>, <a class="el" href="RPCommon_8cpp_source.html#l00032">is_file_exists()</a>, <a class="el" href="RPGraph_8hpp_source.html#l00072">RPGraph::UGraph::node_map_r</a>, and <a class="el" href="RPGraph_8cpp_source.html#l00109">RPGraph::UGraph::num_nodes()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    {</div><div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="RPCommon_8cpp.html#a041136f61c39ba0f88d18e72542c6eba">is_file_exists</a>(path.c_str()))</div><div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        {</div><div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            printf(<span class="stringliteral">&quot;Error: File exists at %s\n&quot;</span>, path.c_str());</div><div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            exit(EXIT_FAILURE);</div><div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        }</div><div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div><div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        std::ofstream out_file(path, std::ofstream::binary);</div><div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;</div><div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> n = 0; n &lt; <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">num_nodes</a>(); ++n)</div><div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        {</div><div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            <a class="code" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> <span class="keywordtype">id</span> = <a class="code" href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">graph</a>.<a class="code" href="classRPGraph_1_1UGraph.html#a688250d7d12a6a901325a4ee7b3b518d">node_map_r</a>[n]; <span class="comment">// id as found in edgelist</span></div><div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;            <span class="keywordtype">float</span> x = <a class="code" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">getX</a>(n);</div><div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            <span class="keywordtype">float</span> y = <a class="code" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">getY</a>(n);</div><div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;</div><div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            out_file.write(reinterpret_cast&lt;const char*&gt;(&amp;<span class="keywordtype">id</span>), <span class="keyword">sizeof</span>(<span class="keywordtype">id</span>));</div><div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            out_file.write(reinterpret_cast&lt;const char*&gt;(&amp;x), <span class="keyword">sizeof</span>(x));</div><div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            out_file.write(reinterpret_cast&lt;const char*&gt;(&amp;y), <span class="keyword">sizeof</span>(y));</div><div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        }</div><div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;</div><div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        out_file.close();</div><div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    }</div><div class="ttc" id="classRPGraph_1_1GraphLayout_html_a75826cfc0cc24fd4902758bc1ad42c4b"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b">RPGraph::GraphLayout::getY</a></div><div class="ttdeci">float getY(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00076">RPGraphLayout.cpp:76</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_af44bb2c10eee4ef67c95355ce93432a5"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#af44bb2c10eee4ef67c95355ce93432a5">RPGraph::GraphLayout::graph</a></div><div class="ttdeci">UGraph &amp; graph</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8hpp_source.html#l00049">RPGraphLayout.hpp:49</a></div></div>
+<div class="ttc" id="namespaceRPGraph_html_ab3ae34f1ab88e48f43794c30c8697b74"><div class="ttname"><a href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">RPGraph::nid_t</a></div><div class="ttdeci">uint32_t nid_t</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00035">RPGraph.hpp:35</a></div></div>
+<div class="ttc" id="classRPGraph_1_1GraphLayout_html_a447d80a00c47ad2fb446e3653face38c"><div class="ttname"><a href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c">RPGraph::GraphLayout::getX</a></div><div class="ttdeci">float getX(nid_t node_id)</div><div class="ttdef"><b>Definition:</b> <a href="RPGraphLayout_8cpp_source.html#l00069">RPGraphLayout.cpp:69</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_ad5eb18fffb7b9a64819b3f1f38305a0c"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph::num_nodes</a></div><div class="ttdeci">virtual nid_t num_nodes() override</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8cpp_source.html#l00109">RPGraph.cpp:109</a></div></div>
+<div class="ttc" id="classRPGraph_1_1UGraph_html_a688250d7d12a6a901325a4ee7b3b518d"><div class="ttname"><a href="classRPGraph_1_1UGraph.html#a688250d7d12a6a901325a4ee7b3b518d">RPGraph::UGraph::node_map_r</a></div><div class="ttdeci">std::unordered_map&lt; nid_t, nid_t &gt; node_map_r</div><div class="ttdef"><b>Definition:</b> <a href="RPGraph_8hpp_source.html#l00072">RPGraph.hpp:72</a></div></div>
+<div class="ttc" id="RPCommon_8cpp_html_a041136f61c39ba0f88d18e72542c6eba"><div class="ttname"><a href="RPCommon_8cpp.html#a041136f61c39ba0f88d18e72542c6eba">is_file_exists</a></div><div class="ttdeci">bool is_file_exists(const char *filename)</div><div class="ttdef"><b>Definition:</b> <a href="RPCommon_8cpp_source.html#l00032">RPCommon.cpp:32</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1GraphLayout_a19fb67898bdb294ac46fb098ec2b0bad_cgraph.png" border="0" usemap="#classRPGraph_1_1GraphLayout_a19fb67898bdb294ac46fb098ec2b0bad_cgraph" alt=""/></div>
+<map name="classRPGraph_1_1GraphLayout_a19fb67898bdb294ac46fb098ec2b0bad_cgraph" id="classRPGraph_1_1GraphLayout_a19fb67898bdb294ac46fb098ec2b0bad_cgraph">
+<area shape="rect" id="node2" href="classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="224,5,393,47"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="224,71,393,112"/>
+<area shape="rect" id="node4" href="RPCommon_8cpp.html#a041136f61c39ba0f88d18e72542c6eba" title="is_file_exists" alt="" coords="255,137,362,163"/>
+<area shape="rect" id="node5" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="223,188,395,229"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a761ad66c98b035d0d218abb300074f62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a761ad66c98b035d0d218abb300074f62">&#9670;&nbsp;</a></span>coordinates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -742,15 +1408,19 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float RPGraph::GraphLayout::height</td>
+          <td class="memname"><a class="el" href="classRPGraph_1_1Coordinate.html">Coordinate</a>* RPGraph::GraphLayout::coordinates</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8hpp_source.html#l00038">38</a> of file <a class="el" href="RPGraphLayout_8hpp_source.html">RPGraphLayout.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00172">getCoordinate()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00069">getX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00076">getY()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00042">GraphLayout()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00190">setX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00195">setY()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00049">~GraphLayout()</a>.</p>
 
 </div>
 </div>
@@ -774,18 +1444,70 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8hpp_source.html#l00041">41</a> of file <a class="el" href="RPGraphLayout_8hpp_source.html">RPGraphLayout.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00054">randomizePositions()</a>.</p>
+
+</div>
+</div>
+<a id="a86a79a0329c88ef7cef8d57fce9f0e1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86a79a0329c88ef7cef8d57fce9f0e1b">&#9670;&nbsp;</a></span>height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float RPGraph::GraphLayout::height</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8hpp_source.html#l00041">41</a> of file <a class="el" href="RPGraphLayout_8hpp_source.html">RPGraphLayout.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPGraphLayout_8cpp_source.html#l00054">randomizePositions()</a>.</p>
+
+</div>
+</div>
+<a id="af44bb2c10eee4ef67c95355ce93432a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af44bb2c10eee4ef67c95355ce93432a5">&#9670;&nbsp;</a></span>graph</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRPGraph_1_1UGraph.html">UGraph</a>&amp; RPGraph::GraphLayout::graph</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RPGraphLayout_8hpp_source.html#l00049">49</a> of file <a class="el" href="RPGraphLayout_8hpp_source.html">RPGraphLayout.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00061">RPGraph::CPUForceAtlas2::apply_attract()</a>, <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00091">RPGraph::CPUForceAtlas2::apply_repulsion()</a>, <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00249">RPGraph::CPUForceAtlas2::doStep()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00042">GraphLayout()</a>, <a class="el" href="RPForceAtlas2_8cpp_source.html#l00081">RPGraph::ForceAtlas2::mass()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00095">maxX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00111">maxY()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00087">minX()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00103">minY()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00054">randomizePositions()</a>, <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00235">RPGraph::CPUForceAtlas2::rebuild_bh()</a>, <a class="el" href="RPCPUForceAtlas2_8cpp_source.html#l00161">RPGraph::CPUForceAtlas2::updateSpeeds()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00290">writeToBin()</a>, <a class="el" href="RPGraphLayout_8cpp_source.html#l00268">writeToCSV()</a>, and <a class="el" href="RPGraphLayout_8cpp_source.html#l00222">writeToPNG()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="RPGraphLayout_8hpp_source.html">RPGraphLayout.hpp</a></li>
-<li><a class="el" href="RPGraphLayout_8cpp.html">RPGraphLayout.cpp</a></li>
+<li>src/<a class="el" href="RPGraphLayout_8hpp_source.html">RPGraphLayout.hpp</a></li>
+<li>src/<a class="el" href="RPGraphLayout_8cpp_source.html">RPGraphLayout.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceRPGraph.html">RPGraph</a></li><li class="navelem"><a class="el" href="classRPGraph_1_1GraphLayout.html">GraphLayout</a></li>
+    <li class="footer">Generated on Wed May 22 2019 19:39:35 for GPUGraphLayout by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
+  </ul>
+</div>
 </body>
 </html>

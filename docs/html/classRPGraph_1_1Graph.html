@@ -5,10 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: RPGraph::Graph Class Reference</title>
+<title>GPUGraphLayout: RPGraph::Graph Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -21,7 +29,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">GPUGraphLayout
    </div>
   </td>
  </tr>
@@ -45,6 +53,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classRPGraph_1_1Graph.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +84,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceRPGraph.html">RPGraph</a></li><li class="navelem"><a class="el" href="classRPGraph_1_1Graph.html">Graph</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -77,13 +97,19 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for RPGraph::Graph:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classRPGraph_1_1Graph.png" usemap="#RPGraph::Graph_map" alt=""/>
-  <map id="RPGraph::Graph_map" name="RPGraph::Graph_map">
-<area href="classRPGraph_1_1CSRUGraph.html" alt="RPGraph::CSRUGraph" shape="rect" coords="0,56,137,80"/>
-<area href="classRPGraph_1_1UGraph.html" alt="RPGraph::UGraph" shape="rect" coords="147,56,284,80"/>
+<div class="center"><img src="classRPGraph_1_1Graph__inherit__graph.png" border="0" usemap="#RPGraph_1_1Graph_inherit__map" alt="Inheritance graph"/></div>
+<map name="RPGraph_1_1Graph_inherit__map" id="RPGraph_1_1Graph_inherit__map">
+<area shape="rect" id="node2" href="classRPGraph_1_1CSRUGraph.html" title="{RPGraph::CSRUGraph\n|+ nid_to_offset\l+ offset_to_nid\l&#45; edges\l&#45; offsets\l&#45; node_count\l&#45; edge_count\l&#45; first_free_id\l&#45; edges_seen\l|+ CSRUGraph()\l+ ~CSRUGraph()\l+ insert_node()\l+ fix_edge_ids()\l+ num_nodes()\l+ num_edges()\l+ degree()\l+ in_degree()\l+ out_degree()\l+ nbr_id_for_node()\l}" alt="" coords="5,204,167,516"/>
+<area shape="rect" id="node3" href="classRPGraph_1_1UGraph.html" title="{RPGraph::UGraph\n|+ node_map\l+ node_map_r\l&#45; node_count\l&#45; edge_count\l&#45; degrees\l&#45; adjacency_list\l|+ UGraph()\l+ num_nodes()\l+ num_edges()\l+ degree()\l+ in_degree()\l+ out_degree()\l+ neighbors_with_geq_id()\l&#45; has_node()\l&#45; has_edge()\l&#45; add_node()\l&#45; add_edge()\l}" alt="" coords="191,211,387,509"/>
 </map>
- </div></div>
+</div>
+<div class="dynheader">
+Collaboration diagram for RPGraph::Graph:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRPGraph_1_1Graph__coll__graph.png" border="0" usemap="#RPGraph_1_1Graph_coll__map" alt="Collaboration graph"/></div>
+<map name="RPGraph_1_1Graph_coll__map" id="RPGraph_1_1Graph_coll__map">
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -100,7 +126,64 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab1e27e4268d36443a5db035fa7635cad"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRPGraph_1_1Graph.html#ab1e27e4268d36443a5db035fa7635cad">neighbors_with_geq_id</a> (<a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> nid)=0</td></tr>
 <tr class="separator:ab1e27e4268d36443a5db035fa7635cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="RPGraph_8hpp_source.html#l00042">42</a> of file <a class="el" href="RPGraph_8hpp_source.html">RPGraph.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab5602e6b776a0ea3b944775331fcb2aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5602e6b776a0ea3b944775331fcb2aa">&#9670;&nbsp;</a></span>num_nodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> RPGraph::Graph::num_nodes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classRPGraph_1_1CSRUGraph.html#a715af46d35bbe09b6b7d724461a1c2a5">RPGraph::CSRUGraph</a>, and <a class="el" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph</a>.</p>
+
+</div>
+</div>
+<a id="acd3b877216686aff2f7fbc2d62bcdf9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd3b877216686aff2f7fbc2d62bcdf9b">&#9670;&nbsp;</a></span>num_edges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> RPGraph::Graph::num_edges </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classRPGraph_1_1CSRUGraph.html#a90ef3e196b0e234c8806bc455031018d">RPGraph::CSRUGraph</a>, and <a class="el" href="classRPGraph_1_1UGraph.html#a55a5deea9a4d456e78e24a2002f31ef2">RPGraph::UGraph</a>.</p>
+
+</div>
+</div>
 <a id="a8a95d1f403c3d9860cf7399abc820c7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a95d1f403c3d9860cf7399abc820c7d">&#9670;&nbsp;</a></span>degree()</h2>
 
@@ -157,88 +240,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab1e27e4268d36443a5db035fa7635cad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1e27e4268d36443a5db035fa7635cad">&#9670;&nbsp;</a></span>neighbors_with_geq_id()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::vector&lt;<a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&gt; RPGraph::Graph::neighbors_with_geq_id </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
-          <td class="paramname"><em>nid</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classRPGraph_1_1UGraph.html#a8cc5be5cfd41f351d4f98de816028f90">RPGraph::UGraph</a>.</p>
-
-</div>
-</div>
-<a id="acd3b877216686aff2f7fbc2d62bcdf9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd3b877216686aff2f7fbc2d62bcdf9b">&#9670;&nbsp;</a></span>num_edges()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> RPGraph::Graph::num_edges </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classRPGraph_1_1CSRUGraph.html#a90ef3e196b0e234c8806bc455031018d">RPGraph::CSRUGraph</a>, and <a class="el" href="classRPGraph_1_1UGraph.html#a55a5deea9a4d456e78e24a2002f31ef2">RPGraph::UGraph</a>.</p>
-
-</div>
-</div>
-<a id="ab5602e6b776a0ea3b944775331fcb2aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5602e6b776a0ea3b944775331fcb2aa">&#9670;&nbsp;</a></span>num_nodes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a> RPGraph::Graph::num_nodes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classRPGraph_1_1CSRUGraph.html#a715af46d35bbe09b6b7d724461a1c2a5">RPGraph::CSRUGraph</a>, and <a class="el" href="classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c">RPGraph::UGraph</a>.</p>
-
-</div>
-</div>
 <a id="a660ad58e03df7e3cc00d0eb4e5c16819"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a660ad58e03df7e3cc00d0eb4e5c16819">&#9670;&nbsp;</a></span>out_degree()</h2>
 
@@ -267,15 +268,47 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab1e27e4268d36443a5db035fa7635cad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1e27e4268d36443a5db035fa7635cad">&#9670;&nbsp;</a></span>neighbors_with_geq_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;<a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&gt; RPGraph::Graph::neighbors_with_geq_id </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceRPGraph.html#ab3ae34f1ab88e48f43794c30c8697b74">nid_t</a>&#160;</td>
+          <td class="paramname"><em>nid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classRPGraph_1_1UGraph.html#a8cc5be5cfd41f351d4f98de816028f90">RPGraph::UGraph</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="RPGraph_8hpp_source.html">RPGraph.hpp</a></li>
+<li>src/<a class="el" href="RPGraph_8hpp_source.html">RPGraph.hpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceRPGraph.html">RPGraph</a></li><li class="navelem"><a class="el" href="classRPGraph_1_1Graph.html">Graph</a></li>
+    <li class="footer">Generated on Wed May 22 2019 19:39:35 for GPUGraphLayout by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
+  </ul>
+</div>
 </body>
 </html>
