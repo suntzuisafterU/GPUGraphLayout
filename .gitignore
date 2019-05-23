@@ -15,7 +15,6 @@ SCoDA_GPU_FULL.code-workspace
 
 ## Build generated
 **/graph_viewer
-docs/
 build/
 builds/linux/graph_viewer
 builds/linux/.depend
