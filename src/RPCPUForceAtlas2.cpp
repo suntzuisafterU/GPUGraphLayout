@@ -29,6 +29,7 @@
 #include <limits>
 #include <cmath>
 #include <chrono>
+// chrono library must have been used for benchmarking in the past.
 
 /**
  * Which classes does this file rely on? What about the GPU version? 

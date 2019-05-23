@@ -51,8 +51,11 @@ namespace RPGraph
 
     /**
      * Why did they have to define their own 2DVector class?
+     * Usages: 
+     *   - RPBarnesHutApproximater
+     *   - RPCPUForceAtlas2
+     *   - RPGraphLayout
      */
-    /* Definitions for Real2DVector */
     Real2DVector::Real2DVector(float x, float y): x(x), y(y) {};
 
     float Real2DVector::magnitude()
@@ -111,8 +114,11 @@ namespace RPGraph
 
     /**
      * Partner class to 2DVector.
+     * Usages:
+     *   - RPBarnesHutApproximator
+     *   - RPCPUForceAtlas2
+     *   - RPGraphLayout
      */
-    /* Definitions for Coordinate */
     Coordinate::Coordinate(float x, float y) : x(x), y(y) {};
 
     // Various operators on Coordinate
