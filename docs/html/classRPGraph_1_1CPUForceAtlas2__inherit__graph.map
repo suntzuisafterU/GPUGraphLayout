@@ -1,0 +1,4 @@
+<map id="RPGraph::CPUForceAtlas2" name="RPGraph::CPUForceAtlas2">
+<area shape="rect" id="node2" href="$classRPGraph_1_1ForceAtlas2.html" title="{RPGraph::ForceAtlas2\n|+ prevent_overlap\l+ use_barneshut\l+ use_linlog\l+ strong_gravity\l# iteration\l# k_r\l# k_g\l# delta\l# global_speed\l# speed_efficiency\l# jitter_tolerance\l# k_s\l# k_s_max\l# theta\l# epssq\l# itolsq\l|+ ForceAtlas2()\l+ ~ForceAtlas2()\l+ doStep()\l+ doSteps()\l+ setScale()\l+ setGravity()\l+ mass()\l}" alt="" coords="21,160,184,545"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1LayoutAlgorithm.html" title="{RPGraph::LayoutAlgorithm\n|+ layout\l|+ LayoutAlgorithm()\l+ ~LayoutAlgorithm()\l+ sync_layout()\l}" alt="" coords="5,5,200,112"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="RPGraph::GraphLayout::getXRange" name="RPGraph::GraphLayout::getXRange">
+<area shape="rect" id="node2" href="$classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505" title="RPGraph::GraphLayout\l::maxX" alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node5" href="$classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85" title="RPGraph::GraphLayout\l::minX" alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="441,5,611,47"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="440,71,612,112"/>
+</map>

@@ -1,0 +1,26 @@
+var classRPGraph_1_1ForceAtlas2 =
+[
+    [ "ForceAtlas2", "classRPGraph_1_1ForceAtlas2.html#a4c7ce390cdedc886003571f31861eb0c", null ],
+    [ "~ForceAtlas2", "classRPGraph_1_1ForceAtlas2.html#a1be4cef4dacd90f3a6a7c3d216fd0e78", null ],
+    [ "doStep", "classRPGraph_1_1ForceAtlas2.html#aa448ceec8292797a6e1b61ef8e2b3744", null ],
+    [ "doSteps", "classRPGraph_1_1ForceAtlas2.html#ae02d5fff5d824602da4885187361dfb5", null ],
+    [ "setScale", "classRPGraph_1_1ForceAtlas2.html#af052a93a41b8de4d58a19cd142f09c43", null ],
+    [ "setGravity", "classRPGraph_1_1ForceAtlas2.html#a2648eec5e0e6c4ba524dec19be09bdfd", null ],
+    [ "mass", "classRPGraph_1_1ForceAtlas2.html#ab08806505160d4a5ca2b746dd5a0b1c9", null ],
+    [ "prevent_overlap", "classRPGraph_1_1ForceAtlas2.html#ad2fa1a5b6042c22d44b84b85b10cffe1", null ],
+    [ "use_barneshut", "classRPGraph_1_1ForceAtlas2.html#a6ca74377ba79a67e4d1660c61426c090", null ],
+    [ "use_linlog", "classRPGraph_1_1ForceAtlas2.html#a5f1e78d982b10646f7d79fef5cc49ea7", null ],
+    [ "strong_gravity", "classRPGraph_1_1ForceAtlas2.html#afabfd0d83e05a54de889a62d0ff7595e", null ],
+    [ "iteration", "classRPGraph_1_1ForceAtlas2.html#a3d382e3059747c692b1ef2b1cd49f44f", null ],
+    [ "k_r", "classRPGraph_1_1ForceAtlas2.html#ac0f82f64f66f1798d8f1ee5905ccf192", null ],
+    [ "k_g", "classRPGraph_1_1ForceAtlas2.html#a4132cf261a746246639e0fb4960ba090", null ],
+    [ "delta", "classRPGraph_1_1ForceAtlas2.html#a39051fda34ae96395209e8b5657a61bd", null ],
+    [ "global_speed", "classRPGraph_1_1ForceAtlas2.html#a04219199074fb0c1df44ba407879931e", null ],
+    [ "speed_efficiency", "classRPGraph_1_1ForceAtlas2.html#aeb9cda3185f43eb86228ff94cbbfdc70", null ],
+    [ "jitter_tolerance", "classRPGraph_1_1ForceAtlas2.html#a8b16236d6e7ba96fd336a6ee42409cad", null ],
+    [ "k_s", "classRPGraph_1_1ForceAtlas2.html#a25607f52ab0f974f4c34b2640e489c4f", null ],
+    [ "k_s_max", "classRPGraph_1_1ForceAtlas2.html#afd775897f15200bece280cc5e052748c", null ],
+    [ "theta", "classRPGraph_1_1ForceAtlas2.html#a357410aff9f549a1842298be6449b500", null ],
+    [ "epssq", "classRPGraph_1_1ForceAtlas2.html#a591500c4981d3bf51c3e624d2c68853d", null ],
+    [ "itolsq", "classRPGraph_1_1ForceAtlas2.html#aa3dd88a578de8e809ca40f75526ee6b6", null ]
+];

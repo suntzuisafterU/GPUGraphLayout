@@ -1,0 +1,4 @@
+<map id="RPGraph::Graph" name="RPGraph::Graph">
+<area shape="rect" id="node2" href="$classRPGraph_1_1CSRUGraph.html" title="{RPGraph::CSRUGraph\n|+ nid_to_offset\l+ offset_to_nid\l&#45; edges\l&#45; offsets\l&#45; node_count\l&#45; edge_count\l&#45; first_free_id\l&#45; edges_seen\l|+ CSRUGraph()\l+ ~CSRUGraph()\l+ insert_node()\l+ fix_edge_ids()\l+ num_nodes()\l+ num_edges()\l+ degree()\l+ in_degree()\l+ out_degree()\l+ nbr_id_for_node()\l}" alt="" coords="5,204,167,516"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1UGraph.html" title="{RPGraph::UGraph\n|+ node_map\l+ node_map_r\l&#45; node_count\l&#45; edge_count\l&#45; degrees\l&#45; adjacency_list\l|+ UGraph()\l+ num_nodes()\l+ num_edges()\l+ degree()\l+ in_degree()\l+ out_degree()\l+ neighbors_with_geq_id()\l&#45; has_node()\l&#45; has_edge()\l&#45; add_node()\l&#45; add_edge()\l}" alt="" coords="191,211,387,509"/>
+</map>

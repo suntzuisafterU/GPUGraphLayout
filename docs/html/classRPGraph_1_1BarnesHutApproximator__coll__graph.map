@@ -1,0 +1,4 @@
+<map id="RPGraph::BarnesHutApproximator" name="RPGraph::BarnesHutApproximator">
+<area shape="rect" id="node2" href="$classRPGraph_1_1Coordinate.html" title="{RPGraph::Coordinate\n|+ x\l+ y\l|+ Coordinate()\l+ operator+()\l+ operator*()\l+ operator/()\l+ operator+()\l+ operator&#45;()\l+ operator==()\l+ operator/=()\l+ operator+=()\l+ operator+=()\l+ quadrant()\l+ distance()\l+ distance2()\l}" alt="" coords="48,5,205,273"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1BarnesHutCell.html" title="{RPGraph::BarnesHutCell\n|+ lb\l+ rb\l+ ub\l+ bb\l+ num_subparticles\l+ total_mass\l+ length\l|+ add_leafcell()\l+ BarnesHutCell()\l+ ~BarnesHutCell()\l+ insertParticle()\l}" alt="" coords="213,351,392,560"/>
+</map>

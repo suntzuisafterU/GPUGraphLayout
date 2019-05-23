@@ -1,0 +1,7 @@
+<map id="RPGraph::GraphLayout" name="RPGraph::GraphLayout">
+<area shape="rect" id="node2" href="$classRPGraph_1_1Coordinate.html" title="{RPGraph::Coordinate\n|+ x\l+ y\l|+ Coordinate()\l+ operator+()\l+ operator*()\l+ operator/()\l+ operator+()\l+ operator&#45;()\l+ operator==()\l+ operator/=()\l+ operator+=()\l+ operator+=()\l+ quadrant()\l+ distance()\l+ distance2()\l}" alt="" coords="22,697,179,965"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1UGraph.html" title="{RPGraph::UGraph\n|&#45; node_count\l&#45; edge_count\l|+ UGraph()\l+ num_nodes()\l+ num_edges()\l+ degree()\l+ in_degree()\l+ out_degree()\l+ neighbors_with_geq_id()\l&#45; has_node()\l&#45; has_edge()\l&#45; add_node()\l&#45; add_edge()\l}" alt="" coords="204,712,400,951"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1Graph.html" title="{RPGraph::Graph\n||+ num_nodes()\l+ num_edges()\l+ degree()\l+ in_degree()\l+ out_degree()\l+ neighbors_with_geq_id()\l}" alt="" coords="5,455,201,605"/>
+<area shape="rect" id="node6" title="STL class. " alt="" coords="317,285,469,377"/>
+<area shape="rect" id="node11" title="STL class. " alt="" coords="535,145,664,223"/>
+</map>
