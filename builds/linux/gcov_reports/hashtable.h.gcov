@@ -1,0 +1,1828 @@
+        -:    0:Source:/usr/include/c++/4.8.2/bits/hashtable.h
+        -:    0:Graph:obj/graph_viewer.gcno
+        -:    0:Data:obj/graph_viewer.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// hashtable.h header -*- C++ -*-
+        -:    2:
+        -:    3:// Copyright (C) 2007-2013 Free Software Foundation, Inc.
+        -:    4://
+        -:    5:// This file is part of the GNU ISO C++ Library.  This library is free
+        -:    6:// software; you can redistribute it and/or modify it under the
+        -:    7:// terms of the GNU General Public License as published by the
+        -:    8:// Free Software Foundation; either version 3, or (at your option)
+        -:    9:// any later version.
+        -:   10:
+        -:   11:// This library is distributed in the hope that it will be useful,
+        -:   12:// but WITHOUT ANY WARRANTY; without even the implied warranty of
+        -:   13:// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        -:   14:// GNU General Public License for more details.
+        -:   15:
+        -:   16:// Under Section 7 of GPL version 3, you are granted additional
+        -:   17:// permissions described in the GCC Runtime Library Exception, version
+        -:   18:// 3.1, as published by the Free Software Foundation.
+        -:   19:
+        -:   20:// You should have received a copy of the GNU General Public License and
+        -:   21:// a copy of the GCC Runtime Library Exception along with this program;
+        -:   22:// see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+        -:   23:// <http://www.gnu.org/licenses/>.
+        -:   24:
+        -:   25:/** @file bits/hashtable.h
+        -:   26: *  This is an internal header file, included by other library headers.
+        -:   27: *  Do not attempt to use it directly. @headername{unordered_map, unordered_set}
+        -:   28: */
+        -:   29:
+        -:   30:#ifndef _HASHTABLE_H
+        -:   31:#define _HASHTABLE_H 1
+        -:   32:
+        -:   33:#pragma GCC system_header
+        -:   34:
+        -:   35:#include <bits/hashtable_policy.h>
+        -:   36:
+        -:   37:namespace std _GLIBCXX_VISIBILITY(default)
+        -:   38:{
+        -:   39:_GLIBCXX_BEGIN_NAMESPACE_VERSION
+        -:   40:
+        -:   41:  template<typename _Tp, typename _Hash>
+        -:   42:    using __cache_default
+        -:   43:      =  __not_<__and_<// Do not cache for fast hasher.
+        -:   44:		       __is_fast_hash<_Hash>,
+        -:   45:		       // Mandatory to make local_iterator default
+        -:   46:		       // constructible and assignable.
+        -:   47:		       is_default_constructible<_Hash>,
+        -:   48:		       is_copy_assignable<_Hash>,
+        -:   49:		       // Mandatory to have erase not throwing.
+        -:   50:		       __detail::__is_noexcept_hash<_Tp, _Hash>>>;
+        -:   51:
+        -:   52:  /**
+        -:   53:   *  Primary class template _Hashtable.
+        -:   54:   *
+        -:   55:   *  @ingroup hashtable-detail
+        -:   56:   *
+        -:   57:   *  @tparam _Value  CopyConstructible type.
+        -:   58:   *
+        -:   59:   *  @tparam _Key    CopyConstructible type.
+        -:   60:   *
+        -:   61:   *  @tparam _Alloc  An allocator type
+        -:   62:   *  ([lib.allocator.requirements]) whose _Alloc::value_type is
+        -:   63:   *  _Value.  As a conforming extension, we allow for
+        -:   64:   *  _Alloc::value_type != _Value.
+        -:   65:   *
+        -:   66:   *  @tparam _ExtractKey  Function object that takes an object of type
+        -:   67:   *  _Value and returns a value of type _Key.
+        -:   68:   *
+        -:   69:   *  @tparam _Equal  Function object that takes two objects of type k
+        -:   70:   *  and returns a bool-like value that is true if the two objects
+        -:   71:   *  are considered equal.
+        -:   72:   *
+        -:   73:   *  @tparam _H1  The hash function. A unary function object with
+        -:   74:   *  argument type _Key and result type size_t. Return values should
+        -:   75:   *  be distributed over the entire range [0, numeric_limits<size_t>:::max()].
+        -:   76:   *
+        -:   77:   *  @tparam _H2  The range-hashing function (in the terminology of
+        -:   78:   *  Tavori and Dreizin).  A binary function object whose argument
+        -:   79:   *  types and result type are all size_t.  Given arguments r and N,
+        -:   80:   *  the return value is in the range [0, N).
+        -:   81:   *
+        -:   82:   *  @tparam _Hash  The ranged hash function (Tavori and Dreizin). A
+        -:   83:   *  binary function whose argument types are _Key and size_t and
+        -:   84:   *  whose result type is size_t.  Given arguments k and N, the
+        -:   85:   *  return value is in the range [0, N).  Default: hash(k, N) =
+        -:   86:   *  h2(h1(k), N).  If _Hash is anything other than the default, _H1
+        -:   87:   *  and _H2 are ignored.
+        -:   88:   *
+        -:   89:   *  @tparam _RehashPolicy  Policy class with three members, all of
+        -:   90:   *  which govern the bucket count. _M_next_bkt(n) returns a bucket
+        -:   91:   *  count no smaller than n.  _M_bkt_for_elements(n) returns a
+        -:   92:   *  bucket count appropriate for an element count of n.
+        -:   93:   *  _M_need_rehash(n_bkt, n_elt, n_ins) determines whether, if the
+        -:   94:   *  current bucket count is n_bkt and the current element count is
+        -:   95:   *  n_elt, we need to increase the bucket count.  If so, returns
+        -:   96:   *  make_pair(true, n), where n is the new bucket count.  If not,
+        -:   97:   *  returns make_pair(false, <anything>)
+        -:   98:   *
+        -:   99:   *  @tparam _Traits  Compile-time class with three boolean
+        -:  100:   *  std::integral_constant members:  __cache_hash_code, __constant_iterators,
+        -:  101:   *   __unique_keys.
+        -:  102:   *
+        -:  103:   *  Each _Hashtable data structure has:
+        -:  104:   *
+        -:  105:   *  - _Bucket[]       _M_buckets
+        -:  106:   *  - _Hash_node_base _M_bbegin
+        -:  107:   *  - size_type       _M_bucket_count
+        -:  108:   *  - size_type       _M_element_count
+        -:  109:   *
+        -:  110:   *  with _Bucket being _Hash_node* and _Hash_node containing:
+        -:  111:   *
+        -:  112:   *  - _Hash_node*   _M_next
+        -:  113:   *  - Tp            _M_value
+        -:  114:   *  - size_t        _M_hash_code if cache_hash_code is true
+        -:  115:   *
+        -:  116:   *  In terms of Standard containers the hashtable is like the aggregation of:
+        -:  117:   *
+        -:  118:   *  - std::forward_list<_Node> containing the elements
+        -:  119:   *  - std::vector<std::forward_list<_Node>::iterator> representing the buckets
+        -:  120:   *
+        -:  121:   *  The non-empty buckets contain the node before the first node in the
+        -:  122:   *  bucket. This design makes it possible to implement something like a
+        -:  123:   *  std::forward_list::insert_after on container insertion and
+        -:  124:   *  std::forward_list::erase_after on container erase
+        -:  125:   *  calls. _M_before_begin is equivalent to
+        -:  126:   *  std::forward_list::before_begin. Empty buckets contain
+        -:  127:   *  nullptr.  Note that one of the non-empty buckets contains
+        -:  128:   *  &_M_before_begin which is not a dereferenceable node so the
+        -:  129:   *  node pointer in a bucket shall never be dereferenced, only its
+        -:  130:   *  next node can be.
+        -:  131:   *
+        -:  132:   *  Walking through a bucket's nodes requires a check on the hash code to
+        -:  133:   *  see if each node is still in the bucket. Such a design assumes a
+        -:  134:   *  quite efficient hash functor and is one of the reasons it is
+        -:  135:   *  highly advisable to set __cache_hash_code to true.
+        -:  136:   *
+        -:  137:   *  The container iterators are simply built from nodes. This way
+        -:  138:   *  incrementing the iterator is perfectly efficient independent of
+        -:  139:   *  how many empty buckets there are in the container.
+        -:  140:   *
+        -:  141:   *  On insert we compute the element's hash code and use it to find the
+        -:  142:   *  bucket index. If the element must be inserted in an empty bucket
+        -:  143:   *  we add it at the beginning of the singly linked list and make the
+        -:  144:   *  bucket point to _M_before_begin. The bucket that used to point to
+        -:  145:   *  _M_before_begin, if any, is updated to point to its new before
+        -:  146:   *  begin node.
+        -:  147:   *
+        -:  148:   *  On erase, the simple iterator design requires using the hash
+        -:  149:   *  functor to get the index of the bucket to update. For this
+        -:  150:   *  reason, when __cache_hash_code is set to false the hash functor must
+        -:  151:   *  not throw and this is enforced by a static assertion.
+        -:  152:   *
+        -:  153:   *  Functionality is implemented by decomposition into base classes,
+        -:  154:   *  where the derived _Hashtable class is used in _Map_base,
+        -:  155:   *  _Insert, _Rehash_base, and _Equality base classes to access the
+        -:  156:   *  "this" pointer. _Hashtable_base is used in the base classes as a
+        -:  157:   *  non-recursive, fully-completed-type so that detailed nested type
+        -:  158:   *  information, such as iterator type and node type, can be
+        -:  159:   *  used. This is similar to the "Curiously Recurring Template
+        -:  160:   *  Pattern" (CRTP) technique, but uses a reconstructed, not
+        -:  161:   *  explicitly passed, template pattern.
+        -:  162:   *
+        -:  163:   *  Base class templates are: 
+        -:  164:   *    - __detail::_Hashtable_base
+        -:  165:   *    - __detail::_Map_base
+        -:  166:   *    - __detail::_Insert
+        -:  167:   *    - __detail::_Rehash_base
+        -:  168:   *    - __detail::_Equality
+        -:  169:   */
+        -:  170:  template<typename _Key, typename _Value, typename _Alloc,
+        -:  171:	   typename _ExtractKey, typename _Equal,
+        -:  172:	   typename _H1, typename _H2, typename _Hash,
+        -:  173:	   typename _RehashPolicy, typename _Traits>
+        -:  174:    class _Hashtable
+        -:  175:    : public __detail::_Hashtable_base<_Key, _Value, _ExtractKey, _Equal,
+        -:  176:				       _H1, _H2, _Hash, _Traits>,
+        -:  177:      public __detail::_Map_base<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  178:				 _H1, _H2, _Hash, _RehashPolicy, _Traits>,
+        -:  179:      public __detail::_Insert<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  180:			       _H1, _H2, _Hash, _RehashPolicy, _Traits>,
+        -:  181:      public __detail::_Rehash_base<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  182:				    _H1, _H2, _Hash, _RehashPolicy, _Traits>,
+        -:  183:      public __detail::_Equality<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  184:				 _H1, _H2, _Hash, _RehashPolicy, _Traits>
+        -:  185:    {
+        -:  186:    public:
+        -:  187:      typedef _Key                                    key_type;
+        -:  188:      typedef _Value                                  value_type;
+        -:  189:      typedef _Alloc                                  allocator_type;
+        -:  190:      typedef _Equal                                  key_equal;
+        -:  191:
+        -:  192:      // mapped_type, if present, comes from _Map_base.
+        -:  193:      // hasher, if present, comes from _Hash_code_base/_Hashtable_base.
+        -:  194:      typedef typename _Alloc::pointer		      pointer;
+        -:  195:      typedef typename _Alloc::const_pointer          const_pointer;
+        -:  196:      typedef typename _Alloc::reference              reference;
+        -:  197:      typedef typename _Alloc::const_reference        const_reference;
+        -:  198:
+        -:  199:    private:
+        -:  200:      using __rehash_type = _RehashPolicy;
+        -:  201:      using __rehash_state = typename __rehash_type::_State;
+        -:  202:
+        -:  203:      using __traits_type = _Traits;
+        -:  204:      using __hash_cached = typename __traits_type::__hash_cached;
+        -:  205:      using __constant_iterators = typename __traits_type::__constant_iterators;
+        -:  206:      using __unique_keys = typename __traits_type::__unique_keys;
+        -:  207:
+        -:  208:      using __key_extract = typename std::conditional<
+        -:  209:					     __constant_iterators::value,
+        -:  210:				       	     __detail::_Identity,
+        -:  211:					     __detail::_Select1st>::type;
+        -:  212:
+        -:  213:      using __hashtable_base = __detail::
+        -:  214:			       _Hashtable_base<_Key, _Value, _ExtractKey,
+        -:  215:					      _Equal, _H1, _H2, _Hash, _Traits>;
+        -:  216:
+        -:  217:      using __hash_code_base =  typename __hashtable_base::__hash_code_base;
+        -:  218:      using __hash_code =  typename __hashtable_base::__hash_code;
+        -:  219:      using __node_type = typename __hashtable_base::__node_type;
+        -:  220:      using __node_base = typename __hashtable_base::__node_base;
+        -:  221:      using __bucket_type = typename __hashtable_base::__bucket_type;
+        -:  222:      using __ireturn_type = typename __hashtable_base::__ireturn_type;
+        -:  223:      using __iconv_type = typename __hashtable_base::__iconv_type;
+        -:  224:
+        -:  225:      using __map_base = __detail::_Map_base<_Key, _Value, _Alloc, _ExtractKey,
+        -:  226:					     _Equal, _H1, _H2, _Hash,
+        -:  227:					     _RehashPolicy, _Traits>;
+        -:  228:
+        -:  229:      using __rehash_base = __detail::_Rehash_base<_Key, _Value, _Alloc,
+        -:  230:						   _ExtractKey, _Equal,
+        -:  231:						   _H1, _H2, _Hash,
+        -:  232:						   _RehashPolicy, _Traits>;
+        -:  233:
+        -:  234:      using __eq_base = __detail::_Equality<_Key, _Value, _Alloc, _ExtractKey,
+        -:  235:					    _Equal, _H1, _H2, _Hash,
+        -:  236:					    _RehashPolicy, _Traits>;
+        -:  237:
+        -:  238:      // Metaprogramming for picking apart hash caching.
+        -:  239:      using __hash_noexcept = __detail::__is_noexcept_hash<_Key, _H1>;
+        -:  240:
+        -:  241:      template<typename _Cond>
+        -:  242:	using __if_hash_cached = __or_<__not_<__hash_cached>, _Cond>;
+        -:  243:
+        -:  244:      template<typename _Cond>
+        -:  245:	using __if_hash_not_cached = __or_<__hash_cached, _Cond>;
+        -:  246:
+        -:  247:      // Compile-time diagnostics.
+        -:  248:
+        -:  249:      // When hash codes are not cached the hash functor shall not
+        -:  250:      // throw because it is used in methods (erase, swap...) that
+        -:  251:      // shall not throw.
+        -:  252:      static_assert(__if_hash_not_cached<__hash_noexcept>::value,
+        -:  253:		    "Cache the hash code"
+        -:  254:		    " or qualify your hash functor with noexcept");
+        -:  255:
+        -:  256:      // Following two static assertions are necessary to guarantee
+        -:  257:      // that local_iterator will be default constructible.
+        -:  258:
+        -:  259:      // When hash codes are cached local iterator inherits from H2 functor
+        -:  260:      // which must then be default constructible.
+        -:  261:      static_assert(__if_hash_cached<is_default_constructible<_H2>>::value,
+        -:  262:		    "Functor used to map hash code to bucket index"
+        -:  263:		    " must be default constructible");
+        -:  264:
+        -:  265:      // When hash codes are not cached local iterator inherits from
+        -:  266:      // __hash_code_base above to compute node bucket index so it has to be
+        -:  267:      // default constructible.
+        -:  268:      static_assert(__if_hash_not_cached<
+        -:  269:		    is_default_constructible<
+        -:  270:		      // We use _Hashtable_ebo_helper to access the protected
+        -:  271:		      // default constructor.
+        -:  272:		      __detail::_Hashtable_ebo_helper<0, __hash_code_base>>>::value,
+        -:  273:		    "Cache the hash code or make functors involved in hash code"
+        -:  274:		    " and bucket index computation default constructible");
+        -:  275:
+        -:  276:      // When hash codes are not cached local iterator inherits from
+        -:  277:      // __hash_code_base above to compute node bucket index so it has to be
+        -:  278:      // assignable.
+        -:  279:      static_assert(__if_hash_not_cached<
+        -:  280:		      is_copy_assignable<__hash_code_base>>::value,
+        -:  281:		    "Cache the hash code or make functors involved in hash code"
+        -:  282:		    " and bucket index computation copy assignable");
+        -:  283:
+        -:  284:    public:
+        -:  285:      template<typename _Keya, typename _Valuea, typename _Alloca,
+        -:  286:	       typename _ExtractKeya, typename _Equala,
+        -:  287:	       typename _H1a, typename _H2a, typename _Hasha,
+        -:  288:	       typename _RehashPolicya, typename _Traitsa,
+        -:  289:	       bool _Unique_keysa>
+        -:  290:	friend struct __detail::_Map_base;
+        -:  291:
+        -:  292:      template<typename _Keya, typename _Valuea, typename _Alloca,
+        -:  293:	       typename _ExtractKeya, typename _Equala,
+        -:  294:	       typename _H1a, typename _H2a, typename _Hasha,
+        -:  295:	       typename _RehashPolicya, typename _Traitsa>
+        -:  296:	friend struct __detail::_Insert_base;
+        -:  297:
+        -:  298:      template<typename _Keya, typename _Valuea, typename _Alloca,
+        -:  299:	       typename _ExtractKeya, typename _Equala,
+        -:  300:	       typename _H1a, typename _H2a, typename _Hasha,
+        -:  301:	       typename _RehashPolicya, typename _Traitsa,
+        -:  302:	       bool _Constant_iteratorsa, bool _Unique_keysa>
+        -:  303:	friend struct __detail::_Insert;
+        -:  304:
+        -:  305:      using size_type = typename __hashtable_base::size_type;
+        -:  306:      using difference_type = typename __hashtable_base::difference_type;
+        -:  307:
+        -:  308:      using iterator = typename __hashtable_base::iterator;
+        -:  309:      using const_iterator = typename __hashtable_base::const_iterator;
+        -:  310:
+        -:  311:      using local_iterator = typename __hashtable_base::local_iterator;
+        -:  312:      using const_local_iterator = typename __hashtable_base::
+        -:  313:				   const_local_iterator;
+        -:  314:
+        -:  315:    private:
+        -:  316:      typedef typename _Alloc::template rebind<__node_type>::other
+        -:  317:							_Node_allocator_type;
+        -:  318:      typedef typename _Alloc::template rebind<__bucket_type>::other
+        -:  319:							_Bucket_allocator_type;
+        -:  320:
+        -:  321:      using __before_begin = __detail::_Before_begin<_Node_allocator_type>;
+        -:  322:
+        -:  323:      __bucket_type*		_M_buckets;
+        -:  324:      size_type			_M_bucket_count;
+        -:  325:      __before_begin		_M_bbegin;
+        -:  326:      size_type			_M_element_count;
+        -:  327:      _RehashPolicy		_M_rehash_policy;
+        -:  328:
+        -:  329:      _Node_allocator_type&
+  3227276:  330:      _M_node_allocator()
+  3227276:  331:      { return _M_bbegin; }
+        -:  332:
+        -:  333:      const _Node_allocator_type&
+        -:  334:      _M_node_allocator() const
+        -:  335:      { return _M_bbegin; }
+        -:  336:
+        -:  337:      __node_base&
+ 10656399:  338:      _M_before_begin()
+ 10656399:  339:      { return _M_bbegin._M_node; }
+        -:  340:
+        -:  341:      const __node_base&
+       60:  342:      _M_before_begin() const
+       60:  343:      { return _M_bbegin._M_node; }
+        -:  344:
+        -:  345:      template<typename... _Args>
+        -:  346:	__node_type*
+        -:  347:	_M_allocate_node(_Args&&... __args);
+        -:  348:
+        -:  349:      void
+        -:  350:      _M_deallocate_node(__node_type* __n);
+        -:  351:
+        -:  352:      // Deallocate the linked list of nodes pointed to by __n
+        -:  353:      void
+        -:  354:      _M_deallocate_nodes(__node_type* __n);
+        -:  355:
+        -:  356:      __bucket_type*
+        -:  357:      _M_allocate_buckets(size_type __n);
+        -:  358:
+        -:  359:      void
+        -:  360:      _M_deallocate_buckets(__bucket_type*, size_type __n);
+        -:  361:
+        -:  362:      // Gets bucket begin, deals with the fact that non-empty buckets contain
+        -:  363:      // their before begin node.
+        -:  364:      __node_type*
+        -:  365:      _M_bucket_begin(size_type __bkt) const;
+        -:  366:
+        -:  367:      __node_type*
+       60:  368:      _M_begin() const
+       60:  369:      { return static_cast<__node_type*>(_M_before_begin()._M_nxt); }
+        -:  370:
+        -:  371:    public:
+        -:  372:      // Constructor, destructor, assignment, swap
+        -:  373:      _Hashtable(size_type __bucket_hint,
+        -:  374:		 const _H1&, const _H2&, const _Hash&,
+        -:  375:		 const _Equal&, const _ExtractKey&,
+        -:  376:		 const allocator_type&);
+        -:  377:
+        -:  378:      template<typename _InputIterator>
+        -:  379:	_Hashtable(_InputIterator __first, _InputIterator __last,
+        -:  380:		   size_type __bucket_hint,
+        -:  381:		   const _H1&, const _H2&, const _Hash&,
+        -:  382:		   const _Equal&, const _ExtractKey&,
+        -:  383:		   const allocator_type&);
+        -:  384:
+        -:  385:      _Hashtable(const _Hashtable&);
+        -:  386:
+        -:  387:      _Hashtable(_Hashtable&&);
+        -:  388:
+        -:  389:      // Use delegating constructors.
+        -:  390:      explicit
+        -:  391:      _Hashtable(size_type __n = 10,
+        -:  392:		 const _H1& __hf = _H1(),
+        -:  393:		 const key_equal& __eql = key_equal(),
+        -:  394:		 const allocator_type& __a = allocator_type())
+        -:  395:      : _Hashtable(__n, __hf, __detail::_Mod_range_hashing(),
+        -:  396:		   __detail::_Default_ranged_hash(), __eql,
+        -:  397:		   __key_extract(), __a)
+        -:  398:      { }
+        -:  399:
+        -:  400:      template<typename _InputIterator>
+        -:  401:	_Hashtable(_InputIterator __f, _InputIterator __l,
+        -:  402:		   size_type __n = 0,
+        -:  403:		   const _H1& __hf = _H1(),
+        -:  404:		   const key_equal& __eql = key_equal(),
+        -:  405:		   const allocator_type& __a = allocator_type())
+        -:  406:	: _Hashtable(__f, __l, __n, __hf, __detail::_Mod_range_hashing(),
+        -:  407:		     __detail::_Default_ranged_hash(), __eql,
+        -:  408:		     __key_extract(), __a)
+        -:  409:	{ }
+        -:  410:
+        -:  411:      _Hashtable(initializer_list<value_type> __l,
+        -:  412:		 size_type __n = 0,
+        -:  413:		 const _H1& __hf = _H1(),
+        -:  414:		 const key_equal& __eql = key_equal(),
+        -:  415:		 const allocator_type& __a = allocator_type())
+        -:  416:      : _Hashtable(__l.begin(), __l.end(), __n, __hf,
+        -:  417:		   __detail::_Mod_range_hashing(),
+        -:  418:		   __detail::_Default_ranged_hash(), __eql,
+        -:  419:		   __key_extract(), __a)
+        -:  420:      { }
+        -:  421:
+        -:  422:      _Hashtable&
+        -:  423:      operator=(const _Hashtable& __ht)
+        -:  424:      {
+        -:  425:	_Hashtable __tmp(__ht);
+        -:  426:	this->swap(__tmp);
+        -:  427:	return *this;
+        -:  428:      }
+        -:  429:
+        -:  430:      _Hashtable&
+        -:  431:      operator=(_Hashtable&& __ht)
+        -:  432:      {
+        -:  433:	// NB: DR 1204.
+        -:  434:	// NB: DR 675.
+        -:  435:	this->clear();
+        -:  436:	this->swap(__ht);
+        -:  437:	return *this;
+        -:  438:      }
+        -:  439:
+        -:  440:      _Hashtable&
+        -:  441:      operator=(initializer_list<value_type> __l)
+        -:  442:      {
+        -:  443:	this->clear();
+        -:  444:	this->insert(__l.begin(), __l.end());
+        -:  445:	return *this;
+        -:  446:      }
+        -:  447:
+        -:  448:      ~_Hashtable() noexcept;
+        -:  449:
+        -:  450:      void swap(_Hashtable&);
+        -:  451:
+        -:  452:      // Basic container operations
+        -:  453:      iterator
+        -:  454:      begin() noexcept
+        -:  455:      { return iterator(_M_begin()); }
+        -:  456:
+        -:  457:      const_iterator
+        -:  458:      begin() const noexcept
+        -:  459:      { return const_iterator(_M_begin()); }
+        -:  460:
+        -:  461:      iterator
+        -:  462:      end() noexcept
+        -:  463:      { return iterator(nullptr); }
+        -:  464:
+        -:  465:      const_iterator
+        -:  466:      end() const noexcept
+        -:  467:      { return const_iterator(nullptr); }
+        -:  468:
+        -:  469:      const_iterator
+        -:  470:      cbegin() const noexcept
+        -:  471:      { return const_iterator(_M_begin()); }
+        -:  472:
+        -:  473:      const_iterator
+        -:  474:      cend() const noexcept
+        -:  475:      { return const_iterator(nullptr); }
+        -:  476:
+        -:  477:      size_type
+        -:  478:      size() const noexcept
+        -:  479:      { return _M_element_count; }
+        -:  480:
+        -:  481:      bool
+        -:  482:      empty() const noexcept
+        -:  483:      { return size() == 0; }
+        -:  484:
+        -:  485:      allocator_type
+        -:  486:      get_allocator() const noexcept
+        -:  487:      { return allocator_type(_M_node_allocator()); }
+        -:  488:
+        -:  489:      size_type
+        -:  490:      max_size() const noexcept
+        -:  491:      { return _M_node_allocator().max_size(); }
+        -:  492:
+        -:  493:      // Observers
+        -:  494:      key_equal
+        -:  495:      key_eq() const
+        -:  496:      { return this->_M_eq(); }
+        -:  497:
+        -:  498:      // hash_function, if present, comes from _Hash_code_base.
+        -:  499:
+        -:  500:      // Bucket operations
+        -:  501:      size_type
+        -:  502:      bucket_count() const noexcept
+        -:  503:      { return _M_bucket_count; }
+        -:  504:
+        -:  505:      size_type
+        -:  506:      max_bucket_count() const noexcept
+        -:  507:      { return max_size(); }
+        -:  508:
+        -:  509:      size_type
+        -:  510:      bucket_size(size_type __n) const
+        -:  511:      { return std::distance(begin(__n), end(__n)); }
+        -:  512:
+        -:  513:      size_type
+        -:  514:      bucket(const key_type& __k) const
+        -:  515:      { return _M_bucket_index(__k, this->_M_hash_code(__k)); }
+        -:  516:
+        -:  517:      local_iterator
+        -:  518:      begin(size_type __n)
+        -:  519:      {
+        -:  520:	return local_iterator(*this, _M_bucket_begin(__n),
+        -:  521:			      __n, _M_bucket_count);
+        -:  522:      }
+        -:  523:
+        -:  524:      local_iterator
+        -:  525:      end(size_type __n)
+        -:  526:      { return local_iterator(*this, nullptr, __n, _M_bucket_count); }
+        -:  527:
+        -:  528:      const_local_iterator
+        -:  529:      begin(size_type __n) const
+        -:  530:      {
+        -:  531:	return const_local_iterator(*this, _M_bucket_begin(__n),
+        -:  532:				    __n, _M_bucket_count);
+        -:  533:      }
+        -:  534:
+        -:  535:      const_local_iterator
+        -:  536:      end(size_type __n) const
+        -:  537:      { return const_local_iterator(*this, nullptr, __n, _M_bucket_count); }
+        -:  538:
+        -:  539:      // DR 691.
+        -:  540:      const_local_iterator
+        -:  541:      cbegin(size_type __n) const
+        -:  542:      {
+        -:  543:	return const_local_iterator(*this, _M_bucket_begin(__n),
+        -:  544:				    __n, _M_bucket_count);
+        -:  545:      }
+        -:  546:
+        -:  547:      const_local_iterator
+        -:  548:      cend(size_type __n) const
+        -:  549:      { return const_local_iterator(*this, nullptr, __n, _M_bucket_count); }
+        -:  550:
+        -:  551:      float
+        -:  552:      load_factor() const noexcept
+        -:  553:      {
+        -:  554:	return static_cast<float>(size()) / static_cast<float>(bucket_count());
+        -:  555:      }
+        -:  556:
+        -:  557:      // max_load_factor, if present, comes from _Rehash_base.
+        -:  558:
+        -:  559:      // Generalization of max_load_factor.  Extension, not found in
+        -:  560:      // TR1.  Only useful if _RehashPolicy is something other than
+        -:  561:      // the default.
+        -:  562:      const _RehashPolicy&
+        -:  563:      __rehash_policy() const
+        -:  564:      { return _M_rehash_policy; }
+        -:  565:
+        -:  566:      void
+        -:  567:      __rehash_policy(const _RehashPolicy&);
+        -:  568:
+        -:  569:      // Lookup.
+        -:  570:      iterator
+        -:  571:      find(const key_type& __k);
+        -:  572:
+        -:  573:      const_iterator
+        -:  574:      find(const key_type& __k) const;
+        -:  575:
+        -:  576:      size_type
+        -:  577:      count(const key_type& __k) const;
+        -:  578:
+        -:  579:      std::pair<iterator, iterator>
+        -:  580:      equal_range(const key_type& __k);
+        -:  581:
+        -:  582:      std::pair<const_iterator, const_iterator>
+        -:  583:      equal_range(const key_type& __k) const;
+        -:  584:
+        -:  585:    protected:
+        -:  586:      // Bucket index computation helpers.
+        -:  587:      size_type
+        -:  588:      _M_bucket_index(__node_type* __n) const
+        -:  589:      { return __hash_code_base::_M_bucket_index(__n, _M_bucket_count); }
+        -:  590:
+        -:  591:      size_type
+        -:  592:      _M_bucket_index(const key_type& __k, __hash_code __c) const
+        -:  593:      { return __hash_code_base::_M_bucket_index(__k, __c, _M_bucket_count); }
+        -:  594:
+        -:  595:      // Find and insert helper functions and types
+        -:  596:      // Find the node before the one matching the criteria.
+        -:  597:      __node_base*
+        -:  598:      _M_find_before_node(size_type, const key_type&, __hash_code) const;
+        -:  599:
+        -:  600:      __node_type*
+        -:  601:      _M_find_node(size_type __bkt, const key_type& __key,
+        -:  602:		   __hash_code __c) const
+        -:  603:      {
+        -:  604:	__node_base* __before_n = _M_find_before_node(__bkt, __key, __c);
+        -:  605:	if (__before_n)
+        -:  606:	  return static_cast<__node_type*>(__before_n->_M_nxt);
+        -:  607:	return nullptr;
+        -:  608:      }
+        -:  609:
+        -:  610:      // Insert a node at the beginning of a bucket.
+        -:  611:      void
+        -:  612:      _M_insert_bucket_begin(size_type, __node_type*);
+        -:  613:
+        -:  614:      // Remove the bucket first node
+        -:  615:      void
+        -:  616:      _M_remove_bucket_begin(size_type __bkt, __node_type* __next_n,
+        -:  617:			     size_type __next_bkt);
+        -:  618:
+        -:  619:      // Get the node before __n in the bucket __bkt
+        -:  620:      __node_base*
+        -:  621:      _M_get_previous_node(size_type __bkt, __node_base* __n);
+        -:  622:
+        -:  623:      // Insert node with hash code __code, in bucket bkt if no rehash (assumes
+        -:  624:      // no element with its key already present). Take ownership of the node,
+        -:  625:      // deallocate it on exception.
+        -:  626:      iterator
+        -:  627:      _M_insert_unique_node(size_type __bkt, __hash_code __code,
+        -:  628:			    __node_type* __n);
+        -:  629:
+        -:  630:      // Insert node with hash code __code. Take ownership of the node,
+        -:  631:      // deallocate it on exception.
+        -:  632:      iterator
+        -:  633:      _M_insert_multi_node(__hash_code __code, __node_type* __n);
+        -:  634:
+        -:  635:      template<typename... _Args>
+        -:  636:	std::pair<iterator, bool>
+        -:  637:	_M_emplace(std::true_type, _Args&&... __args);
+        -:  638:
+        -:  639:      template<typename... _Args>
+        -:  640:	iterator
+        -:  641:	_M_emplace(std::false_type, _Args&&... __args);
+        -:  642:
+        -:  643:      template<typename _Arg>
+        -:  644:	std::pair<iterator, bool>
+        -:  645:	_M_insert(_Arg&&, std::true_type);
+        -:  646:
+        -:  647:      template<typename _Arg>
+        -:  648:	iterator
+        -:  649:	_M_insert(_Arg&&, std::false_type);
+        -:  650:
+        -:  651:      size_type
+        -:  652:      _M_erase(std::true_type, const key_type&);
+        -:  653:
+        -:  654:      size_type
+        -:  655:      _M_erase(std::false_type, const key_type&);
+        -:  656:
+        -:  657:      iterator
+        -:  658:      _M_erase(size_type __bkt, __node_base* __prev_n, __node_type* __n);
+        -:  659:
+        -:  660:    public:
+        -:  661:      // Emplace
+        -:  662:      template<typename... _Args>
+        -:  663:	__ireturn_type
+        -:  664:	emplace(_Args&&... __args)
+        -:  665:	{ return _M_emplace(__unique_keys(), std::forward<_Args>(__args)...); }
+        -:  666:
+        -:  667:      template<typename... _Args>
+        -:  668:	iterator
+        -:  669:	emplace_hint(const_iterator, _Args&&... __args)
+        -:  670:	{ return __iconv_type()(emplace(std::forward<_Args>(__args)...)); }
+        -:  671:
+        -:  672:      // Insert member functions via inheritance.
+        -:  673:
+        -:  674:      // Erase
+        -:  675:      iterator
+        -:  676:      erase(const_iterator);
+        -:  677:
+        -:  678:      // LWG 2059.
+        -:  679:      iterator
+        -:  680:      erase(iterator __it)
+        -:  681:      { return erase(const_iterator(__it)); }
+        -:  682:
+        -:  683:      size_type
+        -:  684:      erase(const key_type& __k)
+        -:  685:      { return _M_erase(__unique_keys(), __k); }
+        -:  686:
+        -:  687:      iterator
+        -:  688:      erase(const_iterator, const_iterator);
+        -:  689:
+        -:  690:      void
+        -:  691:      clear() noexcept;
+        -:  692:
+        -:  693:      // Set number of buckets to be appropriate for container of n element.
+        -:  694:      void rehash(size_type __n);
+        -:  695:
+        -:  696:      // DR 1189.
+        -:  697:      // reserve, if present, comes from _Rehash_base.
+        -:  698:
+        -:  699:    private:
+        -:  700:      // Helper rehash method used when keys are unique.
+        -:  701:      void _M_rehash_aux(size_type __n, std::true_type);
+        -:  702:
+        -:  703:      // Helper rehash method used when keys can be non-unique.
+        -:  704:      void _M_rehash_aux(size_type __n, std::false_type);
+        -:  705:
+        -:  706:      // Unconditionally change size of bucket array to n, restore
+        -:  707:      // hash policy state to __state on exception.
+        -:  708:      void _M_rehash(size_type __n, const __rehash_state& __state);
+        -:  709:    };
+        -:  710:
+        -:  711:
+        -:  712:  // Definitions of class template _Hashtable's out-of-line member functions.
+        -:  713:  template<typename _Key, typename _Value,
+        -:  714:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  715:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  716:	   typename _Traits>
+        -:  717:    template<typename... _Args>
+        -:  718:      typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  719:			  _H1, _H2, _Hash, _RehashPolicy, _Traits>::__node_type*
+        -:  720:      _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  721:		 _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  722:      _M_allocate_node(_Args&&... __args)
+        -:  723:      {
+        -:  724:	__node_type* __n = _M_node_allocator().allocate(1);
+        -:  725:	__try
+        -:  726:	  {
+        -:  727:	    _M_node_allocator().construct(__n, std::forward<_Args>(__args)...);
+        -:  728:	    return __n;
+        -:  729:	  }
+        -:  730:	__catch(...)
+        -:  731:	  {
+        -:  732:	    _M_node_allocator().deallocate(__n, 1);
+        -:  733:	    __throw_exception_again;
+        -:  734:	  }
+        -:  735:      }
+        -:  736:
+        -:  737:  template<typename _Key, typename _Value,
+        -:  738:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  739:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  740:	   typename _Traits>
+        -:  741:    void
+    #####:  742:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  743:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  744:    _M_deallocate_node(__node_type* __n)
+        -:  745:    {
+    #####:  746:      _M_node_allocator().destroy(__n);
+    #####:  747:      _M_node_allocator().deallocate(__n, 1);
+    #####:  748:    }
+        -:  749:
+        -:  750:  template<typename _Key, typename _Value,
+        -:  751:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  752:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  753:	   typename _Traits>
+        -:  754:    void
+    #####:  755:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  756:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  757:    _M_deallocate_nodes(__node_type* __n)
+        -:  758:    {
+    #####:  759:      while (__n)
+        -:  760:	{
+    #####:  761:	  __node_type* __tmp = __n;
+    #####:  762:	  __n = __n->_M_next();
+    #####:  763:	  _M_deallocate_node(__tmp);
+        -:  764:	}
+    #####:  765:    }
+        -:  766:
+        -:  767:  template<typename _Key, typename _Value,
+        -:  768:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  769:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  770:	   typename _Traits>
+        -:  771:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  772:			_H1, _H2, _Hash, _RehashPolicy, _Traits>::__bucket_type*
+        -:  773:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  774:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  775:    _M_allocate_buckets(size_type __n)
+        -:  776:    {
+        -:  777:      _Bucket_allocator_type __alloc(_M_node_allocator());
+        -:  778:
+        -:  779:      __bucket_type* __p = __alloc.allocate(__n);
+        -:  780:      __builtin_memset(__p, 0, __n * sizeof(__bucket_type));
+        -:  781:      return __p;
+        -:  782:    }
+        -:  783:
+        -:  784:  template<typename _Key, typename _Value,
+        -:  785:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  786:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  787:	   typename _Traits>
+        -:  788:    void
+       60:  789:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  790:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  791:    _M_deallocate_buckets(__bucket_type* __p, size_type __n)
+        -:  792:    {
+       60:  793:      _Bucket_allocator_type __alloc(_M_node_allocator());
+       60:  794:      __alloc.deallocate(__p, __n);
+       60:  795:    }
+        -:  796:
+        -:  797:  template<typename _Key, typename _Value,
+        -:  798:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  799:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  800:	   typename _Traits>
+        -:  801:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey,
+        -:  802:			_Equal, _H1, _H2, _Hash, _RehashPolicy,
+        -:  803:			_Traits>::__node_type*
+        -:  804:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  805:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  806:    _M_bucket_begin(size_type __bkt) const
+        -:  807:    {
+        -:  808:      __node_base* __n = _M_buckets[__bkt];
+        -:  809:      return __n ? static_cast<__node_type*>(__n->_M_nxt) : nullptr;
+        -:  810:    }
+        -:  811:
+        -:  812:  template<typename _Key, typename _Value,
+        -:  813:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  814:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  815:	   typename _Traits>
+        -:  816:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  817:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  818:    _Hashtable(size_type __bucket_hint,
+        -:  819:	       const _H1& __h1, const _H2& __h2, const _Hash& __h,
+        -:  820:	       const _Equal& __eq, const _ExtractKey& __exk,
+        -:  821:	       const allocator_type& __a)
+        -:  822:    : __hashtable_base(__exk, __h1, __h2, __h, __eq),
+        -:  823:      __map_base(),
+        -:  824:      __rehash_base(),
+        -:  825:      _M_bucket_count(0),
+        -:  826:      _M_bbegin(__a),
+        -:  827:      _M_element_count(0),
+        -:  828:      _M_rehash_policy()
+        -:  829:    {
+        -:  830:      _M_bucket_count = _M_rehash_policy._M_next_bkt(__bucket_hint);
+        -:  831:      _M_buckets = _M_allocate_buckets(_M_bucket_count);
+        -:  832:    }
+        -:  833:
+        -:  834:  template<typename _Key, typename _Value,
+        -:  835:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  836:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  837:	   typename _Traits>
+        -:  838:    template<typename _InputIterator>
+        -:  839:      _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  840:		 _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  841:      _Hashtable(_InputIterator __f, _InputIterator __l,
+        -:  842:		 size_type __bucket_hint,
+        -:  843:		 const _H1& __h1, const _H2& __h2, const _Hash& __h,
+        -:  844:		 const _Equal& __eq, const _ExtractKey& __exk,
+        -:  845:		 const allocator_type& __a)
+        -:  846:      : __hashtable_base(__exk, __h1, __h2, __h, __eq),
+        -:  847:	__map_base(),
+        -:  848:	__rehash_base(),
+        -:  849:	_M_bucket_count(0),
+        -:  850:	_M_bbegin(__a),
+        -:  851:	_M_element_count(0),
+        -:  852:	_M_rehash_policy()
+        -:  853:      {
+        -:  854:	auto __nb_elems = __detail::__distance_fw(__f, __l);
+        -:  855:	_M_bucket_count =
+        -:  856:	  _M_rehash_policy._M_next_bkt(
+        -:  857:	    std::max(_M_rehash_policy._M_bkt_for_elements(__nb_elems),
+        -:  858:		     __bucket_hint));
+        -:  859:
+        -:  860:	_M_buckets = _M_allocate_buckets(_M_bucket_count);
+        -:  861:	__try
+        -:  862:	  {
+        -:  863:	    for (; __f != __l; ++__f)
+        -:  864:	      this->insert(*__f);
+        -:  865:	  }
+        -:  866:	__catch(...)
+        -:  867:	  {
+        -:  868:	    clear();
+        -:  869:	    _M_deallocate_buckets(_M_buckets, _M_bucket_count);
+        -:  870:	    __throw_exception_again;
+        -:  871:	  }
+        -:  872:      }
+        -:  873:
+        -:  874:  template<typename _Key, typename _Value,
+        -:  875:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  876:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  877:	   typename _Traits>
+        -:  878:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  879:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  880:    _Hashtable(const _Hashtable& __ht)
+        -:  881:    : __hashtable_base(__ht),
+        -:  882:      __map_base(__ht),
+        -:  883:      __rehash_base(__ht),
+        -:  884:      _M_bucket_count(__ht._M_bucket_count),
+        -:  885:      _M_bbegin(__ht._M_bbegin),
+        -:  886:      _M_element_count(__ht._M_element_count),
+        -:  887:      _M_rehash_policy(__ht._M_rehash_policy)
+        -:  888:    {
+        -:  889:      _M_buckets = _M_allocate_buckets(_M_bucket_count);
+        -:  890:      __try
+        -:  891:	{
+        -:  892:	  if (!__ht._M_before_begin()._M_nxt)
+        -:  893:	    return;
+        -:  894:
+        -:  895:	  // First deal with the special first node pointed to by
+        -:  896:	  // _M_before_begin.
+        -:  897:	  const __node_type* __ht_n = __ht._M_begin();
+        -:  898:	  __node_type* __this_n = _M_allocate_node(__ht_n->_M_v);
+        -:  899:	  this->_M_copy_code(__this_n, __ht_n);
+        -:  900:	  _M_before_begin()._M_nxt = __this_n;
+        -:  901:	  _M_buckets[_M_bucket_index(__this_n)] = &_M_before_begin();
+        -:  902:
+        -:  903:	  // Then deal with other nodes.
+        -:  904:	  __node_base* __prev_n = __this_n;
+        -:  905:	  for (__ht_n = __ht_n->_M_next(); __ht_n; __ht_n = __ht_n->_M_next())
+        -:  906:	    {
+        -:  907:	      __this_n = _M_allocate_node(__ht_n->_M_v);
+        -:  908:	      __prev_n->_M_nxt = __this_n;
+        -:  909:	      this->_M_copy_code(__this_n, __ht_n);
+        -:  910:	      size_type __bkt = _M_bucket_index(__this_n);
+        -:  911:	      if (!_M_buckets[__bkt])
+        -:  912:		_M_buckets[__bkt] = __prev_n;
+        -:  913:	      __prev_n = __this_n;
+        -:  914:	    }
+        -:  915:	}
+        -:  916:      __catch(...)
+        -:  917:	{
+        -:  918:	  clear();
+        -:  919:	  _M_deallocate_buckets(_M_buckets, _M_bucket_count);
+        -:  920:	  __throw_exception_again;
+        -:  921:	}
+        -:  922:    }
+        -:  923:
+        -:  924:  template<typename _Key, typename _Value,
+        -:  925:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  926:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  927:	   typename _Traits>
+        -:  928:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  929:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  930:    _Hashtable(_Hashtable&& __ht)
+        -:  931:    : __hashtable_base(__ht),
+        -:  932:      __map_base(__ht),
+        -:  933:      __rehash_base(__ht),
+        -:  934:      _M_buckets(__ht._M_buckets),
+        -:  935:      _M_bucket_count(__ht._M_bucket_count),
+        -:  936:      _M_bbegin(std::move(__ht._M_bbegin)),
+        -:  937:      _M_element_count(__ht._M_element_count),
+        -:  938:      _M_rehash_policy(__ht._M_rehash_policy)
+        -:  939:    {
+        -:  940:      // Update, if necessary, bucket pointing to before begin that hasn't moved.
+        -:  941:      if (_M_begin())
+        -:  942:	_M_buckets[_M_bucket_index(_M_begin())] = &_M_before_begin();
+        -:  943:      __ht._M_rehash_policy = _RehashPolicy();
+        -:  944:      __ht._M_bucket_count = __ht._M_rehash_policy._M_next_bkt(0);
+        -:  945:      __ht._M_buckets = __ht._M_allocate_buckets(__ht._M_bucket_count);
+        -:  946:      __ht._M_before_begin()._M_nxt = nullptr;
+        -:  947:      __ht._M_element_count = 0;
+        -:  948:    }
+        -:  949:
+        -:  950:  template<typename _Key, typename _Value,
+        -:  951:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  952:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  953:	   typename _Traits>
+    #####:  954:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  955:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  956:    ~_Hashtable() noexcept
+        -:  957:    {
+    #####:  958:      clear();
+    #####:  959:      _M_deallocate_buckets(_M_buckets, _M_bucket_count);
+    #####:  960:    }
+        -:  961:
+        -:  962:  template<typename _Key, typename _Value,
+        -:  963:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  964:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  965:	   typename _Traits>
+        -:  966:    void
+        -:  967:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -:  968:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -:  969:    swap(_Hashtable& __x)
+        -:  970:    {
+        -:  971:      // The only base class with member variables is hash_code_base.
+        -:  972:      // We define _Hash_code_base::_M_swap because different
+        -:  973:      // specializations have different members.
+        -:  974:      this->_M_swap(__x);
+        -:  975:
+        -:  976:      // _GLIBCXX_RESOLVE_LIB_DEFECTS
+        -:  977:      // 431. Swapping containers with unequal allocators.
+        -:  978:      std::__alloc_swap<_Node_allocator_type>::_S_do_it(_M_node_allocator(),
+        -:  979:							__x._M_node_allocator());
+        -:  980:
+        -:  981:      std::swap(_M_rehash_policy, __x._M_rehash_policy);
+        -:  982:      std::swap(_M_buckets, __x._M_buckets);
+        -:  983:      std::swap(_M_bucket_count, __x._M_bucket_count);
+        -:  984:      std::swap(_M_before_begin()._M_nxt, __x._M_before_begin()._M_nxt);
+        -:  985:      std::swap(_M_element_count, __x._M_element_count);
+        -:  986:
+        -:  987:      // Fix buckets containing the _M_before_begin pointers that
+        -:  988:      // can't be swapped.
+        -:  989:      if (_M_begin())
+        -:  990:	_M_buckets[_M_bucket_index(_M_begin())] = &_M_before_begin();
+        -:  991:      if (__x._M_begin())
+        -:  992:	__x._M_buckets[__x._M_bucket_index(__x._M_begin())]
+        -:  993:	  = &(__x._M_before_begin());
+        -:  994:    }
+        -:  995:
+        -:  996:  template<typename _Key, typename _Value,
+        -:  997:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -:  998:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -:  999:	   typename _Traits>
+        -: 1000:    void
+        -: 1001:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1002:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1003:    __rehash_policy(const _RehashPolicy& __pol)
+        -: 1004:    {
+        -: 1005:      size_type __n_bkt = __pol._M_bkt_for_elements(_M_element_count);
+        -: 1006:      __n_bkt = __pol._M_next_bkt(__n_bkt);
+        -: 1007:      if (__n_bkt != _M_bucket_count)
+        -: 1008:	_M_rehash(__n_bkt, _M_rehash_policy._M_state());
+        -: 1009:      _M_rehash_policy = __pol;
+        -: 1010:    }
+        -: 1011:
+        -: 1012:  template<typename _Key, typename _Value,
+        -: 1013:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1014:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1015:	   typename _Traits>
+        -: 1016:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1017:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1018:			_Traits>::iterator
+        -: 1019:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1020:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1021:    find(const key_type& __k)
+        -: 1022:    {
+        -: 1023:      __hash_code __code = this->_M_hash_code(__k);
+        -: 1024:      std::size_t __n = _M_bucket_index(__k, __code);
+        -: 1025:      __node_type* __p = _M_find_node(__n, __k, __code);
+        -: 1026:      return __p ? iterator(__p) : this->end();
+        -: 1027:    }
+        -: 1028:
+        -: 1029:  template<typename _Key, typename _Value,
+        -: 1030:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1031:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1032:	   typename _Traits>
+        -: 1033:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1034:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1035:			_Traits>::const_iterator
+        -: 1036:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1037:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1038:    find(const key_type& __k) const
+        -: 1039:    {
+        -: 1040:      __hash_code __code = this->_M_hash_code(__k);
+        -: 1041:      std::size_t __n = _M_bucket_index(__k, __code);
+        -: 1042:      __node_type* __p = _M_find_node(__n, __k, __code);
+        -: 1043:      return __p ? const_iterator(__p) : this->end();
+        -: 1044:    }
+        -: 1045:
+        -: 1046:  template<typename _Key, typename _Value,
+        -: 1047:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1048:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1049:	   typename _Traits>
+        -: 1050:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1051:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1052:			_Traits>::size_type
+        -: 1053:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1054:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1055:    count(const key_type& __k) const
+        -: 1056:    {
+        -: 1057:      __hash_code __code = this->_M_hash_code(__k);
+        -: 1058:      std::size_t __n = _M_bucket_index(__k, __code);
+        -: 1059:      __node_type* __p = _M_bucket_begin(__n);
+        -: 1060:      if (!__p)
+        -: 1061:	return 0;
+        -: 1062:
+        -: 1063:      std::size_t __result = 0;
+        -: 1064:      for (;; __p = __p->_M_next())
+        -: 1065:	{
+        -: 1066:	  if (this->_M_equals(__k, __code, __p))
+        -: 1067:	    ++__result;
+        -: 1068:	  else if (__result)
+        -: 1069:	    // All equivalent values are next to each other, if we
+        -: 1070:	    // found a non-equivalent value after an equivalent one it
+        -: 1071:	    // means that we won't find any more equivalent values.
+        -: 1072:	    break;
+        -: 1073:	  if (!__p->_M_nxt || _M_bucket_index(__p->_M_next()) != __n)
+        -: 1074:	    break;
+        -: 1075:	}
+        -: 1076:      return __result;
+        -: 1077:    }
+        -: 1078:
+        -: 1079:  template<typename _Key, typename _Value,
+        -: 1080:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1081:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1082:	   typename _Traits>
+        -: 1083:    std::pair<typename _Hashtable<_Key, _Value, _Alloc,
+        -: 1084:				  _ExtractKey, _Equal, _H1,
+        -: 1085:				  _H2, _Hash, _RehashPolicy,
+        -: 1086:				  _Traits>::iterator,
+        -: 1087:	      typename _Hashtable<_Key, _Value, _Alloc,
+        -: 1088:				  _ExtractKey, _Equal, _H1,
+        -: 1089:				  _H2, _Hash, _RehashPolicy,
+        -: 1090:				  _Traits>::iterator>
+        -: 1091:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1092:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1093:    equal_range(const key_type& __k)
+        -: 1094:    {
+        -: 1095:      __hash_code __code = this->_M_hash_code(__k);
+        -: 1096:      std::size_t __n = _M_bucket_index(__k, __code);
+        -: 1097:      __node_type* __p = _M_find_node(__n, __k, __code);
+        -: 1098:
+        -: 1099:      if (__p)
+        -: 1100:	{
+        -: 1101:	  __node_type* __p1 = __p->_M_next();
+        -: 1102:	  while (__p1 && _M_bucket_index(__p1) == __n
+        -: 1103:		 && this->_M_equals(__k, __code, __p1))
+        -: 1104:	    __p1 = __p1->_M_next();
+        -: 1105:
+        -: 1106:	  return std::make_pair(iterator(__p), iterator(__p1));
+        -: 1107:	}
+        -: 1108:      else
+        -: 1109:	return std::make_pair(this->end(), this->end());
+        -: 1110:    }
+        -: 1111:
+        -: 1112:  template<typename _Key, typename _Value,
+        -: 1113:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1114:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1115:	   typename _Traits>
+        -: 1116:    std::pair<typename _Hashtable<_Key, _Value, _Alloc,
+        -: 1117:				  _ExtractKey, _Equal, _H1,
+        -: 1118:				  _H2, _Hash, _RehashPolicy,
+        -: 1119:				  _Traits>::const_iterator,
+        -: 1120:	      typename _Hashtable<_Key, _Value, _Alloc,
+        -: 1121:				  _ExtractKey, _Equal, _H1,
+        -: 1122:				  _H2, _Hash, _RehashPolicy,
+        -: 1123:				  _Traits>::const_iterator>
+        -: 1124:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1125:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1126:    equal_range(const key_type& __k) const
+        -: 1127:    {
+        -: 1128:      __hash_code __code = this->_M_hash_code(__k);
+        -: 1129:      std::size_t __n = _M_bucket_index(__k, __code);
+        -: 1130:      __node_type* __p = _M_find_node(__n, __k, __code);
+        -: 1131:
+        -: 1132:      if (__p)
+        -: 1133:	{
+        -: 1134:	  __node_type* __p1 = __p->_M_next();
+        -: 1135:	  while (__p1 && _M_bucket_index(__p1) == __n
+        -: 1136:		 && this->_M_equals(__k, __code, __p1))
+        -: 1137:	    __p1 = __p1->_M_next();
+        -: 1138:
+        -: 1139:	  return std::make_pair(const_iterator(__p), const_iterator(__p1));
+        -: 1140:	}
+        -: 1141:      else
+        -: 1142:	return std::make_pair(this->end(), this->end());
+        -: 1143:    }
+        -: 1144:
+        -: 1145:  // Find the node whose key compares equal to k in the bucket n.
+        -: 1146:  // Return nullptr if no node is found.
+        -: 1147:  template<typename _Key, typename _Value,
+        -: 1148:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1149:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1150:	   typename _Traits>
+        -: 1151:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey,
+        -: 1152:			_Equal, _H1, _H2, _Hash, _RehashPolicy,
+        -: 1153:			_Traits>::__node_base*
+        -: 1154:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1155:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1156:    _M_find_before_node(size_type __n, const key_type& __k,
+        -: 1157:			__hash_code __code) const
+        -: 1158:    {
+        -: 1159:      __node_base* __prev_p = _M_buckets[__n];
+        -: 1160:      if (!__prev_p)
+        -: 1161:	return nullptr;
+        -: 1162:      __node_type* __p = static_cast<__node_type*>(__prev_p->_M_nxt);
+        -: 1163:      for (;; __p = __p->_M_next())
+        -: 1164:	{
+        -: 1165:	  if (this->_M_equals(__k, __code, __p))
+        -: 1166:	    return __prev_p;
+        -: 1167:	  if (!__p->_M_nxt || _M_bucket_index(__p->_M_next()) != __n)
+        -: 1168:	    break;
+        -: 1169:	  __prev_p = __p;
+        -: 1170:	}
+        -: 1171:      return nullptr;
+        -: 1172:    }
+        -: 1173:
+        -: 1174:  template<typename _Key, typename _Value,
+        -: 1175:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1176:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1177:	   typename _Traits>
+        -: 1178:    void
+        -: 1179:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1180:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1181:    _M_insert_bucket_begin(size_type __bkt, __node_type* __node)
+        -: 1182:    {
+        -: 1183:      if (_M_buckets[__bkt])
+        -: 1184:	{
+        -: 1185:	  // Bucket is not empty, we just need to insert the new node
+        -: 1186:	  // after the bucket before begin.
+        -: 1187:	  __node->_M_nxt = _M_buckets[__bkt]->_M_nxt;
+        -: 1188:	  _M_buckets[__bkt]->_M_nxt = __node;
+        -: 1189:	}
+        -: 1190:      else
+        -: 1191:	{
+        -: 1192:	  // The bucket is empty, the new node is inserted at the
+        -: 1193:	  // beginning of the singly-linked list and the bucket will
+        -: 1194:	  // contain _M_before_begin pointer.
+        -: 1195:	  __node->_M_nxt = _M_before_begin()._M_nxt;
+        -: 1196:	  _M_before_begin()._M_nxt = __node;
+        -: 1197:	  if (__node->_M_nxt)
+        -: 1198:	    // We must update former begin bucket that is pointing to
+        -: 1199:	    // _M_before_begin.
+        -: 1200:	    _M_buckets[_M_bucket_index(__node->_M_next())] = __node;
+        -: 1201:	  _M_buckets[__bkt] = &_M_before_begin();
+        -: 1202:	}
+        -: 1203:    }
+        -: 1204:
+        -: 1205:  template<typename _Key, typename _Value,
+        -: 1206:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1207:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1208:	   typename _Traits>
+        -: 1209:    void
+        -: 1210:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1211:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1212:    _M_remove_bucket_begin(size_type __bkt, __node_type* __next,
+        -: 1213:			   size_type __next_bkt)
+        -: 1214:    {
+        -: 1215:      if (!__next || __next_bkt != __bkt)
+        -: 1216:	{
+        -: 1217:	  // Bucket is now empty
+        -: 1218:	  // First update next bucket if any
+        -: 1219:	  if (__next)
+        -: 1220:	    _M_buckets[__next_bkt] = _M_buckets[__bkt];
+        -: 1221:
+        -: 1222:	  // Second update before begin node if necessary
+        -: 1223:	  if (&_M_before_begin() == _M_buckets[__bkt])
+        -: 1224:	    _M_before_begin()._M_nxt = __next;
+        -: 1225:	  _M_buckets[__bkt] = nullptr;
+        -: 1226:	}
+        -: 1227:    }
+        -: 1228:
+        -: 1229:  template<typename _Key, typename _Value,
+        -: 1230:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1231:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1232:	   typename _Traits>
+        -: 1233:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey,
+        -: 1234:			_Equal, _H1, _H2, _Hash, _RehashPolicy,
+        -: 1235:			_Traits>::__node_base*
+        -: 1236:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1237:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1238:    _M_get_previous_node(size_type __bkt, __node_base* __n)
+        -: 1239:    {
+        -: 1240:      __node_base* __prev_n = _M_buckets[__bkt];
+        -: 1241:      while (__prev_n->_M_nxt != __n)
+        -: 1242:	__prev_n = __prev_n->_M_nxt;
+        -: 1243:      return __prev_n;
+        -: 1244:    }
+        -: 1245:
+        -: 1246:  template<typename _Key, typename _Value,
+        -: 1247:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1248:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1249:	   typename _Traits>
+        -: 1250:    template<typename... _Args>
+        -: 1251:      std::pair<typename _Hashtable<_Key, _Value, _Alloc,
+        -: 1252:				    _ExtractKey, _Equal, _H1,
+        -: 1253:				    _H2, _Hash, _RehashPolicy,
+        -: 1254:				    _Traits>::iterator, bool>
+        -: 1255:      _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1256:		 _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1257:      _M_emplace(std::true_type, _Args&&... __args)
+        -: 1258:      {
+        -: 1259:	// First build the node to get access to the hash code
+        -: 1260:	__node_type* __node = _M_allocate_node(std::forward<_Args>(__args)...);
+        -: 1261:	const key_type& __k = this->_M_extract()(__node->_M_v);
+        -: 1262:	__hash_code __code;
+        -: 1263:	__try
+        -: 1264:	  {
+        -: 1265:	    __code = this->_M_hash_code(__k);
+        -: 1266:	  }
+        -: 1267:	__catch(...)
+        -: 1268:	  {
+        -: 1269:	    _M_deallocate_node(__node);
+        -: 1270:	    __throw_exception_again;
+        -: 1271:	  }
+        -: 1272:
+        -: 1273:	size_type __bkt = _M_bucket_index(__k, __code);
+        -: 1274:	if (__node_type* __p = _M_find_node(__bkt, __k, __code))
+        -: 1275:	  {
+        -: 1276:	    // There is already an equivalent node, no insertion
+        -: 1277:	    _M_deallocate_node(__node);
+        -: 1278:	    return std::make_pair(iterator(__p), false);
+        -: 1279:	  }
+        -: 1280:
+        -: 1281:	// Insert the node
+        -: 1282:	return std::make_pair(_M_insert_unique_node(__bkt, __code, __node),
+        -: 1283:			      true);
+        -: 1284:      }
+        -: 1285:
+        -: 1286:  template<typename _Key, typename _Value,
+        -: 1287:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1288:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1289:	   typename _Traits>
+        -: 1290:    template<typename... _Args>
+        -: 1291:      typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1292:			  _H1, _H2, _Hash, _RehashPolicy,
+        -: 1293:			  _Traits>::iterator
+        -: 1294:      _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1295:		 _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1296:      _M_emplace(std::false_type, _Args&&... __args)
+        -: 1297:      {
+        -: 1298:	// First build the node to get its hash code.
+        -: 1299:	__node_type* __node = _M_allocate_node(std::forward<_Args>(__args)...);
+        -: 1300:
+        -: 1301:	__hash_code __code;
+        -: 1302:	__try
+        -: 1303:	  {
+        -: 1304:	    __code = this->_M_hash_code(this->_M_extract()(__node->_M_v));
+        -: 1305:	  }
+        -: 1306:	__catch(...)
+        -: 1307:	  {
+        -: 1308:	    _M_deallocate_node(__node);
+        -: 1309:	    __throw_exception_again;
+        -: 1310:	  }
+        -: 1311:
+        -: 1312:	return _M_insert_multi_node(__code, __node);
+        -: 1313:      }
+        -: 1314:
+        -: 1315:  template<typename _Key, typename _Value,
+        -: 1316:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1317:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1318:	   typename _Traits>
+        -: 1319:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1320:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1321:			_Traits>::iterator
+        -: 1322:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1323:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1324:    _M_insert_unique_node(size_type __bkt, __hash_code __code,
+        -: 1325:			  __node_type* __node)
+        -: 1326:    {
+        -: 1327:      const __rehash_state& __saved_state = _M_rehash_policy._M_state();
+        -: 1328:      std::pair<bool, std::size_t> __do_rehash
+        -: 1329:	= _M_rehash_policy._M_need_rehash(_M_bucket_count, _M_element_count, 1);
+        -: 1330:
+        -: 1331:      __try
+        -: 1332:	{
+        -: 1333:	  if (__do_rehash.first)
+        -: 1334:	    {
+        -: 1335:	      _M_rehash(__do_rehash.second, __saved_state);
+        -: 1336:	      __bkt = _M_bucket_index(this->_M_extract()(__node->_M_v), __code);
+        -: 1337:	    }
+        -: 1338:
+        -: 1339:	  this->_M_store_code(__node, __code);
+        -: 1340:
+        -: 1341:	  // Always insert at the begining of the bucket.
+        -: 1342:	  _M_insert_bucket_begin(__bkt, __node);
+        -: 1343:	  ++_M_element_count;
+        -: 1344:	  return iterator(__node);
+        -: 1345:	}
+        -: 1346:      __catch(...)
+        -: 1347:	{
+        -: 1348:	  _M_deallocate_node(__node);
+        -: 1349:	  __throw_exception_again;
+        -: 1350:	}
+        -: 1351:    }
+        -: 1352:
+        -: 1353:  // Insert node, in bucket bkt if no rehash (assumes no element with its key
+        -: 1354:  // already present). Take ownership of the node, deallocate it on exception.
+        -: 1355:  template<typename _Key, typename _Value,
+        -: 1356:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1357:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1358:	   typename _Traits>
+        -: 1359:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1360:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1361:			_Traits>::iterator
+        -: 1362:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1363:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1364:    _M_insert_multi_node(__hash_code __code, __node_type* __node)
+        -: 1365:    {
+        -: 1366:      const __rehash_state& __saved_state = _M_rehash_policy._M_state();
+        -: 1367:      std::pair<bool, std::size_t> __do_rehash
+        -: 1368:	= _M_rehash_policy._M_need_rehash(_M_bucket_count, _M_element_count, 1);
+        -: 1369:
+        -: 1370:      __try
+        -: 1371:	{
+        -: 1372:	  if (__do_rehash.first)
+        -: 1373:	    _M_rehash(__do_rehash.second, __saved_state);
+        -: 1374:
+        -: 1375:	  this->_M_store_code(__node, __code);
+        -: 1376:	  const key_type& __k = this->_M_extract()(__node->_M_v);
+        -: 1377:	  size_type __bkt = _M_bucket_index(__k, __code);
+        -: 1378:
+        -: 1379:	  // Find the node before an equivalent one.
+        -: 1380:	  __node_base* __prev = _M_find_before_node(__bkt, __k, __code);
+        -: 1381:	  if (__prev)
+        -: 1382:	    {
+        -: 1383:	      // Insert after the node before the equivalent one.
+        -: 1384:	      __node->_M_nxt = __prev->_M_nxt;
+        -: 1385:	      __prev->_M_nxt = __node;
+        -: 1386:	    }
+        -: 1387:	  else
+        -: 1388:	    // The inserted node has no equivalent in the
+        -: 1389:	    // hashtable. We must insert the new node at the
+        -: 1390:	    // beginning of the bucket to preserve equivalent
+        -: 1391:	    // elements' relative positions.
+        -: 1392:	    _M_insert_bucket_begin(__bkt, __node);
+        -: 1393:	  ++_M_element_count;
+        -: 1394:	  return iterator(__node);
+        -: 1395:	}
+        -: 1396:      __catch(...)
+        -: 1397:	{
+        -: 1398:	  _M_deallocate_node(__node);
+        -: 1399:	  __throw_exception_again;
+        -: 1400:	}
+        -: 1401:    }
+        -: 1402:
+        -: 1403:  // Insert v if no element with its key is already present.
+        -: 1404:  template<typename _Key, typename _Value,
+        -: 1405:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1406:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1407:	   typename _Traits>
+        -: 1408:    template<typename _Arg>
+        -: 1409:      std::pair<typename _Hashtable<_Key, _Value, _Alloc,
+        -: 1410:				    _ExtractKey, _Equal, _H1,
+        -: 1411:				    _H2, _Hash, _RehashPolicy,
+        -: 1412:				    _Traits>::iterator, bool>
+        -: 1413:      _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1414:		 _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1415:      _M_insert(_Arg&& __v, std::true_type)
+        -: 1416:      {
+        -: 1417:	const key_type& __k = this->_M_extract()(__v);
+        -: 1418:	__hash_code __code = this->_M_hash_code(__k);
+        -: 1419:	size_type __bkt = _M_bucket_index(__k, __code);
+        -: 1420:
+        -: 1421:	__node_type* __n = _M_find_node(__bkt, __k, __code);
+        -: 1422:	if (__n)
+        -: 1423:	  return std::make_pair(iterator(__n), false);
+        -: 1424:
+        -: 1425:	__n = _M_allocate_node(std::forward<_Arg>(__v));
+        -: 1426:	return std::make_pair(_M_insert_unique_node(__bkt, __code, __n), true);
+        -: 1427:      }
+        -: 1428:
+        -: 1429:  // Insert v unconditionally.
+        -: 1430:  template<typename _Key, typename _Value,
+        -: 1431:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1432:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1433:	   typename _Traits>
+        -: 1434:    template<typename _Arg>
+        -: 1435:      typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1436:			  _H1, _H2, _Hash, _RehashPolicy,
+        -: 1437:			  _Traits>::iterator
+        -: 1438:      _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1439:		 _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1440:      _M_insert(_Arg&& __v, std::false_type)
+        -: 1441:      {
+        -: 1442:	// First compute the hash code so that we don't do anything if it
+        -: 1443:	// throws.
+        -: 1444:	__hash_code __code = this->_M_hash_code(this->_M_extract()(__v));
+        -: 1445:
+        -: 1446:	// Second allocate new node so that we don't rehash if it throws.
+        -: 1447:	__node_type* __node = _M_allocate_node(std::forward<_Arg>(__v));
+        -: 1448:
+        -: 1449:	return _M_insert_multi_node(__code, __node);
+        -: 1450:      }
+        -: 1451:
+        -: 1452:  template<typename _Key, typename _Value,
+        -: 1453:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1454:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1455:	   typename _Traits>
+        -: 1456:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1457:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1458:			_Traits>::iterator
+        -: 1459:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1460:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1461:    erase(const_iterator __it)
+        -: 1462:    {
+        -: 1463:      __node_type* __n = __it._M_cur;
+        -: 1464:      std::size_t __bkt = _M_bucket_index(__n);
+        -: 1465:
+        -: 1466:      // Look for previous node to unlink it from the erased one, this
+        -: 1467:      // is why we need buckets to contain the before begin to make
+        -: 1468:      // this search fast.
+        -: 1469:      __node_base* __prev_n = _M_get_previous_node(__bkt, __n);
+        -: 1470:      return _M_erase(__bkt, __prev_n, __n);
+        -: 1471:    }
+        -: 1472:
+        -: 1473:  template<typename _Key, typename _Value,
+        -: 1474:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1475:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1476:	   typename _Traits>
+        -: 1477:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1478:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1479:			_Traits>::iterator
+        -: 1480:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1481:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1482:    _M_erase(size_type __bkt, __node_base* __prev_n, __node_type* __n)
+        -: 1483:    {
+        -: 1484:      if (__prev_n == _M_buckets[__bkt])
+        -: 1485:	_M_remove_bucket_begin(__bkt, __n->_M_next(),
+        -: 1486:	   __n->_M_nxt ? _M_bucket_index(__n->_M_next()) : 0);
+        -: 1487:      else if (__n->_M_nxt)
+        -: 1488:	{
+        -: 1489:	  size_type __next_bkt = _M_bucket_index(__n->_M_next());
+        -: 1490:	  if (__next_bkt != __bkt)
+        -: 1491:	    _M_buckets[__next_bkt] = __prev_n;
+        -: 1492:	}
+        -: 1493:
+        -: 1494:      __prev_n->_M_nxt = __n->_M_nxt;
+        -: 1495:      iterator __result(__n->_M_next());
+        -: 1496:      _M_deallocate_node(__n);
+        -: 1497:      --_M_element_count;
+        -: 1498:
+        -: 1499:      return __result;
+        -: 1500:    }
+        -: 1501:
+        -: 1502:  template<typename _Key, typename _Value,
+        -: 1503:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1504:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1505:	   typename _Traits>
+        -: 1506:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1507:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1508:			_Traits>::size_type
+        -: 1509:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1510:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1511:    _M_erase(std::true_type, const key_type& __k)
+        -: 1512:    {
+        -: 1513:      __hash_code __code = this->_M_hash_code(__k);
+        -: 1514:      std::size_t __bkt = _M_bucket_index(__k, __code);
+        -: 1515:
+        -: 1516:      // Look for the node before the first matching node.
+        -: 1517:      __node_base* __prev_n = _M_find_before_node(__bkt, __k, __code);
+        -: 1518:      if (!__prev_n)
+        -: 1519:	return 0;
+        -: 1520:
+        -: 1521:      // We found a matching node, erase it.
+        -: 1522:      __node_type* __n = static_cast<__node_type*>(__prev_n->_M_nxt);
+        -: 1523:      _M_erase(__bkt, __prev_n, __n);
+        -: 1524:      return 1;
+        -: 1525:    }
+        -: 1526:
+        -: 1527:  template<typename _Key, typename _Value,
+        -: 1528:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1529:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1530:	   typename _Traits>
+        -: 1531:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1532:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1533:			_Traits>::size_type
+        -: 1534:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1535:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1536:    _M_erase(std::false_type, const key_type& __k)
+        -: 1537:    {
+        -: 1538:      __hash_code __code = this->_M_hash_code(__k);
+        -: 1539:      std::size_t __bkt = _M_bucket_index(__k, __code);
+        -: 1540:
+        -: 1541:      // Look for the node before the first matching node.
+        -: 1542:      __node_base* __prev_n = _M_find_before_node(__bkt, __k, __code);
+        -: 1543:      if (!__prev_n)
+        -: 1544:	return 0;
+        -: 1545:
+        -: 1546:      // _GLIBCXX_RESOLVE_LIB_DEFECTS
+        -: 1547:      // 526. Is it undefined if a function in the standard changes
+        -: 1548:      // in parameters?
+        -: 1549:      // We use one loop to find all matching nodes and another to deallocate
+        -: 1550:      // them so that the key stays valid during the first loop. It might be
+        -: 1551:      // invalidated indirectly when destroying nodes.
+        -: 1552:      __node_type* __n = static_cast<__node_type*>(__prev_n->_M_nxt);
+        -: 1553:      __node_type* __n_last = __n;
+        -: 1554:      std::size_t __n_last_bkt = __bkt;
+        -: 1555:      do
+        -: 1556:	{
+        -: 1557:	  __n_last = __n_last->_M_next();
+        -: 1558:	  if (!__n_last)
+        -: 1559:	    break;
+        -: 1560:	  __n_last_bkt = _M_bucket_index(__n_last);
+        -: 1561:	}
+        -: 1562:      while (__n_last_bkt == __bkt && this->_M_equals(__k, __code, __n_last));
+        -: 1563:
+        -: 1564:      // Deallocate nodes.
+        -: 1565:      size_type __result = 0;
+        -: 1566:      do
+        -: 1567:	{
+        -: 1568:	  __node_type* __p = __n->_M_next();
+        -: 1569:	  _M_deallocate_node(__n);
+        -: 1570:	  __n = __p;
+        -: 1571:	  ++__result;
+        -: 1572:	  --_M_element_count;
+        -: 1573:	}
+        -: 1574:      while (__n != __n_last);
+        -: 1575:
+        -: 1576:      if (__prev_n == _M_buckets[__bkt])
+        -: 1577:	_M_remove_bucket_begin(__bkt, __n_last, __n_last_bkt);
+        -: 1578:      else if (__n_last && __n_last_bkt != __bkt)
+        -: 1579:	_M_buckets[__n_last_bkt] = __prev_n;
+        -: 1580:      __prev_n->_M_nxt = __n_last;
+        -: 1581:      return __result;
+        -: 1582:    }
+        -: 1583:
+        -: 1584:  template<typename _Key, typename _Value,
+        -: 1585:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1586:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1587:	   typename _Traits>
+        -: 1588:    typename _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1589:			_H1, _H2, _Hash, _RehashPolicy,
+        -: 1590:			_Traits>::iterator
+        -: 1591:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1592:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1593:    erase(const_iterator __first, const_iterator __last)
+        -: 1594:    {
+        -: 1595:      __node_type* __n = __first._M_cur;
+        -: 1596:      __node_type* __last_n = __last._M_cur;
+        -: 1597:      if (__n == __last_n)
+        -: 1598:	return iterator(__n);
+        -: 1599:
+        -: 1600:      std::size_t __bkt = _M_bucket_index(__n);
+        -: 1601:
+        -: 1602:      __node_base* __prev_n = _M_get_previous_node(__bkt, __n);
+        -: 1603:      bool __is_bucket_begin = __n == _M_bucket_begin(__bkt);
+        -: 1604:      std::size_t __n_bkt = __bkt;
+        -: 1605:      for (;;)
+        -: 1606:	{
+        -: 1607:	  do
+        -: 1608:	    {
+        -: 1609:	      __node_type* __tmp = __n;
+        -: 1610:	      __n = __n->_M_next();
+        -: 1611:	      _M_deallocate_node(__tmp);
+        -: 1612:	      --_M_element_count;
+        -: 1613:	      if (!__n)
+        -: 1614:		break;
+        -: 1615:	      __n_bkt = _M_bucket_index(__n);
+        -: 1616:	    }
+        -: 1617:	  while (__n != __last_n && __n_bkt == __bkt);
+        -: 1618:	  if (__is_bucket_begin)
+        -: 1619:	    _M_remove_bucket_begin(__bkt, __n, __n_bkt);
+        -: 1620:	  if (__n == __last_n)
+        -: 1621:	    break;
+        -: 1622:	  __is_bucket_begin = true;
+        -: 1623:	  __bkt = __n_bkt;
+        -: 1624:	}
+        -: 1625:
+        -: 1626:      if (__n && (__n_bkt != __bkt || __is_bucket_begin))
+        -: 1627:	_M_buckets[__n_bkt] = __prev_n;
+        -: 1628:      __prev_n->_M_nxt = __n;
+        -: 1629:      return iterator(__n);
+        -: 1630:    }
+        -: 1631:
+        -: 1632:  template<typename _Key, typename _Value,
+        -: 1633:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1634:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1635:	   typename _Traits>
+        -: 1636:    void
+    #####: 1637:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1638:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1639:    clear() noexcept
+        -: 1640:    {
+    #####: 1641:      _M_deallocate_nodes(_M_begin());
+    #####: 1642:      __builtin_memset(_M_buckets, 0, _M_bucket_count * sizeof(__bucket_type));
+    #####: 1643:      _M_element_count = 0;
+    #####: 1644:      _M_before_begin()._M_nxt = nullptr;
+    #####: 1645:    }
+        -: 1646:
+        -: 1647:  template<typename _Key, typename _Value,
+        -: 1648:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1649:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1650:	   typename _Traits>
+        -: 1651:    void
+        -: 1652:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1653:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1654:    rehash(size_type __n)
+        -: 1655:    {
+        -: 1656:      const __rehash_state& __saved_state = _M_rehash_policy._M_state();
+        -: 1657:      std::size_t __buckets
+        -: 1658:	= std::max(_M_rehash_policy._M_bkt_for_elements(_M_element_count + 1),
+        -: 1659:		   __n);
+        -: 1660:      __buckets = _M_rehash_policy._M_next_bkt(__buckets);
+        -: 1661:
+        -: 1662:      if (__buckets != _M_bucket_count)
+        -: 1663:	_M_rehash(__buckets, __saved_state);
+        -: 1664:      else
+        -: 1665:	// No rehash, restore previous state to keep a consistent state.
+        -: 1666:	_M_rehash_policy._M_reset(__saved_state);
+        -: 1667:    }
+        -: 1668:
+        -: 1669:  template<typename _Key, typename _Value,
+        -: 1670:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1671:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1672:	   typename _Traits>
+        -: 1673:    void
+        -: 1674:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1675:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1676:    _M_rehash(size_type __n, const __rehash_state& __state)
+        -: 1677:    {
+        -: 1678:      __try
+        -: 1679:	{
+        -: 1680:	  _M_rehash_aux(__n, __unique_keys());
+        -: 1681:	}
+        -: 1682:      __catch(...)
+        -: 1683:	{
+        -: 1684:	  // A failure here means that buckets allocation failed.  We only
+        -: 1685:	  // have to restore hash policy previous state.
+        -: 1686:	  _M_rehash_policy._M_reset(__state);
+        -: 1687:	  __throw_exception_again;
+        -: 1688:	}
+        -: 1689:    }
+        -: 1690:
+        -: 1691:  // Rehash when there is no equivalent elements.
+        -: 1692:  template<typename _Key, typename _Value,
+        -: 1693:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1694:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1695:	   typename _Traits>
+        -: 1696:    void
+        -: 1697:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1698:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1699:    _M_rehash_aux(size_type __n, std::true_type)
+        -: 1700:    {
+        -: 1701:      __bucket_type* __new_buckets = _M_allocate_buckets(__n);
+        -: 1702:      __node_type* __p = _M_begin();
+        -: 1703:      _M_before_begin()._M_nxt = nullptr;
+        -: 1704:      std::size_t __bbegin_bkt = 0;
+        -: 1705:      while (__p)
+        -: 1706:	{
+        -: 1707:	  __node_type* __next = __p->_M_next();
+        -: 1708:	  std::size_t __bkt = __hash_code_base::_M_bucket_index(__p, __n);
+        -: 1709:	  if (!__new_buckets[__bkt])
+        -: 1710:	    {
+        -: 1711:	      __p->_M_nxt = _M_before_begin()._M_nxt;
+        -: 1712:	      _M_before_begin()._M_nxt = __p;
+        -: 1713:	      __new_buckets[__bkt] = &_M_before_begin();
+        -: 1714:	      if (__p->_M_nxt)
+        -: 1715:		__new_buckets[__bbegin_bkt] = __p;
+        -: 1716:	      __bbegin_bkt = __bkt;
+        -: 1717:	    }
+        -: 1718:	  else
+        -: 1719:	    {
+        -: 1720:	      __p->_M_nxt = __new_buckets[__bkt]->_M_nxt;
+        -: 1721:	      __new_buckets[__bkt]->_M_nxt = __p;
+        -: 1722:	    }
+        -: 1723:	  __p = __next;
+        -: 1724:	}
+        -: 1725:      _M_deallocate_buckets(_M_buckets, _M_bucket_count);
+        -: 1726:      _M_bucket_count = __n;
+        -: 1727:      _M_buckets = __new_buckets;
+        -: 1728:    }
+        -: 1729:
+        -: 1730:  // Rehash when there can be equivalent elements, preserve their relative
+        -: 1731:  // order.
+        -: 1732:  template<typename _Key, typename _Value,
+        -: 1733:	   typename _Alloc, typename _ExtractKey, typename _Equal,
+        -: 1734:	   typename _H1, typename _H2, typename _Hash, typename _RehashPolicy,
+        -: 1735:	   typename _Traits>
+        -: 1736:    void
+        -: 1737:    _Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal,
+        -: 1738:	       _H1, _H2, _Hash, _RehashPolicy, _Traits>::
+        -: 1739:    _M_rehash_aux(size_type __n, std::false_type)
+        -: 1740:    {
+        -: 1741:      __bucket_type* __new_buckets = _M_allocate_buckets(__n);
+        -: 1742:
+        -: 1743:      __node_type* __p = _M_begin();
+        -: 1744:      _M_before_begin()._M_nxt = nullptr;
+        -: 1745:      std::size_t __bbegin_bkt = 0;
+        -: 1746:      std::size_t __prev_bkt = 0;
+        -: 1747:      __node_type* __prev_p = nullptr;
+        -: 1748:      bool __check_bucket = false;
+        -: 1749:
+        -: 1750:      while (__p)
+        -: 1751:	{
+        -: 1752:	  __node_type* __next = __p->_M_next();
+        -: 1753:	  std::size_t __bkt = __hash_code_base::_M_bucket_index(__p, __n);
+        -: 1754:
+        -: 1755:	  if (__prev_p && __prev_bkt == __bkt)
+        -: 1756:	    {
+        -: 1757:	      // Previous insert was already in this bucket, we insert after
+        -: 1758:	      // the previously inserted one to preserve equivalent elements
+        -: 1759:	      // relative order.
+        -: 1760:	      __p->_M_nxt = __prev_p->_M_nxt;
+        -: 1761:	      __prev_p->_M_nxt = __p;
+        -: 1762:
+        -: 1763:	      // Inserting after a node in a bucket require to check that we
+        -: 1764:	      // haven't change the bucket last node, in this case next
+        -: 1765:	      // bucket containing its before begin node must be updated. We
+        -: 1766:	      // schedule a check as soon as we move out of the sequence of
+        -: 1767:	      // equivalent nodes to limit the number of checks.
+        -: 1768:	      __check_bucket = true;
+        -: 1769:	    }
+        -: 1770:	  else
+        -: 1771:	    {
+        -: 1772:	      if (__check_bucket)
+        -: 1773:		{
+        -: 1774:		  // Check if we shall update the next bucket because of
+        -: 1775:		  // insertions into __prev_bkt bucket.
+        -: 1776:		  if (__prev_p->_M_nxt)
+        -: 1777:		    {
+        -: 1778:		      std::size_t __next_bkt
+        -: 1779:			= __hash_code_base::_M_bucket_index(__prev_p->_M_next(),
+        -: 1780:							    __n);
+        -: 1781:		      if (__next_bkt != __prev_bkt)
+        -: 1782:			__new_buckets[__next_bkt] = __prev_p;
+        -: 1783:		    }
+        -: 1784:		  __check_bucket = false;
+        -: 1785:		}
+        -: 1786:
+        -: 1787:	      if (!__new_buckets[__bkt])
+        -: 1788:		{
+        -: 1789:		  __p->_M_nxt = _M_before_begin()._M_nxt;
+        -: 1790:		  _M_before_begin()._M_nxt = __p;
+        -: 1791:		  __new_buckets[__bkt] = &_M_before_begin();
+        -: 1792:		  if (__p->_M_nxt)
+        -: 1793:		    __new_buckets[__bbegin_bkt] = __p;
+        -: 1794:		  __bbegin_bkt = __bkt;
+        -: 1795:		}
+        -: 1796:	      else
+        -: 1797:		{
+        -: 1798:		  __p->_M_nxt = __new_buckets[__bkt]->_M_nxt;
+        -: 1799:		  __new_buckets[__bkt]->_M_nxt = __p;
+        -: 1800:		}
+        -: 1801:	    }
+        -: 1802:	  __prev_p = __p;
+        -: 1803:	  __prev_bkt = __bkt;
+        -: 1804:	  __p = __next;
+        -: 1805:	}
+        -: 1806:
+        -: 1807:      if (__check_bucket && __prev_p->_M_nxt)
+        -: 1808:	{
+        -: 1809:	  std::size_t __next_bkt
+        -: 1810:	    = __hash_code_base::_M_bucket_index(__prev_p->_M_next(), __n);
+        -: 1811:	  if (__next_bkt != __prev_bkt)
+        -: 1812:	    __new_buckets[__next_bkt] = __prev_p;
+        -: 1813:	}
+        -: 1814:
+        -: 1815:      _M_deallocate_buckets(_M_buckets, _M_bucket_count);
+        -: 1816:      _M_bucket_count = __n;
+        -: 1817:      _M_buckets = __new_buckets;
+        -: 1818:    }
+        -: 1819:
+        -: 1820:_GLIBCXX_END_NAMESPACE_VERSION
+        -: 1821:} // namespace std
+        -: 1822:
+        -: 1823:#endif // _HASHTABLE_H

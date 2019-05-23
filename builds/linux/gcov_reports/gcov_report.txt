@@ -1,0 +1,76 @@
+File '/usr/include/c++/4.8.2/bits/stl_construct.h'
+Lines executed:100.00% of 7
+Creating 'stl_construct.h.gcov'
+
+File '/usr/include/c++/4.8.2/ext/new_allocator.h'
+Lines executed:66.67% of 6
+Creating 'new_allocator.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/stl_vector.h'
+Lines executed:100.00% of 13
+Creating 'stl_vector.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/allocator.h'
+Lines executed:50.00% of 4
+Creating 'allocator.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/basic_string.h'
+Lines executed:92.31% of 13
+Creating 'basic_string.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/stl_iterator_base_funcs.h'
+Lines executed:100.00% of 4
+Creating 'stl_iterator_base_funcs.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/stl_iterator_base_types.h'
+Lines executed:100.00% of 2
+Creating 'stl_iterator_base_types.h.gcov'
+
+File '/usr/include/c++/4.8.2/ext/type_traits.h'
+Lines executed:100.00% of 2
+Creating 'type_traits.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/hashtable_policy.h'
+Lines executed:33.33% of 3
+Creating 'hashtable_policy.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/stl_pair.h'
+Lines executed:0.00% of 1
+Creating 'stl_pair.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/basic_string.tcc'
+Lines executed:68.75% of 16
+Creating 'basic_string.tcc.gcov'
+
+File '/usr/include/c++/4.8.2/bits/hashtable.h'
+Lines executed:37.50% of 32
+Creating 'hashtable.h.gcov'
+
+File '/usr/include/c++/4.8.2/ext/string_conversions.h'
+Lines executed:82.35% of 17
+Creating 'string_conversions.h.gcov'
+
+File '../../src/graph_viewer.cpp'
+Lines executed:66.18% of 68
+Creating 'graph_viewer.cpp.gcov'
+
+File '../../src/RPGraph.hpp'
+Lines executed:0.00% of 1
+Creating 'RPGraph.hpp.gcov'
+
+File '/usr/include/c++/4.8.2/bits/unordered_map.h'
+Lines executed:0.00% of 1
+Creating 'unordered_map.h.gcov'
+
+File '/usr/include/c++/4.8.2/ext/atomicity.h'
+Lines executed:0.00% of 10
+Creating 'atomicity.h.gcov'
+
+File '/usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr-default.h'
+Lines executed:0.00% of 2
+Creating 'gthr-default.h.gcov'
+
+File '/usr/include/c++/4.8.2/bits/char_traits.h'
+Lines executed:0.00% of 6
+Creating 'char_traits.h.gcov'
+
