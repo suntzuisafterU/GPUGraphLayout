@@ -1,0 +1,139 @@
+\hypertarget{classRPGraph_1_1BarnesHutCell}{}\section{R\+P\+Graph\+:\+:Barnes\+Hut\+Cell Class Reference}
+\label{classRPGraph_1_1BarnesHutCell}\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+
+
+{\ttfamily \#include $<$R\+P\+Barnes\+Hut\+Approximator.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a1e1b9494572e56419c7d5ced4fdc9ca4}{add\+\_\+leafcell}} (int quadrant, float mass, \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} pos)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_aceaa103002fc446b55eef541dee3bdcf}{Barnes\+Hut\+Cell}} (\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} position, float \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a38c6272cc32669deeb151ec1f7931c73}{length}}, \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} particle\+\_\+position, float particle\+\_\+mass)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a1d9b48ff01e6bd127dceea8fc0ffc7c5}{$\sim$\+Barnes\+Hut\+Cell}} ()
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a63e2fd2640f87f781ca7c9b651ad2379}{insert\+Particle}} (\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} particle\+\_\+position, float particle\+\_\+mass)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a7ca6a9e4fb9fdabdb044b50543f17696}{lb}}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a8cbdd91ae4519d39950fda7876ec6807}{rb}}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_abde44d393c2301e483165bd34d33b499}{ub}}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_aded4b0bd6d7149025bcb61c2417a3340}{bb}}
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_ad05182b30394a0fef58905fc780c6670}{cell\+\_\+center}}
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a708b00b04ecc6156ac3823d3144cee06}{mass\+\_\+center}}
+\item 
+\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_af7a014d2a466131d761c61133ca36590}{num\+\_\+subparticles}} = 0
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_aee255243a920b8193b6d0dc0c3d34525}{total\+\_\+mass}}
+\item 
+const float \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a38c6272cc32669deeb151ec1f7931c73}{length}}
+\item 
+\mbox{\hyperlink{classRPGraph_1_1BarnesHutCell}{Barnes\+Hut\+Cell}} $\ast$ \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell_a39ee11913115bdda26cb890059b43e79}{sub\+\_\+cells}} \mbox{[}4\mbox{]} = \{nullptr, nullptr, nullptr, nullptr\}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_aceaa103002fc446b55eef541dee3bdcf}\label{classRPGraph_1_1BarnesHutCell_aceaa103002fc446b55eef541dee3bdcf}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!Barnes\+Hut\+Cell@{Barnes\+Hut\+Cell}}
+\index{Barnes\+Hut\+Cell@{Barnes\+Hut\+Cell}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{Barnes\+Hut\+Cell()}{BarnesHutCell()}}
+{\footnotesize\ttfamily R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::\+Barnes\+Hut\+Cell (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}}}]{position,  }\item[{float}]{length,  }\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}}}]{particle\+\_\+position,  }\item[{float}]{particle\+\_\+mass }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_a1d9b48ff01e6bd127dceea8fc0ffc7c5}\label{classRPGraph_1_1BarnesHutCell_a1d9b48ff01e6bd127dceea8fc0ffc7c5}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!````~Barnes\+Hut\+Cell@{$\sim$\+Barnes\+Hut\+Cell}}
+\index{````~Barnes\+Hut\+Cell@{$\sim$\+Barnes\+Hut\+Cell}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{$\sim$\+Barnes\+Hut\+Cell()}{~BarnesHutCell()}}
+{\footnotesize\ttfamily R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::$\sim$\+Barnes\+Hut\+Cell (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_a1e1b9494572e56419c7d5ced4fdc9ca4}\label{classRPGraph_1_1BarnesHutCell_a1e1b9494572e56419c7d5ced4fdc9ca4}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!add\+\_\+leafcell@{add\+\_\+leafcell}}
+\index{add\+\_\+leafcell@{add\+\_\+leafcell}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{add\+\_\+leafcell()}{add\_leafcell()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::add\+\_\+leafcell (\begin{DoxyParamCaption}\item[{int}]{quadrant,  }\item[{float}]{mass,  }\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}}}]{pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_a63e2fd2640f87f781ca7c9b651ad2379}\label{classRPGraph_1_1BarnesHutCell_a63e2fd2640f87f781ca7c9b651ad2379}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!insert\+Particle@{insert\+Particle}}
+\index{insert\+Particle@{insert\+Particle}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{insert\+Particle()}{insertParticle()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::insert\+Particle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}}}]{particle\+\_\+position,  }\item[{float}]{particle\+\_\+mass }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_aded4b0bd6d7149025bcb61c2417a3340}\label{classRPGraph_1_1BarnesHutCell_aded4b0bd6d7149025bcb61c2417a3340}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!bb@{bb}}
+\index{bb@{bb}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{bb}{bb}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::bb}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_ad05182b30394a0fef58905fc780c6670}\label{classRPGraph_1_1BarnesHutCell_ad05182b30394a0fef58905fc780c6670}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!cell\+\_\+center@{cell\+\_\+center}}
+\index{cell\+\_\+center@{cell\+\_\+center}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{cell\+\_\+center}{cell\_center}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::cell\+\_\+center}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_a7ca6a9e4fb9fdabdb044b50543f17696}\label{classRPGraph_1_1BarnesHutCell_a7ca6a9e4fb9fdabdb044b50543f17696}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!lb@{lb}}
+\index{lb@{lb}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{lb}{lb}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::lb}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_a38c6272cc32669deeb151ec1f7931c73}\label{classRPGraph_1_1BarnesHutCell_a38c6272cc32669deeb151ec1f7931c73}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!length@{length}}
+\index{length@{length}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{length}{length}}
+{\footnotesize\ttfamily const float R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::length}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_a708b00b04ecc6156ac3823d3144cee06}\label{classRPGraph_1_1BarnesHutCell_a708b00b04ecc6156ac3823d3144cee06}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!mass\+\_\+center@{mass\+\_\+center}}
+\index{mass\+\_\+center@{mass\+\_\+center}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{mass\+\_\+center}{mass\_center}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::mass\+\_\+center}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_af7a014d2a466131d761c61133ca36590}\label{classRPGraph_1_1BarnesHutCell_af7a014d2a466131d761c61133ca36590}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!num\+\_\+subparticles@{num\+\_\+subparticles}}
+\index{num\+\_\+subparticles@{num\+\_\+subparticles}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{num\+\_\+subparticles}{num\_subparticles}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::num\+\_\+subparticles = 0}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_a8cbdd91ae4519d39950fda7876ec6807}\label{classRPGraph_1_1BarnesHutCell_a8cbdd91ae4519d39950fda7876ec6807}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!rb@{rb}}
+\index{rb@{rb}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{rb}{rb}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::rb}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_a39ee11913115bdda26cb890059b43e79}\label{classRPGraph_1_1BarnesHutCell_a39ee11913115bdda26cb890059b43e79}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!sub\+\_\+cells@{sub\+\_\+cells}}
+\index{sub\+\_\+cells@{sub\+\_\+cells}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{sub\+\_\+cells}{sub\_cells}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1BarnesHutCell}{Barnes\+Hut\+Cell}}$\ast$ R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::sub\+\_\+cells\mbox{[}4\mbox{]} = \{nullptr, nullptr, nullptr, nullptr\}}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_aee255243a920b8193b6d0dc0c3d34525}\label{classRPGraph_1_1BarnesHutCell_aee255243a920b8193b6d0dc0c3d34525}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!total\+\_\+mass@{total\+\_\+mass}}
+\index{total\+\_\+mass@{total\+\_\+mass}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{total\+\_\+mass}{total\_mass}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::total\+\_\+mass}
+
+\mbox{\Hypertarget{classRPGraph_1_1BarnesHutCell_abde44d393c2301e483165bd34d33b499}\label{classRPGraph_1_1BarnesHutCell_abde44d393c2301e483165bd34d33b499}} 
+\index{R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}!ub@{ub}}
+\index{ub@{ub}!R\+P\+Graph\+::\+Barnes\+Hut\+Cell@{R\+P\+Graph\+::\+Barnes\+Hut\+Cell}}
+\subsubsection{\texorpdfstring{ub}{ub}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Barnes\+Hut\+Cell\+::ub}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{RPBarnesHutApproximator_8hpp}{R\+P\+Barnes\+Hut\+Approximator.\+hpp}}\item 
+\mbox{\hyperlink{RPBarnesHutApproximator_8cpp}{R\+P\+Barnes\+Hut\+Approximator.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,152 @@
+\hypertarget{classRPGraph_1_1Coordinate}{}\section{R\+P\+Graph\+:\+:Coordinate Class Reference}
+\label{classRPGraph_1_1Coordinate}\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+
+
+{\ttfamily \#include $<$R\+P\+Common.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate_a6d1ffc03b2cb43af855f8db7cddf6ad9}{Coordinate}} (float \mbox{\hyperlink{classRPGraph_1_1Coordinate_abbb78e1ac79af2c54785565f995e5d9d}{x}}, float \mbox{\hyperlink{classRPGraph_1_1Coordinate_a595c47428a7ce4b3172d0372e20c6818}{y}})
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1Coordinate_a95f57a593f9dbaa1c55069aa2ae940e9}{operator+}} (float b)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1Coordinate_aa4f5c25b3bd2bf72c767c24007c57ca7}{operator$\ast$}} (float b)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1Coordinate_a34518e1725653476215a505fca5bca4d}{operator/}} (float b)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1Coordinate_a9efb7d87add55df9a8e25620b06e33ce}{operator+}} (\mbox{\hyperlink{classRPGraph_1_1Real2DVector}{Real2\+D\+Vector}} b)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1Coordinate_a821567a6f0cc98f7baed00130559f284}{operator-\/}} (\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} b)
+\item 
+bool \mbox{\hyperlink{classRPGraph_1_1Coordinate_af680710f64904e4f180309b6f99b904d}{operator==}} (\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} b)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1Coordinate_a9127d5cc6c1dd17db1da49492ffd4fa8}{operator/=}} (float b)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1Coordinate_abac1dc8089bc6eea4b881392ccc20531}{operator+=}} (\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} b)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1Coordinate_a24e0a572e28b783e67cc859b8734d19b}{operator+=}} (\mbox{\hyperlink{classRPGraph_1_1Real2DVector}{R\+P\+Graph\+::\+Real2\+D\+Vector}} b)
+\item 
+int \mbox{\hyperlink{classRPGraph_1_1Coordinate_aa2972edc6b8613790125d3908b40c96d}{quadrant}} ()
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1Coordinate_a71242c2da98d16e94c2cb7207401fd86}{distance}} (\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} to)
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1Coordinate_a0204c00b328c156c556605587dfd8d9e}{distance2}} (\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} to)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1Coordinate_abbb78e1ac79af2c54785565f995e5d9d}{x}}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1Coordinate_a595c47428a7ce4b3172d0372e20c6818}{y}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a6d1ffc03b2cb43af855f8db7cddf6ad9}\label{classRPGraph_1_1Coordinate_a6d1ffc03b2cb43af855f8db7cddf6ad9}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!Coordinate@{Coordinate}}
+\index{Coordinate@{Coordinate}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{Coordinate()}{Coordinate()}}
+{\footnotesize\ttfamily R\+P\+Graph\+::\+Coordinate\+::\+Coordinate (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y }\end{DoxyParamCaption})}
+
+Partner class to 2\+D\+Vector. Usages\+:
+\begin{DoxyItemize}
+\item R\+P\+Barnes\+Hut\+Approximator
+\item R\+P\+C\+P\+U\+Force\+Atlas2
+\item R\+P\+Graph\+Layout 
+\end{DoxyItemize}
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a71242c2da98d16e94c2cb7207401fd86}\label{classRPGraph_1_1Coordinate_a71242c2da98d16e94c2cb7207401fd86}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!distance@{distance}}
+\index{distance@{distance}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{distance()}{distance()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Coordinate\+::distance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{R\+P\+Graph\+::\+Coordinate}}}]{to }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a0204c00b328c156c556605587dfd8d9e}\label{classRPGraph_1_1Coordinate_a0204c00b328c156c556605587dfd8d9e}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!distance2@{distance2}}
+\index{distance2@{distance2}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{distance2()}{distance2()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Coordinate\+::distance2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{R\+P\+Graph\+::\+Coordinate}}}]{to }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_aa4f5c25b3bd2bf72c767c24007c57ca7}\label{classRPGraph_1_1Coordinate_aa4f5c25b3bd2bf72c767c24007c57ca7}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Coordinate\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{float}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a95f57a593f9dbaa1c55069aa2ae940e9}\label{classRPGraph_1_1Coordinate_a95f57a593f9dbaa1c55069aa2ae940e9}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator+@{operator+}}
+\index{operator+@{operator+}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Coordinate\+::operator+ (\begin{DoxyParamCaption}\item[{float}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a9efb7d87add55df9a8e25620b06e33ce}\label{classRPGraph_1_1Coordinate_a9efb7d87add55df9a8e25620b06e33ce}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator+@{operator+}}
+\index{operator+@{operator+}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Coordinate\+::operator+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Real2DVector}{Real2\+D\+Vector}}}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_abac1dc8089bc6eea4b881392ccc20531}\label{classRPGraph_1_1Coordinate_abac1dc8089bc6eea4b881392ccc20531}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Coordinate\+::operator+= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{R\+P\+Graph\+::\+Coordinate}}}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a24e0a572e28b783e67cc859b8734d19b}\label{classRPGraph_1_1Coordinate_a24e0a572e28b783e67cc859b8734d19b}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Coordinate\+::operator+= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Real2DVector}{R\+P\+Graph\+::\+Real2\+D\+Vector}}}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a821567a6f0cc98f7baed00130559f284}\label{classRPGraph_1_1Coordinate_a821567a6f0cc98f7baed00130559f284}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Coordinate\+::operator-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}}}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a34518e1725653476215a505fca5bca4d}\label{classRPGraph_1_1Coordinate_a34518e1725653476215a505fca5bca4d}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator/@{operator/}}
+\index{operator/@{operator/}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator/()}{operator/()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Coordinate\+::operator/ (\begin{DoxyParamCaption}\item[{float}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a9127d5cc6c1dd17db1da49492ffd4fa8}\label{classRPGraph_1_1Coordinate_a9127d5cc6c1dd17db1da49492ffd4fa8}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator/=()}{operator/=()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Coordinate\+::operator/= (\begin{DoxyParamCaption}\item[{float}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_af680710f64904e4f180309b6f99b904d}\label{classRPGraph_1_1Coordinate_af680710f64904e4f180309b6f99b904d}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!operator==@{operator==}}
+\index{operator==@{operator==}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool R\+P\+Graph\+::\+Coordinate\+::operator== (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}}}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_aa2972edc6b8613790125d3908b40c96d}\label{classRPGraph_1_1Coordinate_aa2972edc6b8613790125d3908b40c96d}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!quadrant@{quadrant}}
+\index{quadrant@{quadrant}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{quadrant()}{quadrant()}}
+{\footnotesize\ttfamily int R\+P\+Graph\+::\+Coordinate\+::quadrant (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_abbb78e1ac79af2c54785565f995e5d9d}\label{classRPGraph_1_1Coordinate_abbb78e1ac79af2c54785565f995e5d9d}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!x@{x}}
+\index{x@{x}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Coordinate\+::x}
+
+\mbox{\Hypertarget{classRPGraph_1_1Coordinate_a595c47428a7ce4b3172d0372e20c6818}\label{classRPGraph_1_1Coordinate_a595c47428a7ce4b3172d0372e20c6818}} 
+\index{R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}!y@{y}}
+\index{y@{y}!R\+P\+Graph\+::\+Coordinate@{R\+P\+Graph\+::\+Coordinate}}
+\subsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Coordinate\+::y}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{RPCommon_8hpp}{R\+P\+Common.\+hpp}}\item 
+\mbox{\hyperlink{RPCommon_8cpp}{R\+P\+Common.\+cpp}}\end{DoxyCompactItemize}

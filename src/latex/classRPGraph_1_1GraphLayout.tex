@@ -1,0 +1,249 @@
+\hypertarget{classRPGraph_1_1GraphLayout}{}\section{R\+P\+Graph\+:\+:Graph\+Layout Class Reference}
+\label{classRPGraph_1_1GraphLayout}\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+
+
+{\ttfamily \#include $<$R\+P\+Graph\+Layout.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRPGraph_1_1GraphLayout_a3d1840f5ef30c9c7a6ce5d41b54230ef}{Graph\+Layout}} (\mbox{\hyperlink{classRPGraph_1_1UGraph}{R\+P\+Graph\+::\+U\+Graph}} \&\mbox{\hyperlink{classRPGraph_1_1GraphLayout_af44bb2c10eee4ef67c95355ce93432a5}{graph}}, float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_ade29dd5ff17faff96348650a99bd120c}{width}}=10000, float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a86a79a0329c88ef7cef8d57fce9f0e1b}{height}}=10000)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1GraphLayout_a284707481e0ba81f1dec33a03bc1293c}{$\sim$\+Graph\+Layout}} ()
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a5d5912f46f1b6bf1bf1ee5850cbd818e}{randomize\+Positions}} ()
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a447d80a00c47ad2fb446e3653face38c}{getX}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} node\+\_\+id)
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a75826cfc0cc24fd4902758bc1ad42c4b}{getY}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} node\+\_\+id)
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748}{get\+X\+Range}} ()
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276}{get\+Y\+Range}} ()
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4}{get\+Span}} ()
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13}{get\+Distance}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} n1, \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} n2)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Real2DVector}{Real2\+D\+Vector}} \mbox{\hyperlink{classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761}{get\+Distance\+Vector}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} n1, \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} n2)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Real2DVector}{Real2\+D\+Vector}} \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a3e3e2ba138f5b416a32f52d957926da5}{get\+Normalized\+Distance\+Vector}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} n1, \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} n2)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a069b03de122b6dd8e7518db18d7615c9}{get\+Coordinate}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} node\+\_\+id)
+\item 
+\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} \mbox{\hyperlink{classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f}{get\+Center}} ()
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a870e6ad8d7e2dab189cb591dead19414}{setX}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} node\+\_\+id, float x\+\_\+value)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a55203ccaaba03d4dd739c2e6552be90e}{setY}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} node\+\_\+id, float y\+\_\+value)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122}{move\+Node}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}, \mbox{\hyperlink{classRPGraph_1_1Real2DVector}{Real2\+D\+Vector}} v)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a99ad68f3edff2c5f0a78a4db3e2f15ea}{set\+Coordinates}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} node\+\_\+id, \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} c)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1GraphLayout_ab5892ee9d2eba41d1f285f0e480d00e2}{write\+To\+P\+NG}} (const int image\+\_\+w, const int image\+\_\+h, std\+::string path)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1GraphLayout_ae01b3ad2b348683c2e55d49496c32800}{write\+To\+C\+SV}} (std\+::string path)
+\item 
+void \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a19fb67898bdb294ac46fb098ec2b0bad}{write\+To\+Bin}} (std\+::string path)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRPGraph_1_1UGraph}{U\+Graph}} \& \mbox{\hyperlink{classRPGraph_1_1GraphLayout_af44bb2c10eee4ef67c95355ce93432a5}{graph}}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85}{minX}} ()
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e}{minY}} ()
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505}{maxX}} ()
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a}{maxY}} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_ade29dd5ff17faff96348650a99bd120c}{width}}
+\item 
+float \mbox{\hyperlink{classRPGraph_1_1GraphLayout_a86a79a0329c88ef7cef8d57fce9f0e1b}{height}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a3d1840f5ef30c9c7a6ce5d41b54230ef}\label{classRPGraph_1_1GraphLayout_a3d1840f5ef30c9c7a6ce5d41b54230ef}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!Graph\+Layout@{Graph\+Layout}}
+\index{Graph\+Layout@{Graph\+Layout}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{Graph\+Layout()}{GraphLayout()}}
+{\footnotesize\ttfamily R\+P\+Graph\+::\+Graph\+Layout\+::\+Graph\+Layout (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRPGraph_1_1UGraph}{R\+P\+Graph\+::\+U\+Graph}} \&}]{graph,  }\item[{float}]{width = {\ttfamily 10000},  }\item[{float}]{height = {\ttfamily 10000} }\end{DoxyParamCaption})}
+
+Q\+: What are width and height for? Size of image? \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a284707481e0ba81f1dec33a03bc1293c}\label{classRPGraph_1_1GraphLayout_a284707481e0ba81f1dec33a03bc1293c}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!````~Graph\+Layout@{$\sim$\+Graph\+Layout}}
+\index{````~Graph\+Layout@{$\sim$\+Graph\+Layout}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{$\sim$\+Graph\+Layout()}{~GraphLayout()}}
+{\footnotesize\ttfamily R\+P\+Graph\+::\+Graph\+Layout\+::$\sim$\+Graph\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f}\label{classRPGraph_1_1GraphLayout_aa9a3cfeb1f895fce3c9b352200251d5f}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!get\+Center@{get\+Center}}
+\index{get\+Center@{get\+Center}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+Center()}{getCenter()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Graph\+Layout\+::get\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Usage\+: pngwriter only. \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a069b03de122b6dd8e7518db18d7615c9}\label{classRPGraph_1_1GraphLayout_a069b03de122b6dd8e7518db18d7615c9}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!get\+Coordinate@{get\+Coordinate}}
+\index{get\+Coordinate@{get\+Coordinate}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+Coordinate()}{getCoordinate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}} R\+P\+Graph\+::\+Graph\+Layout\+::get\+Coordinate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{node\+\_\+id }\end{DoxyParamCaption})}
+
+Indexes into coordinates array. \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13}\label{classRPGraph_1_1GraphLayout_abdfcbd0f0fea5c5fdf237a7dc653ca13}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!get\+Distance@{get\+Distance}}
+\index{get\+Distance@{get\+Distance}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+Distance()}{getDistance()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::get\+Distance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{n1,  }\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{n2 }\end{DoxyParamCaption})}
+
+Usage? C\+PU F\+A2 only. \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761}\label{classRPGraph_1_1GraphLayout_af90cdf14a0bfea5e6854ba1b2b885761}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!get\+Distance\+Vector@{get\+Distance\+Vector}}
+\index{get\+Distance\+Vector@{get\+Distance\+Vector}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+Distance\+Vector()}{getDistanceVector()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Real2DVector}{Real2\+D\+Vector}} R\+P\+Graph\+::\+Graph\+Layout\+::get\+Distance\+Vector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{n1,  }\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{n2 }\end{DoxyParamCaption})}
+
+Which of these 2 are used? Vectors are used in C\+PU F\+A2 implementation. \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a3e3e2ba138f5b416a32f52d957926da5}\label{classRPGraph_1_1GraphLayout_a3e3e2ba138f5b416a32f52d957926da5}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!get\+Normalized\+Distance\+Vector@{get\+Normalized\+Distance\+Vector}}
+\index{get\+Normalized\+Distance\+Vector@{get\+Normalized\+Distance\+Vector}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+Normalized\+Distance\+Vector()}{getNormalizedDistanceVector()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1Real2DVector}{Real2\+D\+Vector}} R\+P\+Graph\+::\+Graph\+Layout\+::get\+Normalized\+Distance\+Vector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{n1,  }\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{n2 }\end{DoxyParamCaption})}
+
+Make that which of these 3 are used? I\+R\+R\+E\+L\+E\+V\+A\+NT\+: Commented out in C\+PU F\+A2 only. \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4}\label{classRPGraph_1_1GraphLayout_a805e477534bbf72275ecf8d5ec396da4}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!get\+Span@{get\+Span}}
+\index{get\+Span@{get\+Span}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+Span()}{getSpan()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::get\+Span (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a447d80a00c47ad2fb446e3653face38c}\label{classRPGraph_1_1GraphLayout_a447d80a00c47ad2fb446e3653face38c}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!getX@{getX}}
+\index{getX@{getX}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+X()}{getX()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::getX (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{node\+\_\+id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748}\label{classRPGraph_1_1GraphLayout_a18a15867788b88db16f0938540107748}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!get\+X\+Range@{get\+X\+Range}}
+\index{get\+X\+Range@{get\+X\+Range}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+X\+Range()}{getXRange()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::get\+X\+Range (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a75826cfc0cc24fd4902758bc1ad42c4b}\label{classRPGraph_1_1GraphLayout_a75826cfc0cc24fd4902758bc1ad42c4b}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!getY@{getY}}
+\index{getY@{getY}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+Y()}{getY()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::getY (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{node\+\_\+id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276}\label{classRPGraph_1_1GraphLayout_aeba4c2af91bcc996e159eebbb049c276}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!get\+Y\+Range@{get\+Y\+Range}}
+\index{get\+Y\+Range@{get\+Y\+Range}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{get\+Y\+Range()}{getYRange()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::get\+Y\+Range (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505}\label{classRPGraph_1_1GraphLayout_a6ec496912efecaa34efd4de6d88fc505}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!maxX@{maxX}}
+\index{maxX@{maxX}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{max\+X()}{maxX()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::maxX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a}\label{classRPGraph_1_1GraphLayout_a031dd59e25111ed175d6153d2cb44f9a}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!maxY@{maxY}}
+\index{maxY@{maxY}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{max\+Y()}{maxY()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::maxY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85}\label{classRPGraph_1_1GraphLayout_a9b538f82aabafa2d2f0e1a08edcf9b85}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!minX@{minX}}
+\index{minX@{minX}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{min\+X()}{minX()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::minX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Find\+: get\+X\+Range\+: only this file, get\+Span, get\+Center, write\+Png get\+Y\+Range\+: only this file get\+Center\+: \mbox{\hyperlink{RPCPUForceAtlas2_8cpp}{R\+P\+C\+P\+U\+Force\+Atlas2.\+cpp}}, not important \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e}\label{classRPGraph_1_1GraphLayout_adc5cd076f816ecca32c91c4fe3a2a57e}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!minY@{minY}}
+\index{minY@{minY}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{min\+Y()}{minY()}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::minY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122}\label{classRPGraph_1_1GraphLayout_a00198f453c2216d63e3afcbf8eed0122}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!move\+Node@{move\+Node}}
+\index{move\+Node@{move\+Node}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{move\+Node()}{moveNode()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Graph\+Layout\+::move\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{n,  }\item[{\mbox{\hyperlink{classRPGraph_1_1Real2DVector}{R\+P\+Graph\+::\+Real2\+D\+Vector}}}]{v }\end{DoxyParamCaption})}
+
+Why is move only used with a 2\+D\+Vector? \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a5d5912f46f1b6bf1bf1ee5850cbd818e}\label{classRPGraph_1_1GraphLayout_a5d5912f46f1b6bf1bf1ee5850cbd818e}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!randomize\+Positions@{randomize\+Positions}}
+\index{randomize\+Positions@{randomize\+Positions}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{randomize\+Positions()}{randomizePositions()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Graph\+Layout\+::randomize\+Positions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+T\+O\+DO\+: Modify this bit when using communities to randomize node positions within some delta of the community position in the community layout that was produced originally. N\+O\+TE\+: Keep original for laying out the community graph.\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a99ad68f3edff2c5f0a78a4db3e2f15ea}\label{classRPGraph_1_1GraphLayout_a99ad68f3edff2c5f0a78a4db3e2f15ea}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!set\+Coordinates@{set\+Coordinates}}
+\index{set\+Coordinates@{set\+Coordinates}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{set\+Coordinates()}{setCoordinates()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Graph\+Layout\+::set\+Coordinates (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{node\+\_\+id,  }\item[{\mbox{\hyperlink{classRPGraph_1_1Coordinate}{Coordinate}}}]{c }\end{DoxyParamCaption})}
+
+Never used. Why not? T\+O\+DO\+: We will probably use this and maybe the move\+Node function to specify our layout after \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a870e6ad8d7e2dab189cb591dead19414}\label{classRPGraph_1_1GraphLayout_a870e6ad8d7e2dab189cb591dead19414}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!setX@{setX}}
+\index{setX@{setX}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{set\+X()}{setX()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Graph\+Layout\+::setX (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{node\+\_\+id,  }\item[{float}]{x\+\_\+value }\end{DoxyParamCaption})}
+
+Updates x in coordinates array. \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a55203ccaaba03d4dd739c2e6552be90e}\label{classRPGraph_1_1GraphLayout_a55203ccaaba03d4dd739c2e6552be90e}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!setY@{setY}}
+\index{setY@{setY}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{set\+Y()}{setY()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Graph\+Layout\+::setY (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{node\+\_\+id,  }\item[{float}]{y\+\_\+value }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a19fb67898bdb294ac46fb098ec2b0bad}\label{classRPGraph_1_1GraphLayout_a19fb67898bdb294ac46fb098ec2b0bad}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!write\+To\+Bin@{write\+To\+Bin}}
+\index{write\+To\+Bin@{write\+To\+Bin}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{write\+To\+Bin()}{writeToBin()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Graph\+Layout\+::write\+To\+Bin (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+Do we have any use for writing to bin? \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_ae01b3ad2b348683c2e55d49496c32800}\label{classRPGraph_1_1GraphLayout_ae01b3ad2b348683c2e55d49496c32800}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!write\+To\+C\+SV@{write\+To\+C\+SV}}
+\index{write\+To\+C\+SV@{write\+To\+C\+SV}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{write\+To\+C\+S\+V()}{writeToCSV()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Graph\+Layout\+::write\+To\+C\+SV (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+Writing to csv may be a good way to streamline testing the decompressions effectiveness. N\+O\+TE\+: There is no load\+From\+C\+SV method. Would go in this file. \mbox{\Hypertarget{classRPGraph_1_1GraphLayout_ab5892ee9d2eba41d1f285f0e480d00e2}\label{classRPGraph_1_1GraphLayout_ab5892ee9d2eba41d1f285f0e480d00e2}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!write\+To\+P\+NG@{write\+To\+P\+NG}}
+\index{write\+To\+P\+NG@{write\+To\+P\+NG}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{write\+To\+P\+N\+G()}{writeToPNG()}}
+{\footnotesize\ttfamily void R\+P\+Graph\+::\+Graph\+Layout\+::write\+To\+P\+NG (\begin{DoxyParamCaption}\item[{const int}]{image\+\_\+w,  }\item[{const int}]{image\+\_\+h,  }\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+pngwriter entry point. T\+O\+DO\+: Adjust node opacity for best results.
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_af44bb2c10eee4ef67c95355ce93432a5}\label{classRPGraph_1_1GraphLayout_af44bb2c10eee4ef67c95355ce93432a5}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!graph@{graph}}
+\index{graph@{graph}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{graph}{graph}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRPGraph_1_1UGraph}{U\+Graph}}\& R\+P\+Graph\+::\+Graph\+Layout\+::graph}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_a86a79a0329c88ef7cef8d57fce9f0e1b}\label{classRPGraph_1_1GraphLayout_a86a79a0329c88ef7cef8d57fce9f0e1b}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!height@{height}}
+\index{height@{height}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{height}{height}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::height\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classRPGraph_1_1GraphLayout_ade29dd5ff17faff96348650a99bd120c}\label{classRPGraph_1_1GraphLayout_ade29dd5ff17faff96348650a99bd120c}} 
+\index{R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}!width@{width}}
+\index{width@{width}!R\+P\+Graph\+::\+Graph\+Layout@{R\+P\+Graph\+::\+Graph\+Layout}}
+\subsubsection{\texorpdfstring{width}{width}}
+{\footnotesize\ttfamily float R\+P\+Graph\+::\+Graph\+Layout\+::width\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{RPGraphLayout_8hpp}{R\+P\+Graph\+Layout.\+hpp}}\item 
+\mbox{\hyperlink{RPGraphLayout_8cpp}{R\+P\+Graph\+Layout.\+cpp}}\end{DoxyCompactItemize}

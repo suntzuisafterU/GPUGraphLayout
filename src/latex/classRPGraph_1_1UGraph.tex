@@ -1,0 +1,129 @@
+\hypertarget{classRPGraph_1_1UGraph}{}\section{R\+P\+Graph\+:\+:U\+Graph Class Reference}
+\label{classRPGraph_1_1UGraph}\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+
+
+{\ttfamily \#include $<$R\+P\+Graph.\+hpp$>$}
+
+Inheritance diagram for R\+P\+Graph\+:\+:U\+Graph\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classRPGraph_1_1UGraph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRPGraph_1_1UGraph_a2e52cd7b17ae1f839b45e26ec6ae1135}{U\+Graph}} (std\+::string edgelist\+\_\+path)
+\item 
+virtual \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} \mbox{\hyperlink{classRPGraph_1_1UGraph_ad5eb18fffb7b9a64819b3f1f38305a0c}{num\+\_\+nodes}} () override
+\item 
+virtual \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} \mbox{\hyperlink{classRPGraph_1_1UGraph_a55a5deea9a4d456e78e24a2002f31ef2}{num\+\_\+edges}} () override
+\item 
+virtual \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} \mbox{\hyperlink{classRPGraph_1_1UGraph_a4d3c3af1ba4787ef5ced5f5efa9d05cf}{degree}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} nid) override
+\item 
+virtual \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} \mbox{\hyperlink{classRPGraph_1_1UGraph_a5614092aab1bb8d92b625506f944d39c}{in\+\_\+degree}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} nid) override
+\item 
+virtual \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} \mbox{\hyperlink{classRPGraph_1_1UGraph_a8416a5fa8b87b8569d0fa563288ac162}{out\+\_\+degree}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} nid) override
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} $>$ \mbox{\hyperlink{classRPGraph_1_1UGraph_a8cc5be5cfd41f351d4f98de816028f90}{neighbors\+\_\+with\+\_\+geq\+\_\+id}} (\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} nid) override
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}, \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} $>$ \mbox{\hyperlink{classRPGraph_1_1UGraph_a084f2f04bcf93eb362fbf1d275a1c018}{node\+\_\+map}}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}, \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} $>$ \mbox{\hyperlink{classRPGraph_1_1UGraph_a688250d7d12a6a901325a4ee7b3b518d}{node\+\_\+map\+\_\+r}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_a2e52cd7b17ae1f839b45e26ec6ae1135}\label{classRPGraph_1_1UGraph_a2e52cd7b17ae1f839b45e26ec6ae1135}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!U\+Graph@{U\+Graph}}
+\index{U\+Graph@{U\+Graph}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{U\+Graph()}{UGraph()}}
+{\footnotesize\ttfamily R\+P\+Graph\+::\+U\+Graph\+::\+U\+Graph (\begin{DoxyParamCaption}\item[{std\+::string}]{edgelist\+\_\+path }\end{DoxyParamCaption})}
+
+Used once in main file (\mbox{\hyperlink{graph__viewer_8cpp}{graph\+\_\+viewer.\+cpp}}) 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_a4d3c3af1ba4787ef5ced5f5efa9d05cf}\label{classRPGraph_1_1UGraph_a4d3c3af1ba4787ef5ced5f5efa9d05cf}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!degree@{degree}}
+\index{degree@{degree}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{degree()}{degree()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} R\+P\+Graph\+::\+U\+Graph\+::degree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{nid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRPGraph_1_1Graph_a8a95d1f403c3d9860cf7399abc820c7d}{R\+P\+Graph\+::\+Graph}}.
+
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_a5614092aab1bb8d92b625506f944d39c}\label{classRPGraph_1_1UGraph_a5614092aab1bb8d92b625506f944d39c}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!in\+\_\+degree@{in\+\_\+degree}}
+\index{in\+\_\+degree@{in\+\_\+degree}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{in\+\_\+degree()}{in\_degree()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} R\+P\+Graph\+::\+U\+Graph\+::in\+\_\+degree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{nid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRPGraph_1_1Graph_ab75e19f698a4ab99e37593c7178f2c1a}{R\+P\+Graph\+::\+Graph}}.
+
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_a8cc5be5cfd41f351d4f98de816028f90}\label{classRPGraph_1_1UGraph_a8cc5be5cfd41f351d4f98de816028f90}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!neighbors\+\_\+with\+\_\+geq\+\_\+id@{neighbors\+\_\+with\+\_\+geq\+\_\+id}}
+\index{neighbors\+\_\+with\+\_\+geq\+\_\+id@{neighbors\+\_\+with\+\_\+geq\+\_\+id}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{neighbors\+\_\+with\+\_\+geq\+\_\+id()}{neighbors\_with\_geq\_id()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} $>$ R\+P\+Graph\+::\+U\+Graph\+::neighbors\+\_\+with\+\_\+geq\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{nid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRPGraph_1_1Graph_ab1e27e4268d36443a5db035fa7635cad}{R\+P\+Graph\+::\+Graph}}.
+
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_a55a5deea9a4d456e78e24a2002f31ef2}\label{classRPGraph_1_1UGraph_a55a5deea9a4d456e78e24a2002f31ef2}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!num\+\_\+edges@{num\+\_\+edges}}
+\index{num\+\_\+edges@{num\+\_\+edges}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{num\+\_\+edges()}{num\_edges()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} R\+P\+Graph\+::\+U\+Graph\+::num\+\_\+edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRPGraph_1_1Graph_acd3b877216686aff2f7fbc2d62bcdf9b}{R\+P\+Graph\+::\+Graph}}.
+
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_ad5eb18fffb7b9a64819b3f1f38305a0c}\label{classRPGraph_1_1UGraph_ad5eb18fffb7b9a64819b3f1f38305a0c}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!num\+\_\+nodes@{num\+\_\+nodes}}
+\index{num\+\_\+nodes@{num\+\_\+nodes}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{num\+\_\+nodes()}{num\_nodes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} R\+P\+Graph\+::\+U\+Graph\+::num\+\_\+nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRPGraph_1_1Graph_ab5602e6b776a0ea3b944775331fcb2aa}{R\+P\+Graph\+::\+Graph}}.
+
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_a8416a5fa8b87b8569d0fa563288ac162}\label{classRPGraph_1_1UGraph_a8416a5fa8b87b8569d0fa563288ac162}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!out\+\_\+degree@{out\+\_\+degree}}
+\index{out\+\_\+degree@{out\+\_\+degree}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{out\+\_\+degree()}{out\_degree()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}} R\+P\+Graph\+::\+U\+Graph\+::out\+\_\+degree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}}]{nid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRPGraph_1_1Graph_a660ad58e03df7e3cc00d0eb4e5c16819}{R\+P\+Graph\+::\+Graph}}.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_a084f2f04bcf93eb362fbf1d275a1c018}\label{classRPGraph_1_1UGraph_a084f2f04bcf93eb362fbf1d275a1c018}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!node\+\_\+map@{node\+\_\+map}}
+\index{node\+\_\+map@{node\+\_\+map}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{node\+\_\+map}{node\_map}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}, \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}$>$ R\+P\+Graph\+::\+U\+Graph\+::node\+\_\+map}
+
+\mbox{\Hypertarget{classRPGraph_1_1UGraph_a688250d7d12a6a901325a4ee7b3b518d}\label{classRPGraph_1_1UGraph_a688250d7d12a6a901325a4ee7b3b518d}} 
+\index{R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}!node\+\_\+map\+\_\+r@{node\+\_\+map\+\_\+r}}
+\index{node\+\_\+map\+\_\+r@{node\+\_\+map\+\_\+r}!R\+P\+Graph\+::\+U\+Graph@{R\+P\+Graph\+::\+U\+Graph}}
+\subsubsection{\texorpdfstring{node\+\_\+map\+\_\+r}{node\_map\_r}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$\mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}, \mbox{\hyperlink{namespaceRPGraph_ab3ae34f1ab88e48f43794c30c8697b74}{nid\+\_\+t}}$>$ R\+P\+Graph\+::\+U\+Graph\+::node\+\_\+map\+\_\+r}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{RPGraph_8hpp}{R\+P\+Graph.\+hpp}}\item 
+\mbox{\hyperlink{RPGraph_8cpp}{R\+P\+Graph.\+cpp}}\end{DoxyCompactItemize}
