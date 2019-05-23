@@ -55,8 +55,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"RPBHKernels_8cu.html",
-"classRPGraph_1_1UGraph.html#a084f2f04bcf93eb362fbf1d275a1c018"
+"RPBHFA2LaunchParameters_8cuh.html",
+"classRPGraph_1_1Real2DVector.html#aa37f96dfb13727fdee7a82ddbd1d7f60"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

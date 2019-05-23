@@ -6,7 +6,9 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
       [ "BarnesHutCell", "classRPGraph_1_1BarnesHutCell.html", "classRPGraph_1_1BarnesHutCell" ],
       [ "BarnesHutApproximator", "classRPGraph_1_1BarnesHutApproximator.html", "classRPGraph_1_1BarnesHutApproximator" ]
     ] ],
+    [ "RPBHFA2LaunchParameters.cuh", "RPBHFA2LaunchParameters_8cuh.html", null ],
     [ "RPBHKernels.cu", "RPBHKernels_8cu.html", null ],
+    [ "RPBHKernels.cuh", "RPBHKernels_8cuh.html", null ],
     [ "RPCommon.cpp", "RPCommon_8cpp.html", "RPCommon_8cpp" ],
     [ "RPCommon.hpp", "RPCommon_8hpp.html", "RPCommon_8hpp" ],
     [ "RPCPUForceAtlas2.cpp", "RPCPUForceAtlas2_8cpp.html", null ],
@@ -14,6 +16,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
       [ "CPUForceAtlas2", "classRPGraph_1_1CPUForceAtlas2.html", "classRPGraph_1_1CPUForceAtlas2" ]
     ] ],
     [ "RPFA2Kernels.cu", "RPFA2Kernels_8cu.html", null ],
+    [ "RPFA2Kernels.cuh", "RPFA2Kernels_8cuh.html", null ],
     [ "RPForceAtlas2.cpp", "RPForceAtlas2_8cpp.html", null ],
     [ "RPForceAtlas2.hpp", "RPForceAtlas2_8hpp.html", [
       [ "ForceAtlas2", "classRPGraph_1_1ForceAtlas2.html", "classRPGraph_1_1ForceAtlas2" ]
