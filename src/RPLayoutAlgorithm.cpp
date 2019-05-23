@@ -27,6 +27,9 @@
 
 namespace RPGraph
 {
+    /**
+     * An interface for RPForceAtlas2
+     */
     LayoutAlgorithm::LayoutAlgorithm(GraphLayout &layout): layout(layout){}
     LayoutAlgorithm::~LayoutAlgorithm(){}
 }

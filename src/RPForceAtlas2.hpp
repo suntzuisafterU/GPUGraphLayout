@@ -32,6 +32,7 @@
 namespace RPGraph
 {
     /**
+     * Doxygen picks up header file comments.
      * Can be either CPU or GPU implementation.
      * 
      * Does this act like a jave interface??
@@ -52,27 +53,28 @@ namespace RPGraph
 
         protected:
             int iteration;
-            float k_r, k_g; // scalars for repulsive and gravitational force.
-            float delta; // edgeweight influence.
+            float k_r, k_g; /**< scalars for repulsive and gravitational force. */
+            float delta; /**< edgeweight influence. */
             float global_speed;
 
-            // Parameters used in adaptive temperature
             /**
-             *  (What is adaptive temperature?)
+             * Parameters used in adaptive temperature
+             * (What is adaptive temperature?)
              */
             float speed_efficiency, jitter_tolerance;
+
             /**
              * Where are these magic constants used? In both GPU and CPU implementations?
              */
-            float k_s, k_s_max; // magic constants related to swinging.
+            float k_s, k_s_max; /**< magic constants related to swinging. */
 
             /**
              * TODO: Review and explain the Barnes-Hut parameters here.
+             * Barnes-Hut parameters
              */
-            // Barnes-Hut parameters
-            float theta;   // Accuracy
-            float epssq;   // Softening (Epsilon, squared)
-            float itolsq;  // Inverse tolerance, squared
+            float theta;   /**< Accuracy */
+            float epssq;   /**< Softening (Epsilon, squared) */
+            float itolsq;  /**< Inverse tolerance, squared */
     };
 }
 #endif
