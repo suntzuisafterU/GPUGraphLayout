@@ -21,12 +21,17 @@
  ==============================================================================
 */
 
+// Reading May 28th
+
 #ifndef RPGPUForceAtlas2_hpp
 #define RPGPUForceAtlas2_hpp
 #include "RPForceAtlas2.hpp"
 
 namespace RPGraph
 {
+    /**
+     * What is the default scoping? Does this limit our scope or expand it?
+     */
     class CUDAForceAtlas2: public ForceAtlas2
     {
     public:
