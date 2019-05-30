@@ -514,6 +514,8 @@ __global__
 __launch_bounds__(THREADS4, FACTOR4)
 void SortKernel(int nnodesd, int nbodiesd, int * __restrict sortd, int * __restrict countd, volatile int * __restrict startd, int * __restrict childd)
 {
+    /* NOTE: register keyword was deprecated with c++11 and removed with c++17
+             Is it treated differently in CUDA code? */
     register int i, j, k, ch, dec, start, bottom;
 
     bottom = bottomd;

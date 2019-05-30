@@ -27,6 +27,7 @@ CPPFLAGS :=-D NO_FREETYPE
 
 # C/C++ compiler flags
 CFLAGS   :=$(O_LVL)
+# TODO: Try with c++17
 CXXFLAGS :=$(CXXFLAGS) $(O_LVL) -std=c++11
 
 # Linker flags
