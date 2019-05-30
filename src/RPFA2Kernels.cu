@@ -21,6 +21,8 @@
  ==============================================================================
  */
 
+// Reading May 30th
+
 #include <stdio.h>
 #include "RPFA2Kernels.cuh"
 #include "RPBHFA2LaunchParameters.cuh"
@@ -32,6 +34,40 @@ static __device__ float speed_efficiencyd = 1.0;
 static __device__ float jitter_toleranced = 1.0;
 static __device__ unsigned int blkcntd_speed_kernel = 0;
 
+/**
+ * What are the values of THREADS6 and FACTOR6?
+ * Why are they used here?
+ *
+ * So the `restrict` keyword from C has something to
+ * do with not copying pointers in the same block
+ * context (same local scope).
+ *   https://cellperformance.beyond3d.com/articles/2006/05/demystifying-the-restrict-keyword.html
+ *
+ * And the '__restrict__'
+ * ?directive? when combined with const, as in:
+ *   const __restrict__
+ * means that anything defined with this keyword pair
+ * will be read-only for the duration of a kernel and
+ * hence can be loaded into some fast and fuzzy, otherwise
+ * vacant texture pipeline memory.
+ * ...
+ * But I still don't quite know what __restrict does.
+ * It doesn't really make sense to have a meaning in line
+ * with the other 2 since it is paired with volatile here,
+ * and not const.
+ *
+ * Looks like it is similar to restrict from the C99 context:
+ *   https://docs.microsoft.com/en-us/cpp/cpp/extension-restrict?view=vs-2019
+ * They also say:
+ * ```
+ *   Note
+ *
+ *   When used on a variable that also has the volatile keyword, volatile will take precedence.
+ * ```
+ *
+ * If that is true then __restrict should have no impact.  Could remove all __restrict modifiers,
+ * compile again, and check the compiled output to see if it changes at all.
+ */
 __global__
 __launch_bounds__(THREADS6, FACTOR6)
 void GravityKernel(int nbodiesd, const float k_g, const bool strong_gravity,
@@ -39,8 +75,18 @@ void GravityKernel(int nbodiesd, const float k_g, const bool strong_gravity,
                    volatile float2 * __restrict body_posd,
                    volatile float * __restrict fxd, volatile float * __restrict fyd)
 {
+    /* NOTE: The register keyword was deprecated in c++11 and
+     * officialy removed in c++17. nvcc may have a different
+     * use for this keyword.
+     *
+     * Is it necessary to use the register keyword? What does
+     * it do in a CUDA kernel? */
     register int i, inc;
 
+    /**
+     * What is gridDim??
+     *   https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#built-in-variables
+     */
     // iterate over all bodies assigned to thread
     inc = blockDim.x * gridDim.x;
     for (i = threadIdx.x + blockIdx.x * blockDim.x; i < nbodiesd; i += inc)
