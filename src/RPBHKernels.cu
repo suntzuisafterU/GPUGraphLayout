@@ -46,10 +46,13 @@
  Author: Martin Burtscher <burtscher@txstate.edu>
  */
 
+// Reading May 30th
+
 #include <stdio.h>
 #include <assert.h>
 #include "RPBHKernels.cuh"
 
+/* Is extern significantly useful for CUDA programming? */
 // Variables marked extern in header.
 __device__ float minxdg, minydg, maxxdg, maxydg;
 
@@ -67,6 +70,10 @@ static __device__ volatile float radiusd;
 /*** compute center and radius ************************************************/
 /******************************************************************************/
 
+/**
+ * THREADS1 = 512
+ * FACTOR1 = 3
+ */
 __global__
 __launch_bounds__(THREADS1, FACTOR1)
 void BoundingBoxKernel(int nnodesd, int nbodiesd, volatile int * __restrict startd,

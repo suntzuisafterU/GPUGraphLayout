@@ -67,6 +67,11 @@ static __device__ unsigned int blkcntd_speed_kernel = 0;
  *
  * If that is true then __restrict should have no impact.  Could remove all __restrict modifiers,
  * compile again, and check the compiled output to see if it changes at all.
+ * 
+ * volatile: Any variable that could be changed from outside the current scope.
+ *           Thus, read it directly from the memory address associated with it every time.
+ *           Don't put it in a register.
+ * restrict: This is a safe pointer, it will not be duplicated in the current scope.
  */
 __global__
 __launch_bounds__(THREADS6, FACTOR6)
@@ -86,11 +91,30 @@ void GravityKernel(int nbodiesd, const float k_g, const bool strong_gravity,
     /**
      * What is gridDim??
      *   https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#built-in-variables
+     * In the syntax:
+     *   <<< grid_dims, block_dims>>>
+     * The parameters grid_dims and block_dims are 3 dimensional. 
+     *   - See the dim3(int,int,int) struct.
+     * We are We are launching grid_dims * block_dims threads, or 
+     * in other words, 
+     *    grid_dims = the number of blocks (total)
+     *    block_dims = the number of threads per block
+     *
+     * NOTE: These for loops are NOT synchronized between threads in any way.
+     *       The worker thread just goes through and hits every `inc` thread
+     *       starting with its initial index.
      */
     // iterate over all bodies assigned to thread
     inc = blockDim.x * gridDim.x;
     for (i = threadIdx.x + blockIdx.x * blockDim.x; i < nbodiesd; i += inc)
     {
+        /**
+         * i initially is set to the threads index in its block (the shift)
+         * plus its block index in the grid (block index is assoiciated with
+         * grid parameter) multiplied by the size of one of the blocks.
+         * NOTE: We use <name>.x to access the first dim, and <name>.y to 
+         *       access the second dim.
+         */
         const float px = body_posd[i].x;
         const float py = body_posd[i].y;
 
@@ -118,6 +142,13 @@ void GravityKernel(int nbodiesd, const float k_g, const bool strong_gravity,
     }
 }
 
+/**
+ * __launch_bounds__(THREADS, FACTOR6)
+ *   THREADS6 = 1024
+ *   FACTOR6  = 1
+ * Is specific to each kernel.  We are limiting the number of some resource that will
+ * be used.
+ */
 __global__
 __launch_bounds__(THREADS6, FACTOR6)
 void AttractiveForceKernel(int nedgesd,
@@ -127,6 +158,12 @@ void AttractiveForceKernel(int nedgesd,
 {
     register int i, inc, source, target;
     // iterate over all edges assigned to thread
+    /**
+     * NOTE: The variable `inc` is very important here.
+     * The for loop is chewing through `blockDim.x * gridDim.x`
+     * parallel tasks at a time.  The entire set of threads is 
+     * incremented at the same time.
+     */
     inc = blockDim.x * gridDim.x;
     for (i = threadIdx.x + blockIdx.x * blockDim.x; i < nedgesd; i += inc)
     {
@@ -145,6 +182,13 @@ void AttractiveForceKernel(int nedgesd,
         const float fty = -dy;
 
 
+        /**
+         * see device_atomic_functions.hpp in the CUDA/.../include dir 
+         * 
+         * These aren't coalesced, what exactly does that mean?
+         * Which memory are we accessing? This is device code, so is this
+         * shared memory of some kind? If so which shared memory source?
+         */
         // these memory accesses aren't coalesced...
         atomicAdd((float*)fxd+source, fsx);
         atomicAdd((float*)fyd+source, fsy);
