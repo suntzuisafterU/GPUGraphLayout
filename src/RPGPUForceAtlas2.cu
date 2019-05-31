@@ -40,7 +40,13 @@ namespace RPGraph
                                      bool strong_gravity, float gravity,
                                      float scale)
     : ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale)
+      // This declaration is a bit confusing.  Why are the names for inheritance to
+      // ForceAtlas2(...) not typed?
     {
+        /**
+         * What is deviceCount?  Are we counting cores, or cards?
+         * Probably cards.
+         */
         int deviceCount;
         cudaGetDeviceCount(&deviceCount);
         if (deviceCount == 0)
@@ -53,15 +59,20 @@ namespace RPGraph
         nbodies = layout.graph.num_nodes();
         nedges  = layout.graph.num_edges();
 
+        /* float2 is a 2 dimensional vector alias. */
         body_pos = (float2 *)malloc(sizeof(float2) * layout.graph.num_nodes());
         body_mass = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
+        /* source and target for every edge */
         sources  = (int *)  malloc(sizeof(int)   * layout.graph.num_edges());
         targets  = (int *)  malloc(sizeof(int)   * layout.graph.num_edges());
+        /* force at x and y??? for each node, and previous force to calculate 
+         * the change in force (what did we call this again?) */
         fx       = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
         fy       = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
         fx_prev  = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
         fy_prev  = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
 
+        /* NOTE: nid_t is an alias for uint_32, stands for "node id" */
         for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             body_pos[n] = {layout.getX(n), layout.getY(n)};

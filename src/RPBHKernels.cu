@@ -47,6 +47,7 @@
  */
 
 // Reading May 30th
+// Interesting link: https://jheer.github.io/barnes-hut/
 
 #include <stdio.h>
 #include <assert.h>
@@ -57,6 +58,11 @@
 __device__ float minxdg, minydg, maxxdg, maxydg;
 
 
+/**
+ * static __device__ volatile
+ * "in static memory, ??of device/on GPU?? put a variable that could be 
+ * modified from elsewhere, so don't try to optimize it away"
+ */
 // Variables for use in this file only.
 static __device__ volatile int stepd = -1;
 static __device__ volatile int maxdepthd = 1;
@@ -84,12 +90,20 @@ void BoundingBoxKernel(int nnodesd, int nbodiesd, volatile int * __restrict star
 {
     register int i, j, k, inc;
     register float val, minx, maxx, miny, maxy;
+    /* TODO: What exactly does __shared__ do?
+     *       Looks like it puts values directly 
+     *       into L1 cache.  volatile is required
+     *       for correctness on newer CUDA archs. 
+     *       See CUDA Best Practices, pg 46. */
+    /* Thats 4 arrays of 512 floats = 2048 floats. */
     __shared__ volatile float sminx[THREADS1], smaxx[THREADS1], sminy[THREADS1], smaxy[THREADS1];
 
     // initialize with valid data (in case #bodies < #threads)
     minx = maxx = body_posd[0].x;
     miny = maxy = body_posd[0].y;
 
+    /* store your index in a register.  CUDA probably already 
+     * does this.  Good practice though? */
     // scan all bodies
     i = threadIdx.x;
     inc = THREADS1 * gridDim.x;
@@ -130,8 +144,10 @@ void BoundingBoxKernel(int nnodesd, int nbodiesd, volatile int * __restrict star
         maxxd[k] = maxx;
         minyd[k] = miny;
         maxyd[k] = maxy;
+        /* Why do we need a threadfence() here? */
         __threadfence();
 
+        /* TODO: What is atomicInc()?? */
         inc = gridDim.x - 1;
         if (inc == atomicInc(&blkcntd, inc))
         {
@@ -167,6 +183,7 @@ void BoundingBoxKernel(int nnodesd, int nbodiesd, volatile int * __restrict star
 /*** build tree ***************************************************************/
 /******************************************************************************/
 
+/* Why do we have hard coded launch bounds here? */
 // Sets all child pointers of internal nodes in BH tree to null (-1) in childd
 __global__
 __launch_bounds__(1024, 1)void ClearKernel1(int nnodesd, int nbodiesd, volatile int * __restrict childd)
@@ -175,7 +192,11 @@ __launch_bounds__(1024, 1)void ClearKernel1(int nnodesd, int nbodiesd, volatile 
 
     top = 4 * nnodesd; // children of root node initialized before.
     bottom = 4 * nbodiesd;
+    /* increment by the threads position in the block
+     * and by the blocks position in the grid. */
     inc = blockDim.x * gridDim.x;
+    /* WARPSIZE is from the LaunchParameters file,
+     * WARPSIZE = 32*/
     k = (bottom & (-WARPSIZE)) + threadIdx.x + blockIdx.x * blockDim.x;
     if (k < bottom) k += inc;
 
@@ -188,11 +209,19 @@ __launch_bounds__(1024, 1)void ClearKernel1(int nnodesd, int nbodiesd, volatile 
 }
 
 
+/**
+ * This and the force kernel are the most expensive,
+ * esspecially for larger N.
+ * 
+ * THREADS2 = 512, FACTOR2 = 3 (same as group 1)
+ */
 __global__
 __launch_bounds__(THREADS2, FACTOR2)
 void TreeBuildingKernel(int nnodesd, int nbodiesd, volatile int * __restrict childd,
                         volatile float2 * __restrict body_posd, volatile float2 * __restrict node_posd)
 {
+    // Bookmark, May 30th
+    /* How many registers does each thread have access to? */
     register int i, j, depth, localmaxdepth, skip, inc;
     register float x, y, r;
     register float px, py;
@@ -258,6 +287,7 @@ void TreeBuildingKernel(int nnodesd, int nbodiesd, volatile int * __restrict chi
             locked = n*4+j;
             if (ch == -1)
             {
+                /* What does atomicCAS() do? */
                 if (-1 == atomicCAS((int *)&childd[locked], -1, i))
                 {  // if null, just insert the new body
                     localmaxdepth = max(depth, localmaxdepth);
@@ -361,6 +391,11 @@ void ClearKernel2(int nnodesd, volatile int * __restrict startd, volatile float 
 /*** compute center of mass ***************************************************/
 /******************************************************************************/
 
+/**
+ * Where is the parameter theta in this kernel?  We don't pass it on the comman line.
+ * 
+ * THREADS3 = 128, FACTOR3 = 6 (Has note that "must all be resident at the same time"...
+ */
 __global__
 __launch_bounds__(THREADS3, FACTOR3)
 void SummarizationKernel(const int nnodesd, const int nbodiesd, volatile int * __restrict countd, const int * __restrict childd,
@@ -376,6 +411,7 @@ void SummarizationKernel(const int nnodesd, const int nbodiesd, volatile int * _
     k = (bottom & (-WARPSIZE)) + threadIdx.x + blockIdx.x * blockDim.x;
     if (k < bottom) k += inc;
 
+    /* What is the magic parameter "j < 5" for? */
     register int restart = k;
     for (j = 0; j < 5; j++)
     {  // wait-free pre-passes
@@ -384,6 +420,7 @@ void SummarizationKernel(const int nnodesd, const int nbodiesd, volatile int * _
         {
             if (node_massd[k] < 0.0f)
             {
+                /* Gets 4 children ready?? */
                 for (i = 0; i < 4; i++)
                 {
                     ch = childd[k*4+i];

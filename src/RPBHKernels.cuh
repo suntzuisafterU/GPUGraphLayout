@@ -54,6 +54,23 @@
 extern __device__ volatile int errd;
 extern __device__ float minxdg, minydg, maxxdg, maxydg;
 
+/**
+ * Note that __global__ and __launch_bounds__ are part of the function signature and 
+ * required in both header and source files.
+ * 
+ * Describe each parameter:
+ *   nnodesd: ?
+ *   nbodiesd: ?
+ *   startd: ?
+ *   childd: ?
+ *   node_massd: ?
+ *   body_posd: ?
+ *   node_posd: ?
+ *   maxxd: ?
+ *   maxyd: ?
+ *   minxd: ?
+ *   minyd: ?
+ */
 __global__
 __launch_bounds__(THREADS1, FACTOR1)
 void BoundingBoxKernel(int nnodesd, int nbodiesd, volatile int * __restrict startd,
