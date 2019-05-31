@@ -124,6 +124,7 @@ void GravityKernel(int nbodiesd, const float k_g, const bool strong_gravity,
         {
             f_g = k_g * body_massd[i];
         }
+        /* TODO: Run with weak gravity and check results. */
         else // weak gravity
         {
             if (px != 0.0 || py != 0.0)
