@@ -27,7 +27,7 @@
  ==============================================================================
 */
 
-// Reading
+// Reading May 21th
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,6 +106,10 @@ int main(int argc, const char **argv)
         exit(EXIT_FAILURE);
     }
 
+    /**
+     * This currently fails if the inpath exists but is not an actual file.
+     * It loads 0 edges and 0 nodes and then CUDA has a memory access failure.
+     */
     // Check in_path and out_path
     if (!is_file_exists(edgelist_path))
     {
