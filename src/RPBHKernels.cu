@@ -216,14 +216,39 @@ __launch_bounds__(1024, 1)void ClearKernel1(int nnodesd, int nbodiesd, volatile 
  * esspecially for larger N.
  * 
  * THREADS2 = 512, FACTOR2 = 3 (same as group 1)
+ * THREADS launch bound is 
  */
 __global__
 __launch_bounds__(THREADS2, FACTOR2)
 void TreeBuildingKernel(int nnodesd, int nbodiesd, volatile int * __restrict childd,
                         volatile float2 * __restrict body_posd, volatile float2 * __restrict node_posd)
 {
-    // Bookmark, May 30th
+    // Bookmark, May 30th, reading June 3rd
     /* How many registers does each thread have access to? */
+    /**
+     * Describe parameters:
+     *   i:
+     *   j:
+     *   depth:
+     *   localmaxdepth:
+     *   skip:
+     *   inc:
+     *   x:
+     *   y:
+     *   r:
+     *   px:
+     *   py:
+     *   dx:
+     *   dy:
+     *   ch:
+     *   n:
+     *   cell:
+     *   locked:
+     *   patch:
+     *   rootr:
+     *   rootx:
+     *   rooty:
+     */
     register int i, j, depth, localmaxdepth, skip, inc;
     register float x, y, r;
     register float px, py;

@@ -21,6 +21,8 @@
  ==============================================================================
 */
 
+// Reading June 03
+
 #include "RPBarnesHutApproximator.hpp"
 #include <math.h>
 #include <stdlib.h>

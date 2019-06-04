@@ -31,6 +31,9 @@
 
 namespace RPGraph
 {
+    /**
+     * Is this code called as part of the CUDA implementation?
+     */
     class BarnesHutCell
     {
     public:
