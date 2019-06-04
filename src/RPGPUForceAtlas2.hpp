@@ -44,21 +44,21 @@ namespace RPGraph
     private:
         /// CUDA Specific stuff.
         // Host storage.
-        float *body_mass;
-        float2 *body_pos;
-        float *fx, *fy, *fx_prev, *fy_prev;
+        float *body_mass; /* host float pointer (array) */
+        float2 *body_pos; /* host float2 pointer (array of vectors) */
+        float *fx, *fy, *fx_prev, *fy_prev; /* host float pointers (arrays) */
 
         // Quick way to represent a graph on the GPU
-        int *sources, *targets;
+        int *sources, *targets; /* Quick way to represent a graph on the GPU */
 
         // Pointers to device memory (all suffixed with 'l').
-        int   *errl,  *sortl, *childl, *countl, *startl;
-        int   *sourcesl, *targetsl;
-        float *body_massl, *node_massl;
-        float2 *body_posl, *node_posl;
-        float *minxl, *minyl, *maxxl, *maxyl;
-        float *fxl, *fyl, *fx_prevl, *fy_prevl;
-        float *swgl, *etral;
+        int   *errl,  *sortl, *childl, *countl, *startl; /* int pointers in device memory (arrays) */
+        int   *sourcesl, *targetsl; /* int pointers in device memory (arrays) */
+        float *body_massl, *node_massl; /* float pointers in device memory (arrays) */
+        float2 *body_posl, *node_posl; /* float2 (vector) pointers in device memory (arrays) */
+        float *minxl, *minyl, *maxxl, *maxyl; /* float pointers in device memory (arrays) */
+        float *fxl, *fyl, *fx_prevl, *fy_prevl; /* float pointers in device memory (arrays) */
+        float *swgl, *etral; /* float pointers in device memory (arrays) */
 
         int mp_count; // Number of multiprocessors on GPU.
         int max_threads_per_block;

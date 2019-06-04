@@ -141,6 +141,7 @@ int main(int argc, const char **argv)
     /**
      * UGraph object of adjaceny list format.
      */
+	// TODO: Make UGraph from some other source, not just edgelist path.
     RPGraph::UGraph graph = RPGraph::UGraph(edgelist_path);
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", graph.num_nodes(), graph.num_edges());
@@ -175,6 +176,7 @@ int main(int argc, const char **argv)
         // If we need to, write the result to a png
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
         {
+			// TODO: Turn this body into a procedure.
             /**
              * Reverted to older version after multiple issues with the line intended to extract the basename of the network
              */
@@ -200,7 +202,17 @@ int main(int argc, const char **argv)
           printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
         }
     }
+	// TODO: Expansion kernel is called here.
+
+	// TODO: Remake Graph, from datastructure provided by SCoDA, not from edgelist path.
+	// TODO: Remake Graph layout
+	// TODO: Remake ForceAtlas2 object
+	// TODO: Execute FA2 again.
+	
 
     delete fa2;
     exit(EXIT_SUCCESS);
 }
+
+
+

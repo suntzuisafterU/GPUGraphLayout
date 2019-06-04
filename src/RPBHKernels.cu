@@ -77,6 +77,8 @@ static __device__ volatile float radiusd;
 /******************************************************************************/
 
 /**
+ * What does the bounding box kernel do?
+ *
  * THREADS1 = 512
  * FACTOR1 = 3 ==> min number of MPS resident at one time?
  */
@@ -106,7 +108,7 @@ void BoundingBoxKernel(int nnodesd, int nbodiesd, volatile int * __restrict star
      * does this.  Good practice though? */
     // scan all bodies
     i = threadIdx.x;
-    inc = THREADS1 * gridDim.x;
+    inc = THREADS1 * gridDim.x; /* Expands to 512 * (blocks index in grid) */
     for (j = i + blockIdx.x * THREADS1; j < nbodiesd; j += inc)
     {
         val = body_posd[j].x;
@@ -392,8 +394,11 @@ void ClearKernel2(int nnodesd, volatile int * __restrict startd, volatile float 
 /******************************************************************************/
 
 /**
- * Where is the parameter theta in this kernel?  We don't pass it on the comman line.
- * Marked: Must all be resident at the same time.  I believe this is due to the fact that 
+ * Recursively computes the mass and center of gravity for each internal BH cell.
+ * 
+ * Where is the parameter theta in this kernel?  We don't pass it on the command line.
+ * Marked: Must all be resident at the same time.  This is due to the recursive nature of the 
+ * procedure.
  * 
  * THREADS3 = 128, FACTOR3 = 6 (Has note that "must all be resident at the same time"...
  */
@@ -555,6 +560,9 @@ void SummarizationKernel(const int nnodesd, const int nbodiesd, volatile int * _
 /*** sort bodies **************************************************************/
 /******************************************************************************/
 
+/**
+ * What does the sort kernel do? It comes after the summarization kernel has calculated all the repulsion forces, but why?
+ */
 __global__
 __launch_bounds__(THREADS4, FACTOR4)
 void SortKernel(int nnodesd, int nbodiesd, int * __restrict sortd, int * __restrict countd, volatile int * __restrict startd, int * __restrict childd)
@@ -610,6 +618,9 @@ void SortKernel(int nnodesd, int nbodiesd, int * __restrict sortd, int * __restr
 /*** compute force ************************************************************/
 /******************************************************************************/
 
+/**
+ * Compute repulsion forces between all nodes.
+ */
 __global__
 __launch_bounds__(THREADS5, FACTOR5)
 void ForceCalculationKernel(int nnodesd, int nbodiesd, float itolsqd, float epssqd,

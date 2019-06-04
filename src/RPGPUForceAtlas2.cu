@@ -218,10 +218,13 @@ namespace RPGraph
 
     void CUDAForceAtlas2::doStep()
     {
+		/* Gravity kernel does not require BH tree. */
         GravityKernel<<<mp_count * FACTOR6, THREADS6>>>(nbodies, k_g, strong_gravity, body_massl, body_posl, fxl, fyl);
 
+		/* Attraction Kernel works based on edges. */
         AttractiveForceKernel<<<mp_count * FACTOR6, THREADS6>>>(nedges, body_posl, fxl, fyl, sourcesl, targetsl);
 
+		/* What does the BoundingBoxKernel do? */
         BoundingBoxKernel<<<mp_count * FACTOR1, THREADS1>>>(nnodes, nbodies, startl, childl, node_massl, body_posl, node_posl, maxxl, maxyl, minxl, minyl);
 
         // Build Barnes-Hut Tree
@@ -235,6 +238,7 @@ namespace RPGraph
         // Recursively compute mass for each BH. cell.
         SummarizationKernel<<<mp_count * FACTOR3, THREADS3>>>(nnodes, nbodies, countl, childl, body_massl, node_massl, body_posl, node_posl);
 
+		/* No comments left for SortKernel. */
         SortKernel<<<mp_count * FACTOR4, THREADS4>>>(nnodes, nbodies, sortl, countl, startl, childl);
 
         // Compute repulsive forces between nodes using BH. tree.
@@ -268,6 +272,11 @@ namespace RPGraph
         cudaDeviceSynchronize();
     }
 
+	/**
+	 * When is sync_layout() called?
+	 * 
+	 * This is host code, not implemented as a kernel.
+	 */
     void CUDAForceAtlas2::sync_layout()
     {
         retrieveLayoutFromGPU();
