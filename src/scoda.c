@@ -63,6 +63,7 @@ int main( int argc, char *argv[] )
     ////////////////////// End new ////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////
 
+    // TODO: Automate this so it ignores comments and none number lines itself.
     /* Waste ignore_lines lines from input stream */
     for( int32_t i = 0 ; i < ignore_lines ; i++ )
     {
