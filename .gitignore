@@ -10,6 +10,7 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 **/datasets
+**/*.vs
 **/*.vscode
 SCoDA_GPU_FULL.code-workspace
 

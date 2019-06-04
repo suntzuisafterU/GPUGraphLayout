@@ -78,7 +78,7 @@ static __device__ volatile float radiusd;
 
 /**
  * THREADS1 = 512
- * FACTOR1 = 3
+ * FACTOR1 = 3 ==> min number of MPS resident at one time?
  */
 __global__
 __launch_bounds__(THREADS1, FACTOR1)
@@ -393,6 +393,7 @@ void ClearKernel2(int nnodesd, volatile int * __restrict startd, volatile float 
 
 /**
  * Where is the parameter theta in this kernel?  We don't pass it on the comman line.
+ * Marked: Must all be resident at the same time.  I believe this is due to the fact that 
  * 
  * THREADS3 = 128, FACTOR3 = 6 (Has note that "must all be resident at the same time"...
  */
@@ -407,7 +408,7 @@ void SummarizationKernel(const int nnodesd, const int nbodiesd, volatile int * _
     __shared__ float mass[THREADS3 * 4];
 
     bottom = bottomd;
-    inc = blockDim.x * gridDim.x;
+    inc = blockDim.x * gridDim.x; /* Move by the current threads index in the block times the blocks index in the grid. */
     k = (bottom & (-WARPSIZE)) + threadIdx.x + blockIdx.x * blockDim.x;
     if (k < bottom) k += inc;
 
@@ -424,10 +425,10 @@ void SummarizationKernel(const int nnodesd, const int nbodiesd, volatile int * _
                 for (i = 0; i < 4; i++)
                 {
                     ch = childd[k*4+i];
-                    child[i*THREADS3+threadIdx.x] = ch;  // cache children
+                    child[i*THREADS3+threadIdx.x] = ch;  // cache children, cache is `__shared__` memory.
                     if ((ch >= nbodiesd) && ((mass[i*THREADS3+threadIdx.x] = node_massd[ch]) < 0.0f)) break;
                 }
-                if (i == 4)
+                if (i == 4) /* Sould always be true?? */
                 {
                     // all children are ready
                     cm = 0.0f;
