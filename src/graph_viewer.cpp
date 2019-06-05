@@ -39,6 +39,7 @@
 #include "RPGraphLayout.hpp"
 #include "RPCPUForceAtlas2.hpp"
 
+#define __NVCC__ // TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -163,6 +164,26 @@ int main(int argc, const char **argv)
     const int snap_period = ceil((float)max_iterations/num_screenshots);
     const int print_period = ceil((float)max_iterations*0.05);
 
+	auto produceOutput = [&]() {
+		/**
+		 * Reverted to older version after multiple issues with the line intended to extract the basename of the network
+		 */
+		std::string op(out_path);
+		op.append("/").append(std::to_string(iteration)).append(".").append(out_format);
+		printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100*(float)iteration/max_iterations, out_format.c_str());
+		fflush(stdout);
+		fa2->sync_layout();
+
+		if (out_format == "png")
+			layout.writeToPNG(image_w, image_h, op);
+		else if (out_format == "csv")
+			layout.writeToCSV(op);
+		else if (out_format == "bin")
+			layout.writeToBin(op);
+
+		printf("done.\n");
+	}
+
     /**
      * TODO: Wrap this in a function and use it twice, once for the comm layout and once for the full layout.
      */
@@ -177,23 +198,7 @@ int main(int argc, const char **argv)
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
         {
 			// TODO: Turn this body into a procedure.
-            /**
-             * Reverted to older version after multiple issues with the line intended to extract the basename of the network
-             */
-            std::string op(out_path);
-            op.append("/").append(std::to_string(iteration)).append(".").append(out_format);
-            printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100*(float)iteration/max_iterations, out_format.c_str());
-            fflush(stdout);
-            fa2->sync_layout();
-
-            if (out_format == "png")
-                layout.writeToPNG(image_w, image_h, op);
-            else if (out_format == "csv")
-                layout.writeToCSV(op);
-            else if (out_format == "bin")
-                layout.writeToBin(op);
-
-            printf("done.\n");
+			produceOutput();
         }
 
         // Else we print (if we need to)
@@ -213,6 +218,5 @@ int main(int argc, const char **argv)
     delete fa2;
     exit(EXIT_SUCCESS);
 }
-
 
 
