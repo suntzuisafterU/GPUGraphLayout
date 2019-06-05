@@ -170,7 +170,7 @@ int main(int argc, const char **argv)
 		 */
 		std::string op(out_path);
 		op.append("/").append(std::to_string(iteration)).append(".").append(out_format);
-		printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100*(float)iteration/max_iterations, out_format.c_str());
+		printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / max_iterations, out_format.c_str());
 		fflush(stdout);
 		fa2->sync_layout();
 
@@ -182,7 +182,7 @@ int main(int argc, const char **argv)
 			layout.writeToBin(op);
 
 		printf("done.\n");
-	}
+	};
 
     /**
      * TODO: Wrap this in a function and use it twice, once for the comm layout and once for the full layout.
