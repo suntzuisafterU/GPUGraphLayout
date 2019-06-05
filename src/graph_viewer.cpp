@@ -207,14 +207,18 @@ int main(int argc, const char **argv)
         }
 	};
 
-    /**
-     * TODO: Wrap this in a function and use it twice, once for the comm layout and once for the full layout.
-     */
+	// TODO: Add lambda for calling scoda.  
+	// TODO: Turn scoda into an importable module.
+
+	/**
+	 * Initial layout will be produced from community graph.
+	 */
     for (int iteration = 1; iteration <= max_iterations; ++iteration)
     {
 		compositeStep(iteration);
     }
 	// TODO: Expansion kernel is called here.
+	// TODO: Sequential expansion function here.
 
 	// TODO: Remake Graph, from datastructure provided by SCoDA, not from edgelist path.
 	// TODO: Remake Graph layout
