@@ -164,7 +164,7 @@ int main(int argc, const char **argv)
     const int snap_period = ceil((float)max_iterations/num_screenshots);
     const int print_period = ceil((float)max_iterations*0.05);
 
-	auto produceOutput = [&](int iteration) {
+	void produceOutput = [&](int iteration) {
 		/**
 		 * Reverted to older version after multiple issues with the line intended to extract the basename of the network
 		 */
