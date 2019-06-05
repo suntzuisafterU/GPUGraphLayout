@@ -176,7 +176,6 @@ int main(int argc, const char **argv)
         // If we need to, write the result to a png
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
         {
-			// TODO: Turn this body into a procedure.
             /**
              * Reverted to older version after multiple issues with the line intended to extract the basename of the network
              */
