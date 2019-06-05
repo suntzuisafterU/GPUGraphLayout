@@ -68,7 +68,7 @@ namespace RPGraph
          * [0, 1, ..., num_nodes-1]. Removes any self-edges.
          */
         UGraph();
-        void read_edgelist_file(std::string edgelist_path); /**< read file at path. */
+        void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
         std::unordered_map<nid_t, nid_t> node_map; /* el id -> UGraph id */
         std::unordered_map<nid_t, nid_t> node_map_r; /* UGraph id -> el id */
 
