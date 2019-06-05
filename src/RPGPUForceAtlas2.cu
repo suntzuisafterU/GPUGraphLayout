@@ -44,8 +44,7 @@ namespace RPGraph
       // ForceAtlas2(...) not typed?
     {
         /**
-         * What is deviceCount?  Are we counting cores, or cards?
-         * Probably cards.
+         * Device count refers to how many discrete GPUs are available.
          */
         int deviceCount;
         cudaGetDeviceCount(&deviceCount);
@@ -123,6 +122,7 @@ namespace RPGraph
         mp_count = deviceProp.multiProcessorCount;
         max_threads_per_block = deviceProp.maxThreadsPerBlock;
 
+        /* Why is nnodes set to 2*nbodies? */
         nnodes = std::max(2 * nbodies, mp_count * max_threads_per_block);
 
         // Round up to next multiple of WARPSIZE
