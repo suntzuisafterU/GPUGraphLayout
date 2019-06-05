@@ -39,7 +39,7 @@
 #include "RPGraphLayout.hpp"
 #include "RPCPUForceAtlas2.hpp"
 
-#define __NVCC__ //TODO:  TEMP FOR USE IN VS
+#define __NVCC__ // TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -139,18 +139,16 @@ int main(int argc, const char **argv)
     // Load graph.
     printf("Loading edgelist at '%s'...", edgelist_path);
     fflush(stdout);
-	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
-
     /**
      * UGraph object of adjaceny list format.
      */
-	// TODO: Make UGraph from some other source, not just edgelist path, OR reuse UGraph for scoda etc.
+	// TODO: Make UGraph from some other source, not just edgelist path.
     RPGraph::UGraph graph = RPGraph::UGraph(edgelist_path);
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", graph.num_nodes(), graph.num_edges());
 
     // Create the GraphLayout and ForceAtlas2 objects.
-    RPGraph::GraphLayout layout(graph); // TODO: Call scoda and get a new community UGraph first, then make a layout from that.
+    RPGraph::GraphLayout layout(graph);
     RPGraph::ForceAtlas2 *fa2; // Could be CPU or GPU object.
     #ifdef __NVCC__
     if(cuda_requested)
@@ -199,7 +197,27 @@ int main(int argc, const char **argv)
         // If we need to, write the result to a png
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
         {
+<<<<<<< HEAD
 			produceOutput(iteration);
+=======
+            /**
+             * Reverted to older version after multiple issues with the line intended to extract the basename of the network
+             */
+            std::string op(out_path);
+            op.append("/").append(std::to_string(iteration)).append(".").append(out_format);
+            printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100*(float)iteration/max_iterations, out_format.c_str());
+            fflush(stdout);
+            fa2->sync_layout();
+
+            if (out_format == "png")
+                layout.writeToPNG(image_w, image_h, op);
+            else if (out_format == "csv")
+                layout.writeToCSV(op);
+            else if (out_format == "bin")
+                layout.writeToBin(op);
+
+            printf("done.\n");
+>>>>>>> feature/scoda-and-graph-viewer
         }
 
         // Else we print (if we need to)
@@ -221,10 +239,6 @@ int main(int argc, const char **argv)
     }
 	// TODO: Expansion kernel is called here.
 	// TODO: Sequential expansion function here.
-	/**
-	 * Expansion:
-	 *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
-	 */
 
 	// TODO: Remake Graph, from datastructure provided by SCoDA, not from edgelist path.
 	// TODO: Remake Graph layout
@@ -235,6 +249,5 @@ int main(int argc, const char **argv)
     delete fa2;
     exit(EXIT_SUCCESS);
 }
-
 
 

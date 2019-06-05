@@ -1,42 +1,21 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <inttypes.h>
+#include "scoda.hpp"
 
+// TODO: Should macros be in header?
 // Array of pairs, [(degree, community), (degree, community), ...]
 #define DEGREE(id) (algo_state[2*id]) // Defines function for accessing the degree of the ith node.
 #define COMMUNITY(id) (algo_state[2*id+1]) // Defines function for accessing the community id associated with the ith node.
 #define COMM_EDGE_1(idx) (comm_edges[idx*2]) // Get first community edge from pair.
 #define COMM_EDGE_2(idx) (comm_edges[idx*2+1]) // Get second community edge from pair.
 
-int main( int argc, char *argv[] )
-{
-    // printf("argc: %d\n", argc);
-    /* Argument handling */
-    if( argc < 5 )
-    {
-        printf( "Usage: ./scoda MAX_NODE_ID DEGREE_THRESHOLD IGNORE_LINES < input_graph.txt > output_communities.txt\n");
-        printf( "Parameters:\n" );
-        printf( "\t-STDIN: tab-separated edge list (each line: SRC_NODE <tab> DST_NODE)\n");
-        printf( "\t-STDOUT: community detection result (each line: NODE <tab> COMMUNITY)\n"),
-        printf( "\t-MAX_NODE_ID: int32 larger than all nodes IDs in the graph\n" );
-        printf( "\t-MAX_EDGE_ID: int32 larger than all possible edges in the graph\n" );
-        printf( "\t-DEGREE_THRESHOLD: parameter of the algorithm\n" );
-        printf( "\t-IGNORE_LINES: number of line to ignore at the beginning of the input file\n" );
-        return EXIT_FAILURE;
-    }
-
-    /* Parse degree_threshold & max_node_id */
-    int32_t degree_threshold, max_node_id, max_edge_id, ignore_lines;
-
-    /* Read command line args */
-    sscanf( argv[1], "%" SCNd32, &max_node_id ); // Required for static memory allocation.
-    sscanf( argv[2], "%" SCNd32, &max_edge_id); // Required for static memory allocation.
-    sscanf( argv[3], "%" SCNd32, &degree_threshold ); // Calculated as the mode of degree in the network.
-    sscanf( argv[4], "%" SCNd32, &ignore_lines ); // Ignore this many lines as a header.
+/**
+ * Produce community graph and node_id -> community mapping.
+ * 
+ * returns: 
+ *   UGraph pointer community graph AND unorderedmap pointer node_id -> community mapping.
+ */
+RPGraph::UGraph* scoda( RPGraph::UGraph* graph, int32_t degree_threshold){
 
     /* Memory allocation & initialisation */
-    char linebuf[BUFSIZ]; // Buffer set to 1024 by bufset?
     // int32_t is fixed width integer.  Does this match up with our desired GPU imp?
     int32_t *algo_state = (int32_t *) malloc( 2 * max_node_id * sizeof( int32_t ) ); // allocate the array of pairs
     memset( algo_state, 0, 2 * max_node_id * sizeof( int32_t ) ); // memset overwrites memory.  Write all zeroes to array
@@ -63,18 +42,9 @@ int main( int argc, char *argv[] )
     ////////////////////// End new ////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-    // TODO: Automate this so it ignores comments and none number lines itself.
-    /* Waste ignore_lines lines from input stream */
-    for( int32_t i = 0 ; i < ignore_lines ; i++ )
-    {
-        /* fgets: Read from stream and store as C-String,
-        continues until BUFSIZ-1 or \n or EOF.
-        Auto terminates the string with last byte. */
-        fgets( linebuf, BUFSIZ, stdin );
-    }
-
     /* Main SCoDA loop */
     int32_t src_id, dst_id, src_deg, dst_deg;
+	// TODO: Replace while loop with loop that operates on datastructure provided by main program.
     while( fgets( linebuf, BUFSIZ, stdin ) != NULL ) { // fgets NULL on line that only contains EOF, or there could have been an error and ferror would be set.
         /*      source,  expands to format string, store source, store dest */
         sscanf( linebuf, "%" SCNd32 "\t%" SCNd32, &src_id, &dst_id );
