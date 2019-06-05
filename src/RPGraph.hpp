@@ -61,8 +61,6 @@ namespace RPGraph
 
         bool has_node(nid_t nid);
         bool has_edge(nid_t s, nid_t t);
-        void add_node(nid_t nid);
-        void add_edge(nid_t s, nid_t t);
 
     public:
         /**
@@ -73,6 +71,9 @@ namespace RPGraph
         void read_edgelist_file(std::string edgelist_path); /**< read file at path. */
         std::unordered_map<nid_t, nid_t> node_map; /* el id -> UGraph id */
         std::unordered_map<nid_t, nid_t> node_map_r; /* UGraph id -> el id */
+
+        void add_node(nid_t nid);
+        void add_edge(nid_t s, nid_t t);
 
         virtual nid_t num_nodes() override;
         virtual nid_t num_edges() override;
