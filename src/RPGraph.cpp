@@ -127,11 +127,17 @@ namespace RPGraph
         return edge_count;
     }
 
+    /**
+     * Appears redundant.
+     */
     nid_t UGraph::degree(nid_t nid)
     {
         return degrees[nid];
     }
 
+    /**
+     * Appears redundant.
+     */
     nid_t UGraph::in_degree(nid_t nid)
     {
         return degree(nid);
