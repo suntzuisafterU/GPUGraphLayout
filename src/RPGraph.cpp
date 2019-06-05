@@ -67,6 +67,12 @@ namespace RPGraph
         return node_map.count(nid) > 0;
     }
 
+    /**
+     * This method seems inefficient.
+     * 
+     * TODO: Analyze and consider using something different.  May not be able to since PNG-writer depends
+     *       on the format of our UGraph.
+     */
     bool UGraph::has_edge(nid_t s, nid_t t)
     {
         if(!has_node(s) or !has_node(t)) return false;
@@ -76,6 +82,7 @@ namespace RPGraph
 
         if(adjacency_list.count(std::min(s_mapped, t_mapped)) == 0) return false;
 
+        /* TODO: How does this edge search work? */
         std::vector<nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
         if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end())
             return false;
@@ -87,6 +94,8 @@ namespace RPGraph
     {
         if(!has_node(nid))
         {
+            /* TODO: Can we improve this to use only O(|V|) memory? Why do we need something beyond
+                     simple membership here? */
             node_map[nid] = node_count;
             node_map_r[node_count] = nid;
             node_count++;
