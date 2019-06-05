@@ -127,26 +127,27 @@ namespace RPGraph
         return edge_count;
     }
 
-    /**
-     * Appears redundant.
-     */
     nid_t UGraph::degree(nid_t nid)
     {
         return degrees[nid];
     }
 
     /**
-     * Appears redundant.
+     * Is redundant.  Keeps compiler from complaining.
      */
     nid_t UGraph::in_degree(nid_t nid)
     {
         return degree(nid);
     }
 
+    /**
+     * Is redundant.  Keeps compiler from complaining.
+     */
     nid_t UGraph::out_degree(nid_t nid)
     {
         return degree(nid);
     }
+
     std::vector<nid_t> UGraph::neighbors_with_geq_id(nid_t nid)
     {
         return adjacency_list[nid];
