@@ -177,7 +177,7 @@ int main(int argc, const char **argv)
 		op.append("/").append(std::to_string(iteration)).append(".").append(out_format);
 		printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / max_iterations, out_format.c_str());
 		fflush(stdout);
-		fa2->sync_layout();
+		fa2->sync_layout(); /* The same symbol is used regardless of which stage we are at. */
 
 		if (out_format == "png")
 			layout.writeToPNG(image_w, image_h, op);
@@ -189,12 +189,7 @@ int main(int argc, const char **argv)
 		printf("done.\n");
 	};
 
-    /**
-     * TODO: Wrap this in a function and use it twice, once for the comm layout and once for the full layout.
-     */
-    for (int iteration = 1; iteration <= max_iterations; ++iteration)
-    {
-        // BOOKMARK
+	auto compositeStep = [&](int iteration) {
         /**
          * Implementation in either RPGPUForceAtlas2.cpp or RPCPUForceAtlas2.cpp
          */
@@ -202,7 +197,6 @@ int main(int argc, const char **argv)
         // If we need to, write the result to a png
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
         {
-			// TODO: Turn this body into a procedure.
 			produceOutput(iteration);
         }
 
@@ -211,6 +205,14 @@ int main(int argc, const char **argv)
         {
           printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
         }
+	};
+
+    /**
+     * TODO: Wrap this in a function and use it twice, once for the comm layout and once for the full layout.
+     */
+    for (int iteration = 1; iteration <= max_iterations; ++iteration)
+    {
+		compositeStep(iteration);
     }
 	// TODO: Expansion kernel is called here.
 
