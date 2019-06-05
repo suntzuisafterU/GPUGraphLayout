@@ -164,7 +164,7 @@ int main(int argc, const char **argv)
     const int snap_period = ceil((float)max_iterations/num_screenshots);
     const int print_period = ceil((float)max_iterations*0.05);
 
-	auto produceOutput = [&]() {
+	auto produceOutput = [&](int iteration) {
 		/**
 		 * Reverted to older version after multiple issues with the line intended to extract the basename of the network
 		 */
@@ -198,7 +198,7 @@ int main(int argc, const char **argv)
         if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
         {
 			// TODO: Turn this body into a procedure.
-			produceOutput();
+			produceOutput(iteration);
         }
 
         // Else we print (if we need to)
