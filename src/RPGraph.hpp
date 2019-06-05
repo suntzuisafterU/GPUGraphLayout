@@ -47,7 +47,7 @@ namespace RPGraph
             virtual nid_t degree(nid_t nid) = 0;
             virtual nid_t in_degree(nid_t nid) = 0;
             virtual nid_t out_degree(nid_t nid) = 0;
-            virtual std::vector<nid_t> neighbors_with_geq_id(nid_t nid) = 0;
+            virtual std::vector<nid_t> neighbors_with_geq_id(nid_t nid) = 0; /**< Used by CPU-FA2 and PNG-writer only */
 
     };
 
@@ -56,8 +56,8 @@ namespace RPGraph
     {
     private:
         nid_t node_count, edge_count;
-        std::unordered_map<nid_t, nid_t> degrees; /* Maps nid_t to degrees? */
-        std::unordered_map<nid_t, std::vector<nid_t>> adjacency_list; /* Maps nid_t to vector of nid_t */
+        std::unordered_map<nid_t, nid_t> degrees; /**< Maps nid_t to degrees? */
+        std::unordered_map<nid_t, std::vector<nid_t>> adjacency_list; /**< adjacency_list: Maps nid_t to vector of nid_t */
 
         bool has_node(nid_t nid);
         bool has_edge(nid_t s, nid_t t);
@@ -65,8 +65,10 @@ namespace RPGraph
         void add_edge(nid_t s, nid_t t);
 
     public:
-        // Construct UGraph from edgelist. IDs in edgelist are mapped to
-        // [0, 1, ..., num_nodes-1]. Removes any self-edges.
+        /**
+         * Construct UGraph from edgelist. IDs in edgelist are mapped to
+         * [0, 1, ..., num_nodes-1]. Removes any self-edges.
+         */
         UGraph(std::string edgelist_path);
         std::unordered_map<nid_t, nid_t> node_map; /* el id -> UGraph id */
         std::unordered_map<nid_t, nid_t> node_map_r; /* UGraph id -> el id */

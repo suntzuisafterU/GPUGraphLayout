@@ -33,9 +33,10 @@
 
 namespace RPGraph
 {
-    /* Definitions for UGraph */
     /**
      * Used once in main file (graph_viewer.cpp)
+     * 
+     * TODO: Refactor so that this class does not read the file directly itself.
      */
     UGraph::UGraph(std::string edgelist_path)
     {
