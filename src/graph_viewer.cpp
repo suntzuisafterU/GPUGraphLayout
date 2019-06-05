@@ -39,7 +39,7 @@
 #include "RPGraphLayout.hpp"
 #include "RPCPUForceAtlas2.hpp"
 
-#define __NVCC__ //TODO:  TEMP FOR USE IN VS
+// #define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -145,7 +145,8 @@ int main(int argc, const char **argv)
      * UGraph object of adjaceny list format.
      */
 	// TODO: Make UGraph from some other source, not just edgelist path, OR reuse UGraph for scoda etc.
-    RPGraph::UGraph graph = RPGraph::UGraph(edgelist_path);
+    RPGraph::UGraph graph = RPGraph::UGraph();
+    graph.read_edgelist_file(edgelist_path);
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", graph.num_nodes(), graph.num_edges());
 

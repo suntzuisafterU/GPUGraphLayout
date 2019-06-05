@@ -38,11 +38,12 @@ namespace RPGraph
      * 
      * TODO: Refactor so that this class does not read the file directly itself.
      */
-    UGraph::UGraph(std::string edgelist_path)
-    {
+    UGraph::UGraph() {
         node_count = 0;
         edge_count = 0;
+    }
 
+    void UGraph::read_edgelist_file(std::string edgelist_path) {
         std::fstream edgelist_file(edgelist_path, std::ifstream::in);
 
         std::string line;
