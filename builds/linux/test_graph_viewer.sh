@@ -10,4 +10,4 @@
   1.0 \
   approximate \
   ../../datasets/ca-AstroPh/out.ca-AstroPh \
-  out/ca-AstroPh \
+  out/TEST_ca-AstroPh \
