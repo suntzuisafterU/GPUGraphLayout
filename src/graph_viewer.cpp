@@ -164,6 +164,11 @@ int main(int argc, const char **argv)
     const int snap_period = ceil((float)max_iterations/num_screenshots);
     const int print_period = ceil((float)max_iterations*0.05);
 
+	/**
+	 * Lambda function using capture-by-reference to access all outer scope 
+	 * variables with the same symbol.
+	 * https://stackoverflow.com/questions/4324763/can-we-have-functions-inside-functions-in-c
+	 */
 	auto produceOutput = [&](int iteration) {
 		/**
 		 * Reverted to older version after multiple issues with the line intended to extract the basename of the network
