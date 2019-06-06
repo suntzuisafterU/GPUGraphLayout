@@ -59,6 +59,8 @@ namespace RPGraph
         std::unordered_map<nid_t, nid_t> degrees; /**< Maps nid_t to degrees? */
         std::unordered_map<nid_t, std::vector<nid_t>> adjacency_list; /**< adjacency_list: Maps nid_t to vector of nid_t */
 
+        void add_node(nid_t nid); /* Moved add_node back to private section for safety. */
+
         bool has_node(nid_t nid);
         bool has_edge(nid_t s, nid_t t);
 
@@ -73,8 +75,7 @@ namespace RPGraph
         std::unordered_map<nid_t, nid_t> node_map; /* el id -> UGraph id */
         std::unordered_map<nid_t, nid_t> node_map_r; /* UGraph id -> el id. Only used by writeToBin() and writeToCsv() */
 
-        void add_node(nid_t nid);
-        void add_edge(nid_t s, nid_t t);
+        void add_edge(nid_t s, nid_t t); /* Adding an edge also adds any nodes. */
 
         virtual nid_t num_nodes() override;
         virtual nid_t num_edges() override;
