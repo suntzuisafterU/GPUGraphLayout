@@ -234,9 +234,8 @@ int main(int argc, const char **argv)
     {
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
-	/* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
-	delete fa2; // TEMP TESTING
-	delete comm_fa2;
+	fa2 = nullptr; // TEMP TESTING: Do we need to null the pointers?
+	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
 
     RPGraph::GraphLayout full_layout(full_graph); /* Produce initial layout from comm_graph. */
     current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
@@ -272,8 +271,8 @@ int main(int argc, const char **argv)
     {
 		compositeStep(iteration); /* full graph layout is produced. */
     }
-	delete full_fa2;
+	fa2 = nullptr; // TEMP: TESTING: Do we need to null the pointers?
+	delete full_fa2; /* Free last ForceAtlas2 object. */
 
-    delete fa2;
     exit(EXIT_SUCCESS);
 }
