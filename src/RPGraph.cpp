@@ -94,8 +94,10 @@ namespace RPGraph
     {
         if(!has_node(nid))
         {
-            /* TODO: Can we improve this to use only O(|V|) memory? Why do we need something beyond
-                     simple membership here? */
+            /** 
+             * TODO: Can we improve this to use only O(|V|) memory? Why do we need something beyond simple membership here?
+             * Yes.  If we drop/modify writeToBin() and writeToCsv() 
+             */
             node_map[nid] = node_count;
             node_map_r[node_count] = nid;
             node_count++;

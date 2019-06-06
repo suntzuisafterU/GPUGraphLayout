@@ -47,7 +47,7 @@ namespace RPGraph
             virtual nid_t degree(nid_t nid) = 0;
             virtual nid_t in_degree(nid_t nid) = 0;
             virtual nid_t out_degree(nid_t nid) = 0;
-            virtual std::vector<nid_t> neighbors_with_geq_id(nid_t nid) = 0; /**< Used by CPU-FA2 and PNG-writer only */
+            virtual std::vector<nid_t> neighbors_with_geq_id(nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
 
     };
 
@@ -69,8 +69,9 @@ namespace RPGraph
          */
         UGraph();
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
+        /* TODO: Why do we need these 2 maps? */
         std::unordered_map<nid_t, nid_t> node_map; /* el id -> UGraph id */
-        std::unordered_map<nid_t, nid_t> node_map_r; /* UGraph id -> el id */
+        std::unordered_map<nid_t, nid_t> node_map_r; /* UGraph id -> el id. Only used by writeToBin() and writeToCsv() */
 
         void add_node(nid_t nid);
         void add_edge(nid_t s, nid_t t);
@@ -78,8 +79,8 @@ namespace RPGraph
         virtual nid_t num_nodes() override;
         virtual nid_t num_edges() override;
         virtual nid_t degree(nid_t nid) override;
-        virtual nid_t in_degree(nid_t nid) override;
-        virtual nid_t out_degree(nid_t nid) override;
+        virtual nid_t in_degree(nid_t nid) override; /**< Redundant */
+        virtual nid_t out_degree(nid_t nid) override; /**< Redundant */
 
         std::vector<nid_t> neighbors_with_geq_id(nid_t nid) override;
     };
