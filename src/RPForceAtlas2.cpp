@@ -30,7 +30,8 @@ namespace RPGraph
      * Why do we have the scope modifier ForceAtlas2::ForceAtlas2??
      */
     ForceAtlas2::ForceAtlas2(GraphLayout &layout, bool use_barneshut,
-                             bool strong_gravity, float gravity, float scale)
+                             bool strong_gravity, float gravity, float scale,
+							 bool randomize)
     : LayoutAlgorithm(layout), use_barneshut{use_barneshut},
       strong_gravity{strong_gravity}
     {
@@ -55,8 +56,7 @@ namespace RPGraph
         prevent_overlap = false;
         use_linlog = false;
 
-		// TODO: Remove or parameterize.  We are pre-populating the layout positions.
-        layout.randomizePositions();
+        if(randomize) layout.randomizePositions(); /* Parameterized to allow for pre-setting the layout from some other source. */
     }
 
     ForceAtlas2::~ForceAtlas2(){};

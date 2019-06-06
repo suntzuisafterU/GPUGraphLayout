@@ -165,17 +165,18 @@ int main(int argc, const char **argv)
 
     // Create the GraphLayout and ForceAtlas2 objects.
     // TODO: In Visual Studio: Refactor layout to comm_layout and produce another layout further down for the full graph.
-    RPGraph::GraphLayout layout(comm_graph); // TODO: Call scoda and get a new community UGraph first, then make a layout from that.
+    RPGraph::GraphLayout layout(comm_graph); /* Produce initial layout from comm_graph. */
     RPGraph::ForceAtlas2 *fa2; // Could be CPU or GPU object.
+	bool randomize = true;
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
         fa2 = new RPGraph::CUDAForceAtlas2(layout, approximate,
-                                           strong_gravity, gravity, scale);
+                                           strong_gravity, gravity, scale, randomize);
     else
     #endif
         fa2 = new RPGraph::CPUForceAtlas2(layout, approximate,
-                                          strong_gravity, gravity, scale);
+                                          strong_gravity, gravity, scale, randomize);
 
     printf("Started Layout algorithm...\n");
     const int snap_period = ceil((float)max_iterations/num_screenshots);

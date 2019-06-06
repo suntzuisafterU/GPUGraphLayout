@@ -41,7 +41,8 @@ namespace RPGraph
     {
         public:
             ForceAtlas2(GraphLayout &layout, bool use_barneshut,
-                        bool strong_gravity, float gravity, float scale);
+                        bool strong_gravity, float gravity, float scale,
+						bool randomize);
             ~ForceAtlas2();
 
             virtual void doStep() = 0;
