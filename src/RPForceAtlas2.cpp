@@ -55,6 +55,7 @@ namespace RPGraph
         prevent_overlap = false;
         use_linlog = false;
 
+		// TODO: Remove or parameterize.  We are pre-populating the layout positions.
         layout.randomizePositions();
     }
 
