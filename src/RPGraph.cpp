@@ -43,6 +43,10 @@ namespace RPGraph
         edge_count = 0;
     }
 
+    /**
+     * Was factored out of constructor and correctness verified.
+     * Move code to scoda to be part of the streaming initialization.
+     */
     void UGraph::read_edgelist_file(std::string edgelist_path) {
         std::fstream edgelist_file(edgelist_path, std::ifstream::in);
 
@@ -64,7 +68,7 @@ namespace RPGraph
 
     bool UGraph::has_node(nid_t nid)
     {
-        return node_map.count(nid) > 0;
+        return node_map.count(nid) > 0; /* Simple membership check.  Why use .count()? */
     }
 
     /**
