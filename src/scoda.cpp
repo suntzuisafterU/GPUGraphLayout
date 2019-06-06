@@ -24,7 +24,7 @@ int scoda(uint32_t degree_threshold,
     /* Main SCoDA loop */
     char linebuf[BUFSIZ];
     RPGraph::nid_t src_id, dst_id, src_deg, dst_deg;
-    while (fgets(linebuf, BUFSIZ, stdin) != NULL)
+    while (fgets(linebuf, BUFSIZ, stdin) != NULL) // TODO: Replace stdin with a file handle.
     { // fgets NULL on line that only contains EOF, or there could have been an error and ferror would be set.
         /*      source,  expands to format string, store source, store dest */
         sscanf(linebuf, "%" SCNu32 "\t%" SCNu32, &src_id, &dst_id); // TODO: Formatting, right now that tab is killing us.
