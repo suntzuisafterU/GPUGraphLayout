@@ -147,8 +147,9 @@ int main(int argc, const char **argv)
     RPGraph::UGraph* full_graph = RPGraph::UGraph();
     RPGraph::UGraph* comm_graph = RPGraph::UGraph();
     std::vector<nid_t>* nid_comm_vec; /**< Dynamic container for ease of use.  TODO: use .reserve() to improve the efficiency of scoda using this datastructure. */
-    // TODO: Call scoda
-    // TODO: Turn vector of comm ids into array for CUDA code.
+    uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
+    CommunityAlgos::scoda(degree_threshold, full_graph, comm_graph, nid_comm_vec) // TODO: Is this scoping correct?
+    nid_t* nid_comm_array = &nid_comm_vec[0] // TODO: Turn vector of comm ids into array for CUDA code.  DONE: Valid since vectors are guaranteed to be stored contiguously.
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", graph.num_nodes(), graph.num_edges());
 

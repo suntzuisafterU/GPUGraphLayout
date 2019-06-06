@@ -33,7 +33,7 @@ void scoda(uint32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGra
         // This is the modification I am interested in testing:
         // if( src_deg <= degree_threshold || dst_deg <= degree_threshold ) {
         if (src_deg <= degree_threshold && dst_deg <= degree_threshold)
-        { // see mod one line up
+        {
             /* NOTE: I do not think SCoDA is a good candidate for pure GPU
             implementation since it has:
               a) conditional branching (see below)
