@@ -2,7 +2,7 @@
 
 # NOTE: Should include source explaining use of time function in this case.
 ./graph_viewer \
-  gpu \
+  cpu \
   10 \
   4 \
   wg \
