@@ -20,12 +20,11 @@ void scoda(uint32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGra
 {
     /* Memory allocation & initialisation */
 
-    /**
-     * Aarons custom fields (or equivalent c terminology)
-     */
     uint32_t num_null_e = 0;         // Just for counting the number of FULLY ignored edges.
 
+
     /* Main SCoDA loop */
+    char linebuf[BUFSIZ];
     nid_t src_id, dst_id, src_deg, dst_deg;
     while (fgets(linebuf, BUFSIZ, stdin) != NULL)
     { // fgets NULL on line that only contains EOF, or there could have been an error and ferror would be set.
