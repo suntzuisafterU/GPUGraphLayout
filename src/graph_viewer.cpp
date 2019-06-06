@@ -144,14 +144,17 @@ int main(int argc, const char **argv)
     /**
      * UGraph object of adjaceny list format.
      */
-	// TODO: Make UGraph from some other source, not just edgelist path, OR reuse UGraph for scoda etc.
-    RPGraph::UGraph graph = RPGraph::UGraph();
-    graph.read_edgelist_file(edgelist_path);
+    RPGraph::UGraph* full_graph = RPGraph::UGraph();
+    RPGraph::UGraph* comm_graph = RPGraph::UGraph();
+    std::vector<nid_t>* nid_comm_vec; /**< Dynamic container for ease of use.  TODO: use .reserve() to improve the efficiency of scoda using this datastructure. */
+    // TODO: Call scoda
+    // TODO: Turn vector of comm ids into array for CUDA code.
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", graph.num_nodes(), graph.num_edges());
 
     // Create the GraphLayout and ForceAtlas2 objects.
-    RPGraph::GraphLayout layout(graph); // TODO: Call scoda and get a new community UGraph first, then make a layout from that.
+    // TODO: In Visual Studio: Refactor layout to comm_layout and produce another layout further down for the full graph.
+    RPGraph::GraphLayout layout(comm_graph); // TODO: Call scoda and get a new community UGraph first, then make a layout from that.
     RPGraph::ForceAtlas2 *fa2; // Could be CPU or GPU object.
     #ifdef __NVCC__
     if(cuda_requested)
