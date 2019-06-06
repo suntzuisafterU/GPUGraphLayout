@@ -168,7 +168,6 @@ int main(int argc, const char **argv)
     RPGraph::GraphLayout comm_layout(comm_graph); /* Produce initial layout from comm_graph. */
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
-	RPGraph::ForceAtlas2* fa2 = comm_fa2; // TODO: TESTING! 
 	bool randomize = true;
     #ifdef __NVCC__
     if(cuda_requested)
@@ -180,6 +179,7 @@ int main(int argc, const char **argv)
         comm_fa2 = new RPGraph::CPUForceAtlas2(comm_layout, approximate,
                                           strong_gravity, gravity, scale, randomize);
 
+	RPGraph::ForceAtlas2* fa2 = comm_fa2; // TODO: TESTING! 
     printf("Started Layout algorithm...\n");
     const int snap_period = ceil((float)max_iterations/num_screenshots);
     const int print_period = ceil((float)max_iterations*0.05);
@@ -241,7 +241,6 @@ int main(int argc, const char **argv)
 	// TODO: THIS DIDN'T WORK. FREE MEMORY PROPERLY LATER. delete fa2; /* Free old fa2 object */
 	randomize = false; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
 	RPGraph::ForceAtlas2* full_fa2;
-	fa2 = full_fa2;
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
@@ -251,6 +250,11 @@ int main(int argc, const char **argv)
     #endif
         full_fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
                                           strong_gravity, gravity, scale, randomize);
+	////////////////
+	///////////////
+	fa2 = full_fa2;
+	///////////////
+	////////////////
 	// TODO: Expansion kernel is called here. NOTE: kernel will require some form of array datastructure to operate on, will also have to look up the layout coordinate associated with the community_node.
 	// TODO: Sequential expansion function here.
 	/**
