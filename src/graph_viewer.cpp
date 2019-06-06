@@ -235,6 +235,7 @@ int main(int argc, const char **argv)
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
 	/* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
+	delete fa2; // TEMP TESTING
 	delete comm_fa2;
 
     RPGraph::GraphLayout full_layout(full_graph); /* Produce initial layout from comm_graph. */
