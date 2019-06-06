@@ -234,7 +234,6 @@ int main(int argc, const char **argv)
     {
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
-	cudaDeviceSynchronize();
 	fa2 = nullptr;
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
 
