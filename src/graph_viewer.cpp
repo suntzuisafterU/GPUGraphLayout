@@ -235,13 +235,12 @@ int main(int argc, const char **argv)
     }
 
     RPGraph::GraphLayout full_layout(full_graph); /* Produce initial layout from comm_graph. */
-	RPGraph::GraphLayout* current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
+    current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
 	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
 	// TODO: delete old fa2 object.  For now keep comm_layout to compare end positions with comm seeds.
-    RPGraph::ForceAtlas2 *fa2; /* TODO: Reinitialization of pointer with same name.  Is this the best practice? */
 	/////////////////////////////////////////////////
 	////////////////////////////////////////////////
-	bool randomize = true; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
+	randomize = true; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
 	//////////////////////////////////////////////////
 	//////////////////////////////////
     #ifdef __NVCC__
