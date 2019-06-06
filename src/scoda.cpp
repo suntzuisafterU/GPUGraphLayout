@@ -3,10 +3,8 @@
 namespace CommunityAlgos {
 
 // NOTE: We don't have to update degree anymore.  Just add the nodes to the UGraph.
-#define DEGREE(id) (full_graph.degree(id))         // Defines function for accessing the degree of the ith node.
-#define COMMUNITY(id) (nid_comm_vec[id])           // Defines function for accessing the community id associated with the ith node.
-#define COMM_EDGE_1(idx) (comm_edges[idx * 2])     // Get first community edge from pair.
-#define COMM_EDGE_2(idx) (comm_edges[idx * 2 + 1]) // Get second community edge from pair.
+#define DEGREE(id) (full_graph.degree(id)) // Defines function for accessing the degree of the ith node.
+#define COMMUNITY(id) (nid_comm_map[id])   // Defines function for accessing the community id associated with the ith node.
 
 /**
  * Produce community graph and node_id -> community mapping.
@@ -14,30 +12,46 @@ namespace CommunityAlgos {
  * returns: 
  *   UGraph pointer community graph AND unorderedmap pointer node_id -> community mapping.
  */
-
-void scoda(uint32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
-           std::vector<nid_t> &nid_comm_vec)
+int scoda(uint32_t degree_threshold, 
+           RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
+           std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map)
 {
     /* Memory allocation & initialisation */
 
-    uint32_t num_null_e = 0;         // Just for counting the number of FULLY ignored edges.
+    uint32_t num_null_e = 0; // Just for counting the number of FULLY ignored edges.
 
-
+    printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
     char linebuf[BUFSIZ];
-    nid_t src_id, dst_id, src_deg, dst_deg;
+    RPGraph::nid_t src_id, dst_id, src_deg, dst_deg;
     while (fgets(linebuf, BUFSIZ, stdin) != NULL)
     { // fgets NULL on line that only contains EOF, or there could have been an error and ferror would be set.
         /*      source,  expands to format string, store source, store dest */
-        sscanf(linebuf, "%" SCNu32 "\t%" SCNu32, &src_id, &dst_id); // TODO: Does this agree with uint32_t?
+        sscanf(linebuf, "%" SCNu32 "\t%" SCNu32, &src_id, &dst_id); // TODO: Formatting, right now that tab is killing us.
+        // Must add edge before retrieving degrees of nodes.
+        full_graph.add_edge(src_id, dst_id);
+
+        // .count() is used for membership test...
+        if (nid_comm_map.count(src_id) == 0)
+            COMMUNITY(src_id) = src_id; // Default community for node has same id as node
+        if (nid_comm_map.count(dst_id) == 0)
+            COMMUNITY(dst_id) = dst_id; // Default community for node has same id as node
+
+        // degrees are >= 1;
+        src_deg = DEGREE(src_id);
+        dst_deg = DEGREE(dst_id);
+
         // This is the modification I am interested in testing:
-        // if( src_deg <= degree_threshold || dst_deg <= degree_threshold ) {
+        // if( src_deg <= degree_threshold || dst_deg <= degree_threshold )
         if (src_deg <= degree_threshold && dst_deg <= degree_threshold)
         {
             /* NOTE: I do not think SCoDA is a good candidate for pure GPU
             implementation since it has:
               a) conditional branching (see below)
               b) I can not think of a way to organize the memory access properly since this algorithm relies on a random stream. */
+
+            // TODO: Initialize the community ids of the unordered_map
+
             if (src_deg > dst_deg)
             {
                 COMMUNITY(dst_id) = COMMUNITY(src_id);
@@ -68,7 +82,7 @@ void scoda(uint32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGra
         //       communities AND add a community connecting edge at the same time.  Probably undesireable.)
         else if (src_deg > degree_threshold && dst_deg > degree_threshold)
         {
-            // add community edge.
+            // add community edge. NOTE: Currently does NOT account for duplicate edges or edge weight. Just ignores duplicates.
             comm_graph.add_edge(src_id, dst_id);
             // TODO: Could have duplicate edges, conside making edges weighted.
         }
@@ -80,5 +94,5 @@ void scoda(uint32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGra
         }
     }
     return EXIT_SUCCESS;
-    }
+}
 } // namespace CommunityAlgos

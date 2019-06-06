@@ -38,6 +38,7 @@
 #include "RPGraph.hpp"
 #include "RPGraphLayout.hpp"
 #include "RPCPUForceAtlas2.hpp"
+#include "scoda.hpp"
 
 // #define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
@@ -141,17 +142,21 @@ int main(int argc, const char **argv)
     fflush(stdout);
 	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
 
-    /**
-     * UGraph object of adjaceny list format.
-     */
-    RPGraph::UGraph* full_graph = RPGraph::UGraph();
-    RPGraph::UGraph* comm_graph = RPGraph::UGraph();
-    std::vector<nid_t>* nid_comm_vec; /**< Dynamic container for ease of use.  TODO: use .reserve() to improve the efficiency of scoda using this datastructure. */
+    RPGraph::UGraph full_graph = RPGraph::UGraph();
+    RPGraph::UGraph comm_graph = RPGraph::UGraph();
+    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Replaced vector */
     uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
-    CommunityAlgos::scoda(degree_threshold, full_graph, comm_graph, nid_comm_vec) // TODO: Is this scoping correct?
-    nid_t* nid_comm_array = &nid_comm_vec[0] // TODO: Turn vector of comm ids into array for CUDA code.  DONE: Valid since vectors are guaranteed to be stored contiguously.
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    int status = CommunityAlgos::scoda(degree_threshold, full_graph, comm_graph, nid_comm_map); // TODO: Is this scoping correct?
+    if(status != 0){ // 0 is success
+        exit(status); // propgate error code.
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    printf("Finished scoda\n");
+
+    RPGraph::nid_t* nid_comm_array = &nid_comm_map[0]; // TODO: Figure out most efficient way to turn this unordered_map into an array.
     printf("done.\n");
-    printf("    fetched %d nodes and %d edges.\n", graph.num_nodes(), graph.num_edges());
+    printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
 
     // Create the GraphLayout and ForceAtlas2 objects.
     // TODO: In Visual Studio: Refactor layout to comm_layout and produce another layout further down for the full graph.
