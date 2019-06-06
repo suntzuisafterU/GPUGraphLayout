@@ -241,11 +241,7 @@ int main(int argc, const char **argv)
 	// TODO: Remake Graph layout
 	// TODO: Remake ForceAtlas2 object
 	// TODO: Execute FA2 again.
-	
 
     delete fa2;
     exit(EXIT_SUCCESS);
 }
-
-
-
