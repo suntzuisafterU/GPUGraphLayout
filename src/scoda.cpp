@@ -15,35 +15,22 @@ namespace CommunityAlgos {
  *   UGraph pointer community graph AND unorderedmap pointer node_id -> community mapping.
  */
 
-void scoda(int32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
+void scoda(uint32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
            std::vector<nid_t> &nid_comm_vec)
 {
     /* Memory allocation & initialisation */
-    // int32_t is fixed width integer.  Does this match up with our desired GPU imp?
-    for (int32_t i = 0; i < max_node_id; i++)
-    {
-        COMMUNITY(i) = i; // Initialize every element to community id associated with node of same id.
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////// New ////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Aarons custom fields (or equivalent c terminology)
      */
-    int32_t num_null_e = 0;         // Just for counting the number of FULLY ignored edges.
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////// End new ////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    uint32_t num_null_e = 0;         // Just for counting the number of FULLY ignored edges.
 
     /* Main SCoDA loop */
     nid_t src_id, dst_id, src_deg, dst_deg;
     while (fgets(linebuf, BUFSIZ, stdin) != NULL)
     { // fgets NULL on line that only contains EOF, or there could have been an error and ferror would be set.
         /*      source,  expands to format string, store source, store dest */
-        sscanf(linebuf, "%" SCNd32 "\t%" SCNd32, &src_id, &dst_id);
+        sscanf(linebuf, "%" SCNu32 "\t%" SCNu32, &src_id, &dst_id); // TODO: Does this agree with uint32_t?
         src_deg = DEGREE(src_id)++; // Index into array at 2-times id and update
         dst_deg = DEGREE(dst_id)++; // degree of source and destination.
         /* NOTE: In the future if we are experimenting with SCoDA we could 
@@ -93,8 +80,6 @@ void scoda(int32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGrap
             // add community edge.
             comm_graph.add_edge(src_id, dst_id);
             // TODO: Could have duplicate edges, conside making edges weighted.
-            // TODO: Record degree of edges here, at least for reference.
-            next_comm_edge_idx++; // Increment community edge count.
         }
 
         // TODO: Remove after testing, this is just for counting null edges.
@@ -102,9 +87,7 @@ void scoda(int32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGrap
         {
             num_null_e++;
         }
-        /////////////////////////////// End new code /////////////////////////////////////////////////////////////////
     }
-
     return EXIT_SUCCESS;
     }
 } // namespace CommunityAlgos
