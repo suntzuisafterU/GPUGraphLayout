@@ -224,9 +224,6 @@ int main(int argc, const char **argv)
         }
 	};
 
-	// TODO: Add lambda for calling scoda.  
-	// TODO: Turn scoda into an importable module.
-
 	/**
 	 * Initial layout will be produced from community graph.
 	 */
