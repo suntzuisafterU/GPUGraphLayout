@@ -30,12 +30,6 @@ void scoda(uint32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGra
     { // fgets NULL on line that only contains EOF, or there could have been an error and ferror would be set.
         /*      source,  expands to format string, store source, store dest */
         sscanf(linebuf, "%" SCNu32 "\t%" SCNu32, &src_id, &dst_id); // TODO: Does this agree with uint32_t?
-        /* NOTE: In the future if we are experimenting with SCoDA we could 
-        change the way we ignore edges.  We could just change the && to ||
-        for example. Made a branch to try this on the benchmark code. 
-        Produces much fewer communities but I do not have a way to validate 
-        them at this time. TODO: Validate different versions of this with
-        F1 score and NMI. */
         // This is the modification I am interested in testing:
         // if( src_deg <= degree_threshold || dst_deg <= degree_threshold ) {
         if (src_deg <= degree_threshold && dst_deg <= degree_threshold)
