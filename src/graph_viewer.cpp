@@ -234,7 +234,7 @@ int main(int argc, const char **argv)
     {
 		compositeStep(iteration);
     }
-	// TODO: Expansion kernel is called here.
+	// TODO: Expansion kernel is called here. NOTE: kernel will require some form of array datastructure to operate on, will also have to look up the layout coordinate associated with the community_node.
 	// TODO: Sequential expansion function here.
 	/**
 	 * Expansion:

@@ -68,7 +68,7 @@ namespace RPGraph
 
     bool UGraph::has_node(nid_t nid)
     {
-        return node_map.count(nid) > 0; /* Simple membership check.  Why use .count()? */
+        return node_map.count(nid) > 0; /* Simple membership check. .count() will return 0 or 1 for unordered_maps */
     }
 
     /**

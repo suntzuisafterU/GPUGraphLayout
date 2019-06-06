@@ -83,7 +83,7 @@ namespace RPGraph
         virtual nid_t in_degree(nid_t nid) override; /**< Redundant */
         virtual nid_t out_degree(nid_t nid) override; /**< Redundant */
 
-        std::vector<nid_t> neighbors_with_geq_id(nid_t nid) override;
+        std::vector<nid_t> neighbors_with_geq_id(nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
     };
 
     // Compressed sparserow (CSR) for undirected graphs.
