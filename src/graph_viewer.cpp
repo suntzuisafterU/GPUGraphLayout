@@ -41,7 +41,7 @@
 #include "RPCPUForceAtlas2.hpp"
 #include "scoda.hpp"
 
-// #define __NVCC__ //TODO:  TEMP FOR USE IN VS
+#define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -149,7 +149,7 @@ int main(int argc, const char **argv)
     RPGraph::UGraph comm_graph = RPGraph::UGraph();
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. */
     // TEMP VALUE!!! TODO::::
-    uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
+    int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
     //////////////////////////////////////////////////////////////////////////////////////////////
     int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map);
     edgelist_file.close();
