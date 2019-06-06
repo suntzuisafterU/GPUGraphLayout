@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include <string>
 #include <math.h>
+#include <fstream>
 
 #include "RPCommon.hpp"
 #include "RPGraph.hpp"
@@ -138,16 +139,20 @@ int main(int argc, const char **argv)
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Load graph.
-    printf("Loading edgelist at '%s'...", edgelist_path);
+    printf("Opening edgelist file at '%s'...", edgelist_path);
     fflush(stdout);
 	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
 
+    std::fstream edgelist_file(edgelist_path, std::ifstream::in);
+
     RPGraph::UGraph full_graph = RPGraph::UGraph();
     RPGraph::UGraph comm_graph = RPGraph::UGraph();
-    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Replaced vector */
+    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. */
+    // TEMP VALUE!!! TODO::::
     uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
     //////////////////////////////////////////////////////////////////////////////////////////////
-    int status = CommunityAlgos::scoda(degree_threshold, full_graph, comm_graph, nid_comm_map); // TODO: Is this scoping correct?
+    int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map);
+    edgelist_file.close();
     if(status != 0){ // 0 is success
         exit(status); // propgate error code.
     }

@@ -12,7 +12,7 @@ namespace CommunityAlgos {
  * returns: 
  *   UGraph pointer community graph AND unorderedmap pointer node_id -> community mapping.
  */
-int scoda(uint32_t degree_threshold, 
+int scoda(uint32_t degree_threshold, std::fstream& edgelist_file,
            RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
            std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map)
 {
@@ -22,12 +22,18 @@ int scoda(uint32_t degree_threshold,
 
     printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
-    char linebuf[BUFSIZ];
+    {
+    }
+    std::string line;
     RPGraph::nid_t src_id, dst_id, src_deg, dst_deg;
-    while (fgets(linebuf, BUFSIZ, stdin) != NULL) // TODO: Replace stdin with a file handle.
-    { // fgets NULL on line that only contains EOF, or there could have been an error and ferror would be set.
-        /*      source,  expands to format string, store source, store dest */
-        sscanf(linebuf, "%" SCNu32 "\t%" SCNu32, &src_id, &dst_id); // TODO: Formatting, right now that tab is killing us.
+    while(std::getline(edgelist_file, line))
+    {
+        // Skip any comments
+        if(line[0] == '#') continue;
+
+        // Read source and target from file
+        std::istringstream(line) >> src_id >> dst_id;
+
         // Must add edge before retrieving degrees of nodes.
         full_graph.add_edge(src_id, dst_id);
 
