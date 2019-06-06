@@ -4,7 +4,7 @@
 ./graph_viewer \
   gpu \
   10 \
-  1 \
+  4 \
   wg \
   2.0 \
   1.0 \
