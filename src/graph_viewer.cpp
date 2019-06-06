@@ -167,8 +167,8 @@ int main(int argc, const char **argv)
     // Create the GraphLayout and ForceAtlas2 objects.
     RPGraph::GraphLayout comm_layout(comm_graph); /* Produce initial layout from comm_graph. */
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
-    RPGraph::ForceAtlas2 comm_fa2; // Could be CPU or GPU object.
-	RPGraph::ForceAtlas2* fa2 = &comm_fa2; // TODO: TESTING! 
+    RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
+	RPGraph::ForceAtlas2* fa2 = comm_fa2; // TODO: TESTING! 
 	bool randomize = true;
     #ifdef __NVCC__
     if(cuda_requested)
@@ -240,8 +240,8 @@ int main(int argc, const char **argv)
 	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
 	// TODO: THIS DIDN'T WORK. FREE MEMORY PROPERLY LATER. delete fa2; /* Free old fa2 object */
 	randomize = false; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
-	RPGraph::ForceAtlas2 full_fa2;
-	fa2 = &full_fa2;
+	RPGraph::ForceAtlas2* full_fa2;
+	fa2 = full_fa2;
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
