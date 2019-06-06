@@ -165,7 +165,6 @@ int main(int argc, const char **argv)
     printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
 
     // Create the GraphLayout and ForceAtlas2 objects.
-    // TODO: In Visual Studio: Refactor layout to comm_layout and produce another layout further down for the full graph.
     RPGraph::GraphLayout comm_layout(comm_graph); /* Produce initial layout from comm_graph. */
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2 *fa2; // Could be CPU or GPU object.
@@ -230,10 +229,30 @@ int main(int argc, const char **argv)
 	/**
 	 * Initial layout will be produced from community graph.
 	 */
-    for (int iteration = 1; iteration <= max_iterations; ++iteration)
+    for (int iteration = 1; iteration <= ceil(max_iterations/2); ++iteration)
     {
-		compositeStep(iteration);
+		compositeStep(iteration); /* comm graph layout is produced. */
     }
+
+    RPGraph::GraphLayout full_layout(full_graph); /* Produce initial layout from comm_graph. */
+	RPGraph::GraphLayout* current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
+	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
+	// TODO: delete old fa2 object.  For now keep comm_layout to compare end positions with comm seeds.
+    RPGraph::ForceAtlas2 *fa2; /* TODO: Reinitialization of pointer with same name.  Is this the best practice? */
+	/////////////////////////////////////////////////
+	////////////////////////////////////////////////
+	bool randomize = true; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
+	//////////////////////////////////////////////////
+	//////////////////////////////////
+    #ifdef __NVCC__
+    if(cuda_requested)
+        // GPU FA2
+        fa2 = new RPGraph::CUDAForceAtlas2(full_layout, approximate,
+                                           strong_gravity, gravity, scale, randomize);
+    else
+    #endif
+        fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
+                                          strong_gravity, gravity, scale, randomize);
 	// TODO: Expansion kernel is called here. NOTE: kernel will require some form of array datastructure to operate on, will also have to look up the layout coordinate associated with the community_node.
 	// TODO: Sequential expansion function here.
 	/**
@@ -241,9 +260,14 @@ int main(int argc, const char **argv)
 	 *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
 	 */
 
-	// TODO: Remake Graph layout
-	// TODO: Remake ForceAtlas2 object
-	// TODO: Execute FA2 again.
+	/**
+	 * Second layout with full graph.
+	 */
+    for (int iteration = ceil(max_iterations/2); iteration <= max_iterations; ++iteration)
+    {
+		compositeStep(iteration); /* full graph layout is produced. */
+    }
+
 
     delete fa2;
     exit(EXIT_SUCCESS);
