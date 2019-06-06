@@ -38,8 +38,8 @@ namespace RPGraph
 {
     CUDAForceAtlas2::CUDAForceAtlas2(GraphLayout &layout, bool use_barneshut,
                                      bool strong_gravity, float gravity,
-                                     float scale)
-    : ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale)
+                                     float scale, bool randomize)
+    : ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize)
       // This declaration is a bit confusing.  Why are the names for inheritance to
       // ForceAtlas2(...) not typed?
     {

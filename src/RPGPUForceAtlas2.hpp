@@ -36,7 +36,8 @@ namespace RPGraph
     {
     public:
         CUDAForceAtlas2(GraphLayout &layout, bool use_barneshut,
-                        bool strong_gravity, float gravity, float scale);
+                        bool strong_gravity, float gravity, float scale,
+						bool randomize);
         ~CUDAForceAtlas2();
         void doStep() override;
         void sync_layout() override;
