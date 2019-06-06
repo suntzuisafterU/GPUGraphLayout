@@ -90,7 +90,7 @@ int scoda(uint32_t degree_threshold, std::fstream& edgelist_file,
         {
             // add community edge. NOTE: Currently does NOT account for duplicate edges or edge weight. Just ignores duplicates.
             comm_graph.add_edge(src_id, dst_id);
-            // TODO: Could have duplicate edges, conside making edges weighted.
+            // TODO: Could have duplicate edges, consider making edges weighted.
         }
 
         // TODO: Remove after testing, this is just for counting null edges.

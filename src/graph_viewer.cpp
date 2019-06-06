@@ -241,7 +241,6 @@ int main(int argc, const char **argv)
 	 *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
 	 */
 
-	// TODO: Remake Graph, from datastructure provided by SCoDA, not from edgelist path.
 	// TODO: Remake Graph layout
 	// TODO: Remake ForceAtlas2 object
 	// TODO: Execute FA2 again.
