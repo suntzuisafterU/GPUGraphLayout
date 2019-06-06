@@ -30,8 +30,6 @@ void scoda(uint32_t degree_threshold, RPGraph::UGraph &full_graph, RPGraph::UGra
     { // fgets NULL on line that only contains EOF, or there could have been an error and ferror would be set.
         /*      source,  expands to format string, store source, store dest */
         sscanf(linebuf, "%" SCNu32 "\t%" SCNu32, &src_id, &dst_id); // TODO: Does this agree with uint32_t?
-        // Unecessary: will be incremented by UGRaph. src_deg = DEGREE(src_id)++; // Index into array at 2-times id and update
-        // Unecessary: will be incremented by UGRaph. dst_deg = DEGREE(dst_id)++; // degree of source and destination.
         /* NOTE: In the future if we are experimenting with SCoDA we could 
         change the way we ignore edges.  We could just change the && to ||
         for example. Made a branch to try this on the benchmark code. 
