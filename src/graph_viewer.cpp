@@ -41,7 +41,7 @@
 #include "RPCPUForceAtlas2.hpp"
 #include "scoda.hpp"
 
-// #define __NVCC__ //TODO:  TEMP FOR USE IN VS
+#define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -159,23 +159,25 @@ int main(int argc, const char **argv)
     //////////////////////////////////////////////////////////////////////////////////////////////
     printf("Finished scoda\n");
 
+	// TODO: Get rid of this.  It works but produces a very large, sparse array, and I am not sure if the data is safe.
     RPGraph::nid_t* nid_comm_array = &nid_comm_map[0]; // TODO: Figure out most efficient way to turn this unordered_map into an array.
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
 
     // Create the GraphLayout and ForceAtlas2 objects.
     // TODO: In Visual Studio: Refactor layout to comm_layout and produce another layout further down for the full graph.
-    RPGraph::GraphLayout layout(comm_graph); /* Produce initial layout from comm_graph. */
+    RPGraph::GraphLayout comm_layout(comm_graph); /* Produce initial layout from comm_graph. */
+	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2 *fa2; // Could be CPU or GPU object.
 	bool randomize = true;
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
-        fa2 = new RPGraph::CUDAForceAtlas2(layout, approximate,
+        fa2 = new RPGraph::CUDAForceAtlas2(comm_layout, approximate,
                                            strong_gravity, gravity, scale, randomize);
     else
     #endif
-        fa2 = new RPGraph::CPUForceAtlas2(layout, approximate,
+        fa2 = new RPGraph::CPUForceAtlas2(comm_layout, approximate,
                                           strong_gravity, gravity, scale, randomize);
 
     printf("Started Layout algorithm...\n");
@@ -198,11 +200,11 @@ int main(int argc, const char **argv)
 		fa2->sync_layout(); /* The same symbol is used regardless of which stage we are at. */
 
 		if (out_format == "png")
-			layout.writeToPNG(image_w, image_h, op);
+			current_layout->writeToPNG(image_w, image_h, op);
 		else if (out_format == "csv")
-			layout.writeToCSV(op);
+			current_layout->writeToCSV(op);
 		else if (out_format == "bin")
-			layout.writeToBin(op);
+			current_layout->writeToBin(op);
 
 		printf("done.\n");
 	};
