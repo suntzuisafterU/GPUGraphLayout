@@ -35,6 +35,7 @@ namespace RPGraph
                        bool strong_gravity, float gravity, float scale,
 					   bool randomize);
         ~CPUForceAtlas2();
+        // TODO: Do we need any more destructors here?
         void doStep() override;
         void sync_layout() override;
 

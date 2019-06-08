@@ -44,6 +44,7 @@ namespace RPGraph
                         bool strong_gravity, float gravity, float scale,
 						bool randomize);
             ~ForceAtlas2();
+            // TODO: BUG: Virtual destructor here?
 
             virtual void doStep() = 0;
             void doSteps(int n);
@@ -72,6 +73,8 @@ namespace RPGraph
             /**
              * TODO: Review and explain the Barnes-Hut parameters here.
              * Barnes-Hut parameters
+             *
+             * TODO: Found theta!
              */
             float theta;   /**< Accuracy */
             float epssq;   /**< Softening (Epsilon, squared) */

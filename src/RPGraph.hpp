@@ -48,6 +48,7 @@ namespace RPGraph
             virtual nid_t in_degree(nid_t nid) = 0;
             virtual nid_t out_degree(nid_t nid) = 0;
             virtual std::vector<nid_t> neighbors_with_geq_id(nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
+            // TODO: Where is the destructor????
 
     };
 
@@ -69,7 +70,7 @@ namespace RPGraph
          * Construct UGraph from edgelist. IDs in edgelist are mapped to
          * [0, 1, ..., num_nodes-1]. Removes any self-edges.
          */
-        explicit UGraph();
+        explicit UGraph(); // TODO: Is this change necessary/helpful?
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
         /* TODO: Why do we need these 2 maps? */
         std::unordered_map<nid_t, nid_t> node_map; /* el id -> UGraph id */
