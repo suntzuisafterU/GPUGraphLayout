@@ -38,6 +38,10 @@ namespace RPGraph
 {
     /**
      * Q: What are width and height for?  Size of image?
+     * 
+     * TODO: Since I factored out the randomization, the coordinates are
+     * allocated and not initialized.  TODO: Turn randomization back on and see
+     * if this works.
      */
     GraphLayout::GraphLayout(UGraph &graph, float width, float height)
         : graph(graph), width(width), height(height)

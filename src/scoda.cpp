@@ -16,6 +16,10 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
            RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
            std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map)
 {
+  // TODO: ERROR: How are these parameters passed to scoda?  I am assuming that
+  // we get a pointer to a pre-initialized value, but valgrind says that this
+  // stack allocation is not initialized... Are we passing references like
+  // this? Or pointers? or something different?
     /* Memory allocation & initialisation */
 
     uint32_t num_null_e = 0; // Just for counting the number of FULLY ignored edges.
@@ -24,6 +28,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
     /* Main SCoDA loop */
     {
     }
+    // TODO: how is line allocated?
     std::string line;
     RPGraph::nid_t src_id, dst_id, src_deg, dst_deg;
     while(std::getline(edgelist_file, line))
@@ -99,6 +104,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
             num_null_e++;
         }
     }
+    printf("num_null_e: %d\n", num_null_e);
     return EXIT_SUCCESS;
 }
 } // namespace CommunityAlgos

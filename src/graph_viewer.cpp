@@ -41,7 +41,7 @@
 #include "RPCPUForceAtlas2.hpp"
 #include "scoda.hpp"
 
-#define __NVCC__ //TODO:  TEMP FOR USE IN VS
+// #define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -165,6 +165,7 @@ int main(int argc, const char **argv)
     printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
 
     // Create the GraphLayout and ForceAtlas2 objects.
+    // TODO: how is this graph allocated? When is it freed?
     RPGraph::GraphLayout comm_layout(comm_graph); /* Produce initial layout from comm_graph. */
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
@@ -172,6 +173,7 @@ int main(int argc, const char **argv)
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
+        // TODO: Is this the correct way to initialize the value at a pointer.
         comm_fa2 = new RPGraph::CUDAForceAtlas2(comm_layout, approximate,
                                            strong_gravity, gravity, scale, randomize);
     else
@@ -236,12 +238,14 @@ int main(int argc, const char **argv)
     }
 	fa2 = nullptr;
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
+  // TODO: Should we delete the layout?
 
+  // TODO: ERROR: This is the start of our problems according to valgrind.
     RPGraph::GraphLayout full_layout(full_graph); /* Produce initial layout from comm_graph. */
     current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
 	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
 	// TODO: THIS DIDN'T WORK. FREE MEMORY PROPERLY LATER. delete fa2; /* Free old fa2 object */
-	randomize = false; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
+	randomize = true; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
 	RPGraph::ForceAtlas2* full_fa2;
     #ifdef __NVCC__
     if(cuda_requested)
