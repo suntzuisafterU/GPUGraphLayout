@@ -160,7 +160,7 @@ int main(int argc, const char **argv)
     printf("Finished scoda\n");
 
 	// TODO: Get rid of this.  It works but produces a very large, sparse array, and I am not sure if the data is safe.
-    RPGraph::nid_t* nid_comm_array = &nid_comm_map[0]; // TODO: Figure out most efficient way to turn this unordered_map into an array.
+    // RPGraph::nid_t* nid_comm_array = &nid_comm_map[0]; // TODO: Figure out most efficient way to turn this unordered_map into an array.
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
 
@@ -237,6 +237,7 @@ int main(int argc, const char **argv)
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
 	fa2 = nullptr;
+  // TODO: ERROR: Need virtual destructor?
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
   // TODO: Should we delete the layout?
 
@@ -276,6 +277,7 @@ int main(int argc, const char **argv)
 		compositeStep(iteration); /* full graph layout is produced. */
     }
 	fa2 = nullptr;
+  // TODO: ERROR: Calling delete on a virtual pointer with no virtual destructor!!
 	delete full_fa2; /* Free last ForceAtlas2 object. */
 
     exit(EXIT_SUCCESS);
