@@ -33,6 +33,8 @@
 
 namespace RPGraph
 {
+    Graph::~Graph() = default;
+
     /**
      * Used once in main file (graph_viewer.cpp)
      * 
@@ -43,6 +45,7 @@ namespace RPGraph
         edge_count = 0;
     }
 
+    UGraph::~UGraph() = default;
     /**
      * Was factored out of constructor and correctness verified.
      * Move code to scoda to be part of the streaming initialization.

@@ -49,6 +49,7 @@ namespace RPGraph
             virtual nid_t out_degree(nid_t nid) = 0;
             virtual std::vector<nid_t> neighbors_with_geq_id(nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
             // TODO: Where is the destructor????
+            virtual ~Graph() = 0; /**< Pure virtual method, specified by `= 0;`. Means that deriving class must override, but can use optional implementation provided by superclass via the `= default;` keyword. */
 
     };
 
@@ -71,12 +72,13 @@ namespace RPGraph
          * [0, 1, ..., num_nodes-1]. Removes any self-edges.
          */
         explicit UGraph(); // TODO: Is this change necessary/helpful?
+        ~UGraph(); /* Explicity decalre and define destructors. */
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
         /* TODO: Why do we need these 2 maps? */
         std::unordered_map<nid_t, nid_t> node_map; /* el id -> UGraph id */
         std::unordered_map<nid_t, nid_t> node_map_r; /* UGraph id -> el id. Only used by writeToBin() and writeToCsv() */
 
-        void add_edge(nid_t s, nid_t t); /* Adding an edge also adds any nodes. */
+        void add_edge(nid_t s, nid_t t); /**< Adding an edge also adds any nodes. */
 
         virtual nid_t num_nodes() override;
         virtual nid_t num_edges() override;
