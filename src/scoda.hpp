@@ -16,8 +16,8 @@ namespace CommunityAlgos {
      *
      */
     int scoda(int degree_threshold, std::fstream& edgelist_file,
-                RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph, 
-                std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>& nid_comm_vec);
+                RPGraph::UGraph* full_graph, RPGraph::UGraph* comm_graph, 
+                std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>* nid_comm_vec);
 
 }
 

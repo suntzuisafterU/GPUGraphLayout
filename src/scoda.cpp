@@ -3,8 +3,8 @@
 namespace CommunityAlgos {
 
 // NOTE: We don't have to update degree anymore.  Just add the nodes to the UGraph.
-#define DEGREE(id) (full_graph.degree(id)) // Defines function for accessing the degree of the ith node.
-#define COMMUNITY(id) (nid_comm_map[id])   // Defines function for accessing the community id associated with the ith node.
+#define DEGREE(id) (full_graph->degree(id)) // Defines function for accessing the degree of the ith node.
+#define COMMUNITY(nid, comm_id) (nid_comm_map->insert({nid, comm_id}))   // Defines function for accessing the community id associated with the ith node.
 
 /**
  * Produce community graph and node_id -> community mapping.
@@ -13,8 +13,8 @@ namespace CommunityAlgos {
  *   UGraph pointer community graph AND unorderedmap pointer node_id -> community mapping.
  */
 int scoda(int degree_threshold, std::fstream& edgelist_file,
-           RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
-           std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map)
+           RPGraph::UGraph* full_graph, RPGraph::UGraph* comm_graph,
+           std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>* nid_comm_map)
 {
   // TODO: ERROR: How are these parameters passed to scoda?  I am assuming that
   // we get a pointer to a pre-initialized value, but valgrind says that this
@@ -40,13 +40,13 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
         std::istringstream(line) >> src_id >> dst_id;
 
         // Must add edge before retrieving degrees of nodes.
-        full_graph.add_edge(src_id, dst_id);
+        full_graph->add_edge(src_id, dst_id);
 
         // .count() is used for membership test...
-        if (nid_comm_map.count(src_id) == 0)
-            COMMUNITY(src_id) = src_id; // Default community for node has same id as node
-        if (nid_comm_map.count(dst_id) == 0)
-            COMMUNITY(dst_id) = dst_id; // Default community for node has same id as node
+        if (nid_comm_map->count(src_id) == 0)
+            COMMUNITY(src_id, src_id); // Default community for node has same id as node
+        if (nid_comm_map->count(dst_id) == 0)
+            COMMUNITY(dst_id, dst_id); // Default community for node has same id as node
 
         // degrees are >= 1;
         src_deg = DEGREE(src_id);
@@ -65,11 +65,11 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
 
             if (src_deg > dst_deg)
             {
-                COMMUNITY(dst_id) = COMMUNITY(src_id);
+                COMMUNITY(dst_id, src_id);
             }
             else
             { // If equal, src_id is moved
-                COMMUNITY(src_id) = COMMUNITY(dst_id);
+                COMMUNITY(src_id, dst_id);
             }
         }
         /////////////////////////////////// Add community edges for community graph here ////////////////////////////
@@ -94,7 +94,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
         else if (src_deg > degree_threshold && dst_deg > degree_threshold)
         {
             // add community edge. NOTE: Currently does NOT account for duplicate edges or edge weight. Just ignores duplicates.
-            comm_graph.add_edge(src_id, dst_id);
+            comm_graph->add_edge(src_id, dst_id);
             // TODO: Could have duplicate edges, consider making edges weighted.
         }
 
