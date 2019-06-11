@@ -13,8 +13,8 @@ namespace CommunityAlgos {
  *   UGraph reference community graph AND unordered_map reference node_id -> community mapping.
  */
 int scoda(int degree_threshold, std::fstream& edgelist_file,
-           RPGraph::UGraph full_graph, RPGraph::UGraph comm_graph,
-           std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map)
+           RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph,
+           std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>& nid_comm_map)
 {
     // TODO: What is the difference between passing `RPGraph::UGraph& full_graph` and `RPGraph::UGraph full_graph`??
   // TODO: ERROR: How are these parameters passed to scoda?  I am assuming that

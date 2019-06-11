@@ -152,8 +152,8 @@ int main(int argc, const char **argv)
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
     //////////////////////////////////////////////////////////////////////////////////////////////
     int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map);
+    // TODO: We pass in regerences to the full_graph and comm_graph objects, but nothing comes back. How should these be passed?
     edgelist_file.close();
-    // TODO: BUG: Conditional jump depends on unitialized value??? Check valgrind file.
     if(status != 0){ // 0 is success
         exit(status); // propgate error code.
     }
