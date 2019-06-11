@@ -43,7 +43,7 @@ namespace RPGraph
             ForceAtlas2(GraphLayout &layout, bool use_barneshut,
                         bool strong_gravity, float gravity, float scale,
 						bool randomize);
-            ~ForceAtlas2();
+            virtual ~ForceAtlas2();
             // TODO: BUG: Virtual destructor here?
 
             virtual void doStep() = 0;
