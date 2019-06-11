@@ -143,7 +143,7 @@ int main(int argc, const char **argv)
     fflush(stdout);
 	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
 
-    std::fstream edgelist_file(edgelist_path, std::ifstream::in);
+    std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference??
 
     RPGraph::UGraph full_graph = RPGraph::UGraph();
     RPGraph::UGraph comm_graph = RPGraph::UGraph();
@@ -151,7 +151,7 @@ int main(int argc, const char **argv)
     // TEMP VALUE!!! TODO::::
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
     //////////////////////////////////////////////////////////////////////////////////////////////
-    int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, &full_graph, &comm_graph, &nid_comm_map);
+    int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map);
     edgelist_file.close();
     // TODO: BUG: Conditional jump depends on unitialized value??? Check valgrind file.
     if(status != 0){ // 0 is success
@@ -238,7 +238,7 @@ int main(int argc, const char **argv)
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
 	fa2 = nullptr;
-  // TODO: ERROR: Need virtual destructor?
+    // TODO: We are calling delete on a reference, is this valid?
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
   // TODO: Should we delete the layout?
 
