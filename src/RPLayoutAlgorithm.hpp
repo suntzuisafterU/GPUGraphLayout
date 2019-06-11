@@ -42,7 +42,7 @@ namespace RPGraph
          * What are the implications of taking a reference as opposed to a pointer?
          */
         LayoutAlgorithm(GraphLayout &layout);
-        ~LayoutAlgorithm();
+        virtual ~LayoutAlgorithm();
         GraphLayout &layout;
 
         virtual void sync_layout() = 0; // write current layout to `layout'.
