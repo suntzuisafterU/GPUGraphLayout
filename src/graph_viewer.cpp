@@ -145,8 +145,8 @@ int main(int argc, const char **argv)
 
     std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference??
 
-    RPGraph::UGraph full_graph = RPGraph::UGraph();
-    RPGraph::UGraph comm_graph = RPGraph::UGraph();
+    RPGraph::UGraph full_graph = *(new RPGraph::UGraph()); // TODO: Is this the best way to initiaize these data structures? Do we NEED to delete them (I don't think so).
+    RPGraph::UGraph comm_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. */
     // TEMP VALUE!!! TODO::::
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
