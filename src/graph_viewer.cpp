@@ -143,7 +143,7 @@ int main(int argc, const char **argv)
     fflush(stdout);
 	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
 
-    std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference??
+    std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference? Yes. See: https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c and http://www.gotw.ca/gotw/009.htm
 
     RPGraph::UGraph full_graph = *(new RPGraph::UGraph()); // TODO: Is this the best way to initiaize these data structures? Do we NEED to delete them (I don't think so).
     RPGraph::UGraph comm_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c
@@ -167,7 +167,7 @@ int main(int argc, const char **argv)
 
     // Create the GraphLayout and ForceAtlas2 objects.
     // TODO: how is this graph allocated? When is it freed?
-    RPGraph::GraphLayout comm_layout(comm_graph); /* Produce initial layout from comm_graph. */
+    RPGraph::GraphLayout comm_layout = *(new RPGraph::GraphLayout(comm_graph)); /* Produce initial layout from comm_graph. */ // TODO: Should this be initialized with misdirection as well?
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
 	bool randomize = true;
@@ -240,7 +240,8 @@ int main(int argc, const char **argv)
 	fa2 = nullptr;
     // TODO: We are calling delete on a reference, is this valid?
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
-  // TODO: Should we delete the layout?
+    delete &comm_graph; // TODO: ERROR: I believe the invalid pointer we are trying to free is here.
+    delete &comm_layout;
 
   // TODO: ERROR: This is the start of our problems according to valgrind.
     RPGraph::GraphLayout full_layout(full_graph); /* Produce initial layout from comm_graph. */
@@ -278,8 +279,10 @@ int main(int argc, const char **argv)
 		compositeStep(iteration); /* full graph layout is produced. */
     }
 	fa2 = nullptr;
-  // TODO: ERROR: Calling delete on a virtual pointer with no virtual destructor!!
+    // TODO: Create a struct for all these related things, then can have a destructor and just delete it.
 	delete full_fa2; /* Free last ForceAtlas2 object. */
+    delete &full_graph;
+    delete &full_layout;
 
     exit(EXIT_SUCCESS);
 }
