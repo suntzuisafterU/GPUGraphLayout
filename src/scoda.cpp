@@ -33,8 +33,10 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
     RPGraph::nid_t src_id, dst_id, src_deg, dst_deg;
     while(std::getline(edgelist_file, line))
     {
+        // TODO: Have a more robust comment filtering procedure here.
         // Skip any comments
         if(line[0] == '#') continue;
+        if(line[0] == '%') continue;
 
         // Read source and target from file
         std::istringstream(line) >> src_id >> dst_id;
