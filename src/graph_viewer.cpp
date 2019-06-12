@@ -244,7 +244,7 @@ int main(int argc, const char **argv)
     delete &comm_layout;
 
   // TODO: ERROR: This is the start of our problems according to valgrind.
-    RPGraph::GraphLayout full_layout(full_graph); /* Produce initial layout from comm_graph. */
+    RPGraph::GraphLayout& full_layout = new RPGraph::GraphLayout(full_graph); /* Produce initial layout from comm_graph. */
     current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
 	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
 	// TODO: THIS DIDN'T WORK. FREE MEMORY PROPERLY LATER. delete fa2; /* Free old fa2 object */
