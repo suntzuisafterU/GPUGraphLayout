@@ -145,8 +145,8 @@ int main(int argc, const char **argv)
 
     std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference? Yes. See: https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c and http://www.gotw.ca/gotw/009.htm
 
-    RPGraph::UGraph full_graph = *(new RPGraph::UGraph()); // TODO: Is this the best way to initiaize these data structures? Do we NEED to delete them (I don't think so).
-    RPGraph::UGraph comm_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c
+    RPGraph::UGraph& full_graph = *(new RPGraph::UGraph()); // TODO: Is this the best way to initiaize these data structures? Do we NEED to delete them (I don't think so).
+    RPGraph::UGraph& comm_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation.*/
     // TEMP VALUE!!! TODO::::
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
@@ -167,7 +167,7 @@ int main(int argc, const char **argv)
 
     // Create the GraphLayout and ForceAtlas2 objects.
     // TODO: how is this graph allocated? When is it freed?
-    RPGraph::GraphLayout comm_layout = *(new RPGraph::GraphLayout(comm_graph)); /* Produce initial layout from comm_graph. */ // TODO: Should this be initialized with misdirection as well?
+    RPGraph::GraphLayout& comm_layout = *(new RPGraph::GraphLayout(comm_graph)); /* Produce initial layout from comm_graph. */ // TODO: Should this be initialized with misdirection as well?
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
 	bool randomize = true;
@@ -182,7 +182,7 @@ int main(int argc, const char **argv)
         comm_fa2 = new RPGraph::CPUForceAtlas2(comm_layout, approximate,
                                           strong_gravity, gravity, scale, randomize);
 
-	RPGraph::ForceAtlas2* fa2 = comm_fa2; // TODO: TESTING! 
+	RPGraph::ForceAtlas2* fa2 = comm_fa2; // TODO: TESTING!!! Does this copy the pointer correctly?
     printf("Started Layout algorithm...\n");
     const int snap_period = ceil((float)max_iterations/num_screenshots);
     const int print_period = ceil((float)max_iterations*0.05);
