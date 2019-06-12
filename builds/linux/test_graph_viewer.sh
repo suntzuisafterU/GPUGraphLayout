@@ -1,5 +1,5 @@
 ./graph_viewer \
-  cpu \
+  gpu \
   6 \
   2 \
   wg \

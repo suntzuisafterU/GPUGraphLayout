@@ -6,7 +6,7 @@ SRC_DIR           := ../../src
 OBJ_DIR           := obj
 
 # Compile with CUDA support by default
-CUDA_SUPPORT ?= 0
+CUDA_SUPPORT ?= 1
 ifeq ($(CUDA_SUPPORT), 1)
 	CC:=nvcc
 endif
@@ -15,7 +15,7 @@ endif
 DEBUG ?= 1
 ifeq ($(DEBUG), 1)
 	CXXFLAGS:=-pg -g
-	# NVCCFLAGS:=-G
+	NVCCFLAGS:=-G
 	O_LVL:=-O0
 else
 	NVCCFLAGS:=-D NDEBUG
