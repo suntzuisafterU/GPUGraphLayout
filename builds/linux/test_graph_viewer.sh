@@ -1,10 +1,7 @@
-#!/bin/bash
-
-# NOTE: Should include source explaining use of time function in this case.
 ./graph_viewer \
   cpu \
-  10 \
-  4 \
+  6 \
+  2 \
   wg \
   2.0 \
   1.0 \
