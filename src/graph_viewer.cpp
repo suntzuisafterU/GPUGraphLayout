@@ -145,9 +145,9 @@ int main(int argc, const char **argv)
 
     std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference? Yes. See: https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c and http://www.gotw.ca/gotw/009.htm
 
-    RPGraph::UGraph& full_graph = *(new RPGraph::UGraph()); // TODO: Is this the best way to initiaize these data structures? Do we NEED to delete them (I don't think so).
-    RPGraph::UGraph& comm_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c
-    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation.*/
+    RPGraph::UGraph& full_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c
+    RPGraph::UGraph& comm_graph = *(new RPGraph::UGraph());
+    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
     // TEMP VALUE!!! TODO::::
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -243,7 +243,7 @@ int main(int argc, const char **argv)
     delete &comm_graph; // TODO: ERROR: I believe the invalid pointer we are trying to free is here. `munmap_chunk() error: invalid pointer` is now being thrown.
     delete &comm_layout;
 
-  // TODO: ERROR: This is the start of our problems according to valgrind.
+    // TODO: ERROR: This is the start of our problems according to valgrind.
     RPGraph::GraphLayout& full_layout = *(new RPGraph::GraphLayout(full_graph)); /* Produce initial layout from comm_graph. */
     current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
 	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
