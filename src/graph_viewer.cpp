@@ -240,7 +240,7 @@ int main(int argc, const char **argv)
 	fa2 = nullptr;
     // TODO: We are calling delete on a reference, is this valid?
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
-    delete &comm_graph; // TODO: ERROR: I believe the invalid pointer we are trying to free is here.
+    delete &comm_graph; // TODO: ERROR: I believe the invalid pointer we are trying to free is here. `munmap_chunk() error: invalid pointer` is now being thrown.
     delete &comm_layout;
 
   // TODO: ERROR: This is the start of our problems according to valgrind.
