@@ -41,7 +41,7 @@
 #include "RPCPUForceAtlas2.hpp"
 #include "scoda.hpp"
 
-// #define __NVCC__ //TODO:  TEMP FOR USE IN VS
+#define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -145,11 +145,11 @@ int main(int argc, const char **argv)
 
     std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference? Yes. See: https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c and http://www.gotw.ca/gotw/009.htm
 
-    RPGraph::UGraph& full_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c
-    RPGraph::UGraph& comm_graph = *(new RPGraph::UGraph());
+    RPGraph::UGraph& full_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c Rethinking this
+    RPGraph::UGraph& comm_graph = *(new RPGraph::UGraph()); // On second thought, upon realizing that the dynamic datastructures within these objects live on the stack anyways, it seems pointless to allocate them dynamically.
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
     // TEMP VALUE!!! TODO::::
-    int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING
+    int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
     //////////////////////////////////////////////////////////////////////////////////////////////
     int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map);
     // TODO: We pass in regerences to the full_graph and comm_graph objects, but nothing comes back. How should these be passed?
@@ -182,7 +182,7 @@ int main(int argc, const char **argv)
         comm_fa2 = new RPGraph::CPUForceAtlas2(comm_layout, approximate,
                                           strong_gravity, gravity, scale, randomize);
 
-	RPGraph::ForceAtlas2* fa2 = comm_fa2; // TODO: TESTING!!! Does this copy the pointer correctly?
+	RPGraph::ForceAtlas2* fa2 = comm_fa2;
     printf("Started Layout algorithm...\n");
     const int snap_period = ceil((float)max_iterations/num_screenshots);
     const int print_period = ceil((float)max_iterations*0.05);
@@ -203,6 +203,7 @@ int main(int argc, const char **argv)
 		fa2->sync_layout(); /* The same symbol is used regardless of which stage we are at. */
 
 		if (out_format == "png")
+			// TODO: Getting error here, segmentation fault from libpng.  Not sure why.  Rerunning, might be heisenbug.
 			current_layout->writeToPNG(image_w, image_h, op);
 		else if (out_format == "csv")
 			current_layout->writeToCSV(op);
@@ -214,7 +215,7 @@ int main(int argc, const char **argv)
 
 	auto compositeStep = [&](int iteration) {
         /**
-         * Implementation in either RPGPUForceAtlas2.cpp or RPCPUForceAtlas2.cpp
+         * Implementation in either RPGPUForceAtlas2.cu or RPCPUForceAtlas2.cpp
          */
         fa2->doStep();
         // If we need to, write the result to a png
@@ -240,7 +241,7 @@ int main(int argc, const char **argv)
 	fa2 = nullptr;
     // TODO: We are calling delete on a reference, is this valid?
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
-    delete &comm_graph; // TODO: ERROR: I believe the invalid pointer we are trying to free is here. `munmap_chunk() error: invalid pointer` is now being thrown.
+    delete &comm_graph;
     delete &comm_layout;
 
     // TODO: ERROR: This is the start of our problems according to valgrind.

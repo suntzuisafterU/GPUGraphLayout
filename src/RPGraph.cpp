@@ -48,7 +48,7 @@ namespace RPGraph
     UGraph::~UGraph() = default;
     /**
      * Was factored out of constructor and correctness verified.
-     * Move code to scoda to be part of the streaming initialization.
+     * Moved code to scoda to be part of the streaming initialization.
      */
     void UGraph::read_edgelist_file(std::string edgelist_path) {
         std::fstream edgelist_file(edgelist_path, std::ifstream::in);

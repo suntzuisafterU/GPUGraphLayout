@@ -59,7 +59,7 @@ namespace RPGraph
     private:
         nid_t node_count, edge_count;
         std::unordered_map<nid_t, nid_t> degrees; /**< Maps nid_t to degrees? */
-        std::unordered_map<nid_t, std::vector<nid_t>> adjacency_list; /**< adjacency_list: Maps nid_t to vector of nid_t */
+        std::unordered_map<nid_t, std::vector<nid_t>> adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
 
         void add_node(nid_t nid); /* Moved add_node back to private section for safety. */
 
@@ -68,7 +68,7 @@ namespace RPGraph
 
     public:
         explicit UGraph(); // TODO: Is this change necessary/helpful?
-        ~UGraph(); /* Explicity decalre and define destructors. */
+        ~UGraph(); /* Explicity declare and define destructors. */
 
         /**
          * Construct UGraph from edgelist. IDs in edgelist are mapped to
@@ -76,8 +76,8 @@ namespace RPGraph
          */
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
         /* TODO: Why do we need these 2 maps? */
-        std::unordered_map<nid_t, nid_t> node_map; /* el id => UGraph id */
-        std::unordered_map<nid_t, nid_t> node_map_r; /* UGraph id => el id. Only used by writeToBin() and writeToCsv() */
+        std::unordered_map<nid_t, nid_t> node_map; /**< el id => UGraph id */
+        std::unordered_map<nid_t, nid_t> node_map_r; /**< UGraph id => el id. Only used by writeToBin() and writeToCsv() */
 
         void add_edge(nid_t s, nid_t t); /**< Adding an edge also adds any nodes. */
 
@@ -90,12 +90,16 @@ namespace RPGraph
         std::vector<nid_t> neighbors_with_geq_id(nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
     };
 
-    // Compressed sparserow (CSR) for undirected graphs.
+    /**
+	 * Compressed sparserow (CSR) for undirected graphs.
+	 * 
+	 * Not currently used.
+	 */
     class CSRUGraph : public Graph
     {
     private:
-        nid_t *edges;   // All edgelists, concatenated.
-        nid_t *offsets; // For each node, into edges.
+        nid_t *edges;   /**< All edgelists, concatenated. */
+        nid_t *offsets; /**< For each node, into edges. */
         nid_t node_count, edge_count;
         nid_t first_free_id, edges_seen;
 

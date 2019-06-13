@@ -44,9 +44,8 @@ namespace RPGraph
                         bool strong_gravity, float gravity, float scale,
 						bool randomize);
             virtual ~ForceAtlas2();
-            // TODO: BUG: Virtual destructor here?
 
-            virtual void doStep() = 0;
+            virtual void doStep() = 0; /**< Pure virtual function that must be implemented by deriving class. */
             void doSteps(int n);
             void setScale(float s);
             void setGravity(float s);

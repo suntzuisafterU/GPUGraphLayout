@@ -30,6 +30,6 @@ namespace RPGraph
     /**
      * An interface for RPForceAtlas2
      */
-    LayoutAlgorithm::LayoutAlgorithm(GraphLayout &layout): layout(layout){} /**< TODO: Does this line, particularly `layout(layout) {}` initialize the layout pointer to be a new, empty layout? */
+    LayoutAlgorithm::LayoutAlgorithm(GraphLayout& layout): layout(layout){} /**< TODO: Does this line, particularly `layout(layout) {}` initialize the layout pointer to be a newly constructed layout? YES: This mallocs a new set of coodrinates to be used for the layout algorithm.  Will factor this out. */
     LayoutAlgorithm::~LayoutAlgorithm(){}
 }
