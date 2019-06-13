@@ -42,7 +42,7 @@ namespace RPGraph
         public:
             ForceAtlas2(GraphLayout &layout, bool use_barneshut,
                         bool strong_gravity, float gravity, float scale,
-						bool randomize);
+						bool randomize, bool initLayout);
             virtual ~ForceAtlas2();
 
             virtual void doStep() = 0; /**< Pure virtual function that must be implemented by deriving class. */

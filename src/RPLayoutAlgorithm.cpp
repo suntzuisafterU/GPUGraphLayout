@@ -28,8 +28,10 @@
 namespace RPGraph
 {
     /**
-     * An interface for RPForceAtlas2
+     * An interface for RPForceAtlas2. If initialize is false, then the layout is pre-existing and we will just accept it by reference.
      */
-    LayoutAlgorithm::LayoutAlgorithm(GraphLayout& layout): layout(layout){} /**< TODO: Does this line, particularly `layout(layout) {}` initialize the layout pointer to be a newly constructed layout? YES: This mallocs a new set of coodrinates to be used for the layout algorithm.  Will factor this out. */
+	LayoutAlgorithm::LayoutAlgorithm(GraphLayout& layout, bool initLayout=true) {
+		initLayout ? layout = GraphLayout(layout) : this->layout = layout; // TODO: TESTING!  Since this->layout is a reference member variable, we may be required to initialize it in a member intialization list, which would cause some greif.
+	}
     LayoutAlgorithm::~LayoutAlgorithm(){}
 }

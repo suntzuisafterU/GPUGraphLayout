@@ -171,16 +171,17 @@ int main(int argc, const char **argv)
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
 	bool randomize = true;
+	bool initLayout = false;
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
         // TODO: Is this the correct way to initialize the value at a pointer.
         comm_fa2 = new RPGraph::CUDAForceAtlas2(comm_layout, approximate,
-                                           strong_gravity, gravity, scale, randomize);
+                                           strong_gravity, gravity, scale, randomize, initLayout);
     else
     #endif
         comm_fa2 = new RPGraph::CPUForceAtlas2(comm_layout, approximate,
-                                          strong_gravity, gravity, scale, randomize);
+                                          strong_gravity, gravity, scale, randomize, initLayout);
 
 	RPGraph::ForceAtlas2* fa2 = comm_fa2;
     printf("Started Layout algorithm...\n");
@@ -250,16 +251,17 @@ int main(int argc, const char **argv)
 	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
 	// TODO: THIS DIDN'T WORK. FREE MEMORY PROPERLY LATER. delete fa2; /* Free old fa2 object */
 	randomize = true; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
+	initLayout = false;
 	RPGraph::ForceAtlas2* full_fa2;
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
         full_fa2 = new RPGraph::CUDAForceAtlas2(full_layout, approximate,
-                                           strong_gravity, gravity, scale, randomize);
+                                           strong_gravity, gravity, scale, randomize, initLayout);
     else
     #endif
         full_fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
-                                          strong_gravity, gravity, scale, randomize);
+                                          strong_gravity, gravity, scale, randomize, initLayout);
 	////////////////
 	///////////////
 	fa2 = full_fa2;

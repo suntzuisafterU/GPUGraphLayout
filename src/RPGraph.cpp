@@ -46,6 +46,7 @@ namespace RPGraph
     }
 
     UGraph::~UGraph() = default;
+	
     /**
      * Was factored out of constructor and correctness verified.
      * Moved code to scoda to be part of the streaming initialization.

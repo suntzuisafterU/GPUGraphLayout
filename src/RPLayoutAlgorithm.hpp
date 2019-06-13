@@ -34,11 +34,11 @@ namespace RPGraph
     {
     public:
 
-        LayoutAlgorithm(GraphLayout &layout);
+        LayoutAlgorithm(GraphLayout &layout, bool initLayout=true); // TODO: Not sure if the defaul `=true` should go in the header or cpp file.
         virtual ~LayoutAlgorithm();
         GraphLayout &layout;
 
-        virtual void sync_layout() = 0; // write current layout to `layout'.
+        virtual void sync_layout() = 0; /**< write current layout to `layout'. Pure virtual method, used only by GPU implementation to transfer the layout between device(GPU) and host(CPU) memory. */
     };
 }
 
