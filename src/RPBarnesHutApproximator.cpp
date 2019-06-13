@@ -61,6 +61,9 @@ namespace RPGraph
 
     }
 
+	/**
+	 * Constructor that calls reset.
+	 */
     BarnesHutApproximator::BarnesHutApproximator(Coordinate root_center, float root_length, float theta)
     : root_center{root_center}, root_length{root_length}, theta{theta}
     {
@@ -68,7 +71,7 @@ namespace RPGraph
     }
 
     /**
-     * TODO: Evalute the order of calls in this function.
+	 * Deletes the current root_cell and resets the center and length of the BHApproximator
      */
     void BarnesHutApproximator::reset(Coordinate root_center, float root_length)
     {
@@ -92,6 +95,7 @@ namespace RPGraph
             cur_cell = cells_to_check.front();
             cells_to_check.pop();
 
+			// TODO: Why is D2 const?
             const float D2 = distance2(particle_pos, cur_cell->mass_center);
             if (D2 == 0)
             {

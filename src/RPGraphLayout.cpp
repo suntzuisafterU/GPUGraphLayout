@@ -37,11 +37,9 @@
 namespace RPGraph
 {
     /**
+	 * Mallocs an array for the coordinates.  width and height default to 10,000
+	 * 
      * Q: What are width and height for?  Size of image?
-     * 
-     * TODO: Since I factored out the randomization, the coordinates are
-     * allocated and not initialized.  TODO: Turn randomization back on and see
-     * if this works.
      */
     GraphLayout::GraphLayout(UGraph &graph, float width, float height)
         : graph(graph), width(width), height(height)
@@ -72,8 +70,6 @@ namespace RPGraph
 
     float GraphLayout::getX(nid_t node_id)
     {
-        // Q: What type of data structure is coords?
-        // A: It is a Coordinate* (array of coordinates), see RPCommon.hpp
         return coordinates[node_id].x;
     }
 
@@ -137,6 +133,8 @@ namespace RPGraph
 
     /**
      * Usage? CPU FA2 only.
+	 * 
+	 * What 
      */
     float GraphLayout::getDistance(nid_t n1, nid_t n2)
     {
@@ -171,7 +169,7 @@ namespace RPGraph
     }
 
     /**
-     * Indexes into coordinates array.
+     * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
      */
     Coordinate GraphLayout::getCoordinate(nid_t node_id)
     {

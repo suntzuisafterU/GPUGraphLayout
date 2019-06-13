@@ -30,22 +30,15 @@
 
 namespace RPGraph
 {
-    /**
-     * Why does he bother making this class?
-     */
     class LayoutAlgorithm
     {
     public:
 
-        /**
-         * The LayoutAlgorithm constructor takes a REFERENCE to a layout.
-         * What are the implications of taking a reference as opposed to a pointer?
-         */
-        LayoutAlgorithm(GraphLayout &layout);
+        LayoutAlgorithm(GraphLayout &layout, bool initLayout=true); // TODO: Not sure if the defaul `=true` should go in the header or cpp file.
         virtual ~LayoutAlgorithm();
         GraphLayout &layout;
 
-        virtual void sync_layout() = 0; // write current layout to `layout'.
+        virtual void sync_layout() = 0; /**< write current layout to `layout'. Pure virtual method, used only by GPU implementation to transfer the layout between device(GPU) and host(CPU) memory. */
     };
 }
 

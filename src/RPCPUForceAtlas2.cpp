@@ -39,8 +39,8 @@ namespace RPGraph
     // CPUForceAtlas2 definitions.
     CPUForceAtlas2::CPUForceAtlas2(GraphLayout &layout, bool use_barneshut,
                                    bool strong_gravity, float gravity,
-                                   float scale, bool randomize)
-    :  ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize),
+                                   float scale, bool randomize, bool initLayout)
+    :  ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize, initLayout),
        BH_Approximator{layout.getCenter(), layout.getSpan()+10, theta}
     {
         forces      = (Real2DVector *)malloc(sizeof(Real2DVector) * layout.graph.num_nodes());
@@ -90,12 +90,13 @@ namespace RPGraph
 
     void CPUForceAtlas2::apply_repulsion(nid_t n)
     {
-        // Approximation, only for we are using.
+        // Approximation, O(log n), dependent on theta.
         if (use_barneshut)
         {
             forces[n] += (BH_Approximator.approximateForce(layout.getCoordinate(n), mass(n), theta) * k_r);
         }
 
+		// Exact, O(n) (n^2 to calculate for all nodes)
         else
         {
             for (nid_t t = 0; t < layout.graph.num_nodes(); ++t)
@@ -243,9 +244,6 @@ namespace RPGraph
         }
     }
 
-    /**
-     * The tip of the spear.
-     */
     void CPUForceAtlas2::doStep()
     {
         if (use_barneshut) rebuild_bh();

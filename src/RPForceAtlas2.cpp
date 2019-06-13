@@ -28,14 +28,16 @@ namespace RPGraph
     /**
      * CPU version of FA2 algo???
      * Why do we have the scope modifier ForceAtlas2::ForceAtlas2??
+	 *
+	 * TODO: Decouple layout initialization from LayoutAlgorithm, or allow for the LayoutAlgorithm to check and see if the layout has already been initialized instead of reassigning it.
      */
     ForceAtlas2::ForceAtlas2(GraphLayout &layout, bool use_barneshut,
                              bool strong_gravity, float gravity, float scale,
-							 bool randomize)
-    : LayoutAlgorithm(layout), use_barneshut{use_barneshut},
+							 bool randomize, bool initLayout)
+    : LayoutAlgorithm(layout, initLayout), use_barneshut{use_barneshut},
       strong_gravity{strong_gravity}
     {
-        iteration = 0;
+        iteration = 0; /**< Why does the FA2 class keep track of the iteration? */
 
         setGravity(gravity);
         setScale(scale);
@@ -56,10 +58,10 @@ namespace RPGraph
         prevent_overlap = false;
         use_linlog = false;
 
-        if(randomize) layout.randomizePositions(); /* Parameterized to allow for pre-setting the layout from some other source. */
+        if(randomize) layout.randomizePositions(); /**< Parameterized to allow for pre-setting the layout from some other source. */
     }
 
-    ForceAtlas2::~ForceAtlas2(){};
+    ForceAtlas2::~ForceAtlas2(){}; /**< TODO: What does this destructor do? It is a default destructor, but what happens when it is virtual? */
 
     /**
      * Doesn't get called!

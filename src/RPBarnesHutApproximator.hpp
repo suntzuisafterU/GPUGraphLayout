@@ -38,7 +38,7 @@ namespace RPGraph
     {
     public:
         void add_leafcell(int quadrant, float mass, Coordinate pos);
-        float lb, rb, ub, bb;
+        float lb, rb, ub, bb; /**< TODO: What are these parameters for? */
 
         // BarnesHutCell always contain either a single particle, or subcells (at most 4).
         BarnesHutCell(Coordinate position, float length, Coordinate particle_position, float particle_mass);
@@ -61,7 +61,7 @@ namespace RPGraph
         void insertParticle(Coordinate particle_position, float particle_mass);
 
         void reset(Coordinate root_center, float root_length);
-        void setTheta(float theta);
+        void setTheta(float theta); /**< TODO: Why have setTheta if theta is declared const? */
 
     private:
         BarnesHutCell *root_cell = nullptr;
