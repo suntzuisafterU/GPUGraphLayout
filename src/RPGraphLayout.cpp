@@ -30,6 +30,7 @@
 #include <fstream>
 #include <cmath>
 #include <limits>
+#include <iostream> // TODO: Temp remove
 
 /**
  * Most of the methods on the GraphLayout class seem to be associated with the CPU implementation, and not the GPU.
@@ -44,6 +45,7 @@ namespace RPGraph
     GraphLayout::GraphLayout(UGraph &graph, float width, float height)
         : graph(graph), width(width), height(height)
     {
+		std::cout << "Layout initializing constructor called" << std::endl;
         // Mem complexity: O(|V|)
         coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));
     }
