@@ -45,6 +45,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
         // Must add edge before retrieving degrees of nodes.
         full_graph.add_edge(src_id, dst_id);
 
+		/// If this is the first time we have seen these nodes, add them to the nid_comm_map.
         // .count() is used for membership test...
         if (nid_comm_map.count(src_id) == 0)
             INSERT_COMMUNITY(src_id, src_id); // Default community for node has same id as node
