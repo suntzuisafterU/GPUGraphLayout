@@ -41,7 +41,6 @@
 #include "RPCPUForceAtlas2.hpp"
 #include "scoda.hpp"
 
-// #define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -151,7 +150,7 @@ int main(int argc, const char **argv)
     // TEMP VALUE!!! TODO::::
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
     //////////////////////////////////////////////////////////////////////////////////////////////
-    int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map);
+    int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
     // TODO: We pass in regerences to the full_graph and comm_graph objects, but nothing comes back. How should these be passed?
     edgelist_file.close();
     if(status != 0){ // 0 is success
