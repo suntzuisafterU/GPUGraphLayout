@@ -14,7 +14,7 @@ namespace CommunityAlgos {
  */
 int scoda(int degree_threshold, std::fstream& edgelist_file,
            RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph,
-           std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>& nid_comm_map)
+           std::unordered_map<RPGraph::nid_t, CommunityAlgos::commid_t>& nid_comm_map)
 {
     // TODO: What is the difference between passing `RPGraph::UGraph& full_graph` and `RPGraph::UGraph full_graph`??
   // TODO: ERROR: How are these parameters passed to scoda?  I am assuming that
@@ -46,9 +46,9 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
 
         // .count() is used for membership test...
         if (nid_comm_map.count(src_id) == 0)
-            COMMUNITY(src_id, src_id); // Default community for node has same id as node
+            COMMUNITY(src_id, commid_t(src_id)); // Default community for node has same id as node
         if (nid_comm_map.count(dst_id) == 0)
-            COMMUNITY(dst_id, dst_id); // Default community for node has same id as node
+            COMMUNITY(dst_id, commid_t(dst_id)); // Default community for node has same id as node
 
         // degrees are >= 1;
         src_deg = DEGREE(src_id);
@@ -67,11 +67,11 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
 
             if (src_deg > dst_deg)
             {
-                COMMUNITY(dst_id, src_id);
+                COMMUNITY(dst_id, nid_comm_map.at(src_id));
             }
             else
             { // If equal, src_id is moved
-                COMMUNITY(src_id, dst_id);
+                COMMUNITY(src_id, nid_comm_map.at(dst_id));
             }
         }
         /////////////////////////////////// Add community edges for community graph here ////////////////////////////

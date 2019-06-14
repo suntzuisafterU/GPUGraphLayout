@@ -12,12 +12,14 @@
 #include "RPGraph.hpp" // For UGraph and nid_t
 
 namespace CommunityAlgos {
+
+	typedef uint32_t commid_t;
     /**
      *
      */
     int scoda(int degree_threshold, std::fstream& edgelist_file,
                 RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph, 
-                std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>& nid_comm_vec);
+                std::unordered_map<RPGraph::nid_t, CommunityAlgos::commid_t>& nid_comm_vec);
 
 }
 
