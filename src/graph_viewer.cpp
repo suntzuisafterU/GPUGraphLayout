@@ -41,7 +41,6 @@
 #include "RPCPUForceAtlas2.hpp"
 #include "scoda.hpp"
 
-#define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
@@ -145,8 +144,8 @@ int main(int argc, const char **argv)
 
     std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference? Yes. See: https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c and http://www.gotw.ca/gotw/009.htm
 
-    RPGraph::UGraph& full_graph = *(new RPGraph::UGraph()); // indirection: https://stackoverflow.com/questions/44106654/memory-allocation-with-reference-variable-in-c Rethinking this
-    RPGraph::UGraph& comm_graph = *(new RPGraph::UGraph()); // On second thought, upon realizing that the dynamic datastructures within these objects live on the stack anyways, it seems pointless to allocate them dynamically.
+    RPGraph::UGraph& full_graph = RPGraph::UGraph(); // Changed back to stack allocated reference.
+    RPGraph::UGraph& comm_graph = RPGraph::UGraph();
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
     // TEMP VALUE!!! TODO::::
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
@@ -167,7 +166,7 @@ int main(int argc, const char **argv)
 
     // Create the GraphLayout and ForceAtlas2 objects.
     // TODO: how is this graph allocated? When is it freed?
-    RPGraph::GraphLayout& comm_layout = *(new RPGraph::GraphLayout(comm_graph)); /* Produce initial layout from comm_graph. */ // TODO: Should this be initialized with misdirection as well?
+    RPGraph::GraphLayout& comm_layout = RPGraph::GraphLayout(comm_graph); /* Produce initial layout from comm_graph. */
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
 	bool randomize = true;
@@ -241,11 +240,9 @@ int main(int argc, const char **argv)
 	fa2 = nullptr;
     // TODO: We are calling delete on a reference, is this valid?
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
-    delete &comm_graph;
-    delete &comm_layout;
 
     // TODO: ERROR: This is the start of our problems according to valgrind.
-    RPGraph::GraphLayout& full_layout = *(new RPGraph::GraphLayout(full_graph)); /* Produce initial layout from comm_graph. */
+    RPGraph::GraphLayout& full_layout = RPGraph::GraphLayout(full_graph);
     current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
 	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
 	// TODO: THIS DIDN'T WORK. FREE MEMORY PROPERLY LATER. delete fa2; /* Free old fa2 object */
@@ -282,8 +279,6 @@ int main(int argc, const char **argv)
 	fa2 = nullptr;
     // TODO: Create a struct for all these related things, then can have a destructor and just delete it.
 	delete full_fa2; /* Free last ForceAtlas2 object. */
-    delete &full_graph;
-    delete &full_layout;
 
     exit(EXIT_SUCCESS);
 }
