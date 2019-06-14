@@ -257,7 +257,7 @@ int main(int argc, const char **argv)
 		full_layout.setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
 	}
 
-	randomize = true; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
+	randomize = false; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
 	RPGraph::ForceAtlas2* full_fa2;
     #ifdef __NVCC__
     if(cuda_requested)
@@ -266,6 +266,7 @@ int main(int argc, const char **argv)
                                            strong_gravity, gravity, scale, randomize);
     else
     #endif
+		// TODO: ERROR: malloc fails here, says 'invalid size'
         full_fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
                                           strong_gravity, gravity, scale, randomize);
 	////////////////
