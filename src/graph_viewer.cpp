@@ -41,6 +41,7 @@
 #include "RPCPUForceAtlas2.hpp"
 #include "scoda.hpp"
 
+#define __NVCC__ //TODO:  TEMP FOR USE IN VS
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
 #include "RPGPUForceAtlas2.hpp"
