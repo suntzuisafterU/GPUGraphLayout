@@ -28,12 +28,17 @@
 #include <fstream>
 #include <algorithm>
 #include "RPGraph.hpp"
+#include <iostream>
 
 namespace RPGraph
 {
+  UGraph::UGraph() {
+    std::cout << "UGraph default constructor called" << std::endl;
+  }
     /* Definitions for UGraph */
     UGraph::UGraph(std::string edgelist_path)
     {
+        std::cout << "UGraph with file constructor called" << std::endl;
         node_count = 0;
         edge_count = 0;
 

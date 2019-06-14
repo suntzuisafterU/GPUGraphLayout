@@ -28,12 +28,14 @@
 #include <fstream>
 #include <cmath>
 #include <limits>
+#include <iostream>
 
 namespace RPGraph
 {
     GraphLayout::GraphLayout(UGraph &graph, float width, float height)
         : graph(graph), width(width), height(height)
     {
+      std::cout << "GraphLayout constructor with params called" << std::endl;
         coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));
     }
 

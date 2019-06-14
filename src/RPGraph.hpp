@@ -68,6 +68,7 @@ namespace RPGraph
         // Construct UGraph from edgelist. IDs in edgelist are mapped to
         // [0, 1, ..., num_nodes-1]. Removes any self-edges.
         UGraph(std::string edgelist_path);
+        UGraph();
         std::unordered_map<nid_t, nid_t> node_map; // el id -> UGraph id
         std::unordered_map<nid_t, nid_t> node_map_r; // UGraph id -> el id
 
