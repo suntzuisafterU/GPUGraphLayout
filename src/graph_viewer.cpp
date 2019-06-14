@@ -238,14 +238,25 @@ int main(int argc, const char **argv)
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
 	fa2 = nullptr;
-    // TODO: We are calling delete on a reference, is this valid?
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
 
-    // TODO: ERROR: This is the start of our problems according to valgrind.
     RPGraph::GraphLayout full_layout = RPGraph::GraphLayout(full_graph);
     current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
-	// TODO: Use comm_layout to initialize full_layout positions. Must be done before intializing fa2
-	// TODO: THIS DIDN'T WORK. FREE MEMORY PROPERLY LATER. delete fa2; /* Free old fa2 object */
+
+	// TODO: Expansion kernel instead of sequential code called here. NOTE: kernel will require some form of array datastructure to operate on, will also have to look up the layout coordinate associated with the community_node.
+
+	/**
+	 * Expansion:
+	 *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
+	 */
+	for (const auto& nid_commid_pair : nid_comm_map) {
+		RPGraph::nid_t node = nid_commid_pair.first;
+		RPGraph::nid_t comm = nid_commid_pair.second;
+		RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(comm); // TODO: add some randomness to this?? May not need to.
+		// TODO: Is it possible for a node to not have a community in the graph??? Probably yes.
+		full_layout.setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
+	}
+
 	randomize = true; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
 	RPGraph::ForceAtlas2* full_fa2;
     #ifdef __NVCC__
@@ -260,14 +271,6 @@ int main(int argc, const char **argv)
 	////////////////
 	///////////////
 	fa2 = full_fa2;
-	///////////////
-	////////////////
-	// TODO: Expansion kernel is called here. NOTE: kernel will require some form of array datastructure to operate on, will also have to look up the layout coordinate associated with the community_node.
-	// TODO: Sequential expansion function here.
-	/**
-	 * Expansion:
-	 *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
-	 */
 
 	/**
 	 * Second layout with full graph.
