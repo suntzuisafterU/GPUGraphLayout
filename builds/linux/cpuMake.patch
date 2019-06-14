@@ -20,3 +20,54 @@ index 2d55ccc..12b1d3a 100644
  	O_LVL:=-O0
  else
  	NVCCFLAGS:=-D NDEBUG
+diff --git a/builds/linux/cpuMake.patch b/builds/linux/cpuMake.patch
+index 9edc6f2..e69de29 100644
+--- a/builds/linux/cpuMake.patch
++++ b/builds/linux/cpuMake.patch
+@@ -1,22 +0,0 @@
+-diff --git a/builds/linux/Makefile b/builds/linux/Makefile
+-index 2d55ccc..12b1d3a 100644
+---- a/builds/linux/Makefile
+-+++ b/builds/linux/Makefile
+-@@ -6,7 +6,7 @@ SRC_DIR           := ../../src
+- OBJ_DIR           := obj
+- 
+- # Compile with CUDA support by default
+--CUDA_SUPPORT ?= 1
+-+CUDA_SUPPORT ?= 0
+- ifeq ($(CUDA_SUPPORT), 1)
+- 	CC:=nvcc
+- endif
+-@@ -15,7 +15,7 @@ endif
+- DEBUG ?= 1
+- ifeq ($(DEBUG), 1)
+- 	CXXFLAGS:=-pg -g
+--	NVCCFLAGS:=-G
+-+	# NVCCFLAGS:=-G
+- 	O_LVL:=-O0
+- else
+- 	NVCCFLAGS:=-D NDEBUG
+diff --git a/builds/linux/test_graph_viewer.sh b/builds/linux/test_graph_viewer.sh
+index 5f91b0d..2a79638 100755
+--- a/builds/linux/test_graph_viewer.sh
++++ b/builds/linux/test_graph_viewer.sh
+@@ -1,5 +1,5 @@
+ ./graph_viewer \
+-  gpu \
++  cpu \
+   6 \
+   2 \
+   wg \
+diff --git a/src/graph_viewer.cpp b/src/graph_viewer.cpp
+index 05bb0a4..35df950 100644
+--- a/src/graph_viewer.cpp
++++ b/src/graph_viewer.cpp
+@@ -41,7 +41,7 @@
+ #include "RPCPUForceAtlas2.hpp"
+ #include "scoda.hpp"
+ 
+-#define __NVCC__ //TODO:  TEMP FOR USE IN VS
++// #define __NVCC__ //TODO:  TEMP FOR USE IN VS
+ #ifdef __NVCC__
+ #include <cuda_runtime_api.h>
+ #include "RPGPUForceAtlas2.hpp"
