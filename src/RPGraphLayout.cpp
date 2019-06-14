@@ -171,6 +171,8 @@ namespace RPGraph
 
     /**
      * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
+	 *
+	 * TODO: Should we map through the associated UGraph by default? Or is that to much overhead? Or should this be a private field with friend specification for classes that need it, and we can overload it for the public interface?
      */
     Coordinate GraphLayout::getCoordinate(nid_t node_id)
     {
