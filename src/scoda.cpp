@@ -47,9 +47,9 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
 
         // .count() is used for membership test...
         if (nid_comm_map.count(src_id) == 0)
-            INSERT_COMMUNITY(src_id, COMMUNITY_OF(src_id)); // Default community for node has same id as node
+            INSERT_COMMUNITY(src_id, src_id); // Default community for node has same id as node
         if (nid_comm_map.count(dst_id) == 0)
-            INSERT_COMMUNITY(dst_id, COMMUNITY_OF(dst_id)); // Default community for node has same id as node
+            INSERT_COMMUNITY(dst_id, dst_id); // Default community for node has same id as node
 
         // degrees are >= 1;
         src_deg = DEGREE(src_id);
