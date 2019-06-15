@@ -243,7 +243,7 @@ namespace RPGraph
          * TODO: Adjust node opacity for best results.
          */
         const float node_opacity = 10000.0  / graph.num_nodes();
-        const float edge_opacity = 10.0 / graph.num_edges();
+        const float edge_opacity = 100000.0 / graph.num_edges();
 
         // Write to file.
         pngwriter layout_png(image_w, image_h, 0, path.c_str());
