@@ -1,13 +1,13 @@
 diff --git a/builds/linux/Makefile b/builds/linux/Makefile
-index 12b1d3a..2d55ccc 100644
+index 2d55ccc..12b1d3a 100644
 --- a/builds/linux/Makefile
 +++ b/builds/linux/Makefile
 @@ -6,7 +6,7 @@ SRC_DIR           := ../../src
  OBJ_DIR           := obj
  
  # Compile with CUDA support by default
--CUDA_SUPPORT ?= 0
-+CUDA_SUPPORT ?= 1
+-CUDA_SUPPORT ?= 1
++CUDA_SUPPORT ?= 0
  ifeq ($(CUDA_SUPPORT), 1)
  	CC:=nvcc
  endif
@@ -15,19 +15,19 @@ index 12b1d3a..2d55ccc 100644
  DEBUG ?= 1
  ifeq ($(DEBUG), 1)
  	CXXFLAGS:=-pg -g
--	# NVCCFLAGS:=-G
-+	NVCCFLAGS:=-G
+-	NVCCFLAGS:=-G
++	# NVCCFLAGS:=-G
  	O_LVL:=-O0
  else
  	NVCCFLAGS:=-D NDEBUG
 diff --git a/builds/linux/test_graph_viewer.sh b/builds/linux/test_graph_viewer.sh
-index 2a79638..5f91b0d 100755
+index 5f91b0d..2a79638 100755
 --- a/builds/linux/test_graph_viewer.sh
 +++ b/builds/linux/test_graph_viewer.sh
 @@ -1,5 +1,5 @@
  ./graph_viewer \
--  cpu \
-+  gpu \
+-  gpu \
++  cpu \
    6 \
    2 \
    wg \
