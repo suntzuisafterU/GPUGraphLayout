@@ -1,4 +1,4 @@
-./graph_viewer \
+../builds/linux/graph_viewer \
   gpu \
   6 \
   2 \
