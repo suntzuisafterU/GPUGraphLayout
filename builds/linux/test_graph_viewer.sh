@@ -1,9 +1,6 @@
-#!/bin/bash
-
-# NOTE: Should include source explaining use of time function in this case.
 ./graph_viewer \
   gpu \
-  10 \
+  500 \
   4 \
   wg \
   2.0 \
