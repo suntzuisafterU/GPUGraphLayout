@@ -214,6 +214,9 @@ __launch_bounds__(1024, 1)void ClearKernel1(int nnodesd, int nbodiesd, volatile 
 /**
  * This and the force kernel are the most expensive,
  * esspecially for larger N.
+ *
+ * TODO: Assertion error is being produced from this kernel when trying to create and 
+ *       launch second ForceAtlas2 object.
  * 
  * THREADS2 = 512, FACTOR2 = 3 (same as group 1)
  * THREADS launch bound is 
@@ -226,7 +229,14 @@ void TreeBuildingKernel(int nnodesd, int nbodiesd, volatile int * __restrict chi
     // Bookmark, May 30th, reading June 3rd
     /* How many registers does each thread have access to? */
     /**
-     * Describe parameters:
+	 * Describe parameters:
+	 *   nnodesd:
+	 *   nbodiesd:
+	 *   childd:
+	 *   body_posd:
+	 *   node_posd:
+	 *
+     * Describe registers:
      *   i:
      *   j:
      *   depth:

@@ -1,0 +1,12 @@
+diff --git a/src/graph_viewer.cpp b/src/graph_viewer.cpp
+index f281727..f60baad 100644
+--- a/src/graph_viewer.cpp
++++ b/src/graph_viewer.cpp
+@@ -41,7 +41,6 @@
+ #include "RPCPUForceAtlas2.hpp"
+ #include "scoda.hpp"
+ 
+-#define __NVCC__ //TODO:  TEMP FOR USE IN VS
+ #ifdef __NVCC__
+ #include <cuda_runtime_api.h>
+ #include "RPGPUForceAtlas2.hpp"

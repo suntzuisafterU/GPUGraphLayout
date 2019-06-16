@@ -14,7 +14,7 @@ endif
 # Debug compilation, disable by default
 DEBUG ?= 1
 ifeq ($(DEBUG), 1)
-	CXXFLAGS:=-Xcompiler -pg -g
+	CXXFLAGS:=-pg -g
 	NVCCFLAGS:=-G
 	O_LVL:=-O0
 else

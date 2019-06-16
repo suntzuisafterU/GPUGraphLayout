@@ -30,6 +30,7 @@
 #include <fstream>
 #include <cmath>
 #include <limits>
+#include <iostream> // TODO: Temp remove
 
 /**
  * Most of the methods on the GraphLayout class seem to be associated with the CPU implementation, and not the GPU.
@@ -37,6 +38,8 @@
 namespace RPGraph
 {
     /**
+	 * Mallocs an array for the coordinates.  width and height default to 10,000
+	 * 
      * Q: What are width and height for?  Size of image?
      */
     GraphLayout::GraphLayout(UGraph &graph, float width, float height)
@@ -68,8 +71,6 @@ namespace RPGraph
 
     float GraphLayout::getX(nid_t node_id)
     {
-        // Q: What type of data structure is coords?
-        // A: It is a Coordinate* (array of coordinates), see RPCommon.hpp
         return coordinates[node_id].x;
     }
 
@@ -133,6 +134,8 @@ namespace RPGraph
 
     /**
      * Usage? CPU FA2 only.
+	 * 
+	 * What 
      */
     float GraphLayout::getDistance(nid_t n1, nid_t n2)
     {
@@ -167,7 +170,9 @@ namespace RPGraph
     }
 
     /**
-     * Indexes into coordinates array.
+     * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
+	 *
+	 * TODO: Should we map through the associated UGraph by default? Or is that to much overhead? Or should this be a private field with friend specification for classes that need it, and we can overload it for the public interface?
      */
     Coordinate GraphLayout::getCoordinate(nid_t node_id)
     {

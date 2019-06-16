@@ -1,0 +1,493 @@
+==32171== Memcheck, a memory error detector
+==32171== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==32171== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==32171== Command: graph_viewer cpu 10 4 wg 2.0 1.0 approximate ../../datasets/ca-AstroPh/out.ca-AstroPh out/TEST_ca-AstroPh
+==32171== 
+Opening edgelist file at '../../datasets/ca-AstroPh/out.ca-AstroPh'...
+Starting scoda.
+num_null_e: 82316
+Finished scoda
+done.
+    fetched 18771 nodes and 198050 edges.
+Started Layout algorithm...
+Starting iteration 1 (10.00%).
+Starting iteration 2 (20.00%).
+Starting iteration 3 (30.00%), writing png...done.
+Starting iteration 4 (40.00%).
+Starting iteration 5 (50.00%).
+Starting iteration 6 (60.00%), writing png...done.
+Starting iteration 7 (70.00%).
+Starting iteration 8 (80.00%).
+Starting iteration 9 (90.00%), writing png...done.
+Starting iteration 10 (100.00%), writing png...done.
+==32171== 
+==32171== HEAP SUMMARY:
+==32171==     in use at exit: 11,492,408 bytes in 221,380 blocks
+==32171==   total heap usage: 1,415,894 allocs, 1,194,514 frees, 274,845,591 bytes allocated
+==32171== 
+==32171== 80 bytes in 1 blocks are possibly lost in loss record 1 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410412: RPGraph::BarnesHutCell::add_leafcell(int, float, RPGraph::Coordinate) (RPBarnesHutApproximator.cpp:59)
+==32171==    by 0x410A6B: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:163)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405A16: main (graph_viewer.cpp:278)
+==32171== 
+==32171== 240 bytes in 1 blocks are definitely lost in loss record 2 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x405643: main (graph_viewer.cpp:148)
+==32171== 
+==32171== 240 bytes in 1 blocks are definitely lost in loss record 3 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x405675: main (graph_viewer.cpp:149)
+==32171== 
+==32171== 320 bytes in 4 blocks are still reachable in loss record 4 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410412: RPGraph::BarnesHutCell::add_leafcell(int, float, RPGraph::Coordinate) (RPBarnesHutApproximator.cpp:59)
+==32171==    by 0x41097F: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:151)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405A16: main (graph_viewer.cpp:278)
+==32171== 
+==32171== 320 bytes in 4 blocks are still reachable in loss record 5 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410412: RPGraph::BarnesHutCell::add_leafcell(int, float, RPGraph::Coordinate) (RPBarnesHutApproximator.cpp:59)
+==32171==    by 0x410A6B: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:163)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405A16: main (graph_viewer.cpp:278)
+==32171== 
+==32171== 2,848 bytes in 178 blocks are still reachable in loss record 6 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409A5E: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:124)
+==32171==    by 0x41215C: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:45)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 5,200 bytes in 325 blocks are still reachable in loss record 7 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x4098DF: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:108)
+==32171==    by 0x409996: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:117)
+==32171==    by 0x41215C: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:45)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 5,200 bytes in 325 blocks are still reachable in loss record 8 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409905: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:109)
+==32171==    by 0x409996: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:117)
+==32171==    by 0x41215C: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:45)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 5,200 bytes in 325 blocks are still reachable in loss record 9 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x41264E: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::pair<unsigned int const, unsigned int> >(std::pair<unsigned int const, unsigned int>&&) (hashtable_policy.h:2070)
+==32171==    by 0x4124E5: std::pair<std::__detail::_Node_iterator<std::pair<unsigned int const, unsigned int>, false, false>, bool> std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<std::pair<unsigned int const, unsigned int> >(std::integral_constant<bool, true>, std::pair<unsigned int const, unsigned int>&&) (hashtable.h:1644)
+==32171==    by 0x412480: std::pair<std::__detail::_Node_iterator<std::pair<unsigned int const, unsigned int>, false, false>, bool> std::__detail::_Insert<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, false>::insert<std::pair<unsigned int const, unsigned int>, void>(std::pair<unsigned int const, unsigned int>&&) (hashtable_policy.h:1005)
+==32171==    by 0x412408: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::insert(std::pair<unsigned int const, unsigned int>&&) (unordered_map.h:586)
+==32171==    by 0x4121B2: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:49)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 13,312 bytes in 832 blocks are still reachable in loss record 10 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x4098DF: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:108)
+==32171==    by 0x409996: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:117)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 13,312 bytes in 832 blocks are still reachable in loss record 11 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409905: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:109)
+==32171==    by 0x409996: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:117)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 13,312 bytes in 832 blocks are still reachable in loss record 12 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409A5E: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:124)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 101,328 bytes in 1 blocks are still reachable in loss record 13 of 45
+==32171==    at 0x483880B: malloc (vg_replace_malloc.c:309)
+==32171==    by 0x40E4DD: RPGraph::GraphLayout::GraphLayout(RPGraph::UGraph&, float, float) (RPGraphLayout.cpp:50)
+==32171==    by 0x40576E: main (graph_viewer.cpp:170)
+==32171== 
+==32171== 101,328 bytes in 1 blocks are possibly lost in loss record 14 of 45
+==32171==    at 0x483880B: malloc (vg_replace_malloc.c:309)
+==32171==    by 0x40D279: RPGraph::CPUForceAtlas2::CPUForceAtlas2(RPGraph::GraphLayout&, bool, bool, float, float, bool) (RPCPUForceAtlas2.cpp:46)
+==32171==    by 0x4057BD: main (graph_viewer.cpp:183)
+==32171== 
+==32171== 101,328 bytes in 1 blocks are definitely lost in loss record 15 of 45
+==32171==    at 0x483880B: malloc (vg_replace_malloc.c:309)
+==32171==    by 0x40D2AD: RPGraph::CPUForceAtlas2::CPUForceAtlas2(RPGraph::GraphLayout&, bool, bool, float, float, bool) (RPCPUForceAtlas2.cpp:47)
+==32171==    by 0x4057BD: main (graph_viewer.cpp:183)
+==32171== 
+==32171== 121,384 bytes in 1 blocks are still reachable in loss record 16 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x40892E: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x408452: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x408072: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:2123)
+==32171==    by 0x4079C5: std::_Hashtable<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:361)
+==32171==    by 0x40C9E5: std::_Hashtable<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:2094)
+==32171==    by 0x40C302: std::_Hashtable<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:2073)
+==32171==    by 0x40B650: std::_Hashtable<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false>*, unsigned long) (hashtable.h:1719)
+==32171==    by 0x40AA03: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:704)
+==32171==    by 0x40A3F9: std::unordered_map<unsigned int, std::vector<unsigned int, std::allocator<unsigned int> >, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409A26: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:123)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171== 
+==32171== 121,384 bytes in 1 blocks are still reachable in loss record 17 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x40892E: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x408452: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x407C86: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:2123)
+==32171==    by 0x40764F: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:361)
+==32171==    by 0x40C753: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:2094)
+==32171==    by 0x40BF0C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:2073)
+==32171==    by 0x40B22C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>*, unsigned long) (hashtable.h:1719)
+==32171==    by 0x40A81D: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:704)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409A7C: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:125)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171== 
+==32171== 131,400 bytes in 3,285 blocks are still reachable in loss record 18 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407F2E: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x4078B1: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B4E4: std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A9E1: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A3F9: std::unordered_map<unsigned int, std::vector<unsigned int, std::allocator<unsigned int> >, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409B96: RPGraph::UGraph::neighbors_with_geq_id(unsigned int) (RPGraph.cpp:162)
+==32171==    by 0x40D410: RPGraph::CPUForceAtlas2::apply_attract(unsigned int) (RPCPUForceAtlas2.cpp:64)
+==32171==    by 0x40E054: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:256)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405929: main (graph_viewer.cpp:238)
+==32171== 
+==32171== 142,432 bytes in 8,902 blocks are still reachable in loss record 19 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409AFE: RPGraph::UGraph::degree(unsigned int) (RPGraph.cpp:141)
+==32171==    by 0x412255: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:55)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 150,168 bytes in 1 blocks are still reachable in loss record 20 of 45
+==32171==    at 0x483880B: malloc (vg_replace_malloc.c:309)
+==32171==    by 0x40E4DD: RPGraph::GraphLayout::GraphLayout(RPGraph::UGraph&, float, float) (RPGraphLayout.cpp:50)
+==32171==    by 0x40597C: main (graph_viewer.cpp:246)
+==32171== 
+==32171== 150,168 bytes in 1 blocks are definitely lost in loss record 21 of 45
+==32171==    at 0x483880B: malloc (vg_replace_malloc.c:309)
+==32171==    by 0x40D279: RPGraph::CPUForceAtlas2::CPUForceAtlas2(RPGraph::GraphLayout&, bool, bool, float, float, bool) (RPCPUForceAtlas2.cpp:46)
+==32171==    by 0x4059CB: main (graph_viewer.cpp:260)
+==32171== 
+==32171== 150,168 bytes in 1 blocks are definitely lost in loss record 22 of 45
+==32171==    at 0x483880B: malloc (vg_replace_malloc.c:309)
+==32171==    by 0x40D2AD: RPGraph::CPUForceAtlas2::CPUForceAtlas2(RPGraph::GraphLayout&, bool, bool, float, float, bool) (RPCPUForceAtlas2.cpp:47)
+==32171==    by 0x4059CB: main (graph_viewer.cpp:260)
+==32171== 
+==32171== 155,072 bytes in 9,692 blocks are still reachable in loss record 23 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409A7C: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:125)
+==32171==    by 0x41215C: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:45)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 189,344 bytes in 11,834 blocks are still reachable in loss record 24 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x4098DF: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:108)
+==32171==    by 0x4099BF: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:118)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 189,344 bytes in 11,834 blocks are still reachable in loss record 25 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409905: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:109)
+==32171==    by 0x4099BF: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:118)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 189,344 bytes in 11,834 blocks are still reachable in loss record 26 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409A7C: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:125)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 219,720 bytes in 5,493 blocks are still reachable in loss record 27 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407F2E: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x4078B1: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B4E4: std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A9E1: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A3F9: std::unordered_map<unsigned int, std::vector<unsigned int, std::allocator<unsigned int> >, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409B96: RPGraph::UGraph::neighbors_with_geq_id(unsigned int) (RPGraph.cpp:162)
+==32171==    by 0x40D410: RPGraph::CPUForceAtlas2::apply_attract(unsigned int) (RPCPUForceAtlas2.cpp:64)
+==32171==    by 0x40E054: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:256)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405A16: main (graph_viewer.cpp:278)
+==32171== 
+==32171== 245,816 bytes in 1 blocks are still reachable in loss record 28 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x40892E: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x408452: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x407C86: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:2123)
+==32171==    by 0x40764F: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:361)
+==32171==    by 0x40C753: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:2094)
+==32171==    by 0x40BF0C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:2073)
+==32171==    by 0x40B22C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>*, unsigned long) (hashtable.h:1719)
+==32171==    by 0x40A81D: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:704)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409AFE: RPGraph::UGraph::degree(unsigned int) (RPGraph.cpp:141)
+==32171==    by 0x412255: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:55)
+==32171== 
+==32171== 245,816 bytes in 1 blocks are still reachable in loss record 29 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x40892E: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x408452: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x407C86: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:2123)
+==32171==    by 0x40764F: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:361)
+==32171==    by 0x40C753: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:2094)
+==32171==    by 0x40BF0C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:2073)
+==32171==    by 0x40B22C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>*, unsigned long) (hashtable.h:1719)
+==32171==    by 0x4125C9: std::pair<std::__detail::_Node_iterator<std::pair<unsigned int const, unsigned int>, false, false>, bool> std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<std::pair<unsigned int const, unsigned int> >(std::integral_constant<bool, true>, std::pair<unsigned int const, unsigned int>&&) (hashtable.h:1666)
+==32171==    by 0x412480: std::pair<std::__detail::_Node_iterator<std::pair<unsigned int const, unsigned int>, false, false>, bool> std::__detail::_Insert<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, false>::insert<std::pair<unsigned int const, unsigned int>, void>(std::pair<unsigned int const, unsigned int>&&) (hashtable_policy.h:1005)
+==32171==    by 0x412408: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::insert(std::pair<unsigned int const, unsigned int>&&) (unordered_map.h:586)
+==32171==    by 0x412208: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:51)
+==32171== 
+==32171== 245,816 bytes in 1 blocks are still reachable in loss record 30 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x40892E: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x408452: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x408072: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:2123)
+==32171==    by 0x4079C5: std::_Hashtable<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:361)
+==32171==    by 0x40C9E5: std::_Hashtable<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:2094)
+==32171==    by 0x40C302: std::_Hashtable<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:2073)
+==32171==    by 0x40B650: std::_Hashtable<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false>*, unsigned long) (hashtable.h:1719)
+==32171==    by 0x40AA03: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:704)
+==32171==    by 0x40A3F9: std::unordered_map<unsigned int, std::vector<unsigned int, std::allocator<unsigned int> >, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409B96: RPGraph::UGraph::neighbors_with_geq_id(unsigned int) (RPGraph.cpp:162)
+==32171==    by 0x40D410: RPGraph::CPUForceAtlas2::apply_attract(unsigned int) (RPCPUForceAtlas2.cpp:64)
+==32171== 
+==32171== 295,136 bytes in 18,446 blocks are still reachable in loss record 31 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x4098DF: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:108)
+==32171==    by 0x4099BF: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:118)
+==32171==    by 0x41215C: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:45)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 295,136 bytes in 18,446 blocks are still reachable in loss record 32 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B0C0: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A7FB: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409905: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:109)
+==32171==    by 0x4099BF: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:118)
+==32171==    by 0x41215C: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:45)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 295,136 bytes in 18,446 blocks are still reachable in loss record 33 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407BAC: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x40753B: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x41264E: std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_node<std::pair<unsigned int const, unsigned int> >(std::pair<unsigned int const, unsigned int>&&) (hashtable_policy.h:2070)
+==32171==    by 0x4124E5: std::pair<std::__detail::_Node_iterator<std::pair<unsigned int const, unsigned int>, false, false>, bool> std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<std::pair<unsigned int const, unsigned int> >(std::integral_constant<bool, true>, std::pair<unsigned int const, unsigned int>&&) (hashtable.h:1644)
+==32171==    by 0x412480: std::pair<std::__detail::_Node_iterator<std::pair<unsigned int const, unsigned int>, false, false>, bool> std::__detail::_Insert<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, false>::insert<std::pair<unsigned int const, unsigned int>, void>(std::pair<unsigned int const, unsigned int>&&) (hashtable_policy.h:1005)
+==32171==    by 0x412408: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::insert(std::pair<unsigned int const, unsigned int>&&) (unordered_map.h:586)
+==32171==    by 0x412208: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:51)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 367,200 bytes in 2 blocks are still reachable in loss record 34 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x40892E: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x408452: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x407C86: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:2123)
+==32171==    by 0x40764F: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:361)
+==32171==    by 0x40C753: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:2094)
+==32171==    by 0x40BF0C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:2073)
+==32171==    by 0x40B22C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>*, unsigned long) (hashtable.h:1719)
+==32171==    by 0x40A81D: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:704)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x4098DF: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:108)
+==32171==    by 0x4099BF: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:118)
+==32171== 
+==32171== 367,200 bytes in 2 blocks are still reachable in loss record 35 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x40892E: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x408452: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x407C86: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:2123)
+==32171==    by 0x40764F: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:361)
+==32171==    by 0x40C753: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:2094)
+==32171==    by 0x40BF0C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:2073)
+==32171==    by 0x40B22C: std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<std::pair<unsigned int const, unsigned int>, false>*, unsigned long) (hashtable.h:1719)
+==32171==    by 0x40A81D: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:704)
+==32171==    by 0x40A373: std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409905: RPGraph::UGraph::add_node(unsigned int) (RPGraph.cpp:109)
+==32171==    by 0x4099BF: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:118)
+==32171== 
+==32171== 375,240 bytes in 9,381 blocks are still reachable in loss record 36 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407F2E: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x4078B1: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B4E4: std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A9E1: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A3F9: std::unordered_map<unsigned int, std::vector<unsigned int, std::allocator<unsigned int> >, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409A26: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:123)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 519,384 bytes in 9,381 blocks are still reachable in loss record 37 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x4091A2: __gnu_cxx::new_allocator<unsigned int>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x4090E0: std::allocator_traits<std::allocator<unsigned int> >::allocate(std::allocator<unsigned int>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x409016: std::_Vector_base<unsigned int, std::allocator<unsigned int> >::_M_allocate(unsigned long) (stl_vector.h:343)
+==32171==    by 0x40ABB8: void std::vector<unsigned int, std::allocator<unsigned int> >::_M_realloc_insert<unsigned int const&>(__gnu_cxx::__normal_iterator<unsigned int*, std::vector<unsigned int, std::allocator<unsigned int> > >, unsigned int const&) (vector.tcc:440)
+==32171==    by 0x40A580: std::vector<unsigned int, std::allocator<unsigned int> >::push_back(unsigned int const&) (stl_vector.h:1195)
+==32171==    by 0x409A47: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:123)
+==32171==    by 0x412313: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:99)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 531,120 bytes in 13,278 blocks are still reachable in loss record 38 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x407F2E: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> >::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x4078B1: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> >&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x40B4E4: std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, false> > >::_M_allocate_node<std::piecewise_construct_t const&, std::tuple<unsigned int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int const&>&&, std::tuple<>&&) (hashtable_policy.h:2070)
+==32171==    by 0x40A9E1: std::__detail::_Map_base<unsigned int, std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned int const&) (hashtable_policy.h:701)
+==32171==    by 0x40A3F9: std::unordered_map<unsigned int, std::vector<unsigned int, std::allocator<unsigned int> >, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, std::vector<unsigned int, std::allocator<unsigned int> > > > >::operator[](unsigned int const&) (unordered_map.h:985)
+==32171==    by 0x409A26: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:123)
+==32171==    by 0x41215C: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:45)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 735,120 bytes in 9,189 blocks are indirectly lost in loss record 39 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410412: RPGraph::BarnesHutCell::add_leafcell(int, float, RPGraph::Coordinate) (RPBarnesHutApproximator.cpp:59)
+==32171==    by 0x41097F: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:151)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405929: main (graph_viewer.cpp:238)
+==32171== 
+==32171== 1,013,200 bytes in 12,665 blocks are indirectly lost in loss record 40 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410412: RPGraph::BarnesHutCell::add_leafcell(int, float, RPGraph::Coordinate) (RPBarnesHutApproximator.cpp:59)
+==32171==    by 0x410A6B: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:163)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405929: main (graph_viewer.cpp:238)
+==32171== 
+==32171== 1,084,320 bytes in 13,554 blocks are indirectly lost in loss record 41 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410412: RPGraph::BarnesHutCell::add_leafcell(int, float, RPGraph::Coordinate) (RPBarnesHutApproximator.cpp:59)
+==32171==    by 0x41097F: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:151)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405A16: main (graph_viewer.cpp:278)
+==32171== 
+==32171== 1,101,912 bytes in 13,278 blocks are still reachable in loss record 42 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x4091A2: __gnu_cxx::new_allocator<unsigned int>::allocate(unsigned long, void const*) (new_allocator.h:114)
+==32171==    by 0x4090E0: std::allocator_traits<std::allocator<unsigned int> >::allocate(std::allocator<unsigned int>&, unsigned long) (alloc_traits.h:444)
+==32171==    by 0x409016: std::_Vector_base<unsigned int, std::allocator<unsigned int> >::_M_allocate(unsigned long) (stl_vector.h:343)
+==32171==    by 0x40ABB8: void std::vector<unsigned int, std::allocator<unsigned int> >::_M_realloc_insert<unsigned int const&>(__gnu_cxx::__normal_iterator<unsigned int*, std::vector<unsigned int, std::allocator<unsigned int> > >, unsigned int const&) (vector.tcc:440)
+==32171==    by 0x40A580: std::vector<unsigned int, std::allocator<unsigned int> >::push_back(unsigned int const&) (stl_vector.h:1195)
+==32171==    by 0x409A47: RPGraph::UGraph::add_edge(unsigned int, unsigned int) (RPGraph.cpp:123)
+==32171==    by 0x41215C: CommunityAlgos::scoda(int, std::basic_fstream<char, std::char_traits<char> >&, RPGraph::UGraph&, RPGraph::UGraph&, std::unordered_map<unsigned int, unsigned int, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> > >&) (scoda.cpp:45)
+==32171==    by 0x4056DC: main (graph_viewer.cpp:154)
+==32171== 
+==32171== 1,501,200 bytes in 18,765 blocks are indirectly lost in loss record 43 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410412: RPGraph::BarnesHutCell::add_leafcell(int, float, RPGraph::Coordinate) (RPBarnesHutApproximator.cpp:59)
+==32171==    by 0x410A6B: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:163)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405A16: main (graph_viewer.cpp:278)
+==32171== 
+==32171== 1,748,400 (80 direct, 1,748,320 indirect) bytes in 1 blocks are definitely lost in loss record 44 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410805: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:118)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405929: main (graph_viewer.cpp:238)
+==32171== 
+==32171== 2,585,600 (80 direct, 2,585,520 indirect) bytes in 1 blocks are definitely lost in loss record 45 of 45
+==32171==    at 0x4838E86: operator new(unsigned long) (vg_replace_malloc.c:344)
+==32171==    by 0x410805: RPGraph::BarnesHutApproximator::insertParticle(RPGraph::Coordinate, float) (RPBarnesHutApproximator.cpp:118)
+==32171==    by 0x40DFC3: RPGraph::CPUForceAtlas2::rebuild_bh() (RPCPUForceAtlas2.cpp:241)
+==32171==    by 0x40DFFE: RPGraph::CPUForceAtlas2::doStep() (RPCPUForceAtlas2.cpp:251)
+==32171==    by 0x404D10: main::{lambda(int)#2}::operator()(int) const (graph_viewer.cpp:219)
+==32171==    by 0x405A16: main (graph_viewer.cpp:278)
+==32171== 
+==32171== LEAK SUMMARY:
+==32171==    definitely lost: 402,304 bytes in 7 blocks
+==32171==    indirectly lost: 4,333,840 bytes in 54,173 blocks
+==32171==      possibly lost: 101,408 bytes in 2 blocks
+==32171==    still reachable: 6,654,856 bytes in 167,198 blocks
+==32171==         suppressed: 0 bytes in 0 blocks
+==32171== 
+==32171== ERROR SUMMARY: 9 errors from 9 contexts (suppressed: 0 from 0)

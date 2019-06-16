@@ -33,6 +33,8 @@
 
 namespace RPGraph
 {
+    Graph::~Graph() = default;
+
     /**
      * Used once in main file (graph_viewer.cpp)
      * 
@@ -43,9 +45,11 @@ namespace RPGraph
         edge_count = 0;
     }
 
+    UGraph::~UGraph() = default;
+
     /**
      * Was factored out of constructor and correctness verified.
-     * Move code to scoda to be part of the streaming initialization.
+     * Moved code to scoda to be part of the streaming initialization.
      */
     void UGraph::read_edgelist_file(std::string edgelist_path) {
         std::fstream edgelist_file(edgelist_path, std::ifstream::in);
@@ -88,7 +92,7 @@ namespace RPGraph
 
         /* TODO: How does this edge search work? */
         std::vector<nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
-        if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end())
+        if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
             return false;
         else
             return true;
@@ -98,10 +102,6 @@ namespace RPGraph
     {
         if(!has_node(nid))
         {
-            /** 
-             * TODO: Can we improve this to use only O(|V|) memory? Why do we need something beyond simple membership here?
-             * Yes.  If we drop/modify writeToBin() and writeToCsv() 
-             */
             node_map[nid] = node_count;
             node_map_r[node_count] = nid;
             node_count++;

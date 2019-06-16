@@ -41,7 +41,7 @@ namespace RPGraph
 
     BarnesHutCell::~BarnesHutCell()
     {
-        for (nid_t n = 0; n < 4; ++n) delete sub_cells[n];
+        for (nid_t n = 0; n < 4; ++n) delete sub_cells[n]; /**< TODO: I believe this is the associated destructor that should recursively delete all subcells that Valgrind says are lost. */
     }
 
     void BarnesHutCell::add_leafcell(int quadrant, float mass, Coordinate pos)
@@ -56,17 +56,23 @@ namespace RPGraph
         else if (quadrant == 3)
             leafcell_center_coordinate = Coordinate(this->cell_center.x-length/4.0,this->cell_center.y-length/4);
 
-        sub_cells[quadrant] = new BarnesHutCell(leafcell_center_coordinate, this->length/2.0, pos, mass);
+        sub_cells[quadrant] = new BarnesHutCell(leafcell_center_coordinate, this->length/2.0, pos, mass); /**< TODO: Valgrind thinks this (possibly) is causing a memory leak.  Is it? */
         num_subparticles += 1;
 
     }
 
+	/**
+	 * Constructor that calls reset.
+	 */
     BarnesHutApproximator::BarnesHutApproximator(Coordinate root_center, float root_length, float theta)
     : root_center{root_center}, root_length{root_length}, theta{theta}
     {
         this->reset(root_center, root_length);
     }
 
+    /**
+	 * Deletes the current root_cell and resets the center and length of the BHApproximator
+     */
     void BarnesHutApproximator::reset(Coordinate root_center, float root_length)
     {
         delete root_cell; // this recursively deletes the entire tree
@@ -89,6 +95,7 @@ namespace RPGraph
             cur_cell = cells_to_check.front();
             cells_to_check.pop();
 
+			// TODO: Why is D2 const?
             const float D2 = distance2(particle_pos, cur_cell->mass_center);
             if (D2 == 0)
             {
