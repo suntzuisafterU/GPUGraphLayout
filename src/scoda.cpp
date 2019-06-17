@@ -3,7 +3,7 @@
 namespace CommunityAlgos {
 
 // NOTE: We don't have to update degree anymore.  Just add the nodes to the UGraph.
-#define DEGREE(id) (full_graph.degree(id)) // Defines function for accessing the degree of the ith node.
+#define DEGREE(id) (full_graph.degree(full_graph.node_map[id])) // Defines function for accessing the degree of the ith node.
 #define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map.insert({nid, comm_id}))   // Defines function for accessing the community id associated with the ith node.
 #define COMMUNITY_OF(nid) (nid_comm_map.at(nid))
 

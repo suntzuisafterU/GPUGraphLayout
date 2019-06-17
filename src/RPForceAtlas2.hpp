@@ -67,7 +67,7 @@ namespace RPGraph
             /**
              * Where are these magic constants used? In both GPU and CPU implementations?
              */
-            float k_s, k_s_max; /**< magic constants related to swinging. */
+            float k_s, k_s_max; /**< Swing constants? */
 
             /**
              * TODO: Review and explain the Barnes-Hut parameters here.

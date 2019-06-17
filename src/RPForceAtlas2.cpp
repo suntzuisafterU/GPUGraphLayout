@@ -46,14 +46,14 @@ namespace RPGraph
         speed_efficiency = 1.0;
         jitter_tolerance = 1.0;
 
-        k_s = 0.1;
-        k_s_max = 10.0;
+        k_s = 0.1; /// Calculating local swing.
+        k_s_max = 10.0; /// 
 
         theta = 1.0;
         epssq  = 0.05 * 0.05;
         itolsq = 1.0f / (theta * theta);
 
-        delta = 0.0;
+        delta = 0.0; /// Edge weight influence
 
         prevent_overlap = false;
         use_linlog = false;
@@ -81,6 +81,9 @@ namespace RPGraph
         k_g = g;
     }
 
+	/**
+	 * mass of a node in FA2 is equal to degree of node.
+	 */
     float ForceAtlas2::mass(nid_t n)
     {
         return layout.graph.degree(n) + 1.0;

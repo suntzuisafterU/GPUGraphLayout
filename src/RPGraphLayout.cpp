@@ -79,12 +79,6 @@ namespace RPGraph
         return coordinates[node_id].y;
     }
 
-    /**
-     * Find: 
-     *   getXRange: only this file, getSpan, getCenter, writePng
-     *   getYRange: only this file
-     *   getCenter: RPCPUForceAtlas2.cpp, not important
-     */
     float GraphLayout::minX()
     {
         float minX = std::numeric_limits<float>::max();
@@ -117,6 +111,12 @@ namespace RPGraph
         return maxY;
     }
 
+    /**
+     * Find: 
+     *   getXRange: only this file, getSpan, getCenter, writePng
+     *   getYRange: only this file
+     *   getCenter: RPCPUForceAtlas2.cpp.
+     */
     float GraphLayout::getXRange()
     {
         return maxX()- minX();
@@ -133,9 +133,8 @@ namespace RPGraph
     }
 
     /**
-     * Usage? CPU FA2 only.
-	 * 
-	 * What 
+     * Usage:
+	 *   CPU FA2 apply_attract and apply_repulsion.
      */
     float GraphLayout::getDistance(nid_t n1, nid_t n2)
     {

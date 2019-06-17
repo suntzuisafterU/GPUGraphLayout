@@ -40,8 +40,6 @@ namespace RPGraph
                                      bool strong_gravity, float gravity,
                                      float scale, bool randomize)
     : ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize)
-      // This declaration is a bit confusing.  Why are the names for inheritance to
-      // ForceAtlas2(...) not typed?
     {
         /**
          * Device count refers to how many discrete GPUs are available.
@@ -71,10 +69,10 @@ namespace RPGraph
         fx_prev  = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
         fy_prev  = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
 
-        /* NOTE: nid_t is an alias for uint_32, stands for "node id" */
+		// TODO: Why not just use memset?
         for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
-            body_pos[n] = {layout.getX(n), layout.getY(n)};
+            body_pos[n] = {layout.getX(n), layout.getY(n)}; /// What type of initialization is this?
             body_mass[n] = ForceAtlas2::mass(n);
             fx[n] = 0.0;
             fy[n] = 0.0;

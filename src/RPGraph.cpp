@@ -133,6 +133,11 @@ namespace RPGraph
         return edge_count;
     }
 
+	/**
+	 * Returns UNMAPPED DEGREE
+	 *
+	 * TODO: Make these functions that use internal nids private, or friend + private and define new functions that also map the nids for us...
+	 */
     nid_t UGraph::degree(nid_t nid)
     {
         return degrees[nid];
