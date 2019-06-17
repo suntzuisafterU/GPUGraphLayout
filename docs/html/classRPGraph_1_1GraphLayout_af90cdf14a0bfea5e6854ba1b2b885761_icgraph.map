@@ -1,5 +1,6 @@
 <map id="RPGraph::GraphLayout::getDistanceVector" name="RPGraph::GraphLayout::getDistanceVector">
-<area shape="rect" id="node2" href="$classRPGraph_1_1CPUForceAtlas2.html#afe1f2cc97b7a145584bc4b773717aa7e" title="RPGraph::CPUForceAtlas2\l::apply_attract" alt="" coords="223,5,412,47"/>
-<area shape="rect" id="node4" href="$classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title="RPGraph::CPUForceAtlas2\l::apply_repulsion" alt="" coords="223,71,412,112"/>
-<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="460,39,649,80"/>
+<area shape="rect" id="node1" title=" " alt="" coords="480,39,649,80"/>
+<area shape="rect" id="node2" href="$classRPGraph_1_1CPUForceAtlas2.html#afe1f2cc97b7a145584bc4b773717aa7e" title=" " alt="" coords="243,5,432,47"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title=" " alt="" coords="243,71,432,112"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title=" " alt="" coords="5,39,195,80"/>
 </map>

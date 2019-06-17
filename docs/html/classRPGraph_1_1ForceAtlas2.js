@@ -1,6 +1,6 @@
 var classRPGraph_1_1ForceAtlas2 =
 [
-    [ "ForceAtlas2", "classRPGraph_1_1ForceAtlas2.html#a4c7ce390cdedc886003571f31861eb0c", null ],
+    [ "ForceAtlas2", "classRPGraph_1_1ForceAtlas2.html#a93b3106b08fdcf3c9db13594c9b7d13a", null ],
     [ "~ForceAtlas2", "classRPGraph_1_1ForceAtlas2.html#a1be4cef4dacd90f3a6a7c3d216fd0e78", null ],
     [ "doStep", "classRPGraph_1_1ForceAtlas2.html#aa448ceec8292797a6e1b61ef8e2b3744", null ],
     [ "doSteps", "classRPGraph_1_1ForceAtlas2.html#ae02d5fff5d824602da4885187361dfb5", null ],

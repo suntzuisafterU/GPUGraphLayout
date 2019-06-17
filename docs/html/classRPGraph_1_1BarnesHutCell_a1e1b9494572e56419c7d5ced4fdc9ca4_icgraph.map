@@ -1,5 +1,6 @@
 <map id="RPGraph::BarnesHutCell::add_leafcell" name="RPGraph::BarnesHutCell::add_leafcell">
-<area shape="rect" id="node2" href="$classRPGraph_1_1BarnesHutApproximator.html#a11275640594b1e706c2ca9cd58cf4b67" title="RPGraph::BarnesHutApproximator\l::insertParticle" alt="" coords="232,5,475,47"/>
-<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title="RPGraph::CPUForceAtlas2\l::rebuild_bh" alt="" coords="523,5,712,47"/>
-<area shape="rect" id="node4" href="$classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="760,5,949,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="771,5,949,47"/>
+<area shape="rect" id="node2" href="$classRPGraph_1_1BarnesHutApproximator.html#a11275640594b1e706c2ca9cd58cf4b67" title=" " alt="" coords="480,5,723,47"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1" title=" " alt="" coords="243,5,432,47"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title=" " alt="" coords="5,5,195,47"/>
 </map>

@@ -1,5 +1,6 @@
 var classRPGraph_1_1Graph =
 [
+    [ "~Graph", "classRPGraph_1_1Graph.html#ac10af704bd26982b078f18813f5e503e", null ],
     [ "num_nodes", "classRPGraph_1_1Graph.html#ab5602e6b776a0ea3b944775331fcb2aa", null ],
     [ "num_edges", "classRPGraph_1_1Graph.html#acd3b877216686aff2f7fbc2d62bcdf9b", null ],
     [ "degree", "classRPGraph_1_1Graph.html#a8a95d1f403c3d9860cf7399abc820c7d", null ],

@@ -34,5 +34,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "RPLayoutAlgorithm.cpp", "RPLayoutAlgorithm_8cpp.html", null ],
     [ "RPLayoutAlgorithm.hpp", "RPLayoutAlgorithm_8hpp.html", [
       [ "LayoutAlgorithm", "classRPGraph_1_1LayoutAlgorithm.html", "classRPGraph_1_1LayoutAlgorithm" ]
-    ] ]
+    ] ],
+    [ "scoda.cpp", "scoda_8cpp.html", "scoda_8cpp" ],
+    [ "scoda.hpp", "scoda_8hpp.html", "scoda_8hpp" ]
 ];

@@ -3,6 +3,7 @@ var searchData=
   ['read_5ffiles',['read_files',['../md_src_read_files.html',1,'']]],
   ['randomizepositions',['randomizePositions',['../classRPGraph_1_1GraphLayout.html#a5d5912f46f1b6bf1bf1ee5850cbd818e',1,'RPGraph::GraphLayout']]],
   ['rb',['rb',['../classRPGraph_1_1BarnesHutCell.html#a8cbdd91ae4519d39950fda7876ec6807',1,'RPGraph::BarnesHutCell']]],
+  ['read_5fedgelist_5ffile',['read_edgelist_file',['../classRPGraph_1_1UGraph.html#af5979695e79c9506e88ea7a21a94a1eb',1,'RPGraph::UGraph']]],
   ['read_5ffiles_2emd',['read_files.md',['../read__files_8md.html',1,'']]],
   ['real2dvector',['Real2DVector',['../classRPGraph_1_1Real2DVector.html',1,'RPGraph::Real2DVector'],['../classRPGraph_1_1Real2DVector.html#af6c81ec0d227c6cd31047e436bf574d5',1,'RPGraph::Real2DVector::Real2DVector()']]],
   ['rebuild_5fbh',['rebuild_bh',['../classRPGraph_1_1CPUForceAtlas2.html#a7fe14e3312f65da40ffc6ac9c9a1e8f1',1,'RPGraph::CPUForceAtlas2']]],

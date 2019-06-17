@@ -1,11 +1,12 @@
 <map id="RPGraph::GraphLayout::getSpan" name="RPGraph::GraphLayout::getSpan">
-<area shape="rect" id="node2" href="$classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748" title="RPGraph::GraphLayout\l::getXRange" alt="" coords="223,71,392,112"/>
-<area shape="rect" id="node7" href="$classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276" title="RPGraph::GraphLayout\l::getYRange" alt="" coords="223,136,392,177"/>
-<area shape="rect" id="node3" href="$classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505" title="RPGraph::GraphLayout\l::maxX" alt="" coords="440,5,609,47"/>
-<area shape="rect" id="node6" href="$classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85" title="RPGraph::GraphLayout\l::minX" alt="" coords="440,71,609,112"/>
-<area shape="rect" id="node4" href="$classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title="RPGraph::GraphLayout\l::getX" alt="" coords="659,39,828,80"/>
-<area shape="rect" id="node5" href="$classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title="RPGraph::UGraph::num\l_nodes" alt="" coords="657,136,829,177"/>
-<area shape="rect" id="node8" href="$classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a" title="RPGraph::GraphLayout\l::maxY" alt="" coords="440,136,609,177"/>
-<area shape="rect" id="node10" href="$classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e" title="RPGraph::GraphLayout\l::minY" alt="" coords="440,201,609,243"/>
-<area shape="rect" id="node9" href="$classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title="RPGraph::GraphLayout\l::getY" alt="" coords="659,201,828,243"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,175,145"/>
+<area shape="rect" id="node2" href="$classRPGraph_1_1GraphLayout.html#a18a15867788b88db16f0938540107748" title=" " alt="" coords="223,71,392,112"/>
+<area shape="rect" id="node7" href="$classRPGraph_1_1GraphLayout.html#aeba4c2af91bcc996e159eebbb049c276" title=" " alt="" coords="223,136,392,177"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1GraphLayout.html#a6ec496912efecaa34efd4de6d88fc505" title=" " alt="" coords="440,5,609,47"/>
+<area shape="rect" id="node6" href="$classRPGraph_1_1GraphLayout.html#a9b538f82aabafa2d2f0e1a08edcf9b85" title=" " alt="" coords="440,71,609,112"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1GraphLayout.html#a447d80a00c47ad2fb446e3653face38c" title=" " alt="" coords="659,39,828,80"/>
+<area shape="rect" id="node5" href="$classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c" title=" " alt="" coords="657,136,829,177"/>
+<area shape="rect" id="node8" href="$classRPGraph_1_1GraphLayout.html#a031dd59e25111ed175d6153d2cb44f9a" title=" " alt="" coords="440,136,609,177"/>
+<area shape="rect" id="node10" href="$classRPGraph_1_1GraphLayout.html#adc5cd076f816ecca32c91c4fe3a2a57e" title=" " alt="" coords="440,201,609,243"/>
+<area shape="rect" id="node9" href="$classRPGraph_1_1GraphLayout.html#a75826cfc0cc24fd4902758bc1ad42c4b" title=" " alt="" coords="659,201,828,243"/>
 </map>

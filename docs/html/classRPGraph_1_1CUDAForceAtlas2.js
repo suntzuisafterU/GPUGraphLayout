@@ -1,6 +1,6 @@
 var classRPGraph_1_1CUDAForceAtlas2 =
 [
-    [ "CUDAForceAtlas2", "classRPGraph_1_1CUDAForceAtlas2.html#a8cdd430ec7758697fe362cfbca2fd311", null ],
+    [ "CUDAForceAtlas2", "classRPGraph_1_1CUDAForceAtlas2.html#af763c9732c38cb95c87692524f07dab3", null ],
     [ "~CUDAForceAtlas2", "classRPGraph_1_1CUDAForceAtlas2.html#a5a57cb10f336ced8b717dbfa16cc4051", null ],
     [ "doStep", "classRPGraph_1_1CUDAForceAtlas2.html#a4ebfb858b5c2c19b9e57ef1d434a21a7", null ],
     [ "sync_layout", "classRPGraph_1_1CUDAForceAtlas2.html#a474a1cd717352057859185885b8020cf", null ],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rpgraph',['RPGraph',['../namespaceRPGraph.html',1,'']]]
+  ['communityalgos',['CommunityAlgos',['../namespaceCommunityAlgos.html',1,'']]]
 ];

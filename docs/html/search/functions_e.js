@@ -1,6 +1,7 @@
 var searchData=
 [
   ['s',['s',['../classRPGraph_1_1CPUForceAtlas2.html#ad3faa78cf3e9c2d909ce63855053a029',1,'RPGraph::CPUForceAtlas2']]],
+  ['scoda',['scoda',['../namespaceCommunityAlgos.html#a0b049684d243b21fd5769bf8aef849e5',1,'CommunityAlgos']]],
   ['sendgraphtogpu',['sendGraphToGPU',['../classRPGraph_1_1CUDAForceAtlas2.html#ad3151a81be03995ff3ede73d3f25d1c3',1,'RPGraph::CUDAForceAtlas2']]],
   ['sendlayouttogpu',['sendLayoutToGPU',['../classRPGraph_1_1CUDAForceAtlas2.html#a251eade057124568b70ee17bb9e0d12f',1,'RPGraph::CUDAForceAtlas2']]],
   ['setcoordinates',['setCoordinates',['../classRPGraph_1_1GraphLayout.html#a99ad68f3edff2c5f0a78a4db3e2f15ea',1,'RPGraph::GraphLayout']]],

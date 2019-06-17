@@ -1,6 +1,7 @@
 <map id="RPGraph::ForceAtlas2::mass" name="RPGraph::ForceAtlas2::mass">
-<area shape="rect" id="node2" href="$classRPGraph_1_1CPUForceAtlas2.html#abfccb4460e2477ca09da5245a43cfe4e" title="RPGraph::CPUForceAtlas2\l::apply_gravity" alt="" coords="216,5,405,47"/>
-<area shape="rect" id="node4" href="$classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title="RPGraph::CPUForceAtlas2\l::apply_repulsion" alt="" coords="216,71,405,112"/>
-<area shape="rect" id="node5" href="$classRPGraph_1_1CPUForceAtlas2.html#a53714255665311a73aa4626baf03a781" title="RPGraph::CPUForceAtlas2\l::updateSpeeds" alt="" coords="216,136,405,177"/>
-<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title="RPGraph::CPUForceAtlas2\l::doStep" alt="" coords="453,71,643,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="480,71,643,112"/>
+<area shape="rect" id="node2" href="$classRPGraph_1_1CPUForceAtlas2.html#abfccb4460e2477ca09da5245a43cfe4e" title=" " alt="" coords="243,5,432,47"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1CPUForceAtlas2.html#abf1788a4f9b06136b9d8774788d741f5" title=" " alt="" coords="243,71,432,112"/>
+<area shape="rect" id="node5" href="$classRPGraph_1_1CPUForceAtlas2.html#a53714255665311a73aa4626baf03a781" title=" " alt="" coords="243,136,432,177"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html#a3542ecd2220173aabe4e864fc21826eb" title=" " alt="" coords="5,71,195,112"/>
 </map>

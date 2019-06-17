@@ -1,4 +1,5 @@
 <map id="RPGraph::BarnesHutApproximator::approximateForce" name="RPGraph::BarnesHutApproximator::approximateForce">
-<area shape="rect" id="node2" href="$namespaceRPGraph.html#a18f01f18cedd3449b2bface612bde934" title="RPGraph::direction" alt="" coords="299,5,442,32"/>
-<area shape="rect" id="node3" href="$namespaceRPGraph.html#aa54d04cd9574e91651e2566eb868df1f" title="RPGraph::distance2" alt="" coords="296,56,445,83"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,23,248,65"/>
+<area shape="rect" id="node2" href="$namespaceRPGraph.html#a18f01f18cedd3449b2bface612bde934" title=" " alt="" coords="299,5,442,32"/>
+<area shape="rect" id="node3" href="$namespaceRPGraph.html#aa54d04cd9574e91651e2566eb868df1f" title=" " alt="" coords="296,56,445,83"/>
 </map>

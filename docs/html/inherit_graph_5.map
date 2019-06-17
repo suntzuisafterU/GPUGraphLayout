@@ -1,6 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRPGraph_1_1LayoutAlgorithm.html" title="RPGraph::LayoutAlgorithm" alt="" coords="5,31,200,57"/>
-<area shape="rect" id="node2" href="$classRPGraph_1_1ForceAtlas2.html" title="RPGraph::ForceAtlas2" alt="" coords="248,31,411,57"/>
-<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html" title="RPGraph::CPUForceAtlas2" alt="" coords="464,5,653,32"/>
-<area shape="rect" id="node4" href="$classRPGraph_1_1CUDAForceAtlas2.html" title="RPGraph::CUDAForceAtlas2" alt="" coords="459,56,659,83"/>
+<area shape="rect" id="node1" href="$classRPGraph_1_1LayoutAlgorithm.html" title=" " alt="" coords="5,31,200,57"/>
+<area shape="rect" id="node2" href="$classRPGraph_1_1ForceAtlas2.html" title=" " alt="" coords="248,31,411,57"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html" title=" " alt="" coords="464,5,653,32"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1CUDAForceAtlas2.html" title=" " alt="" coords="459,56,659,83"/>
 </map>

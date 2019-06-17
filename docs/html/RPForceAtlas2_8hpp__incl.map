@@ -1,7 +1,11 @@
 <map id="src/RPForceAtlas2.hpp" name="src/RPForceAtlas2.hpp">
-<area shape="rect" id="node2" href="$RPLayoutAlgorithm_8hpp.html" title="RPLayoutAlgorithm.hpp" alt="" coords="36,80,211,107"/>
-<area shape="rect" id="node9" href="$RPBarnesHutApproximator_8hpp.html" title="RPBarnesHutApproximator.hpp" alt="" coords="181,155,405,181"/>
-<area shape="rect" id="node3" href="$RPGraphLayout_8hpp.html" title="RPGraphLayout.hpp" alt="" coords="5,155,156,181"/>
-<area shape="rect" id="node4" href="$RPGraph_8hpp.html" title="RPGraph.hpp" alt="" coords="239,229,346,256"/>
-<area shape="rect" id="node8" href="$RPCommon_8hpp.html" title="RPCommon.hpp" alt="" coords="88,229,215,256"/>
+<area shape="rect" id="node1" title=" " alt="" coords="103,5,269,32"/>
+<area shape="rect" id="node2" href="$RPLayoutAlgorithm_8hpp.html" title=" " alt="" coords="36,80,211,107"/>
+<area shape="rect" id="node9" href="$RPBarnesHutApproximator_8hpp.html" title=" " alt="" coords="180,155,403,181"/>
+<area shape="rect" id="node3" href="$RPGraphLayout_8hpp.html" title=" " alt="" coords="5,155,156,181"/>
+<area shape="rect" id="node4" href="$RPGraph_8hpp.html" title=" " alt="" coords="238,229,345,256"/>
+<area shape="rect" id="node6" title=" " alt="" coords="83,304,142,331"/>
+<area shape="rect" id="node8" href="$RPCommon_8hpp.html" title=" " alt="" coords="87,229,213,256"/>
+<area shape="rect" id="node5" title=" " alt="" coords="319,304,381,331"/>
+<area shape="rect" id="node7" title=" " alt="" coords="171,304,295,331"/>
 </map>

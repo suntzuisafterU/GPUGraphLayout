@@ -1,9 +1,11 @@
 var classRPGraph_1_1UGraph =
 [
-    [ "UGraph", "classRPGraph_1_1UGraph.html#a2e52cd7b17ae1f839b45e26ec6ae1135", null ],
+    [ "UGraph", "classRPGraph_1_1UGraph.html#a5b73f8deca7f403c46b7fb448c16b55d", null ],
+    [ "~UGraph", "classRPGraph_1_1UGraph.html#aa0f38bdd7664abb94fffe3465af1ed14", null ],
+    [ "add_node", "classRPGraph_1_1UGraph.html#a15764afe7f3ab656f7d814377f91ce4d", null ],
     [ "has_node", "classRPGraph_1_1UGraph.html#afcb53badb258fa22181dca127a7e288b", null ],
     [ "has_edge", "classRPGraph_1_1UGraph.html#a9a3fd5f05e11b197e207561788c33f22", null ],
-    [ "add_node", "classRPGraph_1_1UGraph.html#a15764afe7f3ab656f7d814377f91ce4d", null ],
+    [ "read_edgelist_file", "classRPGraph_1_1UGraph.html#af5979695e79c9506e88ea7a21a94a1eb", null ],
     [ "add_edge", "classRPGraph_1_1UGraph.html#a79bc283af0140126badfde808b050838", null ],
     [ "num_nodes", "classRPGraph_1_1UGraph.html#ad5eb18fffb7b9a64819b3f1f38305a0c", null ],
     [ "num_edges", "classRPGraph_1_1UGraph.html#a55a5deea9a4d456e78e24a2002f31ef2", null ],

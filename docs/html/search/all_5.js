@@ -2,7 +2,7 @@ var searchData=
 [
   ['first_5ffree_5fid',['first_free_id',['../classRPGraph_1_1CSRUGraph.html#a534ab57824090239488eb146c6f89469',1,'RPGraph::CSRUGraph']]],
   ['fix_5fedge_5fids',['fix_edge_ids',['../classRPGraph_1_1CSRUGraph.html#a5394625002cf95dbeac709f230d9f618',1,'RPGraph::CSRUGraph']]],
-  ['forceatlas2',['ForceAtlas2',['../classRPGraph_1_1ForceAtlas2.html',1,'RPGraph::ForceAtlas2'],['../classRPGraph_1_1ForceAtlas2.html#a4c7ce390cdedc886003571f31861eb0c',1,'RPGraph::ForceAtlas2::ForceAtlas2()']]],
+  ['forceatlas2',['ForceAtlas2',['../classRPGraph_1_1ForceAtlas2.html',1,'RPGraph::ForceAtlas2'],['../classRPGraph_1_1ForceAtlas2.html#a93b3106b08fdcf3c9db13594c9b7d13a',1,'RPGraph::ForceAtlas2::ForceAtlas2()']]],
   ['forces',['forces',['../classRPGraph_1_1CPUForceAtlas2.html#aee9dda1def92ba978040836531d52d59',1,'RPGraph::CPUForceAtlas2']]],
   ['freegpumemory',['freeGPUMemory',['../classRPGraph_1_1CUDAForceAtlas2.html#ad75693550c01af4fb8d3d841d066c89a',1,'RPGraph::CUDAForceAtlas2']]],
   ['fx',['fx',['../classRPGraph_1_1CUDAForceAtlas2.html#a867cdd675f625f78437a463b3ee507d3',1,'RPGraph::CUDAForceAtlas2']]],

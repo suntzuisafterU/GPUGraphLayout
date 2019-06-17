@@ -1,5 +1,6 @@
 <map id="RPGraph::UGraph::add_edge" name="RPGraph::UGraph::add_edge">
-<area shape="rect" id="node2" href="$classRPGraph_1_1UGraph.html#a15764afe7f3ab656f7d814377f91ce4d" title="RPGraph::UGraph::add_node" alt="" coords="260,5,467,32"/>
-<area shape="rect" id="node3" href="$classRPGraph_1_1UGraph.html#afcb53badb258fa22181dca127a7e288b" title="RPGraph::UGraph::has_node" alt="" coords="515,56,720,83"/>
-<area shape="rect" id="node4" href="$classRPGraph_1_1UGraph.html#a9a3fd5f05e11b197e207561788c33f22" title="RPGraph::UGraph::has_edge" alt="" coords="261,107,466,133"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,212,83"/>
+<area shape="rect" id="node2" href="$classRPGraph_1_1UGraph.html#a15764afe7f3ab656f7d814377f91ce4d" title=" " alt="" coords="260,5,467,32"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1UGraph.html#afcb53badb258fa22181dca127a7e288b" title=" " alt="" coords="515,56,720,83"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1UGraph.html#a9a3fd5f05e11b197e207561788c33f22" title=" " alt="" coords="261,107,466,133"/>
 </map>

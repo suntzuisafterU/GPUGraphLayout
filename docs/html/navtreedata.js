@@ -47,7 +47,8 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ]
+        [ "Functions", "globals_func.html", null ],
+        [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
   ] ]
@@ -56,7 +57,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "RPBHFA2LaunchParameters_8cuh.html",
-"classRPGraph_1_1Real2DVector.html#aa37f96dfb13727fdee7a82ddbd1d7f60"
+"classRPGraph_1_1Real2DVector.html#a974b46237ab8f38d195061fd9c5b3357"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
