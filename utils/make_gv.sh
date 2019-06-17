@@ -20,4 +20,4 @@ do op="$1"
   esac
 done
 
-make -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG graph_viewer
+make clean -C ../builds/linux && make -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG graph_viewer

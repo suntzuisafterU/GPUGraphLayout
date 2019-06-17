@@ -1,10 +1,10 @@
 ../builds/linux/graph_viewer \
-  gpu \
+  cpu \
   6 \
   2 \
   wg \
   2.0 \
   1.0 \
   approximate \
-  ../../datasets/ca-AstroPh/out.ca-AstroPh \
-  out/TEST_ca-AstroPh \
+  ../datasets/ca-AstroPh/out.ca-AstroPh \
+  ../out/TEST_ca-AstroPh \
