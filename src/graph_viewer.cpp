@@ -229,7 +229,7 @@ int main(int argc, const char **argv)
 	/**
 	 * Initial layout will be produced from community graph.
 	 */
-    for (int iteration = 1; iteration < ceil(max_iterations/2); ++iteration)
+    for (int iteration = 1; iteration < ceil(max_iterations/10); ++iteration)
     {
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
@@ -273,7 +273,7 @@ int main(int argc, const char **argv)
 	/**
 	 * Second layout with full graph.
 	 */
-    for (int iteration = ceil(max_iterations/2); iteration <= max_iterations; ++iteration)
+    for (int iteration = ceil(max_iterations/10); iteration <= max_iterations; ++iteration)
     {
 		compositeStep(iteration); /* full graph layout is produced. */
     }
