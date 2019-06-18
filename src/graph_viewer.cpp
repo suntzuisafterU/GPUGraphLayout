@@ -142,12 +142,12 @@ int main(int argc, const char **argv)
     fflush(stdout);
 	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
 
-    std::fstream edgelist_file(edgelist_path, std::ifstream::in); // TODO: Does this return a reference? Yes. See: https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c and http://www.gotw.ca/gotw/009.htm
+    std::fstream edgelist_file(edgelist_path, std::ifstream::in); // Does this return a reference? Yes. See: https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c and http://www.gotw.ca/gotw/009.htm
 
     RPGraph::UGraph full_graph = RPGraph::UGraph(); // Changed back to stack allocated reference.
     RPGraph::UGraph comm_graph = RPGraph::UGraph();
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
-    // TEMP VALUE!!! TODO::::
+	//////////////////////////////////////////////////////////////////////////////////////////////
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
     //////////////////////////////////////////////////////////////////////////////////////////////
     int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
@@ -198,7 +198,6 @@ int main(int argc, const char **argv)
 		fa2->sync_layout(); /* The same symbol is used regardless of which stage we are at. */
 
 		if (out_format == "png")
-			// TODO: Getting error here, segmentation fault from libpng.  Not sure why.  Rerunning, might be heisenbug.
 			current_layout->writeToPNG(image_w, image_h, op);
 		else if (out_format == "csv")
 			current_layout->writeToCSV(op);
@@ -238,7 +237,7 @@ int main(int argc, const char **argv)
     RPGraph::GraphLayout full_layout = RPGraph::GraphLayout(full_graph);
     current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
 
-	// TODO: Expansion kernel instead of sequential code called here. NOTE: kernel will require some form of array datastructure to operate on, will also have to look up the layout coordinate associated with the community_node.
+	// TODO: Expansion kernel instead of sequential code called here. NOTE: Low priority.
 
 	/**
 	 * Expansion:
@@ -247,8 +246,8 @@ int main(int argc, const char **argv)
 	for (const auto& nid_commid_pair : nid_comm_map) {
 		RPGraph::nid_t node = nid_commid_pair.first;
 		RPGraph::nid_t comm = nid_commid_pair.second;
-		RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(comm_graph.node_map[comm]); // TODO: add some randomness to this?? May not need to.
-		// TODO: Is it possible for a node to not have a community in the graph??? Probably yes.
+		RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(comm_graph.node_map[comm]);
+		// TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
 		full_layout.setCoordinates(full_graph.node_map[node], comm_coordinate); /**< Set the nodes id to be that of it's community. */
 	}
 
@@ -266,8 +265,6 @@ int main(int argc, const char **argv)
     #endif
         full_fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
                                           strong_gravity, gravity, scale, randomize);
-	////////////////
-	///////////////
 	fa2 = full_fa2;
 
 	/**

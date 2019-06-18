@@ -2,10 +2,9 @@
 
 namespace CommunityAlgos {
 
-// NOTE: We don't have to update degree anymore.  Just add the nodes to the UGraph.
-#define DEGREE(id) (full_graph.degree(full_graph.node_map[id])) // Defines function for accessing the degree of the ith node.
-#define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map.insert({nid, comm_id}))   // Defines function for accessing the community id associated with the ith node.
-#define COMMUNITY_OF(nid) (nid_comm_map.at(nid))
+#define DEGREE(id) (full_graph.degree(full_graph.node_map[id])) /// Defines function for accessing the degree of the ith node.
+#define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map.insert({nid, comm_id})) /// Defines function to update community association of node nid.
+#define COMMUNITY_OF(nid) (nid_comm_map.at(nid)) /// Defines function for accessing the community id associated with the ith node.
 
 /**
  * Produce community graph and node_id -> community mapping.
@@ -17,11 +16,6 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
            RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph,
            std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>& nid_comm_map)
 {
-    // TODO: What is the difference between passing `RPGraph::UGraph& full_graph` and `RPGraph::UGraph full_graph`??
-  // TODO: ERROR: How are these parameters passed to scoda?  I am assuming that
-  // we get a pointer to a pre-initialized value, but valgrind says that this
-  // stack allocation is not initialized... Are we passing references like
-  // this? Or pointers? or something different?
     /* Memory allocation & initialisation */
 
     uint32_t num_null_e = 0; // Just for counting the number of FULLY ignored edges.
@@ -29,7 +23,6 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
     printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
 
-    // TODO: how is line allocated? On the stack.
     std::string line;
     RPGraph::nid_t src_id, dst_id, src_deg, dst_deg;
     while(std::getline(edgelist_file, line))
@@ -97,7 +90,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
         //       communities AND add a community connecting edge at the same time.  Probably undesireable.)
         else if (src_deg > degree_threshold && dst_deg > degree_threshold)
         {
-            // add community edge. NOTE: Currently does NOT account for duplicate edges or edge weight. Just ignores duplicates.
+            // add community edge.
             comm_graph.add_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id));
             // TODO: Could have duplicate edges, consider making edges weighted.
         }

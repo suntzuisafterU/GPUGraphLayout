@@ -92,7 +92,7 @@ void BoundingBoxKernel(int nnodesd, int nbodiesd, volatile int * __restrict star
 {
     register int i, j, k, inc;
     register float val, minx, maxx, miny, maxy;
-    /* TODO: What exactly does __shared__ do?
+    /* What exactly does __shared__ do?
      *       Looks like it puts values directly 
      *       into L1 cache.  volatile is required
      *       for correctness on newer CUDA archs. 
@@ -215,9 +215,6 @@ __launch_bounds__(1024, 1)void ClearKernel1(int nnodesd, int nbodiesd, volatile 
  * This and the force kernel are the most expensive,
  * esspecially for larger N.
  *
- * TODO: Assertion error is being produced from this kernel when trying to create and 
- *       launch second ForceAtlas2 object.
- * 
  * THREADS2 = 512, FACTOR2 = 3 (same as group 1)
  * THREADS launch bound is 
  */

@@ -37,8 +37,6 @@ namespace RPGraph
 
     /**
      * Used once in main file (graph_viewer.cpp)
-     * 
-     * TODO: Refactor so that this class does not read the file directly itself.
      */
     UGraph::UGraph() {
         node_count = 0;
@@ -90,7 +88,6 @@ namespace RPGraph
 
         if(adjacency_list.count(std::min(s_mapped, t_mapped)) == 0) return false;
 
-        /* TODO: How does this edge search work? */
         std::vector<nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
         if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
             return false;

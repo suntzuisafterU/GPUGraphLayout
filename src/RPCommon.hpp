@@ -23,7 +23,6 @@
 
 #ifndef RPCommonUtils_hpp
 #define RPCommonUtils_hpp
-// Done reading May 15
 
 // TODO: Read this later when getting into implementation of CUDA
 // 

@@ -28,8 +28,6 @@ namespace RPGraph
     /**
      * CPU version of FA2 algo???
      * Why do we have the scope modifier ForceAtlas2::ForceAtlas2??
-	 *
-	 * TODO: Decouple layout initialization from LayoutAlgorithm, or allow for the LayoutAlgorithm to check and see if the layout has already been initialized instead of reassigning it.
      */
     ForceAtlas2::ForceAtlas2(GraphLayout &layout, bool use_barneshut,
                              bool strong_gravity, float gravity, float scale,

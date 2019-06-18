@@ -176,9 +176,6 @@ namespace RPGraph
 
         // We want to find the right jitter tollerance for this graph,
         // such that totalSwinging < tolerance * totalEffectiveTraction
-        /**
-         * TODO: Do we need to concern ourselves with jitter tolerance?
-         */
 
         float estimated_optimal_jitter_tollerance = 0.05 * std::sqrt(layout.graph.num_nodes());
         float minJT = std::sqrt(estimated_optimal_jitter_tollerance);

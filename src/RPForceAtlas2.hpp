@@ -73,7 +73,7 @@ namespace RPGraph
              * TODO: Review and explain the Barnes-Hut parameters here.
              * Barnes-Hut parameters
              *
-             * TODO: Found theta!
+             * TODO: Found theta! Parameterize.
              */
             float theta;   /**< Accuracy */
             float epssq;   /**< Softening (Epsilon, squared) */

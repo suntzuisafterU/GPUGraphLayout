@@ -70,7 +70,7 @@ namespace RPGraph
         bool has_edge(nid_t s, nid_t t);
 
     public:
-        explicit UGraph(); // TODO: Is this change necessary/helpful?
+        explicit UGraph();
         ~UGraph(); /* Explicity declare and define destructors. */
 
         /**
@@ -78,7 +78,6 @@ namespace RPGraph
          * [0, 1, ..., num_nodes-1]. Removes any self-edges.
          */
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
-        /* TODO: Why */
         std::unordered_map<nid_t, nid_t> node_map; /**< el id => UGraph id. IMPORTANT: This is necessary so that we can produce a contigous array for the CUDA implementation to work on.  You have been warned. */
         std::unordered_map<nid_t, nid_t> node_map_r; /**< UGraph id => el id. Only used by writeToBin() and writeToCsv() */
 

@@ -21,16 +21,13 @@
  ==============================================================================
 */
 
-// Reading 
-
 
 #include "RPGraphLayout.hpp"
-#include "../lib/pngwriter/src/pngwriter.h" // Is this coupled directly to the layout?
+#include "../lib/pngwriter/src/pngwriter.h"
 
 #include <fstream>
 #include <cmath>
 #include <limits>
-#include <iostream> // TODO: Temp remove
 
 /**
  * Most of the methods on the GraphLayout class seem to be associated with the CPU implementation, and not the GPU.
@@ -56,12 +53,6 @@ namespace RPGraph
 
     void GraphLayout::randomizePositions()
     {
-        /**
-         * TODO: Modify this bit when using communities to randomize node
-         *       positions within some delta of the community position in the
-         *       community layout that was produced originally.
-         * NOTE: Keep original for laying out the community graph.
-         */
         for (nid_t i = 0; i <  graph.num_nodes(); ++i)
         {
             setX(i, get_random(-width/2.0, width/2.0));
@@ -170,8 +161,6 @@ namespace RPGraph
 
     /**
      * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
-	 *
-	 * TODO: Should we map through the associated UGraph by default? Or is that to much overhead? Or should this be a private field with friend specification for classes that need it, and we can overload it for the public interface?
      */
     Coordinate GraphLayout::getCoordinate(nid_t node_id)
     {
@@ -210,10 +199,6 @@ namespace RPGraph
         setY(n, getY(n) + v.y);
     }
 
-    /**
-     * Never used. Why not?
-     * TODO: We will probably use this and maybe the moveNode function to specify our layout after
-     */
     void GraphLayout::setCoordinates(nid_t node_id, Coordinate c)
     {
         setX(node_id, c.x);
