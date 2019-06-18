@@ -1,10 +1,10 @@
 #!/bin/bash
 
 SCRIPT_NAME="$0"
-USAGE="Usage: \n $SCRIPT_NAME [-g | --debug] [--cuda]\nClean and then compile all objects from source plus the main executable for graph_viewer. "
+USAGE="Usage: \n $SCRIPT_NAME [-g | --debug] [--(no-)cuda]\nClean and then compile all objects from source plus the main executable for graph_viewer. "
 
 DEBUG=0
-CUDA_SUPPORT=0
+CUDA_SUPPORT=1
 
 while [[ $# -gt 0 ]]
 do op="$1"
@@ -15,6 +15,10 @@ do op="$1"
       ;;
     --cuda )
       CUDA_SUPPORT=1
+      shift
+      ;;
+    --no-cuda )
+      CUDA_SUPPORT=0
       shift
       ;;
   esac
