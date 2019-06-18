@@ -151,7 +151,7 @@ int main(int argc, const char **argv)
     int degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
     //////////////////////////////////////////////////////////////////////////////////////////////
     int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
-    // TODO: We pass in regerences to the full_graph and comm_graph objects, but nothing comes back. How should these be passed?
+	
     edgelist_file.close();
     if(status != 0){ // 0 is success
         exit(status); // propgate error code.
@@ -159,13 +159,10 @@ int main(int argc, const char **argv)
     //////////////////////////////////////////////////////////////////////////////////////////////
     printf("Finished scoda\n");
 
-	// TODO: Get rid of this.  It works but produces a very large, sparse array, and I am not sure if the data is safe.
-    // RPGraph::nid_t* nid_comm_array = &nid_comm_map[0]; // TODO: Figure out most efficient way to turn this unordered_map into an array.
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
 
     // Create the GraphLayout and ForceAtlas2 objects.
-    // TODO: how is this graph allocated? When is it freed?
     RPGraph::GraphLayout comm_layout = RPGraph::GraphLayout(comm_graph); /* Produce initial layout from comm_graph. */
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
@@ -173,7 +170,6 @@ int main(int argc, const char **argv)
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
-        // TODO: Is this the correct way to initialize the value at a pointer.
         comm_fa2 = new RPGraph::CUDAForceAtlas2(comm_layout, approximate,
                                            strong_gravity, gravity, scale, randomize);
     else
@@ -259,7 +255,7 @@ int main(int argc, const char **argv)
 	// TODO: Was moved here for safety.  May be able to move it above the full_layout initialization.
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
 
-	randomize = false; /* TEMP: Random to test duplicated code correctness. TODO: Make not random. */
+	randomize = false;
 	RPGraph::ForceAtlas2* full_fa2;
     #ifdef __NVCC__
     if(cuda_requested)
@@ -268,7 +264,6 @@ int main(int argc, const char **argv)
                                            strong_gravity, gravity, scale, randomize);
     else
     #endif
-		// TODO: ERROR: malloc fails here, says 'invalid size'
         full_fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
                                           strong_gravity, gravity, scale, randomize);
 	////////////////
@@ -283,7 +278,6 @@ int main(int argc, const char **argv)
 		compositeStep(iteration); /* full graph layout is produced. */
     }
 	fa2 = nullptr;
-    // TODO: Create a struct for all these related things, then can have a destructor and just delete it.
 	delete full_fa2; /* Free last ForceAtlas2 object. */
 
     exit(EXIT_SUCCESS);
