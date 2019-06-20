@@ -230,8 +230,6 @@ namespace RPGraph
             AttractiveForceKernel<<<mp_count * FACTOR6, THREADS6>>>(nedges, body_posl, fxl, fyl, sourcesl, targetsl);
         }
 
-        cudaCatchError(cudaDeviceSynchronize()); // TODO: Temporary, debugging
-
 		/* What does the BoundingBoxKernel do? */
         BoundingBoxKernel<<<mp_count * FACTOR1, THREADS1>>>(nnodes, nbodies, startl, childl, node_massl, body_posl, node_posl, maxxl, maxyl, minxl, minyl);
 
