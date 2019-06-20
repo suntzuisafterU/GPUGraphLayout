@@ -222,7 +222,6 @@ namespace RPGraph
 
         /* Attraction Kernel works based on edges. */
         if(this->use_linlog) {
-            std::cout << "Launching LinLog kernel" << std::endl;
             AttractiveLinLogForceKernel<<<mp_count * FACTOR6, THREADS6>>>(nedges, body_posl, fxl, fyl, sourcesl, targetsl);
         }
         else {
@@ -256,7 +255,6 @@ namespace RPGraph
 
         cudaCatchError(cudaDeviceSynchronize());
         iteration++;
-        std::cout<<"Finished iteration " << iteration << std::endl;
     }
 
     void CUDAForceAtlas2::retrieveLayoutFromGPU()

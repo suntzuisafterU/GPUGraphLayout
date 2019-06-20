@@ -193,7 +193,6 @@ void AttractiveForceKernel(int nedgesd,
         atomicAdd((float*)fxd+source, fsx);
         atomicAdd((float*)fyd+source, fsy);
 
-        // TODO: What is fxd and fxy?
         atomicAdd((float*)fxd+target, ftx);
         atomicAdd((float*)fyd+target, fty);
     }
