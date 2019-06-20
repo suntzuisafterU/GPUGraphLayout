@@ -176,7 +176,7 @@ int main(int argc, const char **argv)
     else
     #endif
         comm_fa2 = new RPGraph::CPUForceAtlas2(comm_layout, approximate,
-                                          strong_gravity, gravity, scale, randomize);
+                                          strong_gravity, gravity, scale, randomize, use_linlog);
 
 	RPGraph::ForceAtlas2* fa2 = comm_fa2;
     printf("Started Layout algorithm...\n");
@@ -266,7 +266,7 @@ int main(int argc, const char **argv)
     else
     #endif
         full_fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
-                                          strong_gravity, gravity, scale, randomize);
+                                          strong_gravity, gravity, scale, randomize, use_linlog);
 	fa2 = full_fa2;
 
 	/**
