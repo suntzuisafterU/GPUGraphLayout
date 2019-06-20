@@ -31,9 +31,9 @@ namespace RPGraph
      */
     ForceAtlas2::ForceAtlas2(GraphLayout &layout, bool use_barneshut,
                              bool strong_gravity, float gravity, float scale,
-							 bool randomize)
+							 bool randomize, bool use_linlog)
     : LayoutAlgorithm(layout), use_barneshut{use_barneshut},
-      strong_gravity{strong_gravity}
+      strong_gravity{strong_gravity}, use_linlog{use_linlog}
     {
         iteration = 0; /**< Why does the FA2 class keep track of the iteration? */
 
@@ -54,7 +54,6 @@ namespace RPGraph
         delta = 0.0; /// Edge weight influence
 
         prevent_overlap = false;
-        use_linlog = false;
 
         if(randomize) layout.randomizePositions(); /**< Parameterized to allow for pre-setting the layout from some other source. */
     }

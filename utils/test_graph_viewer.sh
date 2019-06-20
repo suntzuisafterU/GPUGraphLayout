@@ -7,5 +7,5 @@
   1.0 \
   approximate \
   ../datasets/ca-AstroPh/out.ca-AstroPh \
-  ../out/TEST_ca-AstroPh \
+  ../out/TEST_LinLog_ca-AstroPh \
   png 10000 10000

@@ -27,6 +27,7 @@
 #include <fstream>
 #include <chrono>
 #include <algorithm>
+#include <iostream> //TODO: Temporary
 #include "time.h"
 
 #include "RPGPUForceAtlas2.hpp"
@@ -38,8 +39,8 @@ namespace RPGraph
 {
     CUDAForceAtlas2::CUDAForceAtlas2(GraphLayout &layout, bool use_barneshut,
                                      bool strong_gravity, float gravity,
-                                     float scale, bool randomize)
-    : ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize)
+                                     float scale, bool randomize, bool use_linlog)
+    : ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize, use_linlog)
     {
         /**
          * Device count refers to how many discrete GPUs are available.
@@ -219,8 +220,17 @@ namespace RPGraph
 		/* Gravity kernel does not require BH tree. */
         GravityKernel<<<mp_count * FACTOR6, THREADS6>>>(nbodies, k_g, strong_gravity, body_massl, body_posl, fxl, fyl);
 
-		/* Attraction Kernel works based on edges. */
-        AttractiveForceKernel<<<mp_count * FACTOR6, THREADS6>>>(nedges, body_posl, fxl, fyl, sourcesl, targetsl);
+        /* Attraction Kernel works based on edges. */
+        if(this->use_linlog) {
+            std::cout << "Launching LinLog kernel" << std::endl;
+            AttractiveLinLogForceKernel<<<mp_count * FACTOR6, THREADS6>>>(nedges, body_posl, fxl, fyl, sourcesl, targetsl);
+        }
+        else {
+            std::cout << "Launching normal repulsion kernel" << std::endl;
+            AttractiveForceKernel<<<mp_count * FACTOR6, THREADS6>>>(nedges, body_posl, fxl, fyl, sourcesl, targetsl);
+        }
+
+        cudaCatchError(cudaDeviceSynchronize()); // TODO: Temporary, debugging
 
 		/* What does the BoundingBoxKernel do? */
         BoundingBoxKernel<<<mp_count * FACTOR1, THREADS1>>>(nnodes, nbodies, startl, childl, node_massl, body_posl, node_posl, maxxl, maxyl, minxl, minyl);
@@ -248,6 +258,7 @@ namespace RPGraph
 
         cudaCatchError(cudaDeviceSynchronize());
         iteration++;
+        std::cout<<"Finished iteration " << iteration << std::endl;
     }
 
     void CUDAForceAtlas2::retrieveLayoutFromGPU()

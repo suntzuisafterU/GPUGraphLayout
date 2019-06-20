@@ -193,6 +193,38 @@ void AttractiveForceKernel(int nedgesd,
         atomicAdd((float*)fxd+source, fsx);
         atomicAdd((float*)fyd+source, fsy);
 
+        // TODO: What is fxd and fxy?
+        atomicAdd((float*)fxd+target, ftx);
+        atomicAdd((float*)fyd+target, fty);
+    }
+}
+
+__global__
+__launch_bounds__(THREADS6, FACTOR6)
+void AttractiveLinLogForceKernel(int nedgesd,
+                                 volatile float2 * __restrict body_posd,
+                                 volatile float * __restrict fxd, volatile float * __restrict fyd,
+                                 volatile int * __restrict sourcesd, volatile int * __restrict targetsd)
+{
+    register int i, inc, source, target;
+    inc = blockDim.x * gridDim.x;
+    for (i=threadIdx.x + blockIdx.x * blockDim.x; i < nedgesd; i += inc){
+        source = sourcesd[i];
+        target = targetsd[i];
+        
+        // Calculate distance between nodes.
+        const float dx = body_posd[target].x - body_posd[source].x;
+        const float dy = body_posd[target].y - body_posd[source].y;
+
+        const float fsx = logf(1 + dx); /// Linlog force on source in the x axis.
+        const float fsy = logf(1 + dy); /// Linlog force on source in the y axis.
+
+        const float ftx = -fsx; /// Linlog force on target in the x axis.
+        const float fty = -fsy; /// Linlog force on target in the y axis.
+        
+        atomicAdd((float*)fxd+source, fsx); /// Calculate index by adding source as offset to fxd.
+        atomicAdd((float*)fyd+source, fsy);
+
         atomicAdd((float*)fxd+target, ftx);
         atomicAdd((float*)fyd+target, fty);
     }
