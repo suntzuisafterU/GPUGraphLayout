@@ -77,6 +77,7 @@ namespace RPGraph
                 f_a_over_d = 1.0;
             }
 
+            // apply force of neighbor to vector `f`
             f += layout.getDistanceVector(n, t) * f_a_over_d;
 
             //TODO: this is temporary, but required due to
@@ -85,6 +86,7 @@ namespace RPGraph
 
     //            forces[n] += getNormalizedDistanceVector(n, t) * f_a(n, t);
         }
+        // Apply summed attractive forces to force on node.
         forces[n] += f;
     }
 

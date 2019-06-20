@@ -77,10 +77,10 @@ static __device__ volatile float radiusd;
 /******************************************************************************/
 
 /**
- * What does the bounding box kernel do?
+ * Produces bounding box structure of BH tree.
  *
  * THREADS1 = 512
- * FACTOR1 = 3 ==> min number of MPS resident at one time?
+ * FACTOR1 = 3 ==> min number of MPs resident at one time?
  */
 __global__
 __launch_bounds__(THREADS1, FACTOR1)
@@ -104,11 +104,9 @@ void BoundingBoxKernel(int nnodesd, int nbodiesd, volatile int * __restrict star
     minx = maxx = body_posd[0].x;
     miny = maxy = body_posd[0].y;
 
-    /* store your index in a register.  CUDA probably already 
-     * does this.  Good practice though? */
     // scan all bodies
     i = threadIdx.x;
-    inc = THREADS1 * gridDim.x; /* Expands to 512 * (blocks index in grid) */
+    inc = THREADS1 * gridDim.x; /* Expands to 512 * gridDim.x */
     for (j = i + blockIdx.x * THREADS1; j < nbodiesd; j += inc)
     {
         val = body_posd[j].x;
@@ -597,7 +595,8 @@ void SummarizationKernel(const int nnodesd, const int nbodiesd, volatile int * _
  */
 __global__
 __launch_bounds__(THREADS4, FACTOR4)
-void SortKernel(int nnodesd, int nbodiesd, int * __restrict sortd, int * __restrict countd, volatile int * __restrict startd, int * __restrict childd)
+void SortKernel(int nnodesd, int nbodiesd, int * __restrict sortd, int * __restrict countd, 
+    volatile int * __restrict startd, int * __restrict childd)
 {
     /* NOTE: register keyword was deprecated with c++11 and removed with c++17
              Is it treated differently in CUDA code? */
