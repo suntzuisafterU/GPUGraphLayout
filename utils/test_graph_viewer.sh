@@ -3,9 +3,9 @@
   502 \
   12 \
   wg \
-  2.0 \
+  10.0 \
   1.0 \
   approximate \
   ../datasets/ca-AstroPh/out.ca-AstroPh \
-  ../out/TEST_LinLog_ca-AstroPh \
+  ../out/TEST_ca-AstroPh_repulse_10 \
   png 10000 10000
