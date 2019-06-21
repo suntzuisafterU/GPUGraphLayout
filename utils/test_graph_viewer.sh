@@ -1,6 +1,6 @@
 ../builds/linux/graph_viewer \
   gpu \
-  501 \
+  502 \
   12 \
   wg \
   2.0 \

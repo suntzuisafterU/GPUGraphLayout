@@ -33,7 +33,7 @@ namespace RPGraph
     public:
         CPUForceAtlas2(GraphLayout &layout, bool use_barneshut,
                        bool strong_gravity, float gravity, float scale,
-					   bool randomize);
+					   bool randomize, bool use_linlog);
         ~CPUForceAtlas2();
         void doStep() override;
         void sync_layout() override;
