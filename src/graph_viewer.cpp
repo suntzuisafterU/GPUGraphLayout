@@ -169,7 +169,6 @@ int main(int argc, const char **argv)
 	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
 	bool randomize = true;
-    bool use_linlog = true;
     #ifdef __NVCC__
     if(cuda_requested)
         // GPU FA2
@@ -258,7 +257,6 @@ int main(int argc, const char **argv)
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
 
 	randomize = false;
-    use_linlog = true;
 	RPGraph::ForceAtlas2* full_fa2;
     #ifdef __NVCC__
     if(cuda_requested)
