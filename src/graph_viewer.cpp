@@ -62,7 +62,7 @@ int main(int argc, const char **argv)
     // Parse commandline arguments
     if (argc < 10)
     {
-        fprintf(stderr, "Usage: graph_viewer gpu|cpu max_iterations num_snaps sg|wg scale gravity exact|approximate edgelist_path out_path [png image_w image_h|csv|bin]\n");
+        fprintf(stderr, "Usage: graph_viewer gpu|cpu max_iterations num_snaps sg|wg scale gravity exact|approximate linlog|regular [percentage_iterations_on_comm_graph] edgelist_path out_path [png image_w image_h|csv|bin]\n");
         exit(EXIT_FAILURE);
     }
 
@@ -73,14 +73,16 @@ int main(int argc, const char **argv)
     const float scale = std::stof(argv[5]); // scaling for repulsion force.  paper used 80.
     const float gravity = std::stof(argv[6]); // scaling for gravity. paper used 1.
     const bool approximate = std::string(argv[7]) == "approximate"; // gpu only accepts BH approximation.
-    const char *edgelist_path = argv[8]; // infile
-    const char *out_path = argv[9]; // output directory for images.
+    const bool use_linlog = std::string(argv[8]) == "linlog"; // Enable linlog
+    const float percentage_iterations_on_comm_graph = std::stof(argv[9])/100.0f;
+    const char *edgelist_path = argv[10]; // infile
+    const char *out_path = argv[11]; // output directory for images.
     std::string out_format = "png"; // default make png that is 1250x1250
     int image_w = 1250;
     int image_h = 1250;
 
     // Minor, accept multiple png vs csv args.
-    for (int arg_no = 10; arg_no < argc; arg_no++)
+    for (int arg_no = 12; arg_no < argc; arg_no++)
     {
         if(std::string(argv[arg_no]) == "png")
         {
@@ -229,7 +231,7 @@ int main(int argc, const char **argv)
 	/**
 	 * Initial layout will be produced from community graph.
 	 */
-    for (int iteration = 1; iteration < ceil(max_iterations/10); ++iteration)
+    for (int iteration = 1; iteration < ceil(max_iterations * percentage_iterations_on_comm_graph); ++iteration)
     {
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
@@ -272,7 +274,7 @@ int main(int argc, const char **argv)
 	/**
 	 * Second layout with full graph.
 	 */
-    for (int iteration = ceil(max_iterations/10); iteration <= max_iterations; ++iteration)
+    for (int iteration = ceil(max_iterations * (1 - percentage_iterations_on_comm_graph)); iteration <= max_iterations; ++iteration)
     {
 		compositeStep(iteration); /* full graph layout is produced. */
     }
