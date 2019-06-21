@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_NAME="$0"
-USAGE="Usage: \n $SCRIPT_NAME [-g | --debug] [--(no-)cuda]\nClean and then compile all objects from source plus the main executable for graph_viewer. "
+USAGE="Usage: \n $SCRIPT_NAME [-g | --debug] [--(no-)cuda] [--clean]\nClean and then compile all objects from source plus the main executable for graph_viewer. "
 
 DEBUG=0
 CUDA_SUPPORT=1
@@ -21,7 +21,15 @@ do op="$1"
       CUDA_SUPPORT=0
       shift
       ;;
+    --clean )
+      CLEAN=1
+      shift
+      ;;
   esac
 done
 
-make clean -C ../builds/linux && make -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG graph_viewer
+if [ "$CLEAN" ];then
+  make clean -C ../builds/linux
+fi
+
+make -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG graph_viewer
