@@ -18,7 +18,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
 {
     /* Memory allocation & initialisation */
 
-    uint32_t num_null_e = 0; // Just for counting the number of FULLY ignored edges.
+    int num_null_e = 0; // Just for counting the number of FULLY ignored edges.
 
     printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
@@ -102,6 +102,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
         }
     }
     printf("num_null_e: %d\n", num_null_e);
+    printf("num_comm_e: %d\n", comm_graph.num_edges());
     return EXIT_SUCCESS;
 }
 } // namespace CommunityAlgos
