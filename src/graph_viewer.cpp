@@ -272,7 +272,7 @@ int main(int argc, const char **argv)
 	/**
 	 * Second layout with full graph.
 	 */
-    for (int iteration = ceil(max_iterations * (1 - percentage_iterations_on_comm_graph)); iteration <= max_iterations; ++iteration)
+    for (int iteration = ceil(max_iterations * percentage_iterations_on_comm_graph); iteration <= max_iterations; ++iteration)
     {
 		compositeStep(iteration); /* full graph layout is produced. */
     }
