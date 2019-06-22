@@ -1,0 +1,16 @@
+diff --git a/src/RPFA2Kernels.cu b/src/RPFA2Kernels.cu
+index 817e08e..e41abe5 100644
+--- a/src/RPFA2Kernels.cu
++++ b/src/RPFA2Kernels.cu
+@@ -154,9 +154,9 @@ __launch_bounds__(THREADS6, FACTOR6)
+ void AttractiveForceKernel(int nedgesd,
+                            volatile float2 * __restrict body_posd,
+                            volatile float * __restrict fxd, volatile float * __restrict fyd,
+-                           volatile int * __restrict sourcesd, volatile int * __restrict targetsd)
++                           volatile int * __restrict sourcesd, volatile int * __restrict targetsd, volatile int * __restrict weightsd)
+ {
+-    register int i, inc, source, target;
++    register int i, inc, source, target, weight;
+     // iterate over all edges assigned to thread
+     /**
+      * NOTE: The variable `inc` is very important here.
