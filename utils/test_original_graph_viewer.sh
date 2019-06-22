@@ -13,8 +13,6 @@ F_G="Set_this_variable"
 F_R="Set_this_variable"
 NUM_ITERATIONS=500
 NUM_SNAPS=10
-LINLOG="regular"
-PERCENT_ITERS_ON_COMM=50
 HEIGHT=10000
 WIDTH=10000
 OUTPUT_FORMAT="png"
@@ -102,7 +100,7 @@ BASENAME=$(basename -- "$INPATH") # Extract base file name here.
 echo "BASENAME: $BASENAME"
 
 # automatically name outpath
-OUTPATH="$OUTPATH_PREFIX""$BASENAME""_""$LINLOG""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM""/"
+OUTPATH="$OUTPATH_PREFIX""$BASENAME""_iters_""$NUM_ITERATIONS""_originalGV_""/"
 
 # Make output directory, exit (or clean) if output directory exists.
 echo "Creating path to $OUTPATH if it does not already exist"

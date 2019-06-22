@@ -19,6 +19,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
     /* Memory allocation & initialisation */
 
     int num_null_e = 0; // Just for counting the number of FULLY ignored edges.
+    int num_duplicate_edges = 0;
 
     printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
@@ -90,6 +91,9 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
         //       communities AND add a community connecting edge at the same time.  Probably undesireable.)
         else if (src_deg > degree_threshold && dst_deg > degree_threshold)
         {
+            if(comm_graph.has_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id))) {
+              num_duplicate_edges++;
+            }
             // add community edge.
             comm_graph.add_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id));
             // TODO: Could have duplicate edges, consider making edges weighted.
@@ -102,6 +106,7 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
         }
     }
     printf("num_null_e: %d\n", num_null_e);
+    printf("num_duplicate_edges: %d\n", num_duplicate_edges);
     printf("num_comm_e: %d\n", comm_graph.num_edges());
     return EXIT_SUCCESS;
 }

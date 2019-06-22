@@ -67,7 +67,6 @@ namespace RPGraph
         void add_node(nid_t nid); /* Moved add_node back to private section for safety. */
 
         bool has_node(nid_t nid);
-        bool has_edge(nid_t s, nid_t t);
 
     public:
         explicit UGraph();
@@ -82,6 +81,7 @@ namespace RPGraph
         std::unordered_map<nid_t, nid_t> node_map_r; /**< UGraph id => el id. Only used by writeToBin() and writeToCsv() */
 
         void add_edge(nid_t s, nid_t t); /**< Adding an edge also adds any nodes. */
+        bool has_edge(nid_t s, nid_t t); // TODO: Moved for testing purposes. Make private again later.
 
         virtual nid_t num_nodes() override;
         virtual nid_t num_edges() override;
