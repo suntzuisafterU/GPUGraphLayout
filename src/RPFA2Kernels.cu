@@ -198,6 +198,64 @@ void AttractiveForceKernel(int nedgesd,
     }
 }
 
+/**
+ * CUDA LinLog implementation.
+ *
+ * NOTE
+ * -----------
+ *   Node ids do NOT correspond to dataset node ids.  They correspond to UGraph internal node ids.
+ * 
+ * Params
+ * -----------
+ *   fxd
+ *      C-Array of summed force in the x axis.
+ *   fyd
+ *      C-Array of summed force in the y axis.
+ *   sourcesd
+ *      Source node ids for each edge.  Fully coalesced memory reads.
+ *   targetsd
+ *      Target node ids for each edge.  Fully coalesced memory reads?
+ *   body_posd
+ *      Body positions for all nodes.  Source reads coalesced.  Target reads NOT coalesced.
+ *   
+ */
+__global__
+__launch_bounds__(THREADS6, FACTOR6)
+void AttractiveLinLogForceKernel(int nedgesd,
+                                 volatile float2 * __restrict body_posd,
+                                 volatile float * __restrict fxd, volatile float * __restrict fyd,
+                                 volatile int * __restrict sourcesd, volatile int * __restrict targetsd)
+{
+    register int i, inc, source, target;
+    inc = blockDim.x * gridDim.x;
+    for (i=threadIdx.x + blockIdx.x * blockDim.x; i < nedgesd; i += inc){
+        source = sourcesd[i];
+        target = targetsd[i];
+        
+        // TODO: What does const do in this context? Is it the same as __constant__? I don't think so.
+        /// Calculate distance between nodes.
+        const float dx = body_posd[target].x - body_posd[source].x;
+        const float dy = body_posd[target].y - body_posd[source].y;
+
+        /// Supports IEEE 754 divison by zero.  That is, return an infinity of the same sign.
+        const float fsx = (logf(1 + abs(dx)) / abs(dx)) * signbit(dx); /// Linlog force on source in the x axis.
+        const float fsy = (logf(1 + abs(dy)) / abs(dy)) * signbit(dy); /// Linlog force on source in the y axis.
+
+        const float ftx = -fsx; /// Linlog force on target in the x axis.
+        const float fty = -fsy; /// Linlog force on target in the y axis.
+        
+        /// These memory accesses aren't coalesced...
+        /// Must check for nan since IEEE 754 specifies 0/0 = nan.  NOTE: log(1)/0 = 0/0
+        if(!isnan(fsx)){
+            atomicAdd((float*)fxd+source, fsx); /// Calculate index by adding source as offset to fxd.
+            atomicAdd((float*)fxd+target, ftx);
+        } else if(!isnan(fsy)){
+            atomicAdd((float*)fyd+source, fsy);
+            atomicAdd((float*)fyd+target, fty);
+        }
+    }
+}
+
 __global__
 __launch_bounds__(THREADS1, FACTOR1)
 void SpeedKernel(int nbodiesd,

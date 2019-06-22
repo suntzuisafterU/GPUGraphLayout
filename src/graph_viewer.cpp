@@ -173,11 +173,11 @@ int main(int argc, const char **argv)
     if(cuda_requested)
         // GPU FA2
         comm_fa2 = new RPGraph::CUDAForceAtlas2(comm_layout, approximate,
-                                           strong_gravity, gravity, scale, randomize);
+                                           strong_gravity, gravity, scale, randomize, use_linlog);
     else
     #endif
         comm_fa2 = new RPGraph::CPUForceAtlas2(comm_layout, approximate,
-                                          strong_gravity, gravity, scale, randomize);
+                                          strong_gravity, gravity, scale, randomize, use_linlog);
 
 	RPGraph::ForceAtlas2* fa2 = comm_fa2;
     printf("Started Layout algorithm...\n");
@@ -262,17 +262,17 @@ int main(int argc, const char **argv)
     if(cuda_requested)
         // GPU FA2
         full_fa2 = new RPGraph::CUDAForceAtlas2(full_layout, approximate,
-                                           strong_gravity, gravity, scale, randomize);
+                                           strong_gravity, gravity, scale, randomize, use_linlog);
     else
     #endif
         full_fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
-                                          strong_gravity, gravity, scale, randomize);
+                                          strong_gravity, gravity, scale, randomize, use_linlog);
 	fa2 = full_fa2;
 
 	/**
 	 * Second layout with full graph.
 	 */
-    for (int iteration = ceil(max_iterations * (1 - percentage_iterations_on_comm_graph)); iteration <= max_iterations; ++iteration)
+    for (int iteration = ceil(max_iterations * percentage_iterations_on_comm_graph); iteration <= max_iterations; ++iteration)
     {
 		compositeStep(iteration); /* full graph layout is produced. */
     }

@@ -39,8 +39,8 @@ namespace RPGraph
     // CPUForceAtlas2 definitions.
     CPUForceAtlas2::CPUForceAtlas2(GraphLayout &layout, bool use_barneshut,
                                    bool strong_gravity, float gravity,
-                                   float scale, bool randomize)
-    :  ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize),
+                                   float scale, bool randomize, bool use_linlog)
+    :  ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize, use_linlog),
        BH_Approximator{layout.getCenter(), layout.getSpan()+10, theta}
     {
         forces      = (Real2DVector *)malloc(sizeof(Real2DVector) * layout.graph.num_nodes());

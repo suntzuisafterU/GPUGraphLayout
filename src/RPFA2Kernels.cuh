@@ -41,6 +41,13 @@ void AttractiveForceKernel(int nedgesd,
                            volatile int * __restrict sourcesd, volatile int * __restrict targetsd);
 
 __global__
+__launch_bounds__(THREADS6, FACTOR6)
+void AttractiveLinLogForceKernel(int nedgesd,
+                           volatile float2 * __restrict body_posd,
+                           volatile float * __restrict fxd, volatile float * __restrict fyd,
+                           volatile int * __restrict sourcesd, volatile int * __restrict targetsd);
+
+__global__
 __launch_bounds__(THREADS1, FACTOR1)
 void SpeedKernel(int nbodiesd,
                  volatile float * __restrict fxd , volatile float * __restrict fyd,

@@ -1,0 +1,1 @@
+nohup ./test_graph_viewer.sh -v -r 5.0 -g 1.0 --percent-comm 95 --num-snaps=1 --clean >| nohup_95comm.out &
