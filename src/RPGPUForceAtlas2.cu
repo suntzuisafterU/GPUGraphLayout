@@ -27,7 +27,6 @@
 #include <fstream>
 #include <chrono>
 #include <algorithm>
-#include <iostream> //TODO: Temporary
 #include "time.h"
 
 #include "RPGPUForceAtlas2.hpp"
@@ -225,7 +224,6 @@ namespace RPGraph
             AttractiveLinLogForceKernel<<<mp_count * FACTOR6, THREADS6>>>(nedges, body_posl, fxl, fyl, sourcesl, targetsl);
         }
         else {
-            std::cout << "Launching normal repulsion kernel" << std::endl;
             AttractiveForceKernel<<<mp_count * FACTOR6, THREADS6>>>(nedges, body_posl, fxl, fyl, sourcesl, targetsl);
         }
 
