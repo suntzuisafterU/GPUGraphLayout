@@ -34,8 +34,13 @@ namespace RPGraph
 {
     class GraphLayout
     {
+    friend class CUDAForceAtlas2; /// Required to allow granular access for CUDA implementation.
     private:
         Coordinate *coordinates;
+        float privateGetX(mapped_nid_t node_id), privateGetY(mapped_nid_t node_id);
+        void privateSetX(mapped_nid_t node_id, float x_value), privateSetY(mapped_nid_t node_id, float y_value);
+        void privateSetCoordinates(mapped_nid_t node_id, Coordinate c);
+        Coordinate privateGetCoordinate(mapped_nid_t node_id);
 
     protected:
         float width, height;

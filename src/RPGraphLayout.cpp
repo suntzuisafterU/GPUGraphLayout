@@ -21,7 +21,7 @@
  ==============================================================================
 */
 
-
+#include "RPGraph.hpp"
 #include "RPGraphLayout.hpp"
 #include "../lib/pngwriter/src/pngwriter.h"
 
@@ -43,7 +43,7 @@ namespace RPGraph
         : graph(graph), width(width), height(height)
     {
         // Mem complexity: O(|V|)
-        coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));
+        coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate)); /// Array of coordinates associated with mapped_nid_t node ids.
     }
 
     GraphLayout::~GraphLayout()
@@ -73,7 +73,7 @@ namespace RPGraph
     float GraphLayout::minX()
     {
         float minX = std::numeric_limits<float>::max();
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
+        for (mapped_nid_t n = 0; n < graph.num_nodes(); ++n)
             if (getX(n) < minX) minX = getX(n);
         return minX;
     }
@@ -81,7 +81,7 @@ namespace RPGraph
     float GraphLayout::maxX()
     {
         float maxX = std::numeric_limits<float>::min();
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
+        for (mapped_nid_t n = 0; n < graph.num_nodes(); ++n)
             if (getX(n) > maxX) maxX = getX(n);
         return maxX;
     }
@@ -89,7 +89,7 @@ namespace RPGraph
     float GraphLayout::minY()
     {
         float minY = std::numeric_limits<float>::max();
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
+        for (mapped_nid_t n = 0; n < graph.num_nodes(); ++n)
             if (getY(n) < minY) minY = getY(n);
         return minY;
     }
@@ -97,7 +97,7 @@ namespace RPGraph
     float GraphLayout::maxY()
     {
         float maxY = std::numeric_limits<float>::min();
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
+        for (mapped_nid_t n = 0; n < graph.num_nodes(); ++n)
             if (getY(n) > maxY) maxY = getY(n);
         return maxY;
     }
@@ -164,7 +164,7 @@ namespace RPGraph
      */
     Coordinate GraphLayout::getCoordinate(nid_t node_id)
     {
-        return coordinates[node_id];
+        return coordinates[this->graph.node_map[node_id]];
     }
 
     /**
@@ -177,17 +177,25 @@ namespace RPGraph
         return Coordinate(x, y);
     }
 
+    void GraphLayout::privateSetX(mapped_nid_t node_id, float x_value){
+        coordinates[node_id].x = x_value;
+    }
+
+    void GraphLayout::privateSetY(mapped_nid_t node_id, float y_value){
+        coordinates[node_id].y = y_value;
+    }
+
     /**
      * Updates x in coordinates array.
      */
     void GraphLayout::setX(nid_t node_id, float x_value)
     {
-        coordinates[node_id].x = x_value;
+        coordinates[this->graph.node_map[node_id]].x = x_value;
     }
 
     void GraphLayout::setY(nid_t node_id, float y_value)
     {
-        coordinates[node_id].y = y_value;
+        coordinates[this->graph.node_map[node_id]].y = y_value;
     }
 
     /**
@@ -199,6 +207,9 @@ namespace RPGraph
         setY(n, getY(n) + v.y);
     }
 
+    /**
+     * Must use mapped node ids.
+     */
     void GraphLayout::setCoordinates(nid_t node_id, Coordinate c)
     {
         setX(node_id, c.x);

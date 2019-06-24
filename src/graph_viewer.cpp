@@ -249,9 +249,9 @@ int main(int argc, const char **argv)
 	for (const auto& nid_commid_pair : nid_comm_map) {
 		RPGraph::nid_t node = nid_commid_pair.first;
 		RPGraph::nid_t comm = nid_commid_pair.second;
-		RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(comm_graph.node_map[comm]);
+		RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(comm);
 		// TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
-		full_layout.setCoordinates(full_graph.node_map[node], comm_coordinate); /**< Set the nodes id to be that of it's community. */
+		full_layout.setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
 	}
 
 	// TODO: Was moved here for safety.  May be able to move it above the full_layout initialization.

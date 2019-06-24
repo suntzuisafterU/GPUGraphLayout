@@ -83,12 +83,12 @@ namespace RPGraph
     {
         if(!has_node(s) or !has_node(t)) return false;
 
-        nid_t s_mapped = node_map[s];
-        nid_t t_mapped = node_map[t];
+        mapped_nid_t s_mapped = node_map[s];
+        mapped_nid_t t_mapped = node_map[t];
 
         if(adjacency_list.count(std::min(s_mapped, t_mapped)) == 0) return false;
 
-        std::vector<nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
+        std::vector<mapped_nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
         if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
             return false;
         else
@@ -107,9 +107,9 @@ namespace RPGraph
 
     void UGraph::add_edge(nid_t s, nid_t t)
     {
-        if(has_edge(s, t) or s == t) return;
-        if(!has_node(s)) add_node(s);
-        if(!has_node(t)) add_node(t);
+        // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
+        add_node(s);
+        add_node(t);
         nid_t s_mapped = node_map[s];
         nid_t t_mapped = node_map[t];
 
@@ -120,12 +120,25 @@ namespace RPGraph
         edge_count++;
     }
 
-    nid_t UGraph::num_nodes()
+    void UGraph::private_add_edge(mapped_nid_t s, mapped_nid_t t)
+    {
+        // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
+        add_node(node_map_r[s]);
+        add_node(node_map_r[t]);
+
+        // Insert edge into adjacency_list
+        adjacency_list[std::min(s, t)].push_back(std::max(s, t));
+        degrees[s] += 1;
+        degrees[t] += 1;
+        edge_count++;
+    }
+
+    uint32_t UGraph::num_nodes()
     {
         return node_count;
     }
 
-    nid_t UGraph::num_edges()
+    uint32_t UGraph::num_edges()
     {
         return edge_count;
     }
@@ -135,7 +148,7 @@ namespace RPGraph
 	 *
 	 * TODO: Make these functions that use internal nids private, or friend + private and define new functions that also map the nids for us...
 	 */
-    nid_t UGraph::degree(nid_t nid)
+    uint32_t UGraph::degree(mapped_nid_t nid)
     {
         return degrees[nid];
     }
@@ -143,7 +156,7 @@ namespace RPGraph
     /**
      * Is redundant.  Keeps compiler from complaining.
      */
-    nid_t UGraph::in_degree(nid_t nid)
+    uint32_t UGraph::in_degree(mapped_nid_t nid)
     {
         return degree(nid);
     }
@@ -151,7 +164,7 @@ namespace RPGraph
     /**
      * Is redundant.  Keeps compiler from complaining.
      */
-    nid_t UGraph::out_degree(nid_t nid)
+    uint32_t UGraph::out_degree(mapped_nid_t nid)
     {
         return degree(nid);
     }

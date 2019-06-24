@@ -2,7 +2,7 @@
 
 namespace CommunityAlgos {
 
-#define DEGREE(id) (full_graph.degree(full_graph.node_map[id])) /// Defines function for accessing the degree of the ith node.
+#define DEGREE(id) (full_graph.degree(id)) /// Defines function for accessing the degree of the ith node.
 #define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map.insert({nid, comm_id})) /// Defines function to update community association of node nid.
 #define COMMUNITY_OF(nid) (nid_comm_map.at(nid)) /// Defines function for accessing the community id associated with the ith node.
 
@@ -25,7 +25,8 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
     /* Main SCoDA loop */
 
     std::string line;
-    RPGraph::nid_t src_id, dst_id, src_deg, dst_deg;
+    RPGraph::nid_t src_id, dst_id;
+    uint32_t src_deg, dst_deg;
     while(std::getline(edgelist_file, line))
     {
         // TODO: Have a more robust comment filtering procedure here.
@@ -91,12 +92,8 @@ int scoda(int degree_threshold, std::fstream& edgelist_file,
         //       communities AND add a community connecting edge at the same time.  Probably undesireable.)
         else if (src_deg > degree_threshold && dst_deg > degree_threshold)
         {
-            if(comm_graph.has_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id))) {
-              num_duplicate_edges++;
-            }
-            // add community edge.
+            // add community edge. If we are allowing duplicates this acts as weighted edges.
             comm_graph.add_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id));
-            // TODO: Could have duplicate edges, consider making edges weighted.
         }
 
         // TODO: Remove after testing, this is just for counting null edges.

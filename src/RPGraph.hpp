@@ -34,6 +34,8 @@ namespace RPGraph
     // NOTE: we limit to 4,294,967,296 nodes through uint32_t.
     typedef uint32_t nid_t;
 
+    typedef uint32_t mapped_nid_t; /// Private node id.  For use internally in graph classes only.
+
     // Type to represent edge IDs.
     // NOTE: uint32_t limits density to 50% for directed graphs.
     typedef uint32_t eid_t;
@@ -43,15 +45,17 @@ namespace RPGraph
     // Virtual base class to derive different Graph types from.
     class Graph
     {
+        friend class CUDAForceAtlas2;
+        friend class GraphLayout;
         public:
             virtual nid_t num_nodes() = 0;
             virtual nid_t num_edges() = 0;
             virtual nid_t degree(nid_t nid) = 0;
             virtual nid_t in_degree(nid_t nid) = 0;
             virtual nid_t out_degree(nid_t nid) = 0;
-            virtual std::vector<nid_t> neighbors_with_geq_id(nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
             virtual ~Graph() = 0; /**< Pure virtual method, specified by `= 0;`. Means that deriving class must override, but can use optional implementation provided by superclass via the `= default;` keyword. see https://stackoverflow.com/questions/34383516/should-i-default-virtual-destructors */
-
+        private:
+            virtual std::vector<mapped_nid_t> neighbors_with_geq_id(mapped_nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
     };
 
 	/**
@@ -60,13 +64,19 @@ namespace RPGraph
     class UGraph : public Graph
     {
     private:
-        nid_t node_count, edge_count;
-        std::unordered_map<nid_t, nid_t> degrees; /**< Maps nid_t to degrees? */
-        std::unordered_map<nid_t, std::vector<nid_t>> adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
+        uint32_t node_count, edge_count;
+        std::unordered_map<mapped_nid_t, uint32_t> degrees; /**< Maps nid_t to degrees? */
+        std::unordered_map<mapped_nid_t, std::vector<mapped_nid_t>> adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
+
+        std::vector<mapped_nid_t> neighbors_with_geq_id(mapped_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
+
+        std::unordered_map<nid_t, mapped_nid_t> node_map; /**< el id => UGraph id. IMPORTANT: This is necessary so that we can produce a contigous array for the CUDA implementation to work on.  You have been warned. */
+        std::unordered_map<mapped_nid_t, nid_t> node_map_r; /**< UGraph id => el id. Only used by writeToBin() and writeToCsv() */
 
         void add_node(nid_t nid); /* Moved add_node back to private section for safety. */
-
+        void private_add_edge(mapped_nid_t s, mapped_nid_t t); /**< Adding an edge also adds any nodes. */
         bool has_node(nid_t nid);
+        bool has_edge(nid_t s, nid_t t); 
 
     public:
         explicit UGraph();
@@ -77,19 +87,14 @@ namespace RPGraph
          * [0, 1, ..., num_nodes-1]. Removes any self-edges.
          */
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
-        std::unordered_map<nid_t, nid_t> node_map; /**< el id => UGraph id. IMPORTANT: This is necessary so that we can produce a contigous array for the CUDA implementation to work on.  You have been warned. */
-        std::unordered_map<nid_t, nid_t> node_map_r; /**< UGraph id => el id. Only used by writeToBin() and writeToCsv() */
 
-        void add_edge(nid_t s, nid_t t); /**< Adding an edge also adds any nodes. */
-        bool has_edge(nid_t s, nid_t t); // TODO: Moved for testing purposes. Make private again later.
+        void add_edge(nid_t s, nid_t t);
 
         virtual nid_t num_nodes() override;
         virtual nid_t num_edges() override;
         virtual nid_t degree(nid_t nid) override;
         virtual nid_t in_degree(nid_t nid) override; /**< Redundant */
         virtual nid_t out_degree(nid_t nid) override; /**< Redundant */
-
-        std::vector<nid_t> neighbors_with_geq_id(nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
     };
 
     /**
