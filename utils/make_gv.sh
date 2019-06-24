@@ -32,4 +32,4 @@ if [ "$CLEAN" ];then
   make clean -C ../builds/linux
 fi
 
-make -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG graph_viewer
+make -k -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG graph_viewer
