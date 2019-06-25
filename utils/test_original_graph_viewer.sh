@@ -55,7 +55,7 @@ do op="$1"
       shift
       shift
       ;;
-    --num-iterations )
+    --num-iters )
       NUM_ITERARTIONS="$2"
       shift
       shift
