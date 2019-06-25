@@ -23,6 +23,7 @@ out/
 DerivedData/
 **/temp.txt
 src/read_files.md
+**/__pycache__
 
 ## Various settings
 *.pbxuser

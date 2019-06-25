@@ -40,7 +40,6 @@
 #include "RPGraphLayout.hpp"
 #include "RPCPUForceAtlas2.hpp"
 #include "scoda.hpp"
-#include <cuda_profiler_api.h> // TODO: Temp, testing
 
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
@@ -280,6 +279,5 @@ int main(int argc, const char **argv)
 	fa2 = nullptr;
 	delete full_fa2; /* Free last ForceAtlas2 object. */
 
-  cudaProfilerStop();
     exit(EXIT_SUCCESS);
 }
