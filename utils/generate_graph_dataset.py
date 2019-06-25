@@ -12,7 +12,17 @@ class EdgeListGenerator(object):
       if edges:
         print(f"# edges of random graph: list_comm_sizes={list_comm_sizes}, p_in={p_in}, p_out={p_out}")
         print_edges(G)
-    
+
+    def planted_partition(self, num_groups, size_of_each_group, p_in, p_out, partition=False, edges=False, seed=None, directed=False):
+      G = nx.planted_partition_graph(num_groups, size_of_each_group, p_in, p_out, seed, directed)
+      header = f" of random graph: num_groups={num_groups}, size_of_each_group={size_of_each_group}, p_in={p_in}, p_out={p_out}"
+      if partition:
+        print(f"# partition {header}")
+        print_partition(G)
+      if edges:
+        print(f"# edges {header}")
+        print_edges(G)
+
     def gaussian_random(self, N, mu, shape_param, p_in, p_out, partition=False, edges=False):
       # variance = mu/shape_param
       G = nx.gaussian_random_partition_graph(N, mu, shape_param, p_in, p_out)

@@ -52,7 +52,7 @@ do op="$1"
       shift
       ;;
     --num-iters )
-      NUM_ITERARTIONS="$2"
+      NUM_ITERATIONS="$2"
       shift
       shift
       ;;
@@ -105,7 +105,7 @@ BASENAME=$(basename -- "$INPATH") # Extract base file name here.
 echo "BASENAME: $BASENAME"
 
 # automatically name outpath
-OUTPATH="$OUTPATH_PREFIX""$BASENAME""_""$LINLOG""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM""/"
+OUTPATH="$OUTPATH_PREFIX""$BASENAME""_""$EXECUTION_MODE""_""$LINLOG""_F_R-$F_R""_F_G-$F_G""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM""/"
 
 # Make output directory, exit (or clean) if output directory exists.
 echo "Creating path to $OUTPATH if it does not already exist"
@@ -113,12 +113,10 @@ mkdir -p $OUTPATH
 
 # Check if directory is empty.  Clean it or exit.
 if [ "$(ls -A $OUTPATH)" ]; then
-  if [ "$VERBOSE" ]; then
-    echo "Outpath not empty.  Handling..."
-  fi
+  echo "$OUTPATH is not empty. Cleaning..."
   if [ "$CLEAN" ]; then
-    echo "Temp testing script clean function"
-    rm -i "$OUTPATH*" 
+    echo "rm -f $OUTPATH*"
+    rm -f "$OUTPATH*" 
   else
     echo "Output directory is not empty and --clean was not specified"
     exit 1
