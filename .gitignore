@@ -21,7 +21,7 @@ builds/linux/graph_viewer
 builds/linux/.depend
 out/
 DerivedData/
-**/temp.txt
+**/temp.*
 src/read_files.md
 **/__pycache__
 
