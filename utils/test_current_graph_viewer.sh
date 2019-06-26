@@ -82,6 +82,11 @@ do op="$1"
       shift
       shift
       ;;
+    --annotate-path )
+      ANNOTATION="$2"
+      shift
+      shift
+      ;;
     --clean )
       CLEAN="TRUE"
       shift
@@ -107,13 +112,18 @@ echo "BASENAME: $BASENAME"
 # automatically name outpath
 OUTPATH="$OUTPATH_PREFIX""$BASENAME""_""$EXECUTION_MODE""_""$LINLOG""_F_R-$F_R""_F_G-$F_G""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM""/"
 
+# Annotate path with purpose for output
+if [ "$ANNOTATION" ]; then
+  OUTPATH+="_""$ANNOTATION"
+fi
+
 # Make output directory, exit (or clean) if output directory exists.
 echo "Creating path to $OUTPATH if it does not already exist"
 mkdir -p $OUTPATH
 
 # Check if directory is empty.  Clean it or exit.
 if [ "$(ls -A $OUTPATH)" ]; then
-  echo "$OUTPATH is not empty. Cleaning..."
+  echo "$OUTPATH is not empty. Handling..."
   if [ "$CLEAN" ]; then
     echo "rm -f $OUTPATH*"
     rm -f "$OUTPATH*" 
