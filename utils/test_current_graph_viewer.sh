@@ -110,12 +110,15 @@ BASENAME=$(basename -- "$INPATH") # Extract base file name here.
 echo "BASENAME: $BASENAME"
 
 # automatically name outpath
-OUTPATH="$OUTPATH_PREFIX""$BASENAME""_""$EXECUTION_MODE""_""$LINLOG""_F_R-$F_R""_F_G-$F_G""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM""/"
+OUTPATH="$OUTPATH_PREFIX""$BASENAME""_""$EXECUTION_MODE""_""$LINLOG""_F_R-$F_R""_F_G-$F_G""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM"
 
 # Annotate path with purpose for output
 if [ "$ANNOTATION" ]; then
   OUTPATH+="_""$ANNOTATION"
 fi
+
+# Finish OUTPATH so graph_viewer is happy.
+OUTPATH+="/"
 
 # Make output directory, exit (or clean) if output directory exists.
 echo "Creating path to $OUTPATH if it does not already exist"

@@ -112,6 +112,9 @@ if [ "$ANNOTATION" ]; then
   OUTPATH+="_""$ANNOTATION"
 fi
 
+# Finish OUTPATH so graph_viewer is happy.
+OUTPATH+="/"
+
 # Make output directory, exit (or clean) if output directory exists.
 echo "Creating path to $OUTPATH if it does not already exist"
 mkdir -p $OUTPATH
