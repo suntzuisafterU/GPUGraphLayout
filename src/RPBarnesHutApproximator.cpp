@@ -33,10 +33,10 @@ namespace RPGraph
     BarnesHutCell::BarnesHutCell(Coordinate position, float length, Coordinate particle_position, float particle_mass)
     : cell_center{position}, length{length}, mass_center(particle_position), total_mass{particle_mass}
     {
-        lb = position.x - length/2.0;
-        rb = position.x + length/2.0;
-        bb = position.y - length/2.0;
-        ub = position.y + length/2.0;
+        lb = position.x - length/2.0F;
+        rb = position.x + length/2.0F;
+        bb = position.y - length/2.0F;
+        ub = position.y + length/2.0F;
     }
 
     BarnesHutCell::~BarnesHutCell()
@@ -48,15 +48,15 @@ namespace RPGraph
     {
         Coordinate leafcell_center_coordinate = Coordinate(0,0);
         if (quadrant == 0)
-            leafcell_center_coordinate = Coordinate(this->cell_center.x-length/4.0,this->cell_center.y+length/4);
+            leafcell_center_coordinate = Coordinate(this->cell_center.x-length/4.0F,this->cell_center.y+length/4);
         else if (quadrant == 1)
-            leafcell_center_coordinate = Coordinate(this->cell_center.x+length/4.0,this->cell_center.y+length/4);
+            leafcell_center_coordinate = Coordinate(this->cell_center.x+length/4.0F,this->cell_center.y+length/4);
         else if (quadrant == 2)
-            leafcell_center_coordinate = Coordinate(this->cell_center.x+length/4.0,this->cell_center.y-length/4);
+            leafcell_center_coordinate = Coordinate(this->cell_center.x+length/4.0F,this->cell_center.y-length/4);
         else if (quadrant == 3)
-            leafcell_center_coordinate = Coordinate(this->cell_center.x-length/4.0,this->cell_center.y-length/4);
+            leafcell_center_coordinate = Coordinate(this->cell_center.x-length/4.0F,this->cell_center.y-length/4);
 
-        sub_cells[quadrant] = new BarnesHutCell(leafcell_center_coordinate, this->length/2.0, pos, mass); /**< TODO: Valgrind thinks this (possibly) is causing a memory leak.  Is it? */
+        sub_cells[quadrant] = new BarnesHutCell(leafcell_center_coordinate, this->length/2.0F, pos, mass); /**< TODO: Valgrind thinks this (possibly) is causing a memory leak.  Is it? */
         num_subparticles += 1;
 
     }

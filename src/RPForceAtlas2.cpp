@@ -44,14 +44,14 @@ namespace RPGraph
         speed_efficiency = 1.0;
         jitter_tolerance = 1.0;
 
-        k_s = 0.1; /// Calculating local swing.
-        k_s_max = 10.0; /// 
+        k_s = 0.1F; /// Calculating local swing.
+        k_s_max = 10.0F; /// 
 
-        theta = 1.0;
-        epssq  = 0.05 * 0.05;
-        itolsq = 1.0f / (theta * theta);
+        theta = 1.0F;
+        epssq  = 0.05F * 0.05F;
+        itolsq = 1.0F / (theta * theta);
 
-        delta = 0.0; /// Edge weight influence
+        delta = 0.0F; /// Edge weight influence
 
         prevent_overlap = false;
 
@@ -83,6 +83,6 @@ namespace RPGraph
 	 */
     float ForceAtlas2::mass(nid_t n)
     {
-        return layout.graph.degree(n) + 1.0;
+        return layout.graph.degree(n) + 1.0F;
     }
 }

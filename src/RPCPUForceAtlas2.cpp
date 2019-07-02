@@ -155,7 +155,7 @@ namespace RPGraph
      */
     float CPUForceAtlas2::tra(nid_t n)
     {
-        return (forces[n] + prev_forces[n]).magnitude() / 2.0;
+        return (forces[n] + prev_forces[n]).magnitude() / 2.0F;
     }
 
     /**
@@ -179,19 +179,19 @@ namespace RPGraph
         // We want to find the right jitter tollerance for this graph,
         // such that totalSwinging < tolerance * totalEffectiveTraction
 
-        float estimated_optimal_jitter_tollerance = 0.05 * std::sqrt(layout.graph.num_nodes());
+        float estimated_optimal_jitter_tollerance = 0.05F * std::sqrt(layout.graph.num_nodes());
         float minJT = std::sqrt(estimated_optimal_jitter_tollerance);
         float jt = jitter_tolerance * fmaxf(minJT,
                                            fminf(k_s_max,
-                                                 estimated_optimal_jitter_tollerance * total_effective_traction / powf(layout.graph.num_nodes(), 2.0)
+                                                 estimated_optimal_jitter_tollerance * total_effective_traction / powf(layout.graph.num_nodes(), 2.0F)
                                                  )
                                            );
-        float min_speed_efficiency = 0.05;
+        float min_speed_efficiency = 0.05F;
 
         // `Protect against erratic behavior'
         if (total_swinging / total_effective_traction > 2.0)
         {
-            if (speed_efficiency > min_speed_efficiency) speed_efficiency *= 0.5;
+            if (speed_efficiency > min_speed_efficiency) speed_efficiency *= 0.5F;
             jt = fmaxf(jt, jitter_tolerance);
         }
 
@@ -203,12 +203,12 @@ namespace RPGraph
         {
             if (speed_efficiency > min_speed_efficiency)
             {
-                speed_efficiency *= 0.7;
+                speed_efficiency *= 0.7F;
             }
         }
         else if (global_speed < 1000)
         {
-            speed_efficiency *= 1.3;
+            speed_efficiency *= 1.3F;
         }
 
         // `But the speed shouldn't rise much too quickly, ... would make convergence drop dramatically'.
@@ -227,7 +227,7 @@ namespace RPGraph
         else
         {
 
-            float factor = global_speed / (1.0 + std::sqrt(global_speed * swg(n)));
+            float factor = global_speed / (1.0F + std::sqrt(global_speed * swg(n)));
             layout.moveNode(n, forces[n] * factor);
         }
     }
