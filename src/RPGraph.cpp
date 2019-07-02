@@ -57,6 +57,7 @@ namespace RPGraph
         {
             // Skip any comments
             if(line[0] == '#') continue;
+			if(line[0] == '%') continue;
 
             // Read source and target from file
             nid_t s, t;
@@ -160,6 +161,18 @@ namespace RPGraph
     {
         return adjacency_list[nid];
     }
+
+//	UG_Iter(const& UGraph) {
+//
+//	}
+//
+//	void UG_Iter::operator++() {
+//		
+//	}
+//
+//	U_Edge UG_Iter::get_edge() {
+//		return 
+//	}
 
     /* Definitions for CSRUGraph */
 

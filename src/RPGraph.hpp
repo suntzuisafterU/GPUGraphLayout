@@ -67,6 +67,7 @@ namespace RPGraph
         void add_node(nid_t nid); /* Moved add_node back to private section for safety. */
 
         bool has_node(nid_t nid);
+		// friend class UG_Iter; // TODO: Is this the proper way to associate an iterator with a container?
 
     public:
         explicit UGraph();
@@ -91,6 +92,21 @@ namespace RPGraph
 
         std::vector<nid_t> neighbors_with_geq_id(nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
     };
+
+	// class U_Edge {
+	// public:
+	// 	explicit U_Edge(nid_t src, nid_t dst) { src, dst };
+	// 	nid_t get_src() { return src; };
+	// 	nid_t get_dst() { return dst; };
+	// };
+
+	// // template<typename node_id, class edge_id<typename node_id> >
+	// class UG_Iter {
+	// public:
+	// 	explicit UG_Iter(const& UGraph ug);
+	// 	void operator++();
+	// 	U_Edge get_edge();
+	// };
 
     /**
 	 * Compressed sparserow (CSR) for undirected graphs.
