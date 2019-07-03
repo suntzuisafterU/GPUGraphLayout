@@ -4,19 +4,20 @@ import fire # Allows for automatic commandline arg parsing.  Very nice. https://
 
 
 class EdgeListGenerator(object):
-  def random(self, list_comm_sizes, p_in, p_out, partition=False, edges=False):
-    G = nx.random_partition_graph(list_comm_sizes, p_in, p_out)
-    header = f"of random graph: list comm sizes={list_comm_sizes}, p_in={p_in}, p_out={p_out}"
-    if partition:
-      print(f"# partition {header}")
-      print_partition(G)
-    if edges:
-      print(f"# edges {header}")
-      print_edges(G)
+  # # deprecated, not using
+  # def random(self, list_comm_sizes, p_in, p_out, partition=False, edges=False):
+  #   G = nx.random_partition_graph(list_comm_sizes, p_in, p_out)
+  #   header = f"random_graph: list comm sizes={list_comm_sizes}, p_in={p_in}, p_out={p_out}"
+  #   if partition:
+  #     print(f"# partition {header}")
+  #     print_partition(G)
+  #   if edges:
+  #     print(f"# edges {header}")
+  #     print_edges(G)
 
   def planted_partition(self, num_groups, size_of_each_group, p_in, p_out, partition=False, edges=False, seed=None, directed=False):
     G = nx.planted_partition_graph(num_groups, size_of_each_group, p_in, p_out, seed, directed)
-    header = f"of planted partition graph: num_groups={num_groups}, size_of_each_group={size_of_each_group}, p_in={p_in}, p_out={p_out}"
+    header = f"planted_N_{num_groups}_size_{size_of_each_group}_p_in{p_in}_p_out{p_out}"
     if partition:
       print(f"# partition {header}")
       print_partition(G)
@@ -27,7 +28,7 @@ class EdgeListGenerator(object):
   def gaussian_random(self, N, mu, shape_param, p_in, p_out, partition=False, edges=False):
     # variance = mu/shape_param
     G = nx.gaussian_random_partition_graph(N, mu, shape_param, p_in, p_out)
-    header = f"of gaussian random graph: N={N}, mu={mu}, p_in={p_in}, p_out={p_out}"
+    header = f"gaussian_random_N{N}_mu{mu}_p_in{p_in}_p_out{p_out}"
     if partition:
       print(f"# partition {header}")
       print_partition(G)
@@ -35,11 +36,9 @@ class EdgeListGenerator(object):
       print(f"# edges {header}")
       print_edges(G)
 
-  def connected_caveman_graph(self, cliques, size_of_each_clique, partition=False, edges=False):
-    print("in c_c_graph func")
+  def connected_caveman(self, cliques, size_of_each_clique, partition=False, edges=False):
     G = nx.connected_caveman_graph(cliques, size_of_each_clique)
-    print("here")
-    header = f"of connected caveman graph: cliques={cliques}, size of each clique={size_of_each_clique}"
+    header = f"connected_caveman_cliques{cliques}_size_of_each_clique{size_of_each_clique}"
     if partition:
       print(f"# partition {header}")
       print_partition(G)
@@ -47,9 +46,9 @@ class EdgeListGenerator(object):
       print(f"# edges {header}")
       print_edges(G)
 
-  def relaxed_caveman_graph(self, cliques, size_of_each_clique, p, partition=False, edges=False):
+  def relaxed_caveman(self, cliques, size_of_each_clique, p, partition=False, edges=False):
     G = nx.relaxed_caveman_graph(cliques, size_of_each_clique, p)
-    header = f"of connected caveman graph: cliques={cliques}, size of each clique={size_of_each_clique}, probability of rewiring={p}"
+    header = f"relaxed_caveman_cliques{cliques}_size_of_each_clique{size_of_each_clique}_p{p}"
     if partition:
       print(f"# partition {header}")
       print_partition(G)

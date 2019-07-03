@@ -13,6 +13,7 @@ F_G="Set_this_variable"
 F_R="Set_this_variable"
 NUM_ITERATIONS=500
 NUM_SNAPS=10
+OUTFILE_PREFIX="_"
 HEIGHT=10000
 WIDTH=10000
 OUTPUT_FORMAT="png"
@@ -62,6 +63,11 @@ do op="$1"
       ;;
     --num-snaps )
       NUM_SNAPS="$2"
+      shift
+      shift
+      ;;
+    --outfile-prefix )
+      OUTFILE_PREFIX="$2"
       shift
       shift
       ;;
@@ -132,10 +138,10 @@ if [ "$(ls -A $OUTPATH)" ]; then
 fi
 
 if [ "$VERBOSE" ]; then
-  echo "$EXECUTABLE $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $INPATH $OUTPATH $OUTPUT_FORMAT $HEIGHT $WIDTH"
+  echo "$EXECUTABLE $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
 fi
 
 
-"$EXECUTABLE" "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$INPATH" "$OUTPATH" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
+"$EXECUTABLE" "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
 
 

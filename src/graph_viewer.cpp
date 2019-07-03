@@ -77,12 +77,13 @@ int main(int argc, const char **argv)
     const float percentage_iterations_on_comm_graph = std::stof(argv[9])/100.0f;
     const char *edgelist_path = argv[10]; // infile
     const char *out_path = argv[11]; // output directory for images.
+    const char *out_file_prefix = argv[12]; // annotated outfile names
     std::string out_format = "png"; // default make png that is 1250x1250
     int image_w = 1250;
     int image_h = 1250;
 
     // Minor, accept multiple png vs csv args.
-    for (int arg_no = 12; arg_no < argc; arg_no++)
+    for (int arg_no = 13; arg_no < argc; arg_no++)
     {
         if(std::string(argv[arg_no]) == "png")
         {
@@ -194,7 +195,7 @@ int main(int argc, const char **argv)
 		 * Reverted to older version after multiple issues with the line intended to extract the basename of the network
 		 */
 		std::string op(out_path);
-		op.append("/").append(std::to_string(iteration)).append(".").append(out_format);
+		op.append("/").append(out_file_prefix).append(std::to_string(iteration)).append(".").append(out_format);
 		printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / max_iterations, out_format.c_str());
 		fflush(stdout);
 		fa2->sync_layout(); /* The same symbol is used regardless of which stage we are at. */

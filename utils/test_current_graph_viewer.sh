@@ -14,6 +14,7 @@ NUM_ITERATIONS=500
 NUM_SNAPS=10
 LINLOG="regular"
 PERCENT_ITERS_ON_COMM=50
+OUTFILE_PREFIX="_"
 HEIGHT=10000
 WIDTH=10000
 OUTPUT_FORMAT="png"
@@ -70,6 +71,11 @@ do op="$1"
       shift
       shift
       ;;
+    --outfile-prefix )
+      OUTFILE_PREFIX="$2"
+      shift
+      shift
+      ;;
     --pixels )
       HEIGHT="$2"
       WIDTH="$3"
@@ -110,7 +116,7 @@ BASENAME=$(basename -- "$INPATH") # Extract base file name here.
 echo "BASENAME: $BASENAME"
 
 # automatically name outpath
-OUTPATH="$OUTPATH_PREFIX""current_gv""$BASENAME""_""$EXECUTION_MODE""_""$LINLOG""_F_R-$F_R""_F_G-$F_G""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM"
+OUTPATH="$OUTPATH_PREFIX""current_gv_""$BASENAME""_""$EXECUTION_MODE""_""$LINLOG""_F_R-$F_R""_F_G-$F_G""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM"
 
 # Annotate path with purpose for output
 if [ "$ANNOTATION" ]; then
@@ -137,10 +143,10 @@ if [ "$(ls -A $OUTPATH)" ]; then
 fi
 
 if [ "$VERBOSE" ]; then
-  echo "../builds/linux/graph_viewer $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTPUT_FORMAT $HEIGHT $WIDTH"
+  echo "../builds/linux/graph_viewer $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
 fi
 
 
-../builds/linux/graph_viewer "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
+../builds/linux/graph_viewer "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
 
 
