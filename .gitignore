@@ -40,3 +40,11 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+
+# Windows stuff
+Debug/
+GPUGraphLayout_take2.sln
+GPUGraphLayout_take2.vcxproj
+GPUGraphLayout_take2.vcxproj.filters
+GPUGraphLayout_take2.vcxproj.user
+PropertySheet.props
