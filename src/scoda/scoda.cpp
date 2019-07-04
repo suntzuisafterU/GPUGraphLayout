@@ -103,11 +103,11 @@ int scoda_G(uint32_t degree_threshold,
                 num_null_e++;
             }
         }
-        printf("num_null_e: %d\n", num_null_e);
-        printf("num_duplicate_edges: %d\n", num_duplicate_edges);
-        printf("num_comm_e: %d\n", comm_graph.num_edges());
-        return EXIT_SUCCESS;
     }
+    printf("num_null_e: %d\n", num_null_e);
+    printf("num_duplicate_edges: %d\n", num_duplicate_edges);
+    printf("num_comm_e: %d\n", comm_graph.num_edges());
+    return EXIT_SUCCESS;
 }
 
 /**
@@ -290,7 +290,6 @@ int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file)
          */
 
         // a) detect static community edges.
-
     }
 
     // Print partition to stdout.

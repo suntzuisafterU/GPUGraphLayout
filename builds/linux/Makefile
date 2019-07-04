@@ -68,11 +68,12 @@ CPP_SRCS          := $(COMMON_SRCS) $(SCODA_SRCS) $(FA2_SRCS) $(SCODA_EXE_SRC) $
 CUDA_SRCS         := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRCS)
 GV_OBJECTS        := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
+SCODA_EXE_OBJS    := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(SCODA_OBJS)
 CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
 SOURCES           := $(SOURCES) $(CUDA_SRCS)
-GV_OBJECTS        := $(GV_OBJECTS) $(CUDA_OBJS)
+GV_OBJECTS        := $(GV_OBJECTS) $(CUDA_FA2_OBJS)
 endif
 
 # Generate dependency (.h, .hpp)
@@ -86,7 +87,7 @@ include ./.depend
 
 all: scoda_exec graph_viewer
 
-scoda_exec: $(SCODA_OBJS) $(SCODA_EXE_SRC)
+scoda_exec: $(SCODA_EXE_OBJS) $(SCODA_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 graph_viewer: $(GV_OBJECTS) $(GRAPH_VIEWER_SRC)
