@@ -43,6 +43,12 @@ namespace RPGraph
         edge_count = 0;
     }
 
+    UGraph::UGraph(std::string edgelist_path) {
+        node_count = 0;
+        edge_count = 0;
+        this->read_edgelist_file(edgelist_path);
+    }
+
     UGraph::~UGraph() = default;
 
     /**

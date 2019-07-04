@@ -68,16 +68,17 @@ namespace RPGraph
 
         bool has_node(nid_t nid);
 		// friend class UG_Iter; // TODO: Is this the proper way to associate an iterator with a container?
+        void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
 
     public:
-        explicit UGraph();
+        UGraph();
+        UGraph(std::string edgelist_path);
         ~UGraph(); /* Explicity declare and define destructors. */
 
         /**
          * Construct UGraph from edgelist. IDs in edgelist are mapped to
          * [0, 1, ..., num_nodes-1]. Removes any self-edges.
          */
-        void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
         std::unordered_map<nid_t, nid_t> node_map; /**< el id => UGraph id. IMPORTANT: This is necessary so that we can produce a contigous array for the CUDA implementation to work on.  You have been warned. */
         std::unordered_map<nid_t, nid_t> node_map_r; /**< UGraph id => el id. Only used by writeToBin() and writeToCsv() */
 
