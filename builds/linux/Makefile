@@ -82,15 +82,15 @@ include ./.depend
 
 # all: scoda_exec graph_viewer
 
-scoda_exec: $(SCODA_OBJS)
-	$(CC) $(SCODA_OBJS) $(LDFLAGS) -o scoda_exec
+scoda_exec: $(SCODA_EXE_OBJ) $(SCODA_OBJS)
+	$(CC) $^ $(LDFLAGS) -o $@
+
+graph_viewer: $(OBJECTS)
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
 $(SCODA_OBJS): $(SCODA_SRCS)
 	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(SCODA_OBJ_DIR)/%.o=$(SCODA_SRC_DIR)/%.cpp)
-
-graph_viewer: $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o graph_viewer
 
 $(GRAPH_VIEWER_OBJ): $(GRAPH_VIEWER_SRC)
 	@mkdir -p $(@D)
