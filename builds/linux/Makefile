@@ -15,6 +15,9 @@ FA2_OBJ_DIR       := $(OBJ_DIR)/FA2
 CUDA_SUPPORT ?= 1
 ifeq ($(CUDA_SUPPORT), 1)
 	CC:=nvcc
+	MY_CXXFLAGS:=-Xcompiler -Wextra -Xcompiler -Wall
+else
+	MY_CXXFLAGS:=-Wextra -Wall
 endif
 
 # Debug compilation, disable by default
@@ -84,18 +87,18 @@ include ./.depend
 all: scoda_exec graph_viewer
 
 scoda_exec: $(SCODA_OBJS) $(SCODA_EXE_SRC)
-	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 graph_viewer: $(GV_OBJECTS) $(GRAPH_VIEWER_SRC)
-	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 $(COMMON_OBJS): $(COMMON_SRCS)
 	@mkdir -p $(@D)
-	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(COMMON_OBJ_DIR)/%.o=$(COMMON_SRC_DIR)/%.cpp)
+	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) -o $@ $(@:$(COMMON_OBJ_DIR)/%.o=$(COMMON_SRC_DIR)/%.cpp)
 
 $(SCODA_OBJS): $(SCODA_SRCS)
 	@mkdir -p $(@D)
-	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(SCODA_OBJ_DIR)/%.o=$(SCODA_SRC_DIR)/%.cpp)
+	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) -o $@ $(@:$(SCODA_OBJ_DIR)/%.o=$(SCODA_SRC_DIR)/%.cpp)
 
 $(FA2_OBJS): $(FA2_SRCS)
 	@mkdir -p $(@D)
@@ -110,6 +113,6 @@ $(PNGWRITER_OBJS): $(PNGWRITER_SRCS)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(L_SRC_DIR)/%.cc)
 
 clean:
-	rm -rf graph_viewer $(OBJ_DIR)/* ./.depend
+	rm -rf graph_viewer scoda_exec $(OBJ_DIR)/* ./.depend
 
 .PHONY: all clean depend
