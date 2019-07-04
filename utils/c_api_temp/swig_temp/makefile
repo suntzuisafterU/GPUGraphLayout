@@ -4,7 +4,7 @@
 py3:
 	g++ -c -fPIC code.cpp
 	swig -c++ -python code.i
-	g++ -c -fPIC code_wrap.cxx  -I$(CONDA_PYTHON_EXE)
+	g++ -c -fPIC code_wrap.cxx  -I$(CONDA_PREFIX)/bin -I$(CONDA_PREFIX)/include -I$(CONDA_PREFIX)/include/python3.7m
 	g++ -shared -Wl,-soname,_code.so -o _code.so code.o code_wrap.o
 
 original:
