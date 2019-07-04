@@ -3,7 +3,9 @@ CC:=gcc
 # Directories
 L_SRC_DIR         := ../../lib
 SRC_DIR           := ../../src
+SCODA_SRC_DIR     := ../../src/scoda
 OBJ_DIR           := obj
+SCODA_OBJ_DIR     := obj/scoda
 
 # Compile with CUDA support by default
 CUDA_SUPPORT ?= 1
@@ -36,6 +38,9 @@ LDFLAGS  :=-lc -lm -lstdc++ -lpng
 GRAPH_VIEWER_SRCS := $(wildcard $(SRC_DIR)/*.cpp)
 GRAPH_VIEWER_OBJS := $(GRAPH_VIEWER_SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
+SCODA_EXEC_SRCS := $(wildcard $(SCODA_SRC_DIR)/*.cpp)
+SCODA_EXEC_OBJS := $(SCODA_EXEC_SRCS:$(SCODA_SRC_DIR)/%.cpp=$(SCODA_OBJ_DIR)/%.o)
+
 PNGWRITER_SRCS    := $(L_SRC_DIR)/pngwriter/src/pngwriter.cc
 PNGWRITER_OBJS    := $(PNGWRITER_SRCS:$(L_SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
 
@@ -61,6 +66,13 @@ depend: .depend
 	$(CC) $(CXXFLAGS) $(CPPFLAGS) -M $(CPP_SRC) >> .depend
 
 include ./.depend
+
+scoda_exec: $(SCODA_EXEC_OBJS)
+	$(CC) $(SCODA_EXEC_OBJS) $(LDFLAGS) -o scoda_exec
+
+$(SCODA_EXEC_OBJS): $(SCODA_EXEC_SRCS)
+	mkdir -p $(@D)
+	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(SCODA_OBJ_DIR)/%.o=$(SCODA_SRC_DIR)/%.cpp)
 
 graph_viewer: $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o graph_viewer
