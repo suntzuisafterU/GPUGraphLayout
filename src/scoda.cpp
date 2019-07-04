@@ -116,7 +116,7 @@ int scoda_G(uint32_t degree_threshold,
  * returns: 
  *   UGraph reference community graph AND unordered_map reference node_id -> community mapping.
  */
-int scoda_G(uint32_t degree_threshold, std::fstream &edgelist_file,
+int scoda_G(uint32_t degree_threshold, std::istream &edgelist_file,
             RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
             std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map)
 {
@@ -218,7 +218,7 @@ int scoda_G(uint32_t degree_threshold, std::fstream &edgelist_file,
     return EXIT_SUCCESS;
 }
 
-int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file,
+int scoda_partition(uint32_t degree_threshold, std::istream &edgelist_file,
                     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map)
 {
     // Make map to track degrees.
