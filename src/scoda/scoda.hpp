@@ -10,7 +10,7 @@
 #include <sstream> // for istringstream() in scoda.cpp
 #include <iostream>
 
-#include "../RPGraph.hpp" // For UGraph and nid_t
+#include "../common/RPGraph.hpp" // For UGraph and nid_t
 
 namespace CommunityAlgos {
     /**

@@ -35,10 +35,10 @@
 #include <math.h>
 #include <fstream>
 
-#include "RPCommon.hpp"
-#include "RPGraph.hpp"
-#include "RPGraphLayout.hpp"
-#include "RPCPUForceAtlas2.hpp"
+#include "common/RPCommon.hpp"
+#include "common/RPGraph.hpp"
+#include "common/RPGraphLayout.hpp"
+#include "common/RPCPUForceAtlas2.hpp"
 #include "scoda/scoda.hpp"
 
 #ifdef __NVCC__
