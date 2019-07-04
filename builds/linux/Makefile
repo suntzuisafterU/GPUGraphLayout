@@ -3,12 +3,12 @@ CC:=gcc
 # Directories
 L_SRC_DIR         := ../../lib
 SRC_DIR           := ../../src
-FA2_SRC_DIR       := $(SRC_DIR)/FA2
-SCODA_SRC_DIR     := $(SRC_DIR)/scoda
 COMMON_SRC_DIR    := $(SRC_DIR)/common
+SCODA_SRC_DIR     := $(SRC_DIR)/scoda
+FA2_SRC_DIR       := $(SRC_DIR)/FA2
 OBJ_DIR           := obj
-SCODA_OBJ_DIR     := $(OBJ_DIR)/scoda
 COMMON_OBJ_DIR    := $(OBJ_DIR)/common
+SCODA_OBJ_DIR     := $(OBJ_DIR)/scoda
 FA2_OBJ_DIR       := $(OBJ_DIR)/FA2
 
 # Compile with CUDA support by default
@@ -47,23 +47,24 @@ COMMON_OBJS       := $(COMMON_SRCS:$(COMMON_SRC_DIR)/%.cpp=$(COMMON_OBJ_DIR)/%.o
 SCODA_SRCS        := $(wildcard $(SCODA_SRC_DIR)/*.cpp)
 SCODA_OBJS        := $(SCODA_SRCS:$(SCODA_SRC_DIR)/%.cpp=$(SCODA_OBJ_DIR)/%.o)
 
-SCODA_EXE_SRC     := $(SRC_DIR)/scoda_exec.cpp
-SCODA_EXE_OBJ     := $(OBJ_DIR)/scoda_exe.o
-
-PNGWRITER_SRCS    := $(L_SRC_DIR)/pngwriter/src/pngwriter.cc
-PNGWRITER_OBJS    := $(PNGWRITER_SRCS:$(L_SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
+FA2_SRCS          := $(wildcard $(FA2_SRC_DIR)/*.cpp)
+FA2_OBJS          := $(FA2_SRCS:$(FA2_SRC_DIR)/%.cpp=$(FA2_OBJ_DIR)/%.o)
 
 CUDA_FA2_SRCS     := $(wildcard $(FA2_SRC_DIR)/*.cu)
 CUDA_FA2_OBJS     := $(CUDA_FA2_SRCS:$(FA2_SRC_DIR)/%.cu=$(FA2_OBJ_DIR)/%.o)
 CUDA_FA2_DEPS     := $(wildcard $(FA2_SRC_DIR)/*.cuh)
 
-GRAPH_VIEWER_SRC  := $(SRC_DIR)/graph_viewer.cpp
-GRAPH_VIEWER_OBJ  := $(OBJ_DIR)/graph_viewer.o
+PNGWRITER_SRCS    := $(L_SRC_DIR)/pngwriter/src/pngwriter.cc
+PNGWRITER_OBJS    := $(PNGWRITER_SRCS:$(L_SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
 
-CPP_SRC           := $(GRAPH_VIEWER_SRC) $(PNGWRITER_SRCS) $(COMMON_SRCS) $(SCODA_SRCS) $(SCODA_EXE_SRC)
+SCODA_EXE_SRC     := $(SRC_DIR)/scoda_exec.cpp
+
+GRAPH_VIEWER_SRC  := $(SRC_DIR)/graph_viewer.cpp
+
+CPP_SRCS          := $(COMMON_SRCS) $(SCODA_SRCS) $(FA2_SRCS) $(SCODA_EXE_SRC) $(GRAPH_VIEWER_SRC) $(PNGWRITER_SRCS)
 CUDA_SRCS         := $(CUDA_FA2_SRCS)
-SOURCES           := $(C_SRC) $(CPP_SRC)
-OBJECTS           := $(GRAPH_VIEWER_OBJ) $(PNGWRITER_OBJS) $(COMMON_OBJS) $(SCODA_OBJS) $(SCODA_EXE_OBJ)
+SOURCES           := $(C_SRC) $(CPP_SRCS)
+OBJECTS           := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(SCODA_OBJS)
 CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
@@ -74,27 +75,31 @@ endif
 # Generate dependency (.h, .hpp)
 # ala http://stackoverflow.com/questions/2394609/makefile-header-dependencies
 depend: .depend
-.depend: $(SRCS)
+.depend: $(SOURCES)
 	rm -f .depend
-	$(CC) $(CXXFLAGS) $(CPPFLAGS) -M $(CPP_SRC) >> .depend
+	$(CC) $(CXXFLAGS) $(CPPFLAGS) -M $^ >> .depend
 
 include ./.depend
 
-# all: scoda_exec graph_viewer
+all: scoda_exec graph_viewer
 
-scoda_exec: $(SCODA_EXE_OBJ) $(SCODA_OBJS)
+scoda_exec: $(SCODA_OBJS)
 	$(CC) $^ $(LDFLAGS) -o $@
 
 graph_viewer: $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(CC) $^ $(LDFLAGS) -o $@
+
+$(COMMON_OBJS): $(COMMON_SRCS)
+	@mkdir -p $(@D)
+	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(COMMON_OBJ_DIR)/%.o=$(COMMON_SRC_DIR)/%.cpp)
 
 $(SCODA_OBJS): $(SCODA_SRCS)
 	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(SCODA_OBJ_DIR)/%.o=$(SCODA_SRC_DIR)/%.cpp)
 
-$(GRAPH_VIEWER_OBJ): $(GRAPH_VIEWER_SRC)
+$(FA2_OBJS): $(FA2_SRCS)
 	@mkdir -p $(@D)
-	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(SRC_DIR)/%.cpp)
+	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(FA2_OBJ_DIR)/%.o=$(FA2_SRC_DIR)/%.cpp)
 
 $(CUDA_FA2_OBJS): $(CUDA_FA2_SRCS) $(CUDA_FA2_DEPS)
 	@mkdir -p $(@D)

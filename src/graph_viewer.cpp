@@ -38,12 +38,12 @@
 #include "common/RPCommon.hpp"
 #include "common/RPGraph.hpp"
 #include "common/RPGraphLayout.hpp"
-#include "common/RPCPUForceAtlas2.hpp"
+#include "FA2/RPCPUForceAtlas2.hpp"
 #include "scoda/scoda.hpp"
 
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
-#include "RPGPUForceAtlas2.hpp"
+#include "FA2/RPGPUForceAtlas2.hpp"
 #endif
 
 /**
