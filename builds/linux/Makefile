@@ -44,9 +44,6 @@ LDFLAGS  :=-lc -lm -lstdc++ -lpng
 COMMON_SRCS       := $(wildcard $(COMMON_SRC_DIR)/*.cpp)
 COMMON_OBJS       := $(COMMON_SRCS:$(COMMON_SRC_DIR)/%.cpp=$(COMMON_OBJ_DIR)/%.o)
 
-GRAPH_VIEWER_SRC  := $(SRC_DIR)/graph_viewer.cpp
-GRAPH_VIEWER_OBJ  := $(OBJ_DIR)/graph_viewer.o
-
 SCODA_SRCS        := $(wildcard $(SCODA_SRC_DIR)/*.cpp)
 SCODA_OBJS        := $(SCODA_SRCS:$(SCODA_SRC_DIR)/%.cpp=$(SCODA_OBJ_DIR)/%.o)
 
@@ -60,14 +57,18 @@ CUDA_FA2_SRCS     := $(wildcard $(FA2_SRC_DIR)/*.cu)
 CUDA_FA2_OBJS     := $(CUDA_FA2_SRCS:$(FA2_SRC_DIR)/%.cu=$(FA2_OBJ_DIR)/%.o)
 CUDA_FA2_DEPS     := $(wildcard $(FA2_SRC_DIR)/*.cuh)
 
-CPP_SRC           := $(GRAPH_VIEWER_SRC) $(PNGWRITER_SRCS) $(COMMON_SRCS) $(SCODA_SRCS)
-CUDA_SRC          := $(CUDA_FA2_SRCS)
+GRAPH_VIEWER_SRC  := $(SRC_DIR)/graph_viewer.cpp
+GRAPH_VIEWER_OBJ  := $(OBJ_DIR)/graph_viewer.o
+
+CPP_SRC           := $(GRAPH_VIEWER_SRC) $(PNGWRITER_SRCS) $(COMMON_SRCS) $(SCODA_SRCS) $(SCODA_EXE_SRC)
+CUDA_SRCS         := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRC)
-OBJECTS           := $(GRAPH_VIEWER_OBJ) $(PNGWRITER_OBJS)
+OBJECTS           := $(GRAPH_VIEWER_OBJ) $(PNGWRITER_OBJS) $(COMMON_OBJS) $(SCODA_OBJS) $(SCODA_EXE_OBJ)
+CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
-OBJECTS           := $(OBJECTS) $(CUDA_FA2_OBJS)
-SOURCES           := $(SOURCES) $(CUDA_FA2_SRCS)
+SOURCES           := $(SOURCES) $(CUDA_SRCS)
+OBJECTS           := $(OBJECTS) $(CUDA_OBJS)
 endif
 
 # Generate dependency (.h, .hpp)
