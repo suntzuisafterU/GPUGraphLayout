@@ -153,7 +153,7 @@ int main(int argc, const char **argv)
 	//////////////////////////////////////////////////////////////////////////////////////////////
     uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
     //////////////////////////////////////////////////////////////////////////////////////////////
-    int status = CommunityAlgos::scoda(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
+    int status = CommunityAlgos::scoda_G(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
 	
     edgelist_file.close();
     if(status != 0){ // 0 is success

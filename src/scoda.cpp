@@ -293,9 +293,8 @@ int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file,
 
     }
 
-    auto partition = get_partition(nid_comm_map);
     // Print partition to stdout.
-    print_partition(partition);
+    print_partition(nid_comm_map);
 
     return EXIT_SUCCESS;
 }
@@ -307,30 +306,27 @@ int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file,
 // using std::endl;
 
 // produce partition from nid_commid_map
-std::vector< std::vector<RPGraph::nid_t> >& 
-get_partition(std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map) {
+void print_partition(std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map) {
     // TODO: Testing, can we initialize vectors of size zero?
-    std::vector< std::vector<RPGraph::nid_t> >* result(nid_comm_map.size, std::vector<RPGraph::nid_t>(0,0)); // Initialize vector of vectors, each with 1 int, value 0.
+    std::vector< std::vector<RPGraph::nid_t> > partition;
+    partition.resize(nid_comm_map.size(), std::vector<RPGraph::nid_t>(0));
     
     for(auto const & pair : nid_comm_map) {
         auto node = pair.first;
         auto comm = pair.second;
-        result->at(comm)->push_back(node);
-    }
-    
-    return result;
-}
-
-void print_partition(std::vector< std::vector<RPGraph::nid_t> >& partition) {
-    for(auto const & pair : partition) {
-        // First is community id...
-        for(auto const & node : pair.second) {
-            // TODO: Does the ordering impact the way F1 or NMI reads our partitions?
-            std::to_string(node) >> " " >> std::cout;
-        }
-        std::endl >> std::cout;
+        partition.at(comm).push_back(node);
     }
 
+    for(auto const & vec : partition) {
+        if(vec.size() != 0){
+            // First is community id...
+            for(auto const & node : vec) {
+                // TODO: Does the ordering impact the way F1 or NMI reads our partitions?
+                std::cout << std::to_string(node) << " ";
+            }
+            std::cout << std::endl;
+        } // else empty community.
+    }
 }
 
 } // namespace CommunityAlgos} // namespace CommunityAlgos

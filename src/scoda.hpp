@@ -16,18 +16,18 @@ namespace CommunityAlgos {
     /**
      *
      */
-    int scoda(uint32_t degree_threshold, std::fstream& edgelist_file,
+    int scoda_G(uint32_t degree_threshold, std::fstream& edgelist_file,
                 RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph, 
                 std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>& nid_comm_vec);
 
-    int scoda(uint32_t degree_threshold,
+    int scoda_G(uint32_t degree_threshold,
                 RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph, 
                 std::unordered_map<RPGraph::nid_t, RPGraph::nid_t>& nid_comm_vec);
+
+    int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file,
+                    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map);
     
-    std::vector< std::vector<RPGraph::nid_t> >& 
-    get_partition(std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map);
-
-    void print_partition(std::vector< std::vector<RPGraph::nid_t> >& partition);
+    void print_partition(std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map);
 }
 
 #endif /* scoda_hpp */
