@@ -39,6 +39,7 @@ CXXFLAGS :=$(CXXFLAGS) $(O_LVL) -std=c++11
 LDFLAGS  :=-lc -lm -lstdc++ -lpng
 
 # inspiration: https://devhints.io/makefile
+# more inspiration: https://gist.github.com/isaacs/62a2d1825d04437c6f08
 # src./obj. files
 GRAPH_VIEWER_SRCS := $(wildcard $(SRC_DIR)/*.cpp)
 GRAPH_VIEWER_OBJS := $(GRAPH_VIEWER_SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
@@ -72,31 +73,31 @@ depend: .depend
 
 include ./.depend
 
+# all: scoda_exec graph_viewer
+
 scoda_exec: $(SCODA_EXEC_OBJS)
 	$(CC) $(SCODA_EXEC_OBJS) $(LDFLAGS) -o scoda_exec
 
 $(SCODA_EXEC_OBJS): $(SCODA_EXEC_SRCS)
-	mkdir -p $(@D)
+	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(SCODA_OBJ_DIR)/%.o=$(SCODA_SRC_DIR)/%.cpp)
 
 graph_viewer: $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o graph_viewer
 
 $(GRAPH_VIEWER_OBJS): $(GRAPH_VIEWER_SRCS)
-	mkdir -p $(@D)
+	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(SRC_DIR)/%.cpp)
 
 $(CUDA_FA2_OBJS): $(CUDA_FA2_SRCS) $(CUDA_FA2_DEPS)
-	mkdir -p $(@D)
+	@mkdir -p $(@D)
 	nvcc --device-c $(CXXFLAGS) $(NVCCFLAGS) $(CPPFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(SRC_DIR)/%.cu)
 
 $(PNGWRITER_OBJS): $(PNGWRITER_SRCS)
-	mkdir -p $(@D)
+	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(L_SRC_DIR)/%.cc)
-
-clear: clean
 
 clean:
 	rm -rf graph_viewer $(OBJ_DIR)/* ./.depend
 
-.PHONY: all clear clean depend
+.PHONY: all clean depend
