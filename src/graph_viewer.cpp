@@ -39,7 +39,7 @@
 #include "RPGraph.hpp"
 #include "RPGraphLayout.hpp"
 #include "RPCPUForceAtlas2.hpp"
-#include "scoda.hpp"
+#include "scoda/scoda.hpp"
 
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>

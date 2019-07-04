@@ -116,7 +116,7 @@ int scoda_G(uint32_t degree_threshold,
  * returns: 
  *   UGraph reference community graph AND unordered_map reference node_id -> community mapping.
  */
-int scoda_G(uint32_t degree_threshold, std::istream &edgelist_file,
+int scoda_G(uint32_t degree_threshold, std::fstream &edgelist_file,
             RPGraph::UGraph &full_graph, RPGraph::UGraph &comm_graph,
             std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map)
 {
@@ -218,16 +218,16 @@ int scoda_G(uint32_t degree_threshold, std::istream &edgelist_file,
     return EXIT_SUCCESS;
 }
 
-int scoda_partition(uint32_t degree_threshold, std::istream &edgelist_file,
-                    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map)
+int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file)
 {
-    // Make map to track degrees.
-    std::unordered_map<RPGraph::nid_t, uint32_t> degrees;
+    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map;
+    std::unordered_map<RPGraph::nid_t, uint32_t> degrees; // Make map to track degrees. Use map since node ids are not guaranteed to be contiguous.
 
     std::string line;
     RPGraph::nid_t src_id, dst_id;
     uint32_t src_deg, dst_deg;
-    while (std::getline(edgelist_file, line))
+    while (std::getline(edgelist_file, line)) // TODO: Genericize stream handling. 
+    /* Good resource: https://www.ntu.edu.sg/home/ehchua/programming/cpp/cp10_IO.html */
     {
         // TODO: Have a more robust comment filtering procedure here.
         // Skip any comments
@@ -240,7 +240,7 @@ int scoda_partition(uint32_t degree_threshold, std::istream &edgelist_file,
         std::istringstream(line) >> src_id >> dst_id;
 
         // Must add edge before retrieving degrees of nodes.
-        degrees[src_id]++;
+        degrees[src_id]++; // TODO: IMPORTANT: Is this incrementing the degrees of the associated id?
         degrees[dst_id]++;
 
         /// If this is the first time we have seen these nodes, add them to the nid_comm_map.
