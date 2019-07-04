@@ -25,6 +25,7 @@ class EdgeListGenerator(object):
       print(f"# edges {header}")
       print_edges(G)
 
+  # shape_param of 1 is normal, >1 is flatter distribution, <1 is sharper distribution.
   def gaussian_random(self, N, mu, shape_param, p_in, p_out, partition=False, edges=False):
     # variance = mu/shape_param
     G = nx.gaussian_random_partition_graph(N, mu, shape_param, p_in, p_out)
