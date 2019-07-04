@@ -41,11 +41,17 @@ LDFLAGS  :=-lc -lm -lstdc++ -lpng
 # inspiration: https://devhints.io/makefile
 # more inspiration: https://gist.github.com/isaacs/62a2d1825d04437c6f08
 # src./obj. files
-GRAPH_VIEWER_SRCS := $(wildcard $(SRC_DIR)/*.cpp)
-GRAPH_VIEWER_OBJS := $(GRAPH_VIEWER_SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+COMMON_SRCS       := $(wildcard $(COMMON_SRC_DIR)/*.cpp)
+COMMON_OBJS       := $(COMMON_SRCS:$(COMMON_SRC_DIR)/%.cpp=$(COMMON_OBJ_DIR)/%.o)
 
-SCODA_EXEC_SRCS := $(wildcard $(SCODA_SRC_DIR)/*.cpp)
-SCODA_EXEC_OBJS := $(SCODA_EXEC_SRCS:$(SCODA_SRC_DIR)/%.cpp=$(SCODA_OBJ_DIR)/%.o)
+GRAPH_VIEWER_SRC  := $(SRC_DIR)/graph_viewer.cpp
+GRAPH_VIEWER_OBJ  := $(OBJ_DIR)/graph_viewer.o
+
+SCODA_SRCS        := $(wildcard $(SCODA_SRC_DIR)/*.cpp)
+SCODA_OBJS        := $(SCODA_SRCS:$(SCODA_SRC_DIR)/%.cpp=$(SCODA_OBJ_DIR)/%.o)
+
+SCODA_EXE_SRC     := $(SRC_DIR)/scoda_exec.cpp
+SCODA_EXE_OBJ     := $(OBJ_DIR)/scoda_exe.o
 
 PNGWRITER_SRCS    := $(L_SRC_DIR)/pngwriter/src/pngwriter.cc
 PNGWRITER_OBJS    := $(PNGWRITER_SRCS:$(L_SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
@@ -54,10 +60,10 @@ CUDA_FA2_SRCS     := $(wildcard $(FA2_SRC_DIR)/*.cu)
 CUDA_FA2_OBJS     := $(CUDA_FA2_SRCS:$(FA2_SRC_DIR)/%.cu=$(FA2_OBJ_DIR)/%.o)
 CUDA_FA2_DEPS     := $(wildcard $(FA2_SRC_DIR)/*.cuh)
 
-CPP_SRC           := $(GRAPH_VIEWER_SRCS) $(PNGWRITER_SRCS)
+CPP_SRC           := $(GRAPH_VIEWER_SRC) $(PNGWRITER_SRCS) $(COMMON_SRCS) $(SCODA_SRCS)
 CUDA_SRC          := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRC)
-OBJECTS           := $(GRAPH_VIEWER_OBJS) $(PNGWRITER_OBJS)
+OBJECTS           := $(GRAPH_VIEWER_OBJ) $(PNGWRITER_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
 OBJECTS           := $(OBJECTS) $(CUDA_FA2_OBJS)
@@ -75,17 +81,17 @@ include ./.depend
 
 # all: scoda_exec graph_viewer
 
-scoda_exec: $(SCODA_EXEC_OBJS)
-	$(CC) $(SCODA_EXEC_OBJS) $(LDFLAGS) -o scoda_exec
+scoda_exec: $(SCODA_OBJS)
+	$(CC) $(SCODA_OBJS) $(LDFLAGS) -o scoda_exec
 
-$(SCODA_EXEC_OBJS): $(SCODA_EXEC_SRCS)
+$(SCODA_OBJS): $(SCODA_SRCS)
 	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(SCODA_OBJ_DIR)/%.o=$(SCODA_SRC_DIR)/%.cpp)
 
 graph_viewer: $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o graph_viewer
 
-$(GRAPH_VIEWER_OBJS): $(GRAPH_VIEWER_SRCS)
+$(GRAPH_VIEWER_OBJ): $(GRAPH_VIEWER_SRC)
 	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(SRC_DIR)/%.cpp)
 
