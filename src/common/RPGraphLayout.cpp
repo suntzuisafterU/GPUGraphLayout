@@ -23,7 +23,6 @@
 
 
 #include "RPGraphLayout.hpp"
-#include "../../lib/pngwriter/src/pngwriter.h"
 
 #include <fstream>
 #include <cmath>
@@ -203,101 +202,6 @@ namespace RPGraph
     {
         setX(node_id, c.x);
         setY(node_id, c.y);
-    }
-
-    /**
-     * pngwriter entry point.
-     */
-    void GraphLayout::writeToPNG(const int image_w, const int image_h,
-                                 std::string path)
-    {
-        const float xRange = getXRange();
-        const float yRange = getYRange();
-        const RPGraph::Coordinate center = getCenter(); // Why do we need the center?
-        const float xCenter = center.x; // Probably to set the origin for layout.
-        const float yCenter = center.y;
-        const float minX = xCenter - xRange/2.0;
-        const float minY = yCenter - yRange/2.0;
-        const float xScale = image_w/xRange;
-        const float yScale = image_h/yRange;
-
-        // Here we need to do some guessing as to what the optimal
-        // opacity of nodes and edges might be, given network size.
-        /**
-         * TODO: Adjust node opacity for best results.
-         */
-        const float node_opacity = 10000.0  / graph.num_nodes();
-        const float edge_opacity = 100000.0 / graph.num_edges();
-
-        // Write to file.
-        pngwriter layout_png(image_w, image_h, 0, path.c_str());
-        layout_png.invert(); // set bg. to white
-
-        for (nid_t n1 = 0; n1 < graph.num_nodes(); ++n1)
-        {
-            // Plot node,
-            layout_png.filledcircle_blend((getX(n1) - minX)*xScale,
-                                          (getY(n1) - minY)*yScale,
-                                          3, node_opacity, 0, 0, 0);
-            for (nid_t n2 : graph.neighbors_with_geq_id(n1)) {
-                // ... and edge.
-                layout_png.line_blend((getX(n1) - minX)*xScale, (getY(n1) - minY)*yScale,
-                                      (getX(n2) - minX)*xScale, (getY(n2) - minY)*yScale,
-                                      edge_opacity, 0, 0, 0);
-            }
-        }
-        // Write it to disk.
-        layout_png.write_png();
-    }
-
-    /**
-     * Writing to csv may be a good way to streamline testing the decompressions effectiveness.
-     * NOTE: There is no loadFromCSV method.  Would go in this file.
-     */
-    void GraphLayout::writeToCSV(std::string path)
-    {
-        if (is_file_exists(path.c_str()))
-        {
-            printf("Error: File exists at %s\n", path.c_str());
-            exit(EXIT_FAILURE);
-        }
-
-        std::ofstream out_file(path);
-
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
-        {
-            nid_t id = graph.node_map_r[n]; // id as found in edgelist
-            out_file << id << "," << getX(n) << "," << getY(n) << "\n";
-        }
-
-        out_file.close();
-    }
-
-    /**
-     * Do we have any use for writing to bin?
-     */
-    void GraphLayout::writeToBin(std::string path)
-    {
-        if (is_file_exists(path.c_str()))
-        {
-            printf("Error: File exists at %s\n", path.c_str());
-            exit(EXIT_FAILURE);
-        }
-
-        std::ofstream out_file(path, std::ofstream::binary);
-
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
-        {
-            nid_t id = graph.node_map_r[n]; // id as found in edgelist
-            float x = getX(n);
-            float y = getY(n);
-
-            out_file.write(reinterpret_cast<const char*>(&id), sizeof(id));
-            out_file.write(reinterpret_cast<const char*>(&x), sizeof(x));
-            out_file.write(reinterpret_cast<const char*>(&y), sizeof(y));
-        }
-
-        out_file.close();
     }
 
 }

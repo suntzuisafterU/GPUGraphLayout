@@ -21,8 +21,6 @@
  ==============================================================================
 */
 
-// Reading
-
 #ifndef RPGraphLayout_hpp
 #define RPGraphLayout_hpp
 
@@ -63,9 +61,6 @@ namespace RPGraph
         void setX(nid_t node_id, float x_value), setY(nid_t node_id, float y_value);
         void moveNode(nid_t, Real2DVector v);
         void setCoordinates(nid_t node_id, Coordinate c);
-        void writeToPNG(const int image_w, const int image_h, std::string path);
-        void writeToCSV(std::string path);
-        void writeToBin(std::string path);
     };
 }
 

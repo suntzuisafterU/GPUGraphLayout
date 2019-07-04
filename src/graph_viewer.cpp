@@ -38,6 +38,7 @@
 #include "common/RPCommon.hpp"
 #include "common/RPGraph.hpp"
 #include "common/RPGraphLayout.hpp"
+#include "common/RPGraphLayoutUtils.hpp"
 #include "FA2/RPCPUForceAtlas2.hpp"
 #include "scoda/scoda.hpp"
 
@@ -145,17 +146,14 @@ int main(int argc, const char **argv)
     fflush(stdout);
 	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
 
-    std::fstream edgelist_file(edgelist_path, std::ifstream::in); // Does this return a reference? Yes. See: https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c and http://www.gotw.ca/gotw/009.htm
-
-    RPGraph::UGraph full_graph = RPGraph::UGraph(); // Changed back to stack allocated reference.
+    RPGraph::UGraph full_graph = RPGraph::UGraph(edgelist_path); // Initialize full_graph from provided path.
     RPGraph::UGraph comm_graph = RPGraph::UGraph();
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 	//////////////////////////////////////////////////////////////////////////////////////////////
     uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
     //////////////////////////////////////////////////////////////////////////////////////////////
-    int status = CommunityAlgos::scoda_G(degree_threshold, edgelist_file, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
+    int status = CommunityAlgos::scoda_G(degree_threshold, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
 	
-    edgelist_file.close();
     if(status != 0){ // 0 is success
         exit(status); // propgate error code.
     }
@@ -201,11 +199,11 @@ int main(int argc, const char **argv)
 		fa2->sync_layout(); /* The same symbol is used regardless of which stage we are at. */
 
 		if (out_format == "png")
-			current_layout->writeToPNG(image_w, image_h, op);
+			writeToPNG(current_layout, image_w, image_h, op);
 		else if (out_format == "csv")
-			current_layout->writeToCSV(op);
+			writeToCSV(current_layout, op);
 		else if (out_format == "bin")
-			current_layout->writeToBin(op);
+			writeToBin(current_layout, op);
 
 		printf("done.\n");
 	};
@@ -265,7 +263,7 @@ int main(int argc, const char **argv)
         full_fa2 = new RPGraph::CUDAForceAtlas2(full_layout, approximate,
                                            strong_gravity, gravity, scale, randomize, use_linlog);
     else
-    #endif
+    #endif // __NVCC__
         full_fa2 = new RPGraph::CPUForceAtlas2(full_layout, approximate,
                                           strong_gravity, gravity, scale, randomize, use_linlog);
 	fa2 = full_fa2;

@@ -40,7 +40,7 @@ inline void assert_d(cudaError_t code, const char *file, int line, bool abort=tr
         if (abort) exit(code);
     }
 }
-#endif
+#endif // __NVCC__
 bool is_file_exists (const char *filename);
 
 namespace RPGraph
