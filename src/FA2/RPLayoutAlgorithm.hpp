@@ -26,7 +26,7 @@
 #ifndef RPLayoutAlgorithm_hpp
 #define RPLayoutAlgorithm_hpp
 
-#include "RPGraphLayout.hpp"
+#include "../common/RPGraphLayout.hpp"
 
 namespace RPGraph
 {

@@ -26,8 +26,8 @@
 #ifndef RPBarnesHutApproximator_hpp
 #define RPBarnesHutApproximator_hpp
 
-#include "RPGraph.hpp"
-#include "RPCommon.hpp"
+#include "../common/RPGraph.hpp"
+#include "../common/RPCommon.hpp"
 
 namespace RPGraph
 {

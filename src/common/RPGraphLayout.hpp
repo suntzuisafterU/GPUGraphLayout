@@ -27,7 +27,7 @@
 #define RPGraphLayout_hpp
 
 #include "RPGraph.hpp" // Using UGraph
-#include "RPCommon.hpp" // Using ?
+#include "RPCommon.hpp" // Using Real2DVector
 #include <string>
 
 namespace RPGraph
