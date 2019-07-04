@@ -38,7 +38,7 @@
 #include "common/RPCommon.hpp"
 #include "common/RPGraph.hpp"
 #include "common/RPGraphLayout.hpp"
-#include "common/RPGraphLayoutUtils.hpp"
+#include "io_utils/RPGraphLayoutUtils.hpp"
 #include "FA2/RPCPUForceAtlas2.hpp"
 #include "scoda/scoda.hpp"
 

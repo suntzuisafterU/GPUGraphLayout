@@ -226,7 +226,7 @@ int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file)
     std::string line;
     RPGraph::nid_t src_id, dst_id;
     uint32_t src_deg, dst_deg;
-    while (std::getline(edgelist_file, line)) // TODO: Genericize stream handling. 
+    while (std::getline(edgelist_file, line)) // TODO: Genericize stream handling. Can this be passed STDIN?
     /* Good resource: https://www.ntu.edu.sg/home/ehchua/programming/cpp/cp10_IO.html */
     {
         // TODO: Have a more robust comment filtering procedure here.

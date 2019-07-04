@@ -1,6 +1,7 @@
 
 #ifndef scoda_hpp
 #define scoda_hpp
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

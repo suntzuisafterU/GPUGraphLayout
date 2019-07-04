@@ -34,6 +34,10 @@ do op="$1"
       TARGET=scoda_exec
       shift
       ;;
+    --stress )
+      TARGET=stess_exec
+      shift
+      ;;
   esac
 done
 
@@ -41,6 +45,7 @@ if [ "$CLEAN" ];then
   make clean -C ../builds/linux
 fi
 
-make -k -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG $TARGET \
-  && echo -e "\nExecutables exist(may have just been made):" \
-  && ls -1 --color=always ../builds/linux/graph_viewer ../builds/linux/scoda_exec
+make -k -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG $TARGET
+
+echo -e "\nExecutables exist(may have just been made):" \
+&& ls -1 --color=always ../builds/linux/graph_viewer ../builds/linux/scoda_exec ../builds/linux/stress_exec

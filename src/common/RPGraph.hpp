@@ -142,6 +142,7 @@ namespace RPGraph
 
         nid_t nbr_id_for_node(nid_t nid, nid_t nbr_no);
     };
-}
+
+} // namespace RPGraph
 
 #endif /* Graph_h */

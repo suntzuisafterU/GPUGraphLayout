@@ -1,8 +1,9 @@
 #ifndef RPGraphLayoutUtils_hpp
 #define RPGraphLayoutUtils_hpp
 
-#include "RPGraphLayout.hpp"
 #include <fstream>
+
+#include "../common/RPGraphLayout.hpp"
 #include "../../lib/pngwriter/src/pngwriter.h"
 
 

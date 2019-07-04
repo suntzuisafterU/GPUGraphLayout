@@ -10,6 +10,7 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 **/datasets
+**/generated_datasets
 **/*.vs
 **/*.vscode
 SCoDA_GPU_FULL.code-workspace
@@ -17,6 +18,7 @@ SCoDA_GPU_FULL.code-workspace
 ## Build generated
 **/graph_viewer
 **/scoda_exec
+**/stress_exec
 build/
 builds/linux/graph_viewer
 builds/linux/.depend
