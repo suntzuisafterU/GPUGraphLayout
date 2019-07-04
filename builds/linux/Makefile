@@ -3,9 +3,13 @@ CC:=gcc
 # Directories
 L_SRC_DIR         := ../../lib
 SRC_DIR           := ../../src
-SCODA_SRC_DIR     := ../../src/scoda
+FA2_SRC_DIR       := $(SRC_DIR)/FA2
+SCODA_SRC_DIR     := $(SRC_DIR)/scoda
+COMMON_SRC_DIR    := $(SRC_DIR)/common
 OBJ_DIR           := obj
-SCODA_OBJ_DIR     := obj/scoda
+SCODA_OBJ_DIR     := $(OBJ_DIR)/scoda
+COMMON_OBJ_DIR    := $(OBJ_DIR)/common
+FA2_OBJ_DIR       := $(OBJ_DIR)/FA2
 
 # Compile with CUDA support by default
 CUDA_SUPPORT ?= 1
@@ -34,6 +38,7 @@ CXXFLAGS :=$(CXXFLAGS) $(O_LVL) -std=c++11
 # Linker flags
 LDFLAGS  :=-lc -lm -lstdc++ -lpng
 
+# inspiration: https://devhints.io/makefile
 # src./obj. files
 GRAPH_VIEWER_SRCS := $(wildcard $(SRC_DIR)/*.cpp)
 GRAPH_VIEWER_OBJS := $(GRAPH_VIEWER_SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
@@ -44,18 +49,18 @@ SCODA_EXEC_OBJS := $(SCODA_EXEC_SRCS:$(SCODA_SRC_DIR)/%.cpp=$(SCODA_OBJ_DIR)/%.o
 PNGWRITER_SRCS    := $(L_SRC_DIR)/pngwriter/src/pngwriter.cc
 PNGWRITER_OBJS    := $(PNGWRITER_SRCS:$(L_SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
 
-CUDA_SRCS         := $(wildcard $(SRC_DIR)/*.cu)
-CUDA_OBJS         := $(CUDA_SRCS:$(SRC_DIR)/%.cu=$(OBJ_DIR)/%.o)
-CUDA_DEPS         := $(wildcard $(SRC_DIR)/*.cuh)
+CUDA_FA2_SRCS     := $(wildcard $(FA2_SRC_DIR)/*.cu)
+CUDA_FA2_OBJS     := $(CUDA_FA2_SRCS:$(FA2_SRC_DIR)/%.cu=$(FA2_OBJ_DIR)/%.o)
+CUDA_FA2_DEPS     := $(wildcard $(FA2_SRC_DIR)/*.cuh)
 
 CPP_SRC           := $(GRAPH_VIEWER_SRCS) $(PNGWRITER_SRCS)
-CUDA_SRC          := $(CUDA_SRCS)
+CUDA_SRC          := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRC)
 OBJECTS           := $(GRAPH_VIEWER_OBJS) $(PNGWRITER_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
-OBJECTS           := $(OBJECTS) $(CUDA_OBJS)
-SOURCES           := $(SOURCES) $(CUDA_SRCS)
+OBJECTS           := $(OBJECTS) $(CUDA_FA2_OBJS)
+SOURCES           := $(SOURCES) $(CUDA_FA2_SRCS)
 endif
 
 # Generate dependency (.h, .hpp)
@@ -81,7 +86,7 @@ $(GRAPH_VIEWER_OBJS): $(GRAPH_VIEWER_SRCS)
 	mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(SRC_DIR)/%.cpp)
 
-$(CUDA_OBJS): $(CUDA_SRCS) $(CUDA_DEPS)
+$(CUDA_FA2_OBJS): $(CUDA_FA2_SRCS) $(CUDA_FA2_DEPS)
 	mkdir -p $(@D)
 	nvcc --device-c $(CXXFLAGS) $(NVCCFLAGS) $(CPPFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(SRC_DIR)/%.cu)
 
