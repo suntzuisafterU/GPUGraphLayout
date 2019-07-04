@@ -103,7 +103,7 @@ $(FA2_OBJS): $(FA2_SRCS)
 
 $(CUDA_FA2_OBJS): $(CUDA_FA2_SRCS) $(CUDA_FA2_DEPS)
 	@mkdir -p $(@D)
-	nvcc --device-c $(CXXFLAGS) $(NVCCFLAGS) $(CPPFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(SRC_DIR)/%.cu)
+	nvcc --device-c $(NVCCFLAGS) $(CXXFLAGS) $(CPPFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(SRC_DIR)/%.cu)
 
 $(PNGWRITER_OBJS): $(PNGWRITER_SRCS)
 	@mkdir -p $(@D)
