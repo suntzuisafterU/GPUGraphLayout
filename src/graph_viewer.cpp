@@ -47,6 +47,7 @@
 #include "FA2/RPGPUForceAtlas2.hpp"
 #endif
 
+namespace { // anonymous
 /**
  * Entry point for executable.  CPU or GPU.
  */
@@ -280,3 +281,5 @@ int main(int argc, const char **argv)
 
     exit(EXIT_SUCCESS);
 }
+
+} // namespace anonymous
