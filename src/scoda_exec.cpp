@@ -1,4 +1,4 @@
-#include "scoda.hpp"
+#include "scoda/scoda.hpp"
 
 using namespace std;
 
