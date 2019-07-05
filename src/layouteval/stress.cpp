@@ -18,10 +18,12 @@ using std::vector;
 float stress(RPGraph::GraphLayout* layout, int L) {
     // Iterate over all nodes in layout.graph
     RPGraph::Graph& g = layout.graph; // If I use a reference here does this get copied?
+    
     return 0.0F; // TODO: Temp
 }
 
 inline float distU(Coordinate c1, Coordinate c2) {
+    // OR: Just use the provided getDistance(con_nidt, con_nidt) method.
     // TODO: Euclidean distance
 }
 

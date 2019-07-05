@@ -1,0 +1,31 @@
+[1;94mRPCPUForceAtlas2.cpp[m:48:14:        for ([1mmapped_nid_t[m n = 0; n < layout.graph.num_nodes(); ++n)
+[1;94mRPCPUForceAtlas2.cpp[m:64:14:        for ([1mmapped_nid_t[m t : layout.graph.neighbors_with_geq_id(n))
+[1;94mRPCPUForceAtlas2.cpp[m:104:18:            for ([1mmapped_nid_t[m t = 0; t < layout.graph.num_nodes(); ++t)
+[1;94mRPGPUForceAtlas2.cu[m:86:14:        for ([1mmapped_nid_t[m source_id = 0; source_id < layout.graph.num_nodes(); ++source_id)
+[1;94mRPGPUForceAtlas2.cu[m:88:18:            for ([1mmapped_nid_t[m target_id : layout.graph.neighbors_with_geq_id(source_id))
+[1;94mRPGPUForceAtlas2.cu[m:280:13:        for([1mmapped_nid_t[m n = 0; n < layout.graph.num_nodes(); ++n)
+[1;94mRPGraph.cpp[m:86:9:        [1mmapped_nid_t[m s_mapped = node_map[s];
+[1;94mRPGraph.cpp[m:87:9:        [1mmapped_nid_t[m t_mapped = node_map[t];
+[1;94mRPGraph.cpp[m:91:21:        std::vector<[1mmapped_nid_t[m> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
+[1;94mRPGraph.cpp[m:123:35:    void UGraph::private_add_edge([1mmapped_nid_t[m s, [1mmapped_nid_t[m t)
+[1;94mRPGraph.cpp[m:151:29:    uint32_t UGraph::degree([1mmapped_nid_t[m nid)
+[1;94mRPGraph.cpp[m:159:32:    uint32_t UGraph::in_degree([1mmapped_nid_t[m nid)
+[1;94mRPGraph.cpp[m:167:33:    uint32_t UGraph::out_degree([1mmapped_nid_t[m nid)
+[1;94mRPGraph.hpp[m:37:22:    typedef uint32_t [1mmapped_nid_t[m; /// Private node id.  For use internally in graph classes only.
+[1;94mRPGraph.hpp[m:57:33:            virtual std::vector<[1mmapped_nid_t[m> neighbors_with_geq_id([1mmapped_nid_t[m nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
+[1;94mRPGraph.hpp[m:68:28:        std::unordered_map<[1mmapped_nid_t[m, uint32_t> degrees; /**< Maps nid_t to degrees? */
+[1;94mRPGraph.hpp[m:69:28:        std::unordered_map<[1mmapped_nid_t[m, std::vector<[1mmapped_nid_t[m>> adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
+[1;94mRPGraph.hpp[m:72:35:        std::unordered_map<nid_t, [1mmapped_nid_t[m> node_map; /**< el id => UGraph id. IMPORTANT: This is necessary so that we can produce a contigous array for the CUDA implementation to work on.  You have been warned. */
+[1;94mRPGraph.hpp[m:73:28:        std::unordered_map<[1mmapped_nid_t[m, nid_t> node_map_r; /**< UGraph id => el id. Only used by writeToBin() and writeToCsv() */
+[1;94mRPGraph.hpp[m:76:31:        void private_add_edge([1mmapped_nid_t[m s, [1mmapped_nid_t[m t); /**< Adding an edge also adds any nodes. */
+[1;94mRPGraph.hpp[m:92:21:        std::vector<[1mmapped_nid_t[m> neighbors_with_geq_id([1mmapped_nid_t[m nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
+[1;94mRPGraphLayout.cpp[m:76:14:        for ([1mmapped_nid_t[m n = 0; n < graph.num_nodes(); ++n)
+[1;94mRPGraphLayout.cpp[m:84:14:        for ([1mmapped_nid_t[m n = 0; n < graph.num_nodes(); ++n)
+[1;94mRPGraphLayout.cpp[m:92:14:        for ([1mmapped_nid_t[m n = 0; n < graph.num_nodes(); ++n)
+[1;94mRPGraphLayout.cpp[m:100:14:        for ([1mmapped_nid_t[m n = 0; n < graph.num_nodes(); ++n)
+[1;94mRPGraphLayout.cpp[m:180:35:    void GraphLayout::privateSetX([1mmapped_nid_t[m node_id, float x_value){
+[1;94mRPGraphLayout.cpp[m:184:35:    void GraphLayout::privateSetY([1mmapped_nid_t[m node_id, float y_value){
+[1;94mRPGraphLayout.hpp[m:40:27:        float privateGetX([1mmapped_nid_t[m node_id), privateGetY([1mmapped_nid_t[m node_id);
+[1;94mRPGraphLayout.hpp[m:41:26:        void privateSetX([1mmapped_nid_t[m node_id, float x_value), privateSetY([1mmapped_nid_t[m node_id, float y_value);
+[1;94mRPGraphLayout.hpp[m:42:36:        void privateSetCoordinates([1mmapped_nid_t[m node_id, Coordinate c);
+[1;94mRPGraphLayout.hpp[m:43:41:        Coordinate privateGetCoordinate([1mmapped_nid_t[m node_id);

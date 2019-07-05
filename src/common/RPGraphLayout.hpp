@@ -53,18 +53,18 @@ namespace RPGraph
         // randomize the layout position of all nodes.
         void randomizePositions();
 
-        float getX(nid_t node_id), getY(nid_t node_id);
+        float getX(contiguous_nid_t node_id), getY(contiguous_nid_t node_id);
         float getXRange(), getYRange(), getSpan();
-        float getDistance(nid_t n1, nid_t n2);
-        Real2DVector getDistanceVector(nid_t n1, nid_t n2);
-        Real2DVector getNormalizedDistanceVector(nid_t n1, nid_t n2);
-        Coordinate getCoordinate(nid_t node_id);
+        float getDistance(contiguous_nid_t n1, contiguous_nid_t n2);
+        Real2DVector getDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
+        Real2DVector getNormalizedDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
+        Coordinate getCoordinate(contiguous_nid_t node_id);
         Coordinate getCenter();
 
 
-        void setX(nid_t node_id, float x_value), setY(nid_t node_id, float y_value);
-        void moveNode(nid_t, Real2DVector v);
-        void setCoordinates(nid_t node_id, Coordinate c);
+        void setX(contiguous_nid_t node_id, float x_value), setY(contiguous_nid_t node_id, float y_value);
+        void moveNode(contiguous_nid_t , Real2DVector v);
+        void setCoordinates(contiguous_nid_t node_id, Coordinate c);
     };
 }
 

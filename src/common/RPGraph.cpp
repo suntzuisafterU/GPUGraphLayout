@@ -77,33 +77,30 @@ namespace RPGraph
     }
 
     /**
-     * This method seems inefficient.
-     * 
-     * TODO: Analyze and consider using something different.  May not be able to since PNG-writer depends
-     *       on the format of our UGraph.
+     * I do not think this is currently being used.
      */
-    bool UGraph::has_edge(nid_t s, nid_t t)
-    {
-        if(!has_node(s) or !has_node(t)) return false;
+    // bool UGraph::has_edge(nid_t s, nid_t t)
+    // {
+    //     if(!has_node(s) or !has_node(t)) return false;
 
-        nid_t s_mapped = node_map[s];
-        nid_t t_mapped = node_map[t];
+    //     contiguous_nid_t s_mapped = node_map[s];
+    //     contiguous_nid_t t_mapped = node_map[t];
 
-        if(adjacency_list.count(std::min(s_mapped, t_mapped)) == 0) return false;
+    //     if(adjacency_list.count(std::min(s_mapped, t_mapped)) == 0) return false;
 
-        std::vector<nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
-        if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
-            return false;
-        else
-            return true;
-    }
+    //     std::vector<contiguous_nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
+    //     if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
+    //         return false;
+    //     else
+    //         return true;
+    // }
 
     void UGraph::add_node(nid_t nid)
     {
         if(!has_node(nid))
         {
-            node_map[nid] = node_count;
-            node_map_r[node_count] = nid;
+            node_map[nid] = const_cast<contiguous_nid_t>(node_count);
+            node_map_r[const_cast<contiguous_nid_t>(node_count)] = nid;
             node_count++;
         }
     }
@@ -113,8 +110,8 @@ namespace RPGraph
         // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
         if(!has_node(s)) add_node(s);
         if(!has_node(t)) add_node(t);
-        nid_t s_mapped = node_map[s];
-        nid_t t_mapped = node_map[t];
+        contiguous_nid_t s_mapped = node_map[s];
+        contiguous_nid_t t_mapped = node_map[t];
 
         // Insert edge into adjacency_list
         adjacency_list[std::min(s_mapped, t_mapped)].push_back(std::max(s_mapped, t_mapped));
@@ -138,7 +135,7 @@ namespace RPGraph
 	 *
 	 * TODO: Make these functions that use internal nids private, or friend + private and define new functions that also map the nids for us...
 	 */
-    nid_t UGraph::degree(nid_t nid)
+    uint32_t UGraph::degree(contiguous_nid_t nid)
     {
         return degrees[nid];
     }
@@ -146,7 +143,7 @@ namespace RPGraph
     /**
      * Is redundant.  Keeps compiler from complaining.
      */
-    nid_t UGraph::in_degree(nid_t nid)
+    uint32_t UGraph::in_degree(contiguous_nid_t nid)
     {
         return degree(nid);
     }
@@ -154,7 +151,7 @@ namespace RPGraph
     /**
      * Is redundant.  Keeps compiler from complaining.
      */
-    nid_t UGraph::out_degree(nid_t nid)
+    uint32_t UGraph::out_degree(contiguous_nid_t nid)
     {
         return degree(nid);
     }
@@ -162,7 +159,7 @@ namespace RPGraph
     /**
      * Index via MAPPED nids
      */
-    std::vector<nid_t> UGraph::neighbors_with_geq_id(nid_t nid)
+    std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid)
     {
         return adjacency_list[nid];
     }

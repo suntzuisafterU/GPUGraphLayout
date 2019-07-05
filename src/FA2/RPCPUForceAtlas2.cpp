@@ -45,7 +45,7 @@ namespace RPGraph
     {
         forces      = (Real2DVector *)malloc(sizeof(Real2DVector) * layout.graph.num_nodes());
         prev_forces = (Real2DVector *)malloc(sizeof(Real2DVector) * layout.graph.num_nodes());
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguouts_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             forces[n]      = Real2DVector(0.0f, 0.0f);
             prev_forces[n] = Real2DVector(0.0f, 0.0f);
@@ -61,7 +61,7 @@ namespace RPGraph
     void CPUForceAtlas2::apply_attract(nid_t n)
     {
         Real2DVector f = Real2DVector(0.0, 0.0);
-        for (nid_t t : layout.graph.neighbors_with_geq_id(n))
+        for (contiguous_nid_t t : layout.graph.neighbors_with_geq_id(n))
         {
             // Here we define the magnitude of the attractive force `f_a'
             // *divided* by the length distance between `n' and `t', i.e. `f_a_over_d'
@@ -101,7 +101,7 @@ namespace RPGraph
 		// Exact, O(n) (n^2 to calculate for all nodes)
         else
         {
-            for (nid_t t = 0; t < layout.graph.num_nodes(); ++t)
+            for (contiguous_nid_t t = 0; t < layout.graph.num_nodes(); ++t)
             {
                 if (n == t) continue;
                 float  distance = layout.getDistance(n, t);
