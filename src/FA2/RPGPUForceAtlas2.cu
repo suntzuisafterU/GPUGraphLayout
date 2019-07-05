@@ -84,9 +84,9 @@ namespace RPGraph
         int cur_targets_idx = 0;
 
         // Initialize the sources and targets arrays with edge-data.
-        for (nid_t source_id = 0; source_id < layout.graph.num_nodes(); ++source_id)
+        for (contiguous_nid_t source_id = 0; source_id < layout.graph.num_nodes(); ++source_id)
         {
-            for (nid_t target_id : layout.graph.neighbors_with_geq_id(source_id))
+            for (contiguous_nid_t target_id : layout.graph.neighbors_with_geq_id(source_id))
             {
                 sources[cur_sources_idx++] = source_id;
                 targets[cur_targets_idx++] = target_id;
@@ -283,7 +283,7 @@ namespace RPGraph
     void CUDAForceAtlas2::sync_layout()
     {
         retrieveLayoutFromGPU();
-        for(nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for(contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             layout.setX(n, body_pos[n].x);
             layout.setY(n, body_pos[n].y);
