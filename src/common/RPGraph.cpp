@@ -29,15 +29,10 @@
 #include <algorithm>
 #include "RPGraph.hpp"
 
-// Finished reading May15, unless want to look at CSRUGraph at a later date.
-
 namespace RPGraph
 {
     Graph::~Graph() = default;
 
-    /**
-     * Used once in main file (graph_viewer.cpp)
-     */
     UGraph::UGraph() {
         node_count = 0;
         edge_count = 0;
@@ -163,6 +158,9 @@ namespace RPGraph
         return degree(nid);
     }
 
+    /**
+     * Index via MAPPED nids
+     */
     std::vector<nid_t> UGraph::neighbors_with_geq_id(nid_t nid)
     {
         return adjacency_list[nid];
