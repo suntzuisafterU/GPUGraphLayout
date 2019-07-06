@@ -45,7 +45,7 @@ namespace RPGraph
     {
         forces      = (Real2DVector *)malloc(sizeof(Real2DVector) * layout.graph.num_nodes());
         prev_forces = (Real2DVector *)malloc(sizeof(Real2DVector) * layout.graph.num_nodes());
-        for (contiguouts_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             forces[n]      = Real2DVector(0.0f, 0.0f);
             prev_forces[n] = Real2DVector(0.0f, 0.0f);

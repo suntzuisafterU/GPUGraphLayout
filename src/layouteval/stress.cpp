@@ -17,7 +17,7 @@ using std::vector;
  */
 float stress(RPGraph::GraphLayout* layout, int L) {
     // Iterate over all nodes in layout.graph
-    RPGraph::Graph& g = layout.graph; // If I use a reference here does this get copied?
+    RPGraph::Graph& g = layout->graph; // If I use a reference here does this get copied?
     
     return 0.0F; // TODO: Temp
 }
