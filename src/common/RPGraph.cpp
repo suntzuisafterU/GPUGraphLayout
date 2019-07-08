@@ -38,7 +38,7 @@ namespace RPGraph
     /**
      * Used once in main file (graph_viewer.cpp)
      */
-    UGraph::UGraph(int temp) {
+    UGraph::UGraph() {
         node_count = 0;
         edge_count = 0;
     }

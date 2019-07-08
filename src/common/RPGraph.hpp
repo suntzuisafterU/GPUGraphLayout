@@ -71,7 +71,7 @@ namespace RPGraph
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
 
     public:
-        UGraph(int temp);
+        UGraph();
         UGraph(std::string edgelist_path);
 
         UGraph(const UGraph&) = delete;              /// Disallow copying.

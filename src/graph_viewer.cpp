@@ -147,7 +147,7 @@ int main(int argc, const char **argv)
 	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
 
     RPGraph::UGraph full_graph(edgelist_path); // Initialize full_graph from provided path.
-    RPGraph::UGraph comm_graph(0);              // Initialize empty comm_graph for scoda to fill.
+    RPGraph::UGraph comm_graph();              // Initialize empty comm_graph for scoda to fill.
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 	//////////////////////////////////////////////////////////////////////////////////////////////
     uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
