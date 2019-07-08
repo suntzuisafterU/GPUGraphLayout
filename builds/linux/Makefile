@@ -38,6 +38,12 @@ else
 	O_LVL:=-O3
 endif
 
+# Override -O3 optimization if requested.
+FAST ?= 0
+ifeq ($(FAST), 1)
+	O_LVL:=-O0
+endif
+
 # C preprocessor flags
 CPPFLAGS :=-D NO_FREETYPE
 
