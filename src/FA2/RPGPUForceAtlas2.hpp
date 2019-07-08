@@ -38,6 +38,10 @@ namespace RPGraph
         CUDAForceAtlas2(GraphLayout &layout, bool use_barneshut,
                         bool strong_gravity, float gravity, float scale,
 						bool randomize, bool use_linlog=false);
+
+        CUDAForceAtlas2(const CUDAForceAtlas2& other) = delete;             /// Disallow copy construction.
+        CUDAForceAtlas2 & operator=(const CUDAForceAtlas2& other) = delete; /// Disallow copy assignment.
+
         ~CUDAForceAtlas2();
         void doStep() override;
         void sync_layout() override;

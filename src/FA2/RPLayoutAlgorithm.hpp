@@ -35,6 +35,11 @@ namespace RPGraph
     public:
 
         LayoutAlgorithm(GraphLayout &layout);
+
+        LayoutAlgorithm(const LayoutAlgorithm& other) = delete;              /// Disallow copy construction.
+        LayoutAlgorithm & operator= (const LayoutAlgorithm& other) = delete; /// Disallow copy assignment.
+        /// This also disallows the move constructor.
+
         virtual ~LayoutAlgorithm();
         GraphLayout &layout;
 
