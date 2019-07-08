@@ -71,10 +71,12 @@ namespace RPGraph
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
 
     public:
-        UGraph();
+        UGraph(int temp);
         UGraph(std::string edgelist_path);
-        // UGraph(const UGraph&) = delete;             /// Disallow copying.
-        // UGraph & operator= (const UGraph&) = delete; /// Disallow copy assignment operator.
+
+        UGraph(const UGraph&) = delete;              /// Disallow copying.
+        UGraph & operator= (const UGraph&) = delete; /// Disallow copy assignment operator.
+        /// Also disallows move semantics, unless explicitly specified.
 
         ~UGraph(); /* Explicity declare and define destructors. */
 
