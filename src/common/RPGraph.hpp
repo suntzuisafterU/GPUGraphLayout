@@ -71,7 +71,20 @@ namespace RPGraph
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
 
     public:
-        UGraph();
+        /** TODO: Solve this mystery. 
+         * So far I have tried:
+         *   - explicit UGraph();
+         *   - commenting out the deletion of the copy constructor and copy assignment.
+         * And most vexxingly, successfully tried:
+         *   - Defining a constructor that takes a useless temporary parameter, and not defining a
+         *     default constructor.  Why would this work? Why would this be different??? 
+         * Conclusion: There is an aweful name lookup or function binding bug here.
+         * 
+         * Result: The call `UGraph comm_graph();` was binding the name comm_graph to the ctor of
+         *         UGraph... This is very strange behaviour indeed.
+         *         Solution: Replaced with `UGraph comm_graph` and all is right in the world.
+         */
+        explicit UGraph();
         UGraph(std::string edgelist_path);
 
         UGraph(const UGraph&) = delete;              /// Disallow copying.
