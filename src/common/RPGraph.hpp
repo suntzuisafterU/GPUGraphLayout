@@ -73,6 +73,9 @@ namespace RPGraph
     public:
         UGraph();
         UGraph(std::string edgelist_path);
+        // UGraph(const UGraph&) = delete;             /// Disallow copying.
+        // UGraph & operator= (const UGraph&) = delete; /// Disallow copy assignment operator.
+
         ~UGraph(); /* Explicity declare and define destructors. */
 
         /**

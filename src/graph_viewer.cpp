@@ -146,13 +146,14 @@ int main(int argc, const char **argv)
     fflush(stdout);
 	// TODO: Would loading the file into a database in memory make our subsequent loads faster, while also allowing scoda to use a randomly generated index to satisfy it's probability constraints?
 
-    RPGraph::UGraph full_graph = RPGraph::UGraph(edgelist_path); // Initialize full_graph from provided path.
-    RPGraph::UGraph comm_graph = RPGraph::UGraph();
+    RPGraph::UGraph* full_graph = new RPGraph::UGraph(edgelist_path); /// Initialize full_graph from provided path.
+    RPGraph::UGraph* comm_graph = new RPGraph::UGraph();              /// Initialize empty comm_graph to be filled.
+    // TODO: Does the next line create a map object?
     std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 	//////////////////////////////////////////////////////////////////////////////////////////////
     uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
     //////////////////////////////////////////////////////////////////////////////////////////////
-    int status = CommunityAlgos::scoda_G(degree_threshold, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
+    int status = CommunityAlgos::scoda_G(degree_threshold, *full_graph, *comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
 	
     if(status != 0){ // 0 is success
         exit(status); // propgate error code.
@@ -161,11 +162,11 @@ int main(int argc, const char **argv)
     printf("Finished scoda\n");
 
     printf("done.\n");
-    printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
+    printf("    fetched %d nodes and %d edges.\n", full_graph->num_nodes(), full_graph->num_edges());
 
     // Create the GraphLayout and ForceAtlas2 objects.
-    RPGraph::GraphLayout comm_layout = RPGraph::GraphLayout(comm_graph); /* Produce initial layout from comm_graph. */
-	RPGraph::GraphLayout* current_layout = &comm_layout; /* Use pointer in lambdas that can be modified. */
+    RPGraph::GraphLayout* comm_layout = new RPGraph::GraphLayout(comm_graph); /* Produce initial layout from comm_graph. */
+	RPGraph::GraphLayout* current_layout = comm_layout; /* Use pointer in lambdas that can be modified. */
     RPGraph::ForceAtlas2* comm_fa2; // Could be CPU or GPU object.
 	bool randomize = true;
     #ifdef __NVCC__
@@ -235,8 +236,8 @@ int main(int argc, const char **argv)
     }
 	fa2 = nullptr;
 
-    RPGraph::GraphLayout full_layout = RPGraph::GraphLayout(full_graph);
-    current_layout = &full_layout; /* Use pointer in lambdas that can be modified. */
+    RPGraph::GraphLayout* full_layout = new RPGraph::GraphLayout(full_graph);
+    current_layout = full_layout; /* Use pointer in lambdas that can be modified. */
 
 	// TODO: Expansion kernel instead of sequential code called here. NOTE: Low priority.
 
@@ -247,13 +248,15 @@ int main(int argc, const char **argv)
 	for (const auto& nid_commid_pair : nid_comm_map) {
 		RPGraph::nid_t node = nid_commid_pair.first;
 		RPGraph::nid_t comm = nid_commid_pair.second;
-		RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(comm_graph.node_map[comm]);
+		RPGraph::Coordinate comm_coordinate = comm_layout->getCoordinate(comm_graph->node_map[comm]);
 		// TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
-		full_layout.setCoordinates(full_graph.node_map[node], comm_coordinate); /**< Set the nodes id to be that of it's community. */
+		full_layout->setCoordinates(full_graph->node_map[node], comm_coordinate); /**< Set the nodes id to be that of it's community. */
 	}
 
 	// TODO: Was moved here for safety.  May be able to move it above the full_layout initialization.
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
+    // delete comm_graph;
+    // delete comm_layout; // TODO: delete
 
 	randomize = false;
 	RPGraph::ForceAtlas2* full_fa2;
@@ -277,6 +280,8 @@ int main(int argc, const char **argv)
     }
 	fa2 = nullptr;
 	delete full_fa2; /* Free last ForceAtlas2 object. */
+    // delete full_graph;
+    // delete full_layout;
 
     exit(EXIT_SUCCESS);
 }
