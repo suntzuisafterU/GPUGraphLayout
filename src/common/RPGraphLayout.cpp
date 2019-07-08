@@ -39,7 +39,7 @@ namespace RPGraph
      * Q: What are width and height for?  Size of image?
      */
     GraphLayout::GraphLayout(UGraph &graph, float width, float height)
-        : graph(graph), width(width), height(height)
+        : width(width), height(height), graph(graph)
     {
         // Mem complexity: O(|V|)
         coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));

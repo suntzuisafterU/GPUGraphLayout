@@ -4,13 +4,16 @@ CC:=gcc
 L_SRC_DIR         := ../../lib
 SRC_DIR           := ../../src
 COMMON_SRC_DIR    := $(SRC_DIR)/common
-UTILS_SRC_DIR     := $(SRC_DIR)/io_utils
+UTILS_SRC_DIR     := $(SRC_DIR)/utils
+IO_SRC_DIR        := $(UTILS_SRC_DIR)/IO
 SCODA_SRC_DIR     := $(SRC_DIR)/scoda
 FA2_SRC_DIR       := $(SRC_DIR)/FA2
 LO_EVAL_SRC_DIR   := $(SRC_DIR)/layouteval
+
 OBJ_DIR           := obj
 COMMON_OBJ_DIR    := $(OBJ_DIR)/common
-UTILS_OBJ_DIR     := $(OBJ_DIR)/io_utils
+UTILS_OBJ_DIR     := $(OBJ_DIR)/utils
+IO_OBJ_DIR        := $(UTILS_OBJ_DIR)/IO
 SCODA_OBJ_DIR     := $(OBJ_DIR)/scoda
 FA2_OBJ_DIR       := $(OBJ_DIR)/FA2
 LO_EVAL_OBJ_DIR   := $(OBJ_DIR)/layouteval
@@ -54,6 +57,9 @@ COMMON_OBJS       := $(COMMON_SRCS:$(COMMON_SRC_DIR)/%.cpp=$(COMMON_OBJ_DIR)/%.o
 UTILS_SRCS        := $(wildcard $(UTILS_SRC_DIR)/*.cpp)
 UTILS_OBJS        := $(UTILS_SRCS:$(UTILS_SRC_DIR)/%.cpp=$(UTILS_OBJ_DIR)/%.o)
 
+IO_SRCS           := $(wildcard $(IO_SRC_DIR)/*.cpp)
+IO_OBJS           := $(IO_SRCS:$(IO_SRC_DIR)/%.cpp=$(IO_OBJ_DIR)/%.o)
+
 SCODA_SRCS        := $(wildcard $(SCODA_SRC_DIR)/*.cpp)
 SCODA_OBJS        := $(SCODA_SRCS:$(SCODA_SRC_DIR)/%.cpp=$(SCODA_OBJ_DIR)/%.o)
 
@@ -76,12 +82,14 @@ GRAPH_VIEWER_SRC  := $(SRC_DIR)/graph_viewer.cpp
 
 STRESS_EXE_SRC    := $(SRC_DIR)/stress_exec.cpp
 
-CPP_SRCS          := $(COMMON_SRCS) $(UTILS_SRCS) $(SCODA_SRCS) $(FA2_SRCS) $(LO_EVAL_SRCS) $(SCODA_EXE_SRC) $(GRAPH_VIEWER_SRC) $(PNGWRITER_SRCS)
+CPP_SRCS          := $(COMMON_SRCS) $(UTILS_SRCS) $(IO_SRCS) $(SCODA_SRCS) \
+					 $(FA2_SRCS) $(LO_EVAL_SRCS) $(SCODA_EXE_SRC) $(GRAPH_VIEWER_SRC) \
+					 $(PNGWRITER_SRCS)
 CUDA_SRCS         := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRCS)
-GV_OBJECTS        := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(UTILS_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
+GV_OBJECTS        := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(IO_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
 SCODA_EXE_OBJS    := $(COMMON_OBJS) $(SCODA_OBJS)
-STRESS_EXE_OBJS   := $(COMMON_OBJS) $(LO_EVAL_OBJS)
+STRESS_EXE_OBJS   := $(COMMON_OBJS) $(UTILS_OBJS) $(LO_EVAL_OBJS)
 CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
@@ -116,6 +124,10 @@ $(COMMON_OBJS): $(COMMON_SRCS)
 $(UTILS_OBJS): $(UTILS_SRCS)
 	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) -o $@ $(@:$(UTILS_OBJ_DIR)/%.o=$(UTILS_SRC_DIR)/%.cpp)
+
+$(IO_OBJS): $(IO_SRCS)
+	@mkdir -p $(@D)
+	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) -o $@ $(@:$(IO_OBJ_DIR)/%.o=$(IO_SRC_DIR)/%.cpp)
 
 $(SCODA_OBJS): $(SCODA_SRCS)
 	@mkdir -p $(@D)
