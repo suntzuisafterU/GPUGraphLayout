@@ -43,8 +43,8 @@ namespace RPGraph
         GraphLayout(RPGraph::UGraph &graph,
                     float width = 10000, float height = 10000);
         
-        GraphLayout(const GraphLayout& other) = delete;
-        GraphLayout & operator=(const GraphLayout& other) = delete;
+        GraphLayout(const GraphLayout& other) = delete;             /// Disallow copy construction.
+        GraphLayout & operator=(const GraphLayout& other) = delete; /// Disallow copy assignment.
 
         ~GraphLayout();
 

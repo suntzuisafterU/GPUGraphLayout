@@ -43,6 +43,11 @@ namespace RPGraph
             ForceAtlas2(GraphLayout &layout, bool use_barneshut,
                         bool strong_gravity, float gravity, float scale,
 						bool randomize, bool use_linlog);
+            
+            ForceAtlas2(const ForceAtlas2& other) = delete;             /// Disallow copy construction.
+            ForceAtlas2 & operator=(const ForceAtlas2& other) = delete; /// Disallow copy assignment.
+            /// This also disallows move constructor if not explicitly defined.
+
             virtual ~ForceAtlas2();
 
             virtual void doStep() = 0; /**< Pure virtual function that must be implemented by deriving class. */
