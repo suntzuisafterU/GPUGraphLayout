@@ -13,7 +13,7 @@
 
 #include "../common/RPGraph.hpp" // For UGraph and nid_t
 
-namespace CommunityAlgos {
+namespace RPGraph{
     /**
      *
      */
@@ -24,6 +24,6 @@ namespace CommunityAlgos {
     int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file);
     
     void print_partition(std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_comm_map);
-}
+} // namespace RPGraph
 
 #endif /* scoda_hpp */

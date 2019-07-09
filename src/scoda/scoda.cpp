@@ -1,6 +1,6 @@
 #include "scoda.hpp"
 
-namespace CommunityAlgos
+namespace RPGraph
 {
 
 #define DEGREE(id) (full_graph.degree(full_graph.node_map[id]))              /// Defines function for accessing the degree of the ith node.
@@ -228,4 +228,4 @@ void print_partition(std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_com
     }
 }
 
-} // namespace CommunityAlgos
+} // namespace RPGraph
