@@ -69,7 +69,7 @@ namespace RPGraph
             nid_t s, t;
             std::istringstream(line) >> s >> t;
 
-            // if(s != t and !has_edge(s, t)) add_edge(s, t); // Original behaviour of graph_viewer was to ignore duplicate edges.
+            // if(s != t and !has_edge(s, t)) add_edge(s, t); // Original behaviour of graph_viewer was to ignore duplicate edges. // TODO: Decide how to handle duplicate/weighted edges.
             add_edge(s, t);
         }
 
