@@ -19,16 +19,18 @@ int scoda_G(uint32_t degree_threshold,
 {
     /* Memory allocation & initialisation */
     nid_comm_map.reserve(full_graph.num_nodes()); // TODO: Testing
+    // TODO: When refactored to contiguous_nid_t, this map will no longer take nid_t
+    std::unordered_map<RPGraph::nid_t, uint32_t> degrees; // Make map to track degrees. Use map since node ids are not guaranteed to be contiguous.
 
     int num_null_e = 0; // Just for counting the number of FULLY ignored edges.
-    int num_duplicate_edges = 0;
+    int num_duplicate_comm_edges = 0;
 
     printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
 
-    RPGraph::nid_t src_id, dst_id, src_deg, dst_deg;
-    if (full_graph.num_nodes() == 0 || full_graph.num_edges() == 0)
-        return -1; // ERROR, empty UGraph.
+    RPGraph::nid_t src_id, dst_id;
+    uint32_t src_deg, dst_deg;
+    if (full_graph.num_nodes() == 0 || full_graph.num_edges() == 0) return -1; // ERROR, empty UGraph.
     // TODO: Move explicit manipulation of UGraph to internal function or iterator class.
     for (RPGraph::nid_t source_id = 0; source_id < full_graph.num_nodes(); ++source_id) // Iterate over source nodes
     {
@@ -44,9 +46,12 @@ int scoda_G(uint32_t degree_threshold,
             if (nid_comm_map.count(dst_id) == 0)
                 INSERT_COMMUNITY(dst_id, dst_id); // Default community for node has same id as node
 
-            // degrees are >= 1;
-            src_deg = DEGREE(src_id);
-            dst_deg = DEGREE(dst_id);
+            degrees[src_id] += 1;
+            degrees[dst_id] += 1;
+            
+            src_deg = degrees[src_id];
+            dst_deg = degrees[dst_id];
+
 
             // This is the modification I am interested in testing:
             // if( src_deg <= degree_threshold || dst_deg <= degree_threshold )
@@ -56,8 +61,6 @@ int scoda_G(uint32_t degree_threshold,
 				implementation since it has:
 				  a) conditional branching (see below)
 				  b) I can not think of a way to organize the memory access properly since this algorithm relies on a random stream. */
-
-                // TODO: Initialize the community ids of the unordered_map
 
                 if (src_deg > dst_deg)
                 {
@@ -91,7 +94,7 @@ int scoda_G(uint32_t degree_threshold,
             {
                 if (comm_graph.has_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id)))
                 {
-                    num_duplicate_edges++;
+                    num_duplicate_comm_edges++;
                 }
                 // add community edge. Includes duplicates.
                 comm_graph.add_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id));
@@ -105,7 +108,7 @@ int scoda_G(uint32_t degree_threshold,
         }
     }
     printf("num_null_e: %d\n", num_null_e);
-    printf("num_duplicate_edges: %d\n", num_duplicate_edges);
+    printf("num_duplicate_comm_edges: %d\n", num_duplicate_comm_edges);
     printf("num_comm_nodes: %d\n", comm_graph.num_nodes());
     printf("num_full_nodes: %d\n", full_graph.num_nodes());
     float node_comp_ratio = (float) full_graph.num_nodes() / (float) comm_graph.num_nodes();
@@ -130,7 +133,7 @@ int scoda_G(uint32_t degree_threshold, std::fstream &edgelist_file,
     /* Memory allocation & initialisation */
 
     int num_null_e = 0; // Just for counting the number of FULLY ignored edges.
-    int num_duplicate_edges = 0;
+    int num_duplicate_comm_edges = 0;
 
     printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
@@ -172,8 +175,6 @@ int scoda_G(uint32_t degree_threshold, std::fstream &edgelist_file,
               a) conditional branching (see below)
               b) I can not think of a way to organize the memory access properly since this algorithm relies on a random stream. */
 
-            // TODO: Initialize the community ids of the unordered_map
-
             if (src_deg > dst_deg)
             {
                 INSERT_COMMUNITY(dst_id, COMMUNITY_OF(src_id));
@@ -206,7 +207,7 @@ int scoda_G(uint32_t degree_threshold, std::fstream &edgelist_file,
         {
             if (comm_graph.has_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id)))
             {
-                num_duplicate_edges++;
+                num_duplicate_comm_edges++;
             }
             // add community edge.
             comm_graph.add_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id));
@@ -220,7 +221,7 @@ int scoda_G(uint32_t degree_threshold, std::fstream &edgelist_file,
         }
     }
     printf("num_null_e: %d\n", num_null_e);
-    printf("num_duplicate_edges: %d\n", num_duplicate_edges);
+    printf("num_duplicate_comm_edges: %d\n", num_duplicate_comm_edges);
     printf("num_comm_nodes: %d\n", comm_graph.num_nodes());
     printf("num_full_nodes: %d\n", full_graph.num_nodes());
     float node_comp_ratio = (float) full_graph.num_nodes() / (float) comm_graph.num_nodes();
@@ -254,8 +255,8 @@ int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file)
         std::istringstream(line) >> src_id >> dst_id;
 
         // Must add edge before retrieving degrees of nodes.
-        degrees[src_id]++; // TODO: IMPORTANT: Is this incrementing the degrees of the associated id?
-        degrees[dst_id]++;
+        degrees[src_id] += 1;
+        degrees[dst_id] += 1;
 
         /// If this is the first time we have seen these nodes, add them to the nid_comm_map.
         // .count() is used for membership test...
@@ -276,8 +277,6 @@ int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file)
             implementation since it has:
               a) conditional branching (see below)
               b) I can not think of a way to organize the memory access properly since this algorithm relies on a random stream. */
-
-            // TODO: Initialize the community ids of the unordered_map
 
             if (src_deg > dst_deg)
             {
