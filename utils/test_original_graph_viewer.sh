@@ -96,6 +96,9 @@ do op="$1"
       VERBOSE="TRUE"
       shift
       ;;
+    * )
+      echo "Unknown option: $1"
+      exit 1
   esac
 done
 
