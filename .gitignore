@@ -51,3 +51,6 @@ GPUGraphLayout_take2.vcxproj
 GPUGraphLayout_take2.vcxproj.filters
 GPUGraphLayout_take2.vcxproj.user
 PropertySheet.props
+
+## Temp binaries and scripts
+**/.nfs*
