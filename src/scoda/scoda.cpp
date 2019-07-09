@@ -106,7 +106,14 @@ int scoda_G(uint32_t degree_threshold,
     }
     printf("num_null_e: %d\n", num_null_e);
     printf("num_duplicate_edges: %d\n", num_duplicate_edges);
+    printf("num_comm_nodes: %d\n", comm_graph.num_nodes());
+    printf("num_full_nodes: %d\n", full_graph.num_nodes());
+    float node_comp_ratio = (float) full_graph.num_nodes() / (float) comm_graph.num_nodes();
+    printf("node compression ratio: %lf\n", node_comp_ratio);
     printf("num_comm_e: %d\n", comm_graph.num_edges());
+    printf("num_full_e: %d\n", full_graph.num_edges());
+    float edge_comp_ratio = (float) full_graph.num_edges() / (float) comm_graph.num_edges();
+    printf("edge compression ratio: %lf\n", edge_comp_ratio);
     return EXIT_SUCCESS;
 }
 
@@ -214,7 +221,14 @@ int scoda_G(uint32_t degree_threshold, std::fstream &edgelist_file,
     }
     printf("num_null_e: %d\n", num_null_e);
     printf("num_duplicate_edges: %d\n", num_duplicate_edges);
+    printf("num_comm_nodes: %d\n", comm_graph.num_nodes());
+    printf("num_full_nodes: %d\n", full_graph.num_nodes());
+    float node_comp_ratio = (float) full_graph.num_nodes() / (float) comm_graph.num_nodes();
+    printf("node compression ratio: %lf\n", node_comp_ratio);
     printf("num_comm_e: %d\n", comm_graph.num_edges());
+    printf("num_full_e: %d\n", full_graph.num_edges());
+    float edge_comp_ratio = (float) full_graph.num_edges() / (float) comm_graph.num_edges();
+    printf("edge compression ratio: %lf\n", edge_comp_ratio);
     return EXIT_SUCCESS;
 }
 
