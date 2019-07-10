@@ -3,7 +3,7 @@
 namespace RPGraph {
 
 using RPGraph::Coordinate;
-using std::vector;
+// using std::vector; // Doesn't seem to work...
 
 /**
  * Stress formula;
@@ -34,7 +34,7 @@ float distG() {
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
  * Maybe just do Dijkstras
  */
-vector< vector< float > >* allPairsShortestPaths(RPGraph::Graph* graph) {
+std::vector< std::vector< float > >* allPairsShortestPaths(RPGraph::Graph* graph) {
     // TODO: Basically Dijkstras algo on each node individually. OR: floyd-warshall algo. Probably better.
 }
 

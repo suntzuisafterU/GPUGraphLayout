@@ -1,6 +1,7 @@
 #ifndef stress_hpp
 #define stress_hpp
 
+#include <vector>
 #include "../common/RPCommon.hpp" // Coordinate
 #include "../common/RPGraphLayout.hpp" // GraphLayout
 
@@ -16,7 +17,7 @@ inline float distG();
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
  * Maybe just do Dijkstras
  */
-vector< vector< float > >* allPairsShortestPaths(RPGraph::Graph* graph) {
+std::vector< std::vector< float > >* allPairsShortestPaths(RPGraph::Graph* graph) {
     // TODO: Basically Dijkstras algo on each node individually. OR: floyd-warshall algo. Probably better.
 }
 
