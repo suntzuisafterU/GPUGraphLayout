@@ -3,9 +3,28 @@
 namespace RPGraph
 {
 
-#define DEGREE(id) (full_graph.degree(full_graph.node_map[id]))              /// Defines function for accessing the degree of the ith node.
+// #define DEGREE(id) (full_graph.degree(full_graph.node_map[id]))              /// Defines function for accessing the degree of the ith node.
 #define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map.insert({nid, comm_id})) /// Defines function to update community association of node nid.
 #define COMMUNITY_OF(nid) (nid_comm_map.at(nid))                             /// Defines function for accessing the community id associated with the ith node.
+
+
+
+
+
+SCoDA_Results compute_partition(RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph, 
+            std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id>& nid_comm_map) {
+    // Compute mode of degree??
+
+}
+// TODO: Write one that takes a degree threshold parameter.
+
+int SCoDA::compute_mode_of_degree(const RPGraph::UGraph& in_graph) {
+    std::unordered_map<uint32_t, uint32_t> degrees;
+    for(auto deg : in_graph.degrees ) {
+        degrees[deg] += 1;
+    }
+    return std::max(degrees); // TODO: Testing.
+}
 
 /**
  * Produce community graph and node_id -> community mapping. Assumes full_graph is pre-initialized.
@@ -107,23 +126,17 @@ int scoda_G(uint32_t degree_threshold,
             }
         }
     }
-    printf("num_null_e: %d\n", num_null_e);
-    printf("num_duplicate_comm_edges: %d\n", num_duplicate_comm_edges);
-    printf("num_comm_nodes: %d\n", comm_graph.num_nodes());
-    printf("num_full_nodes: %d\n", full_graph.num_nodes());
     float node_comp_ratio = (float) full_graph.num_nodes() / (float) comm_graph.num_nodes();
-    printf("node compression ratio: %lf\n", node_comp_ratio);
-    printf("num_comm_e: %d\n", comm_graph.num_edges());
-    printf("num_full_e: %d\n", full_graph.num_edges());
     float edge_comp_ratio = (float) full_graph.num_edges() / (float) comm_graph.num_edges();
-    printf("edge compression ratio: %lf\n", edge_comp_ratio);
-    return EXIT_SUCCESS;
+    return SCoDA_Results(num_null_e, num_duplicate_comm_edges, 
+                         comm_graph.num_nodes(), full_graph.num_nodes, node_comp_ratio,
+                         comm_graph.num_edges(), full_graph.num_edges, edge_comp_ratio);
 }
 
 int scoda_partition(uint32_t degree_threshold, std::fstream &edgelist_file)
 {
-    std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map;
-    std::unordered_map<RPGraph::nid_t, uint32_t> degrees; // Make map to track degrees. Use map since node ids are not guaranteed to be contiguous.
+    std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t> nid_comm_map;
+    std::unordered_map<RPGraph::contiguous_nid_t, uint32_t> degrees; // Make map to track degrees. Use map since node ids are not guaranteed to be contiguous.
 
     std::string line;
     RPGraph::nid_t src_id, dst_id;
@@ -227,5 +240,20 @@ void print_partition(std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> &nid_com
         } // else empty community.
     }
 }
+
+/**
+ * Result struct constructor.
+ */
+SCoDA_Results::SCoDA_Results(int ne, int ndce, int ncn, int nfn, float ncr, 
+                             int nce, int nfe, float ecr) : 
+                                num_null_e{ne}, 
+                                num_duplicate_comm_edges{ndce},
+                                num_comm_nodes{ncn},
+                                num_full_nodes{nfn},
+                                node_comp_ratio{ncr},
+                                num_comm_edges{nce},
+                                num_full_edges{nfe},
+                                edge_comp_ratio{ecr}
+                                {}
 
 } // namespace RPGraph
