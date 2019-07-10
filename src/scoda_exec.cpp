@@ -2,8 +2,6 @@
 
 using namespace std;
 
-namespace { // anonymous
-
 int main(int argc, const char** argv) {
     // Accept edge stream from stdin
 
@@ -16,5 +14,3 @@ int main(int argc, const char** argv) {
     cout << "In scoda_exec.cpp" << endl;
     return EXIT_SUCCESS;
 }
-
-} // namespace anonymous

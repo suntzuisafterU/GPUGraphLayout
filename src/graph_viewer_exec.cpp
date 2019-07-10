@@ -48,7 +48,6 @@
 #include "FA2/RPGPUForceAtlas2.hpp"
 #endif
 
-namespace { // anonymous
 
 RPGraph::GraphViewer parseCommandLine() {
     // Parse commandline arguments
@@ -235,5 +234,3 @@ int main(int argc, const char **argv)
 
     exit(EXIT_SUCCESS);
 }
-
-} // namespace anonymous
