@@ -61,7 +61,7 @@ namespace RPGraph
 			if(line[0] == '%') continue;
 
             // Read source and target from file
-            nid_t s, t;
+            contiguous_nid_t s, t;
             std::istringstream(line) >> s >> t;
 
             // if(s != t and !has_edge(s, t)) add_edge(s, t); // Original behaviour of graph_viewer was to ignore duplicate edges. // TODO: Decide how to handle duplicate/weighted edges.
@@ -71,61 +71,48 @@ namespace RPGraph
         edgelist_file.close();
     }
 
-    bool UGraph::has_node(nid_t nid)
+    bool UGraph::has_node(contiguous_nid_t nid)
     {
-        return node_map.count(nid) > 0; /* Simple membership check. .count() will return 0 or 1 for unordered_maps */
+        return degrees[nid] > 0; // Membership check by degree.
     }
 
-    /**
-     * I do not think this is currently being used.
-     */
-    // bool UGraph::has_edge(nid_t s, nid_t t)
-    // {
-    //     if(!has_node(s) or !has_node(t)) return false;
-
-    //     contiguous_nid_t s_mapped = node_map[s];
-    //     contiguous_nid_t t_mapped = node_map[t];
-
-    //     if(adjacency_list.count(std::min(s_mapped, t_mapped)) == 0) return false;
-
-    //     std::vector<contiguous_nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
-    //     if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
-    //         return false;
-    //     else
-    //         return true;
-    // }
-
-    void UGraph::add_node(nid_t nid)
+    bool UGraph::has_edge(contiguous_nid_t s, contiguous_nid_t t)
     {
-        if(!has_node(nid))
-        {
-            node_map[nid] = const_cast<contiguous_nid_t>(node_count);
-            node_map_r[const_cast<contiguous_nid_t>(node_count)] = nid;
-            node_count++;
-        }
+        if(!has_node(s) or !has_node(t)) return false;
+
+        if(adjacency_list.count(std::min(s, t)) == 0) return false;
+
+        std::vector<contiguous_nid_t> neighbors = adjacency_list[std::min(s, t)];
+        if(std::find(neighbors.begin(), neighbors.end(), std::max(s, t)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
+            return false;
+        else
+            return true;
     }
 
-    void UGraph::add_edge(nid_t s, nid_t t)
+    inline void UGraph::add_node(contiguous_nid_t nid)
+    {
+        node_count++;
+    }
+
+    void UGraph::add_edge(contiguous_nid_t s, ncontiguous_nid_t t)
     {
         // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
         if(!has_node(s)) add_node(s);
         if(!has_node(t)) add_node(t);
-        contiguous_nid_t s_mapped = node_map[s];
-        contiguous_nid_t t_mapped = node_map[t];
 
         // Insert edge into adjacency_list
-        adjacency_list[std::min(s_mapped, t_mapped)].push_back(std::max(s_mapped, t_mapped));
-        degrees[s_mapped] += 1;
-        degrees[t_mapped] += 1;
+        adjacency_list[std::min(s, t)].push_back(std::max(s, t));
+        degrees[s] += 1;
+        degrees[t] += 1;
         edge_count++;
     }
 
-    nid_t UGraph::num_nodes()
+    contiguous_nid_t UGraph::num_nodes()
     {
         return node_count;
     }
 
-    nid_t UGraph::num_edges()
+    contiguous_nid_t UGraph::num_edges()
     {
         return edge_count;
     }
@@ -135,25 +122,9 @@ namespace RPGraph
 	 *
 	 * TODO: Make these functions that use internal nids private, or friend + private and define new functions that also map the nids for us...
 	 */
-    uint32_t UGraph::degree(contiguous_nid_t nid)
+    int UGraph::degree(contiguous_nid_t nid)
     {
         return degrees[nid];
-    }
-
-    /**
-     * Is redundant.  Keeps compiler from complaining.
-     */
-    uint32_t UGraph::in_degree(contiguous_nid_t nid)
-    {
-        return degree(nid);
-    }
-
-    /**
-     * Is redundant.  Keeps compiler from complaining.
-     */
-    uint32_t UGraph::out_degree(contiguous_nid_t nid)
-    {
-        return degree(nid);
     }
 
     /**
@@ -164,7 +135,7 @@ namespace RPGraph
         return adjacency_list[nid];
     }
 
-//	UG_Iter(const& UGraph) {
+//	UG_Iter::UG_Iter(const& UGraph) {
 //
 //	}
 //
@@ -183,7 +154,7 @@ namespace RPGraph
 /**
  * IMPORTANT: Ignore this data structure.  Not used in implementation.
  */
-    CSRUGraph::CSRUGraph(nid_t num_nodes, nid_t num_edges)
+    CSRUGraph::CSRUGraph(contiguous_nid_t num_nodes, contiguous_nid_t num_edges)
     {
         // `edges' is a concatenation of all edgelists (i.e. flattened edge list)
         // `offsets' contains offset (in `edges`) for each nodes' edgelist. (index into flattened edge list)
@@ -195,9 +166,9 @@ namespace RPGraph
 
         edge_count = num_edges; // num_edges counts each bi-directional edge once.
         node_count = num_nodes;
-        edges =   (nid_t *) malloc(sizeof(nid_t) * 2 * edge_count); // flattened array
-        offsets = (nid_t *) malloc(sizeof(nid_t) * node_count); // map 
-        offset_to_nid = (nid_t *) malloc(sizeof(nid_t) * node_count);
+        edges =   (contiguous_nid_t *) malloc(sizeof(contiguous_nid_t) * 2 * edge_count); // flattened array
+        offsets = (contiguous_nid_t *) malloc(sizeof(contiguous_nid_t) * node_count); // map 
+        offset_to_nid = (contiguous_nid_t *) malloc(sizeof(contiguous_nid_t) * node_count);
 
         // Create a map from original ids to ids used throughout CSRUGraph
         // std::unordered_map<nid_t, nid_t> // secret hidden header variable! 
@@ -214,10 +185,10 @@ namespace RPGraph
         free(offset_to_nid);
     }
 
-    void CSRUGraph::insert_node(nid_t node_id, std::vector<nid_t> nbr_ids)
+    void CSRUGraph::insert_node(contiguous_nid_t node_id, std::vector<contiguous_nid_t> nbr_ids)
     {
-        nid_t source_id_old = node_id;
-        nid_t source_id_new = first_free_id;
+        contiguous_nid_t source_id_old = node_id;
+        contiguous_nid_t source_id_new = first_free_id;
         nid_to_offset[source_id_old] = first_free_id;
         offset_to_nid[first_free_id] = source_id_old;
         first_free_id++;
@@ -225,7 +196,7 @@ namespace RPGraph
         offsets[source_id_new] = edges_seen;
         for (auto nbr_id : nbr_ids)
         {
-            nid_t dest_id_old = nbr_id;
+            contiguous_nid_t dest_id_old = nbr_id;
             edges[edges_seen] = dest_id_old;
             edges_seen++;
         }
@@ -239,36 +210,27 @@ namespace RPGraph
         }
     }
 
-    nid_t CSRUGraph::degree(nid_t nid)
+    contiguous_nid_t CSRUGraph::degree(contiguous_nid_t nid)
     {
         // If nid is last element of `offsets'... we prevent out of bounds.
-        nid_t r_bound;
+        contiguous_nid_t r_bound;
         if (nid < node_count - 1) r_bound = offsets[nid+1];
         else r_bound = edge_count * 2;
-        nid_t l_bound = offsets[nid];
+        contiguous_nid_t l_bound = offsets[nid];
         return (r_bound - l_bound);
     }
 
-    nid_t CSRUGraph::out_degree(nid_t nid)
-    {
-        return degree(nid);
-    }
-
-    nid_t CSRUGraph::in_degree(nid_t nid)
-    {
-        return degree(nid);
-    }
-
-    nid_t CSRUGraph::nbr_id_for_node(nid_t nid, nid_t edge_no)
+    contiguous_nid_t CSRUGraph::nbr_id_for_node(contiguous_nid_t nid, contiguous_nid_t edge_no)
     {
         return edges[offsets[nid] + edge_no];
     }
-    nid_t CSRUGraph::num_nodes()
+
+    contiguous_nid_t CSRUGraph::num_nodes()
     {
         return node_count;
     }
 
-    nid_t CSRUGraph::num_edges()
+    contiguous_nid_t CSRUGraph::num_edges()
     {
         return edge_count;
     }

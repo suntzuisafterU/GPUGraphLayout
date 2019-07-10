@@ -27,16 +27,10 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include "RPTypeDefs.hpp"
 
 namespace RPGraph
 {
-    // Type to represent node IDs.
-    // NOTE: we limit to 4,294,967,296 nodes through uint32_t.
-    typedef uint32_t nid_t;
-
-    // Required since real datasets do not have contiguous data.
-    typedef uint32_t contiguous_nid_t;
-
     // Type to represent edge IDs.
     // NOTE: uint32_t limits density to 50% for directed graphs.
     typedef uint32_t eid_t;
@@ -48,8 +42,6 @@ namespace RPGraph
             virtual uint32_t num_nodes() = 0;
             virtual uint32_t num_edges() = 0;
             virtual uint32_t degree(contiguous_nid_t nid) = 0;
-            virtual uint32_t in_degree(contiguous_nid_t nid) = 0;
-            virtual uint32_t out_degree(contiguous_nid_t nid) = 0;
             virtual std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
             virtual ~Graph() = 0; /**< Pure virtual method, specified by `= 0;`. Means that deriving class must override, but can use optional implementation provided by superclass via the `= default;` keyword. see https://stackoverflow.com/questions/34383516/should-i-default-virtual-destructors */
 
@@ -61,57 +53,38 @@ namespace RPGraph
     class UGraph : public Graph
     {
         // friend class GraphLayout;
-        // friend class RPCPUForceAtlas2;
+        // friend class RPCPUForceAtlas2; // Why did I want to define these?
     private:
         uint32_t node_count, edge_count;
-        std::unordered_map<contiguous_nid_t, uint32_t> degrees; /**< Maps nid_t to degrees? */
-        std::unordered_map<contiguous_nid_t, std::vector<contiguous_nid_t>> adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
+        std::vector <uint32_t> degrees; /**< Vector of degrees, indexed by contiguous_nid_t */
+        std::vector <std::vector<contiguous_nid_t> > adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
 
-        // Must use nid_t, is used in add_edge.
-        void add_node(nid_t nid); /* Moved add_node back to private section for safety. */
+        void add_node(contiguous_nid_t nid); /* Moved add_node back to private section for safety. */
+        void add_edge(contiguous_nid_t s, contiguous_nid_t t); /**< Adding an edge also adds any nodes. */
 
+        bool has_edge(contiguous_nid_t s, contiguous_nid_t t); // TODO: Moved for testing purposes. Make private again later.
         bool has_node(contiguous_nid_t nid); // TODO: Find usage
-		// friend class UG_Iter; // TODO: Is this the proper way to associate an iterator with a container?
+
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
 
     public:
         UGraph();
         UGraph(std::string edgelist_path);
 
-        UGraph(const UGraph&) = delete;              /// Disallow copying.
-        UGraph & operator= (const UGraph&) = delete; /// Disallow copy assignment operator.
+        UGraph(const UGraph&) = delete;             /// Disallow copying.
+        UGraph & operator=(const UGraph&) = delete; /// Disallow copy assignment operator.
         /// Also disallows move semantics, unless explicitly specified.
 
         ~UGraph(); /* Explicity declare and define destructors. */
 
-        /**
-         * Construct UGraph from edgelist. IDs in edgelist are mapped to
-         * [0, 1, ..., num_nodes-1]. Removes any self-edges.
-         */
-        std::unordered_map<nid_t, contiguous_nid_t> node_map; /**< el id => UGraph id. IMPORTANT: This is necessary so that we can produce a contigous array for the CUDA implementation to work on.  You have been warned. */
-        std::unordered_map<contiguous_nid_t, nid_t> node_map_r; /**< UGraph id => el id. Only used by writeToBin() and writeToCsv() */
-
-        void add_edge(nid_t s, nid_t t); /**< Adding an edge also adds any nodes. */
-        // TODO: has_edge should use c_nid_t
-        bool has_edge(nid_t s, nid_t t); // TODO: Moved for testing purposes. Make private again later.
-
-        virtual uint32_t num_nodes() override;
+        virtual uint32_t num_nodes() override; /// Use uint32_t to increase the range we can support.
         virtual uint32_t num_edges() override;
-        virtual uint32_t degree(contiguous_nid_t nid) override; // TODO: Improve abstraction by making all public methods as accepting nid_t only.
-        virtual uint32_t in_degree(contiguous_nid_t nid) override; /**< Redundant */
-        virtual uint32_t out_degree(contiguous_nid_t nid) override; /**< Redundant */
+        virtual int degree(contiguous_nid_t nid) override;
 
         std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
     };
 
-	// class U_Edge {
-	// public:
-	// 	explicit U_Edge(nid_t src, nid_t dst) { src, dst };
-	// 	nid_t get_src() { return src; };
-	// 	nid_t get_dst() { return dst; };
-	// };
-
-	// // template<typename node_id, class edge_id<typename node_id> >
+	// // template<typename node_type>
 	// class UG_Iter {
 	// public:
 	// 	explicit UG_Iter(const& UGraph ug);
@@ -127,30 +100,28 @@ namespace RPGraph
     class CSRUGraph : public Graph
     {
     private:
-        nid_t *edges;   /**< All edgelists, concatenated. */
-        nid_t *offsets; /**< For each node, into edges. */
-        nid_t node_count, edge_count;
-        nid_t first_free_id, edges_seen;
+        contiguous_nid_t *edges;   /**< All edgelists, concatenated. */
+        contiguous_nid_t *offsets; /**< For each node, into edges. */
+        contiguous_nid_t node_count, edge_count;
+        contiguous_nid_t first_free_id, edges_seen;
 
     public:
-        std::unordered_map<nid_t, nid_t> nid_to_offset;
-        nid_t *offset_to_nid;
+        std::unordered_map<contiguous_nid_t, contiguous_nid_t> nid_to_offset;
+        contiguous_nid_t *offset_to_nid;
 
-        CSRUGraph(nid_t num_nodes, nid_t num_edges);
+        CSRUGraph(contiguous_nid_t num_nodes, contiguous_nid_t num_edges);
         ~CSRUGraph();
 
         /// Inserts node_id and its edges. Once inserted, edges
         /// can't be altered for this node.
-        void insert_node(nid_t node_id, std::vector<nid_t> nbr_ids);
+        void insert_node(contiguous_nid_t node_id, std::vector<contiguous_nid_t> nbr_ids);
         void fix_edge_ids(); // this should go...
 
         virtual uint32_t num_nodes() override;
         virtual uint32_t num_edges() override;
         virtual uint32_t degree(contiguous_nid_t nid) override;
-        virtual uint32_t in_degree(contiguous_nid_t nid) override;
-        virtual uint32_t out_degree(contiguous_nid_t nid) override;
 
-        nid_t nbr_id_for_node(nid_t nid, nid_t nbr_no);
+        contiguous_nid_t nbr_id_for_node(contiguous_nid_t nid, contiguous_nid_t nbr_no);
     };
 
 } // namespace RPGraph
