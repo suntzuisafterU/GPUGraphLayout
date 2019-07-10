@@ -6,6 +6,7 @@ SRC_DIR           := ../../src
 COMMON_SRC_DIR    := $(SRC_DIR)/common
 UTILS_SRC_DIR     := $(SRC_DIR)/utils
 IO_SRC_DIR        := $(UTILS_SRC_DIR)/IO
+GV_SRC_DIR        := $(SRC_DIR)/graph_viewer
 SCODA_SRC_DIR     := $(SRC_DIR)/scoda
 FA2_SRC_DIR       := $(SRC_DIR)/FA2
 LO_EVAL_SRC_DIR   := $(SRC_DIR)/layouteval
@@ -14,6 +15,7 @@ OBJ_DIR           := obj
 COMMON_OBJ_DIR    := $(OBJ_DIR)/common
 UTILS_OBJ_DIR     := $(OBJ_DIR)/utils
 IO_OBJ_DIR        := $(UTILS_OBJ_DIR)/IO
+GV_OBJ_DIR        := $(OBJ_DIR)/graph_viewer
 SCODA_OBJ_DIR     := $(OBJ_DIR)/scoda
 FA2_OBJ_DIR       := $(OBJ_DIR)/FA2
 LO_EVAL_OBJ_DIR   := $(OBJ_DIR)/layouteval
@@ -66,6 +68,9 @@ UTILS_OBJS        := $(UTILS_SRCS:$(UTILS_SRC_DIR)/%.cpp=$(UTILS_OBJ_DIR)/%.o)
 IO_SRCS           := $(wildcard $(IO_SRC_DIR)/*.cpp)
 IO_OBJS           := $(IO_SRCS:$(IO_SRC_DIR)/%.cpp=$(IO_OBJ_DIR)/%.o)
 
+GV_SRCS           := $(wildcard $(GV_SRC_DIR)/*.cpp)
+GV_OBJS           := $(GV_SRCS:$(GV_SRC_DIR)/%.cpp=$(GV_OBJ_DIR)/%.o)
+
 SCODA_SRCS        := $(wildcard $(SCODA_SRC_DIR)/*.cpp)
 SCODA_OBJS        := $(SCODA_SRCS:$(SCODA_SRC_DIR)/%.cpp=$(SCODA_OBJ_DIR)/%.o)
 
@@ -84,23 +89,23 @@ PNGWRITER_OBJS    := $(PNGWRITER_SRCS:$(L_SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
 
 SCODA_EXE_SRC     := $(SRC_DIR)/scoda_exec.cpp
 
-GRAPH_VIEWER_SRC  := $(SRC_DIR)/graph_viewer.cpp
+GV_EXE_SRC        := $(SRC_DIR)/graph_viewer_exec.cpp
 
 STRESS_EXE_SRC    := $(SRC_DIR)/stress_exec.cpp
 
 CPP_SRCS          := $(COMMON_SRCS) $(UTILS_SRCS) $(IO_SRCS) $(SCODA_SRCS) \
-					 $(FA2_SRCS) $(LO_EVAL_SRCS) $(SCODA_EXE_SRC) $(GRAPH_VIEWER_SRC) \
-					 $(PNGWRITER_SRCS)
+					 $(FA2_SRCS) $(LO_EVAL_SRCS) $(GV_SRCS) $(SCODA_EXE_SRC) \
+					 $(GV_EXE_SRC) $(STRESS_EXE_SRC) $(PNGWRITER_SRCS)
 CUDA_SRCS         := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRCS)
-GV_OBJECTS        := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(IO_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
+GV_EXE_OBJS       := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(IO_OBJS) $(GV_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
 SCODA_EXE_OBJS    := $(COMMON_OBJS) $(SCODA_OBJS)
 STRESS_EXE_OBJS   := $(COMMON_OBJS) $(UTILS_OBJS) $(LO_EVAL_OBJS)
 CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
 SOURCES           := $(SOURCES) $(CUDA_SRCS)
-GV_OBJECTS        := $(GV_OBJECTS) $(CUDA_FA2_OBJS)
+GV_EXE_OBJS       := $(GV_EXE_OBJS) $(CUDA_FA2_OBJS)
 endif
 
 # Generate dependency (.h, .hpp)
@@ -117,7 +122,7 @@ all: scoda_exec graph_viewer stress_exec
 scoda_exec: $(SCODA_EXE_OBJS) $(SCODA_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
-graph_viewer: $(GV_OBJECTS) $(GRAPH_VIEWER_SRC)
+graph_viewer_exec: $(GV_EXE_OBJS) $(GRAPH_VIEWER_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 stress_exec: $(STRESS_EXE_OBJS) $(STRESS_EXE_SRC)
@@ -134,6 +139,10 @@ $(UTILS_OBJS): $(UTILS_SRCS)
 $(IO_OBJS): $(IO_SRCS)
 	@mkdir -p $(@D)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) -o $@ $(@:$(IO_OBJ_DIR)/%.o=$(IO_SRC_DIR)/%.cpp)
+
+$(GV_OBJS): $(GV_SRCS)
+	@mkdir -p $(@D)
+	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) -o $@ $(@:$(GV_OBJ_DIR)/%.o=$(GV_SRC_DIR)/%.cpp)
 
 $(SCODA_OBJS): $(SCODA_SRCS)
 	@mkdir -p $(@D)
