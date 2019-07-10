@@ -46,53 +46,53 @@ namespace RPGraph {
         layout_png.write_png();
     }
 
-    /**
-     * Writing to csv may be a good way to streamline testing the decompressions effectiveness.
-     * NOTE: There is no loadFromCSV method.  Would go in this file.
-     */
-    void writeToCSV(RPGraph::GraphLayout* layout, std::string path)
-    {
-        if (is_file_exists(path.c_str()))
-        {
-            printf("Error: File exists at %s\n", path.c_str());
-            exit(EXIT_FAILURE);
-        }
-
-        std::ofstream out_file(path);
-
-        for (nid_t n = 0; n < layout->graph.num_nodes(); ++n)
-        {
-            nid_t id = layout->graph.node_map_r[n]; // id as found in edgelist
-            out_file << id << "," << layout->getX(n) << "," << layout->getY(n) << "\n";
-        }
-
-        out_file.close();
-    }
-
-    /**
-     * Do we have any use for writing to bin?
-     */
-    void writeToBin(RPGraph::GraphLayout* layout, std::string path)
-    {
-        if (is_file_exists(path.c_str()))
-        {
-            printf("Error: File exists at %s\n", path.c_str());
-            exit(EXIT_FAILURE);
-        }
-
-        std::ofstream out_file(path, std::ofstream::binary);
-
-        for (nid_t n = 0; n < layout->graph.num_nodes(); ++n)
-        {
-            nid_t id = layout->graph.node_map_r[n]; // id as found in edgelist
-            float x = layout->getX(n);
-            float y = layout->getY(n);
-
-            out_file.write(reinterpret_cast<const char*>(&id), sizeof(id));
-            out_file.write(reinterpret_cast<const char*>(&x), sizeof(x));
-            out_file.write(reinterpret_cast<const char*>(&y), sizeof(y));
-        }
-
-        out_file.close();
-    }
+//     /**
+//      * Writing to csv may be a good way to streamline testing the decompressions effectiveness.
+//      * NOTE: There is no loadFromCSV method.  Would go in this file.
+//      */
+//     void writeToCSV(RPGraph::GraphLayout* layout, std::string path)
+//     {
+//         if (is_file_exists(path.c_str()))
+//         {
+//             printf("Error: File exists at %s\n", path.c_str());
+//             exit(EXIT_FAILURE);
+//         }
+// 
+//         std::ofstream out_file(path);
+// 
+//         for (nid_t n = 0; n < layout->graph.num_nodes(); ++n)
+//         {
+//             nid_t id = layout->graph.node_map_r[n]; // id as found in edgelist
+//             out_file << id << "," << layout->getX(n) << "," << layout->getY(n) << "\n";
+//         }
+// 
+//         out_file.close();
+//     }
+// 
+//     /**
+//      * Do we have any use for writing to bin?
+//      */
+//     void writeToBin(RPGraph::GraphLayout* layout, std::string path)
+//     {
+//         if (is_file_exists(path.c_str()))
+//         {
+//             printf("Error: File exists at %s\n", path.c_str());
+//             exit(EXIT_FAILURE);
+//         }
+// 
+//         std::ofstream out_file(path, std::ofstream::binary);
+// 
+//         for (nid_t n = 0; n < layout->graph.num_nodes(); ++n)
+//         {
+//             nid_t id = layout->graph.node_map_r[n]; // id as found in edgelist
+//             float x = layout->getX(n);
+//             float y = layout->getY(n);
+// 
+//             out_file.write(reinterpret_cast<const char*>(&id), sizeof(id));
+//             out_file.write(reinterpret_cast<const char*>(&x), sizeof(x));
+//             out_file.write(reinterpret_cast<const char*>(&y), sizeof(y));
+//         }
+// 
+//         out_file.close();
+//     }
 } // namespace RPGraph
