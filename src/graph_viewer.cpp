@@ -76,6 +76,7 @@ int main(int argc, const char **argv)
     const bool approximate = std::string(argv[7]) == "approximate"; // gpu only accepts BH approximation.
     const bool use_linlog = std::string(argv[8]) == "linlog"; // Enable linlog
     const float percentage_iterations_on_comm_graph = std::stof(argv[9])/100.0f;
+    if(percentage_iterations_on_comm_graph > 1 || percentage_iterations_on_comm_graph < 0) exit(EXIT_FAILURE); // 0 <= percentage_iterations_on_comm_graph <= 1
     const char *edgelist_path = argv[10]; // infile
     const char *out_path = argv[11]; // output directory for images.
     const char *out_file_prefix = argv[12]; // annotated outfile names
@@ -226,10 +227,13 @@ int main(int argc, const char **argv)
         }
 	};
 
+  int swap_iteration = ceil(max_iteartions * percentage_iterations_on_comm_graph);
+  printf("swap_iteration: %d\n", swap_iteration);
+
 	/**
 	 * Initial layout will be produced from community graph.
 	 */
-    for (int iteration = 1; iteration < ceil(max_iterations * percentage_iterations_on_comm_graph); ++iteration)
+    for (int iteration = 1; iteration < swap_iteration; ++iteration)
     {
 		compositeStep(iteration); /* comm graph layout is produced. */
     }
@@ -240,6 +244,7 @@ int main(int argc, const char **argv)
 
 	// TODO: Expansion kernel instead of sequential code called here. NOTE: Low priority.
 
+    printf("Expanding comm_graph\n");
 	/**
 	 * Expansion:
 	 *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
@@ -251,6 +256,7 @@ int main(int argc, const char **argv)
 		// TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
 		full_layout.setCoordinates(full_graph.node_map[node], comm_coordinate); /**< Set the nodes id to be that of it's community. */
 	}
+  printf("Finished expanding comm_graph\n");
 
 	// TODO: Was moved here for safety.  May be able to move it above the full_layout initialization.
 	delete comm_fa2; /* Free old comm_fa2 object when done.  This is required to deallocate GPU memory. */
@@ -268,13 +274,17 @@ int main(int argc, const char **argv)
                                           strong_gravity, gravity, scale, randomize, use_linlog);
 	fa2 = full_fa2;
 
+  printf("Starting full_graph layout\n");
 	/**
 	 * Second layout with full graph.
 	 */
-    for (int iteration = ceil(max_iterations * percentage_iterations_on_comm_graph); iteration <= max_iterations; ++iteration)
+    for (int iteration = swap_iteration; iteration <= max_iterations; ++iteration)
     {
 		compositeStep(iteration); /* full graph layout is produced. */
     }
+
+    printf("Finished full_graph layout\n");
+
 	fa2 = nullptr;
 	delete full_fa2; /* Free last ForceAtlas2 object. */
 
