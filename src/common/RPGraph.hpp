@@ -41,7 +41,7 @@ namespace RPGraph
         public:
             virtual uint32_t num_nodes() = 0;
             virtual uint32_t num_edges() = 0;
-            virtual uint32_t degree(contiguous_nid_t nid) = 0;
+            virtual int degree(contiguous_nid_t nid) = 0;
             virtual std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
             virtual ~Graph() = 0; /**< Pure virtual method, specified by `= 0;`. Means that deriving class must override, but can use optional implementation provided by superclass via the `= default;` keyword. see https://stackoverflow.com/questions/34383516/should-i-default-virtual-destructors */
 
@@ -59,7 +59,7 @@ namespace RPGraph
         std::vector <uint32_t> degrees; /**< Vector of degrees, indexed by contiguous_nid_t */
         std::vector <std::vector<contiguous_nid_t> > adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
 
-        void add_node(contiguous_nid_t nid); /* Moved add_node back to private section for safety. */
+        void add_node(); /* Moved add_node back to private section for safety. */
         void add_edge(contiguous_nid_t s, contiguous_nid_t t); /**< Adding an edge also adds any nodes. */
 
         bool has_edge(contiguous_nid_t s, contiguous_nid_t t); // TODO: Moved for testing purposes. Make private again later.
@@ -102,14 +102,15 @@ namespace RPGraph
     private:
         contiguous_nid_t *edges;   /**< All edgelists, concatenated. */
         contiguous_nid_t *offsets; /**< For each node, into edges. */
-        contiguous_nid_t node_count, edge_count;
-        contiguous_nid_t first_free_id, edges_seen;
+        uint32_t node_count, edge_count;
+        contiguous_nid_t first_free_id;
+        uint32_t edges_seen;
 
     public:
         std::unordered_map<contiguous_nid_t, contiguous_nid_t> nid_to_offset;
         contiguous_nid_t *offset_to_nid;
 
-        CSRUGraph(contiguous_nid_t num_nodes, contiguous_nid_t num_edges);
+        CSRUGraph(uint32_t num_nodes, uint32_t num_edges);
         ~CSRUGraph();
 
         /// Inserts node_id and its edges. Once inserted, edges
@@ -119,7 +120,7 @@ namespace RPGraph
 
         virtual uint32_t num_nodes() override;
         virtual uint32_t num_edges() override;
-        virtual uint32_t degree(contiguous_nid_t nid) override;
+        virtual int degree(contiguous_nid_t nid) override;
 
         contiguous_nid_t nbr_id_for_node(contiguous_nid_t nid, contiguous_nid_t nbr_no);
     };

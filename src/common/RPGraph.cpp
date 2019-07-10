@@ -80,7 +80,7 @@ namespace RPGraph
     {
         if(!has_node(s) or !has_node(t)) return false;
 
-        if(adjacency_list.count(std::min(s, t)) == 0) return false;
+        if(adjacency_list[std::min(s, t)].size() == 0) return false;
 
         std::vector<contiguous_nid_t> neighbors = adjacency_list[std::min(s, t)];
         if(std::find(neighbors.begin(), neighbors.end(), std::max(s, t)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
@@ -89,16 +89,16 @@ namespace RPGraph
             return true;
     }
 
-    inline void UGraph::add_node(contiguous_nid_t nid)
+    inline void UGraph::add_node()
     {
         node_count++;
     }
 
-    void UGraph::add_edge(contiguous_nid_t s, ncontiguous_nid_t t)
+    void UGraph::add_edge(contiguous_nid_t s, contiguous_nid_t t)
     {
         // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
-        if(!has_node(s)) add_node(s);
-        if(!has_node(t)) add_node(t);
+        if(!has_node(s)) add_node();
+        if(!has_node(t)) add_node();
 
         // Insert edge into adjacency_list
         adjacency_list[std::min(s, t)].push_back(std::max(s, t));
@@ -154,7 +154,7 @@ namespace RPGraph
 /**
  * IMPORTANT: Ignore this data structure.  Not used in implementation.
  */
-    CSRUGraph::CSRUGraph(contiguous_nid_t num_nodes, contiguous_nid_t num_edges)
+    CSRUGraph::CSRUGraph(uint32_t num_nodes, uint32_t num_edges)
     {
         // `edges' is a concatenation of all edgelists (i.e. flattened edge list)
         // `offsets' contains offset (in `edges`) for each nodes' edgelist. (index into flattened edge list)
@@ -210,13 +210,13 @@ namespace RPGraph
         }
     }
 
-    contiguous_nid_t CSRUGraph::degree(contiguous_nid_t nid)
+    int CSRUGraph::degree(contiguous_nid_t nid)
     {
         // If nid is last element of `offsets'... we prevent out of bounds.
-        contiguous_nid_t r_bound;
+        uint32_t r_bound;
         if (nid < node_count - 1) r_bound = offsets[nid+1];
         else r_bound = edge_count * 2;
-        contiguous_nid_t l_bound = offsets[nid];
+        uint32_t l_bound = offsets[nid];
         return (r_bound - l_bound);
     }
 
@@ -225,12 +225,12 @@ namespace RPGraph
         return edges[offsets[nid] + edge_no];
     }
 
-    contiguous_nid_t CSRUGraph::num_nodes()
+    uint32_t CSRUGraph::num_nodes()
     {
         return node_count;
     }
 
-    contiguous_nid_t CSRUGraph::num_edges()
+    uint32_t CSRUGraph::num_edges()
     {
         return edge_count;
     }
