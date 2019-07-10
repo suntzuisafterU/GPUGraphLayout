@@ -8,7 +8,7 @@ namespace RPGraph {
         public:
             // TODO: Fill??
         private:
-    }
+    };
 
 } // namespace RPGraph
 

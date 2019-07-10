@@ -3,15 +3,18 @@
 namespace RPGraph
 {
 
-    using namespace coro = boost::coroutines; // TODO: Is this in the right place?
-    typedef coro::generator< std::pair<contiguous_nid_t, contiguous_nid_t> > edge_generator; // TODO: Use after testing opeartor()() overloading
+    // using coro = boost::coroutines; // TODO: Is this in the right place?
+    // typedef coro::generator< std::pair<contiguous_nid_t, contiguous_nid_t> > edge_generator; // TODO: Use after testing opeartor()() overloading
 
-    DatasetAdapter::RPFileIterator DatasetAdapter::get_file_iterator(std::string file_path) {
-        // Create Iterator
+    DatasetAdapter::DatasetAdapter(std::string file_path) {
+        this->file_path = file_path;
+    }
+
+    DatasetAdapter::RPFileIterator DatasetAdapter::get_file_iterator() {
+        return DatasetAdapter::RPFileIterator(this->file_path);
     }
 
     DatasetAdapter::RPFileIterator(std::string file_path) {
-        this->file_path = file_path;
         this->file_stream = std::istream(file_path);
     }
 
@@ -19,6 +22,7 @@ namespace RPGraph
         return this->file_stream; // TODO: Does this work???? Or do we have to check for EOF or something?
     }
 
+    // TODO: Can we just return this as a string instead??
     std::pair<contiguous_nid_t, contiguous_nid_t> DatasetAdapter::RPFileIterator operator()() {
         nid_t src, dst;
         this->file_stream >> src >> dst; // this-> is Iterator
