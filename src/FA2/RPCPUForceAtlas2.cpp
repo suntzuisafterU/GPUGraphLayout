@@ -58,7 +58,7 @@ namespace RPGraph
         free(prev_forces);
     }
 
-    void CPUForceAtlas2::apply_attract(nid_t n)
+    void CPUForceAtlas2::apply_attract(contiguous_nid_t n)
     {
         Real2DVector f = Real2DVector(0.0, 0.0);
         for (contiguous_nid_t t : layout.graph.neighbors_with_geq_id(n))
@@ -90,7 +90,7 @@ namespace RPGraph
         forces[n] += f;
     }
 
-    void CPUForceAtlas2::apply_repulsion(nid_t n)
+    void CPUForceAtlas2::apply_repulsion(contiguous_nid_t n)
     {
         // Approximation, O(log n), dependent on theta.
         if (use_barneshut)
@@ -111,7 +111,7 @@ namespace RPGraph
         }
     }
 
-    void CPUForceAtlas2::apply_gravity(nid_t n)
+    void CPUForceAtlas2::apply_gravity(contiguous_nid_t n)
     {
         float f_g, d;
 
@@ -137,7 +137,7 @@ namespace RPGraph
      *  Eq. (8)
      *  TODO: Equation numbers from which paper?
      */
-    float CPUForceAtlas2::swg(nid_t n)
+    float CPUForceAtlas2::swg(contiguous_nid_t n)
     {
         return (forces[n] - prev_forces[n]).magnitude();
     }
@@ -145,7 +145,7 @@ namespace RPGraph
     /**
      *  Eq. (9)
      */
-    float CPUForceAtlas2::s(nid_t n)
+    float CPUForceAtlas2::s(contiguous_nid_t n)
     {
         return (k_s * global_speed)/(1.0f+global_speed*std::sqrt(swg(n)));
     }
@@ -153,7 +153,7 @@ namespace RPGraph
     /**
      *  Eq. (12)
      */
-    float CPUForceAtlas2::tra(nid_t n)
+    float CPUForceAtlas2::tra(contiguous_nid_t n)
     {
         return (forces[n] + prev_forces[n]).magnitude() / 2.0F;
     }
@@ -170,7 +170,7 @@ namespace RPGraph
         // `Auto adjust speeds'
         float total_swinging = 0.0;
         float total_effective_traction = 0.0;
-        for (nid_t nid = 0; nid < layout.graph.num_nodes(); ++nid)
+        for (contiguous_nid_t nid = 0; nid < layout.graph.num_nodes(); ++nid)
         {
             total_swinging += mass(nid) * swg(nid); // Eq. (11)
             total_effective_traction += mass(nid) * tra(nid); // Eq. (13)
@@ -216,7 +216,7 @@ namespace RPGraph
         global_speed += fminf(targetSpeed - global_speed, max_rise * global_speed);
     }
 
-    void CPUForceAtlas2::apply_displacement(nid_t n)
+    void CPUForceAtlas2::apply_displacement(contiguous_nid_t n)
     {
         if (prevent_overlap)
         {
@@ -236,7 +236,7 @@ namespace RPGraph
     {
         BH_Approximator.reset(layout.getCenter(), layout.getSpan()+10);
 
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             BH_Approximator.insertParticle(layout.getCoordinate(n),
                                            layout.graph.degree(n)+1);
@@ -247,7 +247,7 @@ namespace RPGraph
     {
         if (use_barneshut) rebuild_bh();
 
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             apply_gravity(n);
             apply_attract(n);
@@ -256,7 +256,7 @@ namespace RPGraph
 
         updateSpeeds();
 
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             apply_displacement(n);
             prev_forces[n]  = forces[n];
