@@ -40,7 +40,7 @@ do op="$1"
       shift
       ;;
     --stress )
-      TARGET=stess_exec
+      TARGET=stress_exec
       shift
       ;;
   esac

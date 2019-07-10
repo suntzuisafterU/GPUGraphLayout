@@ -4,7 +4,7 @@
 #include "../common/RPCommon.hpp" // Coordinate
 #include "../common/RPGraphLayout.hpp" // GraphLayout
 
-namespace LayoutEval {
+namespace RPGraph {
 
 float stress(RPGraph::GraphLayout* layout, int L);
 
@@ -20,6 +20,6 @@ vector< vector< float > >* allPairsShortestPaths(RPGraph::Graph* graph) {
     // TODO: Basically Dijkstras algo on each node individually. OR: floyd-warshall algo. Probably better.
 }
 
-} // LayoutEval
+} // RPGraph
 
 #endif // stress_hpp
