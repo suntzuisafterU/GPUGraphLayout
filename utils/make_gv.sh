@@ -32,7 +32,7 @@ do op="$1"
       shift
       ;;
     --gv )
-      TARGET=graph_viewer
+      TARGET=graph_viewer_exec
       shift
       ;;
     --sc )

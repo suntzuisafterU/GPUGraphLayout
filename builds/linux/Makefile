@@ -117,7 +117,7 @@ depend: .depend
 
 include ./.depend
 
-all: scoda_exec graph_viewer stress_exec
+all: scoda_exec graph_viewer_exec stress_exec
 
 scoda_exec: $(SCODA_EXE_OBJS) $(SCODA_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
