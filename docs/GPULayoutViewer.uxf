@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
   <help_text>// Uncomment the following line to change the fontsize and font:
-fontsize=14
+fontsize=18
 fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
 
 
@@ -28,8 +28,8 @@ fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>35</y>
+      <x>590</x>
+      <y>90</y>
       <w>85</w>
       <h>15</h>
     </coordinates>
@@ -41,47 +41,44 @@ fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
     <id>Relation</id>
     <coordinates>
       <x>605</x>
-      <y>45</y>
+      <y>100</y>
       <w>65</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>50.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>580</x>
-      <y>95</y>
-      <w>120</w>
-      <h>145</h>
+      <y>150</y>
+      <w>160</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>RPGraph::UGraph
 {adjacency_list}
 --
 -adjacency_list
-+UGraph(Template&lt;T&gt; source): Determines adapter used?
++UGraph(Template&lt;T&gt; source): 
+??????Determines adapter used?
 +allow_duplicates
 +vector&lt;uint32_t&gt; degrees
 ^--- Is currently an unordered_map...
 --
-friend class: EdgelistAdapter
-(or maybe an initializer)
 -add_edge(nid_t, nid_t)
 +has_edge(nid_t, nid_t)
 --
-Responsibilities
--- Public dirty edge interface
--- Private contiguous edge interface</panel_attributes>
+Responsibilities</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1020</x>
-      <y>210</y>
-      <w>180</w>
+      <y>265</y>
+      <w>190</w>
       <h>300</h>
     </coordinates>
     <panel_attributes>RPGraph::DatasetAdapter
@@ -89,34 +86,38 @@ Responsibilities
 --
 DatasetAdapter(filePath??: String)
 --
--map(nid_t): contiguous_nid_t
--map(contiguous_nid_t): nid_t
-+get_iterator(): Iterator(nid_t --&gt; contiguous_nid_t)
-   ^---- Iterator could be a class that uses yield.
-+get_write_stream(): Hooks up a mapping function to
+-translate(nid_t): contiguous_nid_t
+-translate(contiguous_nid_t): nid_t
++get_dataset_iterator(): 
+==&gt; Iterator(nid_t --&gt; contiguous_nid_t)
+       ^---- Iterator could be a class that uses yield.
+       
++get_write_stream(): ?Maybe Object?
+                     Hooks up a mapping function to
                      a writing stream.
 --
-Responsibilities
--- Provide public interface with external datasets that
-   may not be contiguous.  Having contiguous ids 
-   internal to all other data structures (and the program
-   as a whole) allows for much more efficient and
-   maintainable implementation.
+Responsibilities:
+-- Provide public interface with external 
+-- datasets that may not be contiguous.  
+-- Having contiguous ids internal to all 
+-- other data structures (and the program
+-- as a whole) allows for much more efficient 
+-- and maintainable implementation.
 
--- Input: File is specified in constructor.  Provides 
-           mapped iterator/stream over file.
+-- Input: File is specified in constructor.  
+-- Provides mapped iterator/stream over file.
 
--- Output: Accept contiguous node id streams, and write as 
-       original node id streams.</panel_attributes>
+-- Output: Accept contiguous node id streams, 
+-- and write as original node id streams.</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>405</x>
-      <y>305</y>
+      <y>360</y>
       <w>210</w>
-      <h>135</h>
+      <h>165</h>
     </coordinates>
     <panel_attributes>RPGraph::GraphViewer
 {Public graph_viewer interface}
@@ -125,11 +126,13 @@ Responsibilities
 --
 -vector&lt;UGraph&gt; graphs
 -CommunityAlgo comm_algo
+-LayoutAlgorithm layout_algo
 --
++set_layout_algo(LAYOUT_ENUM)????
 +set_comm_algo(CommunityAlgo??ENUM??)
 +set_display_method(IOUtility??ENUM??) 
 ^------ Example: LayoutPNGWriterUtility
-+Compress??(): result_struct??
++Compress??(): result_struct?? CALLS COMM ALGO
 +Show(): Side effect ==&gt; IO is displayed.
 --
 Responsibilities
@@ -140,11 +143,11 @@ Responsibilities
     <id>UMLClass</id>
     <coordinates>
       <x>740</x>
-      <y>395</y>
-      <w>85</w>
-      <h>40</h>
+      <y>450</y>
+      <w>130</w>
+      <h>20</h>
     </coordinates>
-    <panel_attributes>/CommunityAlgo/
+    <panel_attributes>/RPGraph::CommunityAlgo/
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -152,14 +155,14 @@ Responsibilities
     <id>UMLClass</id>
     <coordinates>
       <x>710</x>
-      <y>465</y>
-      <w>190</w>
+      <y>520</y>
+      <w>210</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>CommunityAlgos?::DisjointPartitionAlgo
+    <panel_attributes>RPGraph::DisjointPartitionAlgo
 {Compute a disjoiint partition of a network}
 --
-+computePartition(UGraph): Template&lt;T&gt;??? Or just UG?
++compute_partition(UGraph): DisjointResults
 +write_partition(DatasetAdapter, filePath: String)</panel_attributes>
     <additional_attributes/>
   </element>
@@ -167,20 +170,20 @@ Responsibilities
     <id>Relation</id>
     <coordinates>
       <x>775</x>
-      <y>430</y>
-      <w>55</w>
-      <h>45</h>
+      <y>465</y>
+      <w>65</w>
+      <h>65</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>730</x>
-      <y>550</y>
-      <w>175</w>
+      <y>605</y>
+      <w>225</w>
       <h>95</h>
     </coordinates>
     <panel_attributes>CommunityAlgos?::SCoDA
@@ -188,8 +191,7 @@ Responsibilities
 --
 SCoDA(????): result_struct??
 --
--get_mode_degree(UGraph): int; ??ceiling or floor??
-+
+-get_mode_degree(UGraph): int; (round up or down on tie? up)
 --
 Responsibilities
 -- Create disjoint partition with SCoDA algorithm.</panel_attributes>
@@ -199,8 +201,8 @@ Responsibilities
     <id>Relation</id>
     <coordinates>
       <x>775</x>
-      <y>510</y>
-      <w>55</w>
+      <y>565</y>
+      <w>65</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -211,7 +213,7 @@ Responsibilities
     <id>Relation</id>
     <coordinates>
       <x>610</x>
-      <y>410</y>
+      <y>465</y>
       <w>110</w>
       <h>75</h>
     </coordinates>
@@ -223,7 +225,7 @@ Responsibilities
     <id>UMLPackage</id>
     <coordinates>
       <x>1105</x>
-      <y>0</y>
+      <y>55</y>
       <w>355</w>
       <h>640</h>
     </coordinates>
@@ -239,7 +241,7 @@ bg=orange</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>0</x>
-      <y>10</y>
+      <y>65</y>
       <w>430</w>
       <h>225</h>
     </coordinates>
@@ -265,7 +267,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1265</x>
-      <y>455</y>
+      <y>510</y>
       <w>155</w>
       <h>35</h>
     </coordinates>
@@ -278,7 +280,7 @@ Non-contiguous node_id partitions</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1275</x>
-      <y>220</y>
+      <y>275</y>
       <w>105</w>
       <h>35</h>
     </coordinates>
@@ -290,95 +292,87 @@ Non-contiguous node_id pairs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1195</x>
-      <y>225</y>
-      <w>90</w>
-      <h>20</h>
+      <x>1205</x>
+      <y>275</y>
+      <w>80</w>
+      <h>25</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 &lt;&lt;READS&gt;&gt;</panel_attributes>
-    <additional_attributes>160.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>140.0;30.0;10.0;30.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1195</x>
-      <y>460</y>
-      <w>80</w>
-      <h>20</h>
+      <x>1205</x>
+      <y>510</y>
+      <w>70</w>
+      <h>25</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 &lt;&lt;WRITES&gt;&gt;</panel_attributes>
-    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>120.0;30.0;10.0;30.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>610</x>
-      <y>340</y>
+      <y>390</y>
       <w>420</w>
-      <h>25</h>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 1</panel_attributes>
-    <additional_attributes>820.0;30.0;10.0;10.0</additional_attributes>
+    <additional_attributes>820.0;40.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>895</x>
-      <y>485</y>
-      <w>135</w>
-      <h>20</h>
+      <x>915</x>
+      <y>535</y>
+      <w>115</w>
+      <h>25</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 **&lt;&lt;USES TO WRITE&gt;&gt;**</panel_attributes>
-    <additional_attributes>250.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>210.0;30.0;10.0;30.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>845</x>
-      <y>95</y>
-      <w>120</w>
-      <h>145</h>
+      <y>150</y>
+      <w>160</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>RPGraph::CommUGraph
 {adjacency_list}
 --
 -adjacency_list
-+CommUGraph(Template&lt;T&gt; source): Determines adapter used?
-+allow_duplicates
-+vector&lt;uint32_t&gt; degrees
-^--- Is currently an unordered_map...
++CommUGraph(Template&lt;T&gt; source): 
+???????Determines adapter used?
 --
-friend class: EdgelistAdapter
-(or maybe an initializer)
--add_edge(nid_t, nid_t)
-+has_edge(nid_t, nid_t)
 --
-Responsibilities
--- Public dirty edge interface
--- Private contiguous edge interface</panel_attributes>
+Responsibilities</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>695</x>
-      <y>115</y>
-      <w>160</w>
-      <h>20</h>
+      <x>735</x>
+      <y>165</y>
+      <w>120</w>
+      <h>25</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;300.0;20.0</additional_attributes>
+    <additional_attributes>10.0;30.0;220.0;30.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
       <x>815</x>
-      <y>0</y>
+      <y>55</y>
       <w>280</w>
       <h>40</h>
     </coordinates>
@@ -390,34 +384,34 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>630</x>
-      <y>235</y>
+      <y>280</y>
       <w>400</w>
-      <h>90</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 **&lt;&lt;USES TO READ&gt;&gt;**</panel_attributes>
-    <additional_attributes>780.0;160.0;10.0;160.0;10.0;10.0</additional_attributes>
+    <additional_attributes>780.0;180.0;10.0;180.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>465</x>
-      <y>175</y>
+      <y>225</y>
       <w>125</w>
-      <h>140</h>
+      <h>145</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 1+
 
 (Includes CommUGraphs)</panel_attributes>
-    <additional_attributes>230.0;20.0;10.0;20.0;10.0;260.0</additional_attributes>
+    <additional_attributes>230.0;30.0;10.0;30.0;10.0;270.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>970</x>
-      <y>100</y>
-      <w>105</w>
+      <x>1050</x>
+      <y>180</y>
+      <w>120</w>
       <h>85</h>
     </coordinates>
     <panel_attributes>Should we extended an 
@@ -425,5 +419,29 @@ fstream class??  Can we?
 Overload operator&gt;&gt;???
 bg=blue</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>390</y>
+      <w>120</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>graph_viewer_exec
+fontsize=22</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>275</x>
+      <y>385</y>
+      <w>140</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+*ENTRY POINT*</panel_attributes>
+    <additional_attributes>260.0;30.0;10.0;30.0</additional_attributes>
   </element>
 </diagram>
