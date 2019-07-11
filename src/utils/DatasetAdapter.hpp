@@ -13,6 +13,10 @@
 
 
 namespace RPGraph {
+
+    // typedef for node ids.
+    typedef uint32_t nid_t;
+
     class DatasetAdapter {
         public:
             /**
