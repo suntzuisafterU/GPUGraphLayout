@@ -8,3 +8,4 @@ googles cpp style guide: https://google.github.io/styleguide/cppguide.html
 CRTP (Curriously Recurring Template Pattern) for static (compile time) polymorphism: 
     - https://en.wikipedia.org/wiki/Template_metaprogramming#Static_polymorphism 
     - https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern
+Variadic templates: https://en.wikipedia.org/wiki/Variadic_template
