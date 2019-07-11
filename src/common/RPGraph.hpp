@@ -52,6 +52,21 @@ namespace RPGraph
 	 */
     class UGraph : public Graph
     {
+    public:
+        UGraph();
+        UGraph(std::string edgelist_path);
+
+        UGraph(const UGraph&) = delete;             /// Disallow copying.
+        UGraph & operator=(const UGraph&) = delete; /// Disallow copy assignment operator.
+        /// Also disallows move semantics, unless explicitly specified.
+
+        ~UGraph(); /* Explicity declare and define destructors. */
+
+        virtual uint32_t num_nodes() override; /// Use uint32_t to increase the range we can support.
+        virtual uint32_t num_edges() override;
+        virtual int degree(contiguous_nid_t nid) override;
+
+        std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
         // friend class GraphLayout;
         // friend class RPCPUForceAtlas2; // Why did I want to define these?
     friend class SCoDA;
@@ -68,21 +83,6 @@ namespace RPGraph
 
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
 
-    public:
-        UGraph();
-        UGraph(std::string edgelist_path);
-
-        UGraph(const UGraph&) = delete;             /// Disallow copying.
-        UGraph & operator=(const UGraph&) = delete; /// Disallow copy assignment operator.
-        /// Also disallows move semantics, unless explicitly specified.
-
-        ~UGraph(); /* Explicity declare and define destructors. */
-
-        virtual uint32_t num_nodes() override; /// Use uint32_t to increase the range we can support.
-        virtual uint32_t num_edges() override;
-        virtual int degree(contiguous_nid_t nid) override;
-
-        std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
     };
 
 	// // template<typename node_type>

@@ -67,8 +67,27 @@ namespace RPGraph {
             }
 
             void GraphViewer::show() {
+                    // If we need to, write the result to a png
+                    if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
+                    {
+                        produceOutput(iteration); // TODO: Refactor
+                    }
                 // Display according to selected method.
+                auto produceOutput = [&](int iteration) {
+                    /**
+                    * Reverted to older version after multiple issues with the line intended to extract the basename of the network
+                    */
+                    std::string op(out_path);
+                    op.append("/").append(out_file_prefix).append(std::to_string(iteration)).append(".").append(out_format);
+                    printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / max_iterations, out_format.c_str());
+                    fflush(stdout);
+                    fa2->sync_layout();
 
+                    // if (out_format == "png")
+                        writeToPNG(current_layout, image_w, image_h, op);
+
+                    printf("done.\n");
+                };
             }
 
             void GraphViewer::layout(int num_iters) {
@@ -94,60 +113,26 @@ namespace RPGraph {
                 */
                 for (int iteration = 1; iteration < num_iters; ++iteration) // TODO: Should GraphViewer keep track of overall iterations??
                 {
-                    compositeStep(iteration); /* comm graph layout is produced. */
+                    fa2->doStep();
+                    if (iteration % print_period == 0) {
+                        printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
+                    }
                 }
 
                 delete fa2;
-                /**
-                * Lambda function using capture-by-reference to access all outer scope 
-                * variables with the same symbol.
-                * https://stackoverflow.com/questions/4324763/can-we-have-functions-inside-functions-in-c
-                */
-                auto produceOutput = [&](int iteration) {
-                    /**
-                    * Reverted to older version after multiple issues with the line intended to extract the basename of the network
-                    */
-                    std::string op(out_path);
-                    op.append("/").append(out_file_prefix).append(std::to_string(iteration)).append(".").append(out_format);
-                    printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / max_iterations, out_format.c_str());
-                    fflush(stdout);
-                    fa2->sync_layout();
-
-                    // if (out_format == "png")
-                        writeToPNG(current_layout, image_w, image_h, op);
-
-                    printf("done.\n");
-                };
-
-                auto compositeStep = [&](int iteration) {
-                    /**
-                    * Implementation in either RPGPUForceAtlas2.cu or RPCPUForceAtlas2.cpp
-                    */
-                    fa2->doStep();
-                    // If we need to, write the result to a png
-                    if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
-                    {
-                        produceOutput(iteration);
-                    }
-
-                    // Else we print (if we need to)
-                    else if (iteration % print_period == 0)
-                    {
-                        printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
-                    }
                 };
 
             }
 
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
+                RPGraph::UGraph& original_graph = graphs.last_item_or_whatever();
                 std::unordered_map<RPGraph::nid_t, RPGraph::nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
                 RPGraph::UGraph comm_graph;                // Initialize empty comm_graph for scoda to fill.
                 // run CommunityAlgo
-                uint32_t degree_threshold = 2; // TODO: TEMP VALUE TO TEST COMPILING, should figure out some way to parameterize or detect this in the future.  Note that detection requires streaming the entire graph with the authors implementation.  We could try sampling from the first portion of the graph (say 10%) and using a default value up to that point.
                 // TODO: Implement move assignment.
-                RPGraph::SCoDA_Results = RPGraph::scoda_G(degree_threshold, full_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
-
+                RPGraph::SCoDA_Results = this->comm_algo.compute_partition(original_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
+                // Add results to containers.
             }
 
             /**

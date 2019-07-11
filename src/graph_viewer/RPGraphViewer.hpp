@@ -50,8 +50,10 @@ namespace RPGraph {
 
 
         private:
-            std::vector<UGraph> graphs; // TODO: Would a stack be better here?
-            std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_maps;
+typedef nid_comm_map_t = std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t>;
+            RPGraph::UGraph very_first_graph;
+            std::vector<std::pair<UGraph, std::unor
+             nid_comm_maps;
             RPGraph::DisjointPartitionAlgo comm_algo;
 
             /// Parameters to layout algorithms.
