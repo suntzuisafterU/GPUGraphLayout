@@ -7,15 +7,18 @@
 #include "../common/RPGraph.hpp"
 
 namespace RPGraph {
-    class DisjointPartitionAlgo : public CommunityAlgo {
+
+    struct DisjointResults;
+
+    class DisjointPartitionAlgo : public RPGraph::CommunityAlgo {
         // TODO: Do we need the scope specifier RPGraph:: ???
-        RPGraph::DisjointResults compute_partition(UGraph& full_graph, UGraph& comm_graph, 
+        virtual DisjointResults compute_partition(UGraph& full_graph, UGraph& comm_graph, 
                 std::unordered_map<contiguous_nid_t, comm_id_t> & nid_comm_map) = 0; 
         // TODO: Should this return a UGraph (the comm graph) or should it a struct with the results and accept an out param?
     };
 
     struct DisjointResults {
-
+        
     };
 
 }

@@ -7,12 +7,8 @@ namespace RPGraph
 #define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map.insert({nid, comm_id})) /// Defines function to update community association of node nid.
 #define COMMUNITY_OF(nid) (nid_comm_map.at(nid))                             /// Defines function for accessing the community id associated with the ith node.
 
-
-
-
-
 SCoDA_Results compute_partition(RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph, 
-            std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id>& nid_comm_map) {
+            std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t>& nid_comm_map) {
     // Compute mode of degree??
 
 }

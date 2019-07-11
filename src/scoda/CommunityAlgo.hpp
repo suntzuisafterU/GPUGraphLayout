@@ -2,7 +2,7 @@
 #define CommunityAlgo_hpp
 
 namespace RPGraph {
-    class CommunitAlgo {
+    class CommunityAlgo {
         // TODO: Can this be completely blank?
     };
 

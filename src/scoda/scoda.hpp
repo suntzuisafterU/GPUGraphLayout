@@ -17,13 +17,14 @@
 #include "DisjointPartitionAlgo.hpp"
 
 namespace RPGraph{
+    struct SCoDA_Results : DisjointResults;
 
     class SCoDA : public DisjointPartitionAlgo {
         // TODO: using namespace RPGraph::contiguous_nid_t etc to shorten everything.
         RPGraph::SCoDA_Results compute_partition(RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph, 
-                    std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id>& nid_comm_map);
+                    std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t>& nid_comm_map);
 
-        void print_partition(std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id> &nid_comm_map);
+        void print_partition(std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t> &nid_comm_map);
     };
 
     struct SCoDA_Results : DisjointResults {
