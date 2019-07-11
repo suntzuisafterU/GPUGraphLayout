@@ -17,7 +17,9 @@ SCoDA_GPU_FULL.code-workspace
 
 ## Build generated
 build/
-builds/linux/graph_viewer
+builds/linux/graph_viewer_exec
+builds/linux/scoda_exec
+builds/linux/stress_exec
 builds/linux/.depend
 out/
 DerivedData/
