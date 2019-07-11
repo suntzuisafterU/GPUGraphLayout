@@ -20,7 +20,7 @@
 namespace RPGraph {
     struct SCoDA_Results;
 
-    class SCoDA {
+    class SCoDA : public DisjointPartitionAlgo < SCoDA_Results > {
         SCoDA_Results compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
                     nid_comm_map_t& nid_comm_map);
 
