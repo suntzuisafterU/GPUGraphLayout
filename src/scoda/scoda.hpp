@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream> // for istringstream() in scoda.cpp
 #include <iostream>
+#include <algorithm>
 
 #include "../common/RPTypeDefs.hpp"
 #include "../common/RPGraph.hpp" // For UGraph
@@ -23,6 +24,8 @@ namespace RPGraph{
         // TODO: using namespace RPGraph::contiguous_nid_t etc to shorten everything.
         SCoDA_Results compute_partition(RPGraph::UGraph& full_graph, RPGraph::UGraph& comm_graph, 
                     std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t>& nid_comm_map);
+
+        int compute_mode_of_degree(const RPGraph::UGraph& in_graph);
 
         void print_partition(std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t> &nid_comm_map);
     };
@@ -39,6 +42,21 @@ namespace RPGraph{
         float edge_comp_ratio;
     };
     
+    /**
+     * source: https://stackoverflow.com/a/55961383/11385910
+     */
+    template <class Container>
+    auto findMaxKeyValuePair(Container const &x) 
+        -> typename Container::value_type
+    {
+        using value_t = typename Container::value_type;
+        const auto compare = [](value_t const &p1, value_t const &p2)
+        {
+            return p1.second < p2.second;
+        };
+        return *std::max_element(x.begin(), x.end(), compare);
+    }
+
 } // namespace RPGraph
 
 #endif /* scoda_hpp */

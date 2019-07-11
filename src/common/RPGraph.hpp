@@ -54,6 +54,7 @@ namespace RPGraph
     {
         // friend class GraphLayout;
         // friend class RPCPUForceAtlas2; // Why did I want to define these?
+    friend class SCoDA;
     private:
         uint32_t node_count, edge_count;
         std::vector <uint32_t> degrees; /**< Vector of degrees, indexed by contiguous_nid_t */
