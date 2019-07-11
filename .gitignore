@@ -16,9 +16,6 @@
 SCoDA_GPU_FULL.code-workspace
 
 ## Build generated
-**/graph_viewer
-**/scoda_exec
-**/stress_exec
 build/
 builds/linux/graph_viewer
 builds/linux/.depend
