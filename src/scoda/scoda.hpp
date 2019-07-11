@@ -29,16 +29,18 @@ namespace RPGraph {
         void print_partition(nid_comm_map_t &nid_comm_map);
     };
 
-     struct SCoDA_Results {
-         int num_null_e;
-         int num_duplicate_comm_edges;
-         uint32_t num_comm_nodes;
-         uint32_t num_full_nodes;
-         float node_comp_ratio;
-         uint32_t num_comm_edges;
-         uint32_t num_full_edges;
-         float edge_comp_ratio;
-     };
+    struct SCoDA_Results {
+        int num_null_e;
+        int num_duplicate_comm_edges;
+        uint32_t num_comm_nodes;
+        uint32_t num_full_nodes;
+        float node_comp_ratio;
+        uint32_t num_comm_edges;
+        uint32_t num_full_edges;
+        float edge_comp_ratio;
+
+        // TODO: Override the << operator to print this.
+    };
     
     /**
      * source: https://stackoverflow.com/a/55961383/11385910
