@@ -25,7 +25,11 @@
 namespace RPGraph {
 
     /// Store graph together with associated map.  
-    typedef UG_and_commMap std::pair<UGraph&, nid_comm_map_t&>; // TODO: Does this have to hold pointers or refs?
+    struct DerivedGraph {
+        RPGraph::UGraph& comm_graph;
+        RPGraph::GraphLayout& layout;
+        RPGraph::nid_comm_map_t& nid_comm_map;
+    }
 
     class GraphViewer {
         public:
@@ -55,7 +59,7 @@ namespace RPGraph {
 
         private:
             RPGraph::UGraph very_first_graph;
-            std::vector<UG_and_commMap> derived_graphs_and_maps;
+            std::vector< DerivedGraph > derived_graphs_and_maps;
             RPGraph::DisjointPartitionAlgo comm_algo;
 
             /// Parameters to layout algorithms.

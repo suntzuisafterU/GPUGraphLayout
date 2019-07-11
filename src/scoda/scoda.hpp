@@ -20,26 +20,25 @@
 namespace RPGraph {
     struct SCoDA_Results;
 
-    class SCoDA : public DisjointPartitionAlgo < SCoDA_Results > {
-        // TODO: using namespace RPGraph::contiguous_nid_t etc to shorten everything.
+    class SCoDA {
         SCoDA_Results compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
-                    std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t>& nid_comm_map);
+                    nid_comm_map_t& nid_comm_map);
 
-        int compute_mode_of_degree(const RPGraph::UGraph& in_graph);
+        uint32_t compute_mode_of_degree(const RPGraph::UGraph& in_graph);
 
-        void print_partition(std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t> &nid_comm_map);
+        void print_partition(nid_comm_map_t &nid_comm_map);
     };
 
-    struct SCoDA_Results : DisjointResults {
-        int num_null_e;
-        int num_duplicate_comm_edges;
-        int num_comm_nodes;
-        int num_full_nodes;
-        float node_comp_ratio;
-        int num_comm_edges;
-        int num_full_edges;
-        float edge_comp_ratio;
-    };
+     struct SCoDA_Results {
+         int num_null_e;
+         int num_duplicate_comm_edges;
+         uint32_t num_comm_nodes;
+         uint32_t num_full_nodes;
+         float node_comp_ratio;
+         uint32_t num_comm_edges;
+         uint32_t num_full_edges;
+         float edge_comp_ratio;
+     };
     
     /**
      * source: https://stackoverflow.com/a/55961383/11385910

@@ -107,12 +107,12 @@ namespace RPGraph
         edge_count++;
     }
 
-    contiguous_nid_t UGraph::num_nodes()
+    contiguous_nid_t UGraph::num_nodes() const
     {
         return node_count;
     }
 
-    contiguous_nid_t UGraph::num_edges()
+    contiguous_nid_t UGraph::num_edges() const
     {
         return edge_count;
     }
@@ -130,7 +130,7 @@ namespace RPGraph
     /**
      * Index via MAPPED nids
      */
-    std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid)
+    std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid) const
     {
         return adjacency_list[nid];
     }
@@ -225,12 +225,12 @@ namespace RPGraph
         return edges[offsets[nid] + edge_no];
     }
 
-    uint32_t CSRUGraph::num_nodes()
+    uint32_t CSRUGraph::num_nodes() const
     {
         return node_count;
     }
 
-    uint32_t CSRUGraph::num_edges()
+    uint32_t CSRUGraph::num_edges() const
     {
         return edge_count;
     }

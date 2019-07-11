@@ -39,12 +39,11 @@ namespace RPGraph
     class Graph
     {
         public:
-            virtual uint32_t num_nodes() = 0;
-            virtual uint32_t num_edges() = 0;
+            virtual uint32_t num_nodes() const = 0;
+            virtual uint32_t num_edges() const = 0;
             virtual int degree(contiguous_nid_t nid) = 0;
-            virtual std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
+            virtual std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) const = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
             virtual ~Graph() = 0; /**< Pure virtual method, specified by `= 0;`. Means that deriving class must override, but can use optional implementation provided by superclass via the `= default;` keyword. see https://stackoverflow.com/questions/34383516/should-i-default-virtual-destructors */
-
     };
 
 	/**
@@ -52,6 +51,7 @@ namespace RPGraph
 	 */
     class UGraph : public Graph
     {
+    friend class SCoDA;
     public:
         UGraph();
         UGraph(std::string edgelist_path);
@@ -62,14 +62,13 @@ namespace RPGraph
 
         ~UGraph(); /* Explicity declare and define destructors. */
 
-        virtual uint32_t num_nodes() override; /// Use uint32_t to increase the range we can support.
-        virtual uint32_t num_edges() override;
+        virtual uint32_t num_nodes() const override; /// Use uint32_t to increase the range we can support.
+        virtual uint32_t num_edges() const override;
         virtual int degree(contiguous_nid_t nid) override;
 
-        std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
+        std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) const override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
         // friend class GraphLayout;
         // friend class RPCPUForceAtlas2; // Why did I want to define these?
-    friend class SCoDA;
     private:
         uint32_t node_count, edge_count;
         std::vector <uint32_t> degrees; /**< Vector of degrees, indexed by contiguous_nid_t */
@@ -119,8 +118,8 @@ namespace RPGraph
         void insert_node(contiguous_nid_t node_id, std::vector<contiguous_nid_t> nbr_ids);
         void fix_edge_ids(); // this should go...
 
-        virtual uint32_t num_nodes() override;
-        virtual uint32_t num_edges() override;
+        virtual uint32_t num_nodes() const override;
+        virtual uint32_t num_edges() const override;
         virtual int degree(contiguous_nid_t nid) override;
 
         contiguous_nid_t nbr_id_for_node(contiguous_nid_t nid, contiguous_nid_t nbr_no);
