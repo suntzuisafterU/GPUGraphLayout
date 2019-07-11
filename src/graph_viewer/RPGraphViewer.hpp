@@ -71,7 +71,7 @@ namespace RPGraph {
             GraphViewer & operator=(const GraphViewer& other) = delete;
             // TODO: void init(std::string file_path);
             void show(int); /**< Display or print data, depends on output method. */
-            void set_comm_algo(RPGraph::CommAlgo);
+            // TODO: void set_comm_algo(RPGraph::CommAlgo);
             // TODO: void set_layout_method(/* CPU or GPU FA2 */);
             // TODO: void set_display_method(/* png writer */);
 
@@ -80,8 +80,7 @@ namespace RPGraph {
             RPGraph::UGraph very_first_graph;
             std::vector< DerivedGraph > derived_graphs_and_maps;
             
-            template<class T>
-            RPGraph::DisjointPartitionAlgo<T> comm_algo;
+            RPGraph::SCoDA:SCoDA comm_algo;
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;

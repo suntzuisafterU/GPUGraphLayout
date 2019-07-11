@@ -30,13 +30,14 @@
 #include "RPGraphViewer.hpp"
 
 namespace RPGraph {
-            void GraphViewer::set_comm_algo(RPGraph::CommAlgo comm_algo_enum) {
-                switch(comm_algo_enum) {
-                    case SCoDA:
-                        this->comm_algo RPGraph::SCoDA();
-                        return; // Or break??
-                }
-            }
+
+            // TODO: void GraphViewer::set_comm_algo(RPGraph::CommAlgo comm_algo_enum) {
+            //     switch(comm_algo_enum) {
+            //         case SCoDA:
+            //             this->comm_algo = RPGraph::SCoDA();
+            //             return; // Or break??
+            //     }
+            // }
 
             // TODO: void GraphViewer::init(std::string edgelist_path) {
             //     // TODO: Create a DatasetAdapter to the desired path (once DA is ready)
@@ -108,7 +109,7 @@ namespace RPGraph {
             *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
             */
             void GraphViewer::expand() {
-            nid_comm_map_t nid_comm_map = this->derived_graphs_and_maps.last_item_or_whatever().nid_comm_map; // TODO: Maybe need arrow
+            RPGraph::nid_comm_map_t nid_comm_map = this->derived_graphs_and_maps.last_item_or_whatever().nid_comm_map; // TODO: Maybe need arrow
             // TODO: How should we set layout to expand into?
                 for (const auto& nid_commid_pair : nid_comm_map) {
                     RPGraph::contiguous_nid_t node = nid_commid_pair.first;
