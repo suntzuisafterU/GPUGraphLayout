@@ -23,6 +23,10 @@
 
 
 namespace RPGraph {
+
+    /// Store graph together with associated map.  
+    typedef UG_and_commMap std::pair<UGraph&, nid_comm_map_t&>; // TODO: Does this have to hold pointers or refs?
+
     class GraphViewer {
         public:
             GraphViewer(const bool cuda_requested,
@@ -50,10 +54,8 @@ namespace RPGraph {
 
 
         private:
-typedef nid_comm_map_t = std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t>;
             RPGraph::UGraph very_first_graph;
-            std::vector<std::pair<UGraph, std::unor
-             nid_comm_maps;
+            std::vector<UG_and_commMap> derived_graphs_and_maps;
             RPGraph::DisjointPartitionAlgo comm_algo;
 
             /// Parameters to layout algorithms.
