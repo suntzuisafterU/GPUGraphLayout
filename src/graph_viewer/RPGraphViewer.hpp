@@ -28,9 +28,14 @@ namespace RPGraph {
     /// Store graph together with associated map.  
     struct DerivedGraph {
         RPGraph::UGraph& comm_graph;
-        RPGraph::nid_comm_map_t& nid_comm_map;
         RPGraph::GraphLayout& layout;
+    };
+    
+    struct DerivedGraphHyperEdge { // TODO: naming?
+        DerivedGraph& source_dg;
+        RPGraph::nid_comm_map_t& nid_comm_map;
         RPGraph::SCoDA_Results& results;
+        DerivedGraph& result_dg;
     };
 
     class GraphViewer {
@@ -78,9 +83,7 @@ namespace RPGraph {
 
 
         private:
-            RPGraph::UGraph very_first_graph;
-            std::vector< DerivedGraph > derived_graphs_and_maps;
-            
+            std::vector< DerivedGraphHyperEdge > derived_graphs_and_maps; // TODO: Analysis this datastructure, memory leaks?
             RPGraph::SCoDA comm_algo;
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
