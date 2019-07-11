@@ -38,6 +38,9 @@ namespace RPGraph {
 
     /**
      * Don't allow the use of RPFileIterator without DatasetAdapter.
+     * 
+     * TODO: Might use the CRTP to implement compile time polymorphism. https://en.wikipedia.org/wiki/Template_metaprogramming#Static_polymorphism
+     *       This is used in the boost.iterator library.
      */
     class DatasetAdapter::RPFileIterator : RPIterator { // TODO: Is this inheritance pattern valid?
         public:
