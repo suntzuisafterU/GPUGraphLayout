@@ -33,7 +33,7 @@ namespace RPGraph {
 
             // TODO: void GraphViewer::set_comm_algo(RPGraph::CommAlgo comm_algo_enum) {
             //     switch(comm_algo_enum) {
-            //         case SCoDA:
+            //         case SCoDA_ENUM:
             //             this->comm_algo = RPGraph::SCoDA();
             //             return; // Or break??
             //     }

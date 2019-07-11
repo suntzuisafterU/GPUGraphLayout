@@ -13,6 +13,7 @@
 #include "../common/RPTypeDefs.hpp"
 #include "../utils/IO/RPGraphLayoutUtils.hpp"
 #include "../FA2/RPCPUForceAtlas2.hpp"
+#include "../scoda/CommunityAlgo.hpp"
 #include "../scoda/DisjointPartitionAlgo.hpp"
 #include "../scoda/scoda.hpp"
 
@@ -70,7 +71,7 @@ namespace RPGraph {
             GraphViewer(const GraphViewer& other) = delete;
             GraphViewer & operator=(const GraphViewer& other) = delete;
             // TODO: void init(std::string file_path);
-            void show(int); /**< Display or print data, depends on output method. */
+            void show(int iter); /**< Display or print data, depends on output method. */
             // TODO: void set_comm_algo(RPGraph::CommAlgo);
             // TODO: void set_layout_method(/* CPU or GPU FA2 */);
             // TODO: void set_display_method(/* png writer */);
@@ -80,7 +81,7 @@ namespace RPGraph {
             RPGraph::UGraph very_first_graph;
             std::vector< DerivedGraph > derived_graphs_and_maps;
             
-            RPGraph::SCoDA:SCoDA comm_algo;
+            RPGraph::SCoDA comm_algo;
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;
