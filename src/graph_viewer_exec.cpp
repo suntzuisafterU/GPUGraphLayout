@@ -110,9 +110,9 @@ int main(int argc, const char **argv)
     parseCommandLine(graph_viewer); // TODO: Easiest way to initialize??
     std::string file_path = "temp";
     graph_viewer.init(file_path);
-    graph_viewer.set_comm_algo(/* scoda */);
-    graph_viewer.set_layout_method(/* CPU or GPU FA2 */);
-    graph_viewer.set_display_method(/* png writer */);
+    // TODO: graph_viewer.set_comm_algo(/* scoda */);
+    // TODO: graph_viewer.set_layout_method(/* CPU or GPU FA2 */);
+    // TODO: graph_viewer.set_display_method(/* png writer */);
 
     graph_viewer.compress(); // Could be done multiple times.
     // TODO: Cleanup
@@ -120,6 +120,11 @@ int main(int argc, const char **argv)
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
 
+    // TODO: Replace functionality somehow.
+    // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
+    // {
+    //     produceOutput(iteration); // TODO: Refactor
+    // }
 
     graph_viewer.layout(/* int number of times */);
     graph_viewer.show();

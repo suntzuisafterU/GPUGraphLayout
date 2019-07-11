@@ -44,6 +44,7 @@ namespace RPGraph {
     
     /**
      * source: https://stackoverflow.com/a/55961383/11385910
+     * Will work for map or unordered_map
      */
     template <class Container>
     auto findMaxKeyValuePair(Container const &x) 

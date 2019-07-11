@@ -41,7 +41,7 @@ namespace RPGraph
 
     BarnesHutCell::~BarnesHutCell()
     {
-        for (nid_t n = 0; n < 4; ++n) delete sub_cells[n]; /**< TODO: I believe this is the associated destructor that should recursively delete all subcells that Valgrind says are lost. */
+        for (contiguous_nid_t n = 0; n < 4; ++n) delete sub_cells[n]; /**< TODO: I believe this is the associated destructor that should recursively delete all subcells that Valgrind says are lost. */
     }
 
     void BarnesHutCell::add_leafcell(int quadrant, float mass, Coordinate pos)

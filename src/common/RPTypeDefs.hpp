@@ -17,6 +17,9 @@ typedef std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t> nid_co
 // Method to use to display.
 enum OutputMethod { PNG_WRITER };
 
+// Community algos available.
+enum CommAlgo { SCoDA };
+
 } // namespace RPGraph
 
 #endif // RPTypeDefs_hpp 

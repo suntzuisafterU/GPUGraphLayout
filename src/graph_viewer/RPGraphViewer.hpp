@@ -27,9 +27,10 @@ namespace RPGraph {
     /// Store graph together with associated map.  
     struct DerivedGraph {
         RPGraph::UGraph& comm_graph;
-        RPGraph::GraphLayout& layout;
         RPGraph::nid_comm_map_t& nid_comm_map;
-    }
+        RPGraph::GraphLayout& layout;
+        RPGraph::SCoDA_Results& results;
+    };
 
     class GraphViewer {
         public:
@@ -47,22 +48,42 @@ namespace RPGraph {
                         const char *out_file_prefix,
                         std::string out_format = "png",
                         int image_w = 1250,
-                        int image_h = 1250 );
+                        int image_h = 1250 ) :
+                        cuda_requested{cuda_requested},
+                        max_iterations{max_iterations},
+                        num_screenshots{num_screenshots},
+                        strong_gravity{strong_gravity},
+                        scale{scale},
+                        gravity{gravity},
+                        approximate{approximate},
+                        use_linlog{use_linlog},
+                        percentage_iterations_on_comm_graph{percentage_iterations_on_comm_graph},
+                        edgelist_path{edgelist_path},
+                        out_path{out_path},
+                        out_file_prefix{out_file_prefix},
+                        out_format{out_format},
+                        image_w{image_w},
+                        image_h{image_h} { };
 
             GraphViewer() = delete;
-            // GraphViewer(OutputMethod output_method); // TODO: Use after testing.
+
             GraphViewer(const GraphViewer& other) = delete;
             GraphViewer & operator=(const GraphViewer& other) = delete;
-            void init(std::string file_path);
-            void show(); /**< Display or print data, depends on output method. */
+            // TODO: void init(std::string file_path);
+            void show(int); /**< Display or print data, depends on output method. */
+            void set_comm_algo(RPGraph::CommAlgo);
+            // TODO: void set_layout_method(/* CPU or GPU FA2 */);
+            // TODO: void set_display_method(/* png writer */);
 
 
         private:
             RPGraph::UGraph very_first_graph;
             std::vector< DerivedGraph > derived_graphs_and_maps;
-            RPGraph::DisjointPartitionAlgo comm_algo;
+            
+            template<class T>
+            RPGraph::DisjointPartitionAlgo<T> comm_algo;
 
-            /// Parameters to layout algorithms.
+            /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;
             const int max_iterations;
             const int num_screenshots;
@@ -78,11 +99,7 @@ namespace RPGraph {
             std::string out_format;
             int image_w;
             int image_h;
-
-    }
-}
-
-
-
+    };
+} // namespace RPGraph
 
 #endif // RPGraphViewer_hpp
