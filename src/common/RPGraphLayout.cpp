@@ -161,7 +161,7 @@ namespace RPGraph
     /**
      * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
      */
-    Coordinate GraphLayout::getCoordinate(contiguous_nid_t node_id)
+    Coordinate GraphLayout::getCoordinate(contiguous_nid_t node_id) const
     {
         return coordinates[node_id];
     }
