@@ -14,11 +14,13 @@ typedef uint32_t comm_id_t;
 // Container for mapping contiguous_nid_t to comm_ids
 typedef std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t> nid_comm_map_t;
 
-// Method to use to display.
-enum OutputMethod { PNG_WRITER };
+  namespace Enums {
+    // Method to use to display.
+    enum OutputMethod { PNG_WRITER };
 
-// Community algos available.
-enum CommAlgo { SCoDA_ENUM };
+    // Community algos available.
+    enum CommAlgo { SCoDA_ENUM };
+  } // namespace Enums
 
 } // namespace RPGraph
 
