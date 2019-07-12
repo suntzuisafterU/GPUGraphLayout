@@ -1,3 +1,6 @@
+Only full tutorial I actually read from: https://www.learncpp.com/
+From the creator: https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md
+
 Move semantics: https://stackoverflow.com/a/3109981/11385910
 copy-swap idiom: https://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom
 safe-bool idiom:
@@ -10,3 +13,4 @@ CRTP (Curriously Recurring Template Pattern) for static (compile time) polymorph
     - https://en.wikipedia.org/wiki/Template_metaprogramming#Static_polymorphism 
     - https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern
 Variadic templates: https://en.wikipedia.org/wiki/Variadic_template
+
