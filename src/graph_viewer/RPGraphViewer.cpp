@@ -153,7 +153,7 @@ namespace RPGraph {
                 for (const auto& nid_commid_pair : nid_comm_map) {
                     RPGraph::contiguous_nid_t node = nid_commid_pair.first;
                     RPGraph::comm_id_t comm = nid_commid_pair.second;
-                    RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(const_cast<RPGraph::contiguous_nid_t>(comm));
+                    RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(cast_comm_to_contig(comm));
                     // TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
                     full_layout.setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }

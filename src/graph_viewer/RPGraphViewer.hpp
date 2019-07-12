@@ -125,6 +125,11 @@ namespace RPGraph {
 				hyper_edges.pop_back(); // Erases, no return.
 			}
 
+			RPGraph::contiguous_nid_t cast_comm_to_contig(RPGraph::comm_id_t comm_id) {
+				contiguous_nid_t val = comm_id; // TODO: Get rid of this function.
+				return val;
+			}
+
             RPGraph::GraphLayout& get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
 			const RPGraph::UGraph& get_current_source_graph();
