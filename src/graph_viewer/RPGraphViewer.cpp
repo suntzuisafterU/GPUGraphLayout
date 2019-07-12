@@ -92,28 +92,28 @@ namespace RPGraph {
                 };
 
 			RPGraph::GraphLayout& GraphViewer::get_current_layout() {
-				DerivedGraphHyperEdge& dghe = hyper_edges.top();
+				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
 				return dghe.result_dg.layout;
 			}
 
 			const RPGraph::nid_comm_map_t& GraphViewer::get_current_comm_map() {
-				DerivedGraphHyperEdge& dghe = hyper_edges.top();
+				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
 				return dghe.nid_comm_map;
 			}
 
 			const RPGraph::UGraph& GraphViewer::get_current_source_graph() {
-				DerivedGraphHyperEdge& dghe = hyper_edges.top();
+				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
 				return dghe.source_dg.graph;
 			}
 
 			const RPGraph::UGraph& GraphViewer::get_current_result_graph() {
-				DerivedGraphHyperEdge& dghe = hyper_edges.top();
+				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
 				return dghe.result_dg.graph;
 			}
 
-			void add_hyper_edge(DerivedGraphHyperEdge dghe) {
-				this->hyper_edges.push(dghe);
-			}
+			// void add_hyper_edge(DerivedGraphHyperEdge dghe) {
+			// 	this->hyper_edges.push(dghe);
+			// }
 
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
@@ -128,11 +128,11 @@ namespace RPGraph {
                 // Add results to containers.
 				RPGraph::HyperEdgeReports hyper_edge_reports{ scoda_report }; // TODO: DANGER::: This is dependent on ordering!
 				// TODO: Will need move semantics.
-                add_hyper_edge(DerivedGraphHyperEdge { // TODO: Is this a nameless dghe?
+                hyper_edges.emplace_back( // TODO: Is this a nameless dghe?
 					original_graph, 
 					nid_comm_map, 
 					comm_graph, 
-					hyper_edge_reports}); // TODO: This should not have to provide and initialized layout object.
+					hyper_edge_reports); // TODO: This should not have to provide and initialized layout object.
             }
 
             /**

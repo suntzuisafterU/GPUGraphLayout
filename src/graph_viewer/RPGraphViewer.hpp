@@ -6,7 +6,6 @@
 #include <string>
 #include <math.h>
 #include <fstream>
-#include <stack>
 
 #include "../common/RPCommon.hpp"
 #include "../common/RPGraph.hpp"
@@ -112,17 +111,18 @@ namespace RPGraph {
 
         private:
 			// TODO: stack could be stack of references to dghes.  Then hold actual dghes in a vector or something.
-            std::stack < DerivedGraphHyperEdge > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
+            std::vector < DerivedGraphHyperEdge > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
 			std::vector < DerivedGraphHyperEdge > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.
             RPGraph::SCoDA comm_algo;
             RPGraph::ForceAtlas2* fa2; // TODO: Make some kind of safe pointer or something.
 
-			//inline RPGraph::DerivedGraphHyperEdge& get_current_dghe() {
-			//	return hyper_edges.top();
-			//}
+			inline RPGraph::DerivedGraphHyperEdge& get_current_hyper_edge() {
+				return hyper_edges.back();
+			}
 
 			inline void _discard_hyper_edge() {
-				__old_hyper_edges.push_back(hyper_edges.pop()); // TODO: Testing
+				__old_hyper_edges.push_back(hyper_edges.back()); // TODO: Testing
+				hyper_edges.pop_back(); // Erases, no return.
 			}
 
             RPGraph::GraphLayout& get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
