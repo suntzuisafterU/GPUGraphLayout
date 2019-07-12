@@ -15,6 +15,7 @@
 namespace RPGraph {
 
     // typedef for node ids.
+    // TODO: What is the range of this unsigned integer type? Implement safety checks in the appropriate places to avoid uint overflow.
     typedef uint32_t nid_t;
 
     class DatasetAdapter {

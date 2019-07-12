@@ -4,6 +4,10 @@
 #include <unordered_map>
 
 namespace RPGraph {
+
+// TODO: Define a type for tracking data such as counts, degrees, etc.
+// TODO: Make sure that we have safety checks for unsigned integer overflow.
+
 // Type to represent node IDs.
 // NOTE: we limit to 4,294,967,296 nodes through uint32_t.
 typedef uint32_t contiguous_nid_t;
