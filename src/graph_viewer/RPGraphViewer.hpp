@@ -31,17 +31,17 @@ namespace RPGraph {
 
     /// Store graph together with associated layout.  
     struct DerivedGraph {
-		DerivedGraph(RPGraph::UGraph& ug) { // How do we take this and move the stuff in?
-			if (ug.num_nodes == 0) throw "Error, UGraph not iniatialized.";
-			this->graph = ug; // TODO: Move semantics??
+		DerivedGraph::DerivedGraph(RPGraph::UGraph& ug) : graph{ ug } { // How do we take this and move the stuff in?
+			if (ug.num_nodes() == 0) throw "Error, UGraph not iniatialized.";  // Die
 			// IF we initialize a layout here, the ug must be full.
+			// Need move semantics
 			this->layout = RPGraph::GraphLayout(ug);
 		}
 
 		DerivedGraph(const DerivedGraph& other) = delete;
 		DerivedGraph operator= (const DerivedGraph& other) = delete;
 
-        RPGraph::UGraph graph;
+        const RPGraph::UGraph graph;
 		RPGraph::GraphLayout layout;
         // std::unique_ptr<RPGraph::GraphLayout> layout_ptr; // Unique ptr, then is mutable.
     };

@@ -21,6 +21,7 @@ namespace RPGraph {
     struct SCoDA_Report;
 
     class SCoDA {
+	public:
         SCoDA_Report compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
                     nid_comm_map_t& nid_comm_map);
 

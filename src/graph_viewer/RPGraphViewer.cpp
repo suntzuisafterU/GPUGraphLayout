@@ -96,16 +96,17 @@ namespace RPGraph {
 				return dghe.result_dg.layout;
 			}
 
-			RPGraph::nid_comm_map_t& GraphViewer::get_current_comm_map() {
+			const RPGraph::nid_comm_map_t& GraphViewer::get_current_comm_map() {
 				DerivedGraphHyperEdge& dghe = hyper_edges.top();
 				return dghe.nid_comm_map;
 			}
 
-			RPGraph::UGraph& GraphViewer::get_current_source_graph() {
+			const RPGraph::UGraph& GraphViewer::get_current_source_graph() {
 				DerivedGraphHyperEdge& dghe = hyper_edges.top();
 				return dghe.source_dg.graph;
 			}
-			RPGraph::UGraph& GraphViewer::get_current_result_graph() {
+
+			const RPGraph::UGraph& GraphViewer::get_current_result_graph() {
 				DerivedGraphHyperEdge& dghe = hyper_edges.top();
 				return dghe.result_dg.graph;
 			}
@@ -116,7 +117,7 @@ namespace RPGraph {
 
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
-				RPGraph::UGraph& original_graph = get_current_source_graph();
+				const RPGraph::UGraph& original_graph = get_current_source_graph();
 				// TODO: Will have to create a container for all the maps, reports, etc.
                 std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 				// Can we use move semantics to deal with this?
@@ -127,7 +128,7 @@ namespace RPGraph {
                 // Add results to containers.
 				RPGraph::HyperEdgeReports hyper_edge_reports{ scoda_report }; // TODO: DANGER::: This is dependent on ordering!
 				// TODO: Will need move semantics.
-                add_new_hyper_edge(DerivedGraphHyperEdge { // TODO: Is this a nameless dghe?
+                add_hyper_edge(DerivedGraphHyperEdge { // TODO: Is this a nameless dghe?
 					original_graph, 
 					nid_comm_map, 
 					comm_graph, 
@@ -142,8 +143,8 @@ namespace RPGraph {
 				// Check for expandability.
 				if (hyper_edges.size() == 0) throw "Error: No hyper edges to expand.";
 
-				RPGraph::nid_comm_map_t& nid_comm_map = get_current_comm_map();
-				RPGraph::GraphLayout& comm_layout = get_current_layout();
+				const RPGraph::nid_comm_map_t& nid_comm_map = get_current_comm_map();
+				const RPGraph::GraphLayout& comm_layout = get_current_layout();
 				// TODO: This portion is easy to screw up.
 				// TODO: Technically NOT SAFE since we are storing the actual nid_comm_map inside of the hyper edge.
 				_discard_hyper_edge(); // Will have to pop off the top here to get access to the underlying full_layout.
