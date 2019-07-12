@@ -126,9 +126,9 @@ namespace RPGraph {
 			}
 
             RPGraph::GraphLayout& get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
-			RPGraph::nid_comm_map_t& get_current_comm_map();
-			RPGraph::UGraph& get_current_source_graph();
-			RPGraph::UGraph& get_current_result_graph(); // Could be null?
+			const RPGraph::nid_comm_map_t& get_current_comm_map();
+			const RPGraph::UGraph& get_current_source_graph();
+			const RPGraph::UGraph& get_current_result_graph(); // Could be null?
 			void add_hyper_edge(DerivedGraphHyperEdge dghe);
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
