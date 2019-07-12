@@ -31,8 +31,19 @@ namespace RPGraph {
 
     /// Store graph together with associated layout.  
     struct DerivedGraph {
-        RPGraph::UGraph& comm_graph;
-        RPGraph::GraphLayout& layout;
+		DerivedGraph(RPGraph::UGraph& ug) { // How do we take this and move the stuff in?
+			if (ug.num_nodes == 0) throw "Error, UGraph not iniatialized.";
+			this->graph = ug; // TODO: Move semantics??
+			// IF we initialize a layout here, the ug must be full.
+			this->layout = RPGraph::GraphLayout(ug);
+		}
+
+		DerivedGraph(const DerivedGraph& other) = delete;
+		DerivedGraph operator= (const DerivedGraph& other) = delete;
+
+        RPGraph::UGraph graph;
+		RPGraph::GraphLayout layout;
+        // std::unique_ptr<RPGraph::GraphLayout> layout_ptr; // Unique ptr, then is mutable.
     };
 
     struct HyperEdgeReports {
@@ -44,10 +55,10 @@ namespace RPGraph {
     /// Compression via community algo associates 2 graphs with each other. Expansion uses this association as well.
     struct DerivedGraphHyperEdge { // TODO: naming?
         const DerivedGraph& source_dg;
-        const RPGraph::nid_comm_map_t& nid_comm_map; // Map associates these 2 graphs.  This is the only place that the map lives? May have to implement move semantics.
+        const RPGraph::nid_comm_map_t nid_comm_map; // Map associates these 2 graphs.  This is the only place that the map lives? May have to implement move semantics.
         const DerivedGraph& result_dg;
 
-        HyperEdgeReports reports; // All reports associated with this step, in either direction. (compression or expansion)
+        HyperEdgeReports& reports; // All reports associated with this step, in either direction. (compression or expansion)
         // TODO: Have a destructor or something that prints the reports? Lol
     };
 
@@ -91,7 +102,7 @@ namespace RPGraph {
             // TODO: void init(std::string file_path);
             void show(int iter); /**< Display or print data, depends on output method. */
             void iterate_on_layout(int num_iters);
-            RPGraph::GraphLayout* get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
+
             void compress();
             void expand();
             // TODO: void set_comm_algo(RPGraph::CommAlgo);
@@ -100,9 +111,25 @@ namespace RPGraph {
 
 
         private:
+			// TODO: stack could be stack of references to dghes.  Then hold actual dghes in a vector or something.
             std::stack < DerivedGraphHyperEdge > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
+			std::vector < DerivedGraphHyperEdge > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.
             RPGraph::SCoDA comm_algo;
             RPGraph::ForceAtlas2* fa2; // TODO: Make some kind of safe pointer or something.
+
+			//inline RPGraph::DerivedGraphHyperEdge& get_current_dghe() {
+			//	return hyper_edges.top();
+			//}
+
+			inline void _discard_hyper_edge() {
+				__old_hyper_edges.push_back(hyper_edges.pop()); // TODO: Testing
+			}
+
+            RPGraph::GraphLayout& get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
+			RPGraph::nid_comm_map_t& get_current_comm_map();
+			RPGraph::UGraph& get_current_source_graph();
+			RPGraph::UGraph& get_current_result_graph(); // Could be null?
+			void add_hyper_edge(DerivedGraphHyperEdge dghe);
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;

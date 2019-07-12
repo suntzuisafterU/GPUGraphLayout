@@ -91,17 +91,47 @@ namespace RPGraph {
                 delete fa2; // Cleanup.
                 };
 
+			RPGraph::GraphLayout& GraphViewer::get_current_layout() {
+				DerivedGraphHyperEdge& dghe = hyper_edges.top();
+				return dghe.result_dg.layout;
+			}
+
+			RPGraph::nid_comm_map_t& GraphViewer::get_current_comm_map() {
+				DerivedGraphHyperEdge& dghe = hyper_edges.top();
+				return dghe.nid_comm_map;
+			}
+
+			RPGraph::UGraph& GraphViewer::get_current_source_graph() {
+				DerivedGraphHyperEdge& dghe = hyper_edges.top();
+				return dghe.source_dg.graph;
+			}
+			RPGraph::UGraph& GraphViewer::get_current_result_graph() {
+				DerivedGraphHyperEdge& dghe = hyper_edges.top();
+				return dghe.result_dg.graph;
+			}
+
+			void add_hyper_edge(DerivedGraphHyperEdge dghe) {
+				this->hyper_edges.push(dghe);
+			}
+
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
-                RPGraph::UGraph& original_graph = this->derived_graphs_and_maps.size() == 0 ? this->very_first_graph : this->derived_graphs_and_maps.last_item_or_whatever().first;
+				RPGraph::UGraph& original_graph = get_current_source_graph();
+				// TODO: Will have to create a container for all the maps, reports, etc.
                 std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
-                RPGraph::UGraph comm_graph;                // Initialize empty comm_graph for scoda to fill. This probably has to be a pointer.  Will probably just have to use a bunch of poiters. We can free one graph and one map every time we delete a hyper edge....
+				// Can we use move semantics to deal with this?
+                RPGraph::UGraph comm_graph; // Initialize empty comm_graph for scoda to fill. This probably has to be a pointer.  Will probably just have to use a bunch of poiters. We can free one graph and one map every time we delete a hyper edge....
                 // run CommunityAlgo
                 // TODO: Implement move assignment for SCoDA?? Or does this get derived automatically?
-                RPGraph::SCoDA_Report = this->comm_algo.compute_partition(original_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
+                RPGraph::SCoDA_Report scoda_report = this->comm_algo.compute_partition(original_graph, comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
                 // Add results to containers.
-                DerivedGraphHyperEdge dghe{original_graph, nid_comm_map, comm_graph}; // TODO: This should not have to provide and initialized layout object.
-                
+				RPGraph::HyperEdgeReports hyper_edge_reports{ scoda_report }; // TODO: DANGER::: This is dependent on ordering!
+				// TODO: Will need move semantics.
+                add_new_hyper_edge(DerivedGraphHyperEdge { // TODO: Is this a nameless dghe?
+					original_graph, 
+					nid_comm_map, 
+					comm_graph, 
+					hyper_edge_reports}); // TODO: This should not have to provide and initialized layout object.
             }
 
             /**
@@ -109,15 +139,24 @@ namespace RPGraph {
             *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
             */
             void GraphViewer::expand() {
-            RPGraph::nid_comm_map_t nid_comm_map = this->derived_graphs_and_maps.last_item_or_whatever().nid_comm_map; // TODO: Maybe need arrow
-            // TODO: How should we set layout to expand into?
+				// Check for expandability.
+				if (hyper_edges.size() == 0) throw "Error: No hyper edges to expand.";
+
+				RPGraph::nid_comm_map_t& nid_comm_map = get_current_comm_map();
+				RPGraph::GraphLayout& comm_layout = get_current_layout();
+				// TODO: This portion is easy to screw up.
+				// TODO: Technically NOT SAFE since we are storing the actual nid_comm_map inside of the hyper edge.
+				_discard_hyper_edge(); // Will have to pop off the top here to get access to the underlying full_layout.
+				RPGraph::GraphLayout& full_layout = get_current_layout();
+
                 for (const auto& nid_commid_pair : nid_comm_map) {
                     RPGraph::contiguous_nid_t node = nid_commid_pair.first;
-                    RPGraph::contiguous_nid_t comm = nid_commid_pair.second;
-                    RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(comm_graph.node_map[comm]);
+                    RPGraph::comm_id_t comm = nid_commid_pair.second;
+                    RPGraph::Coordinate comm_coordinate = comm_layout.getCoordinate(const_cast<RPGraph::contiguous_nid_t>(comm));
                     // TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
                     full_layout.setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }
+				// We have already discarded the old hyper edge.
             }
 
 } // namespace RPGraph
