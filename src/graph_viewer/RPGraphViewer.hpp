@@ -6,6 +6,7 @@
 #include <string>
 #include <math.h>
 #include <fstream>
+#include <stack>
 
 #include "../common/RPCommon.hpp"
 #include "../common/RPGraph.hpp"
@@ -16,6 +17,8 @@
 #include "../scoda/CommunityAlgo.hpp"
 #include "../scoda/DisjointPartitionAlgo.hpp"
 #include "../scoda/scoda.hpp"
+#include "../layouteval/PairwiseLayoutAnalysis.hpp"
+#include "../layouteval/stress.hpp"
 
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>
@@ -25,17 +28,26 @@
 
 namespace RPGraph {
 
-    /// Store graph together with associated map.  
+    /// Store graph together with associated layout.  
     struct DerivedGraph {
         RPGraph::UGraph& comm_graph;
         RPGraph::GraphLayout& layout;
     };
+
+    struct HyperEdgeReports {
+        RPGraph::SCoDA_Report scoda_report;
+        RPGraph::StressReport stress_report; // Can be null, will be null for large graphs. For small graphs compares source_dg to result_dg.
+        RPGraph::PairwiseLayoutReport pairwise_layout_report; // Where the rubber meets the road.
+    };
     
+    /// Compression via community algo associates 2 graphs with each other. Expansion uses this association as well.
     struct DerivedGraphHyperEdge { // TODO: naming?
-        DerivedGraph& source_dg;
-        RPGraph::nid_comm_map_t& nid_comm_map;
-        RPGraph::SCoDA_Results& results;
-        DerivedGraph& result_dg;
+        const DerivedGraph& source_dg;
+        const RPGraph::nid_comm_map_t& nid_comm_map; // Map associates these 2 graphs.  This is the only place that the map lives? May have to implement move semantics.
+        const DerivedGraph& result_dg;
+
+        HyperEdgeReports reports; // All reports associated with this step, in either direction. (compression or expansion)
+        // TODO: Have a destructor or something that prints the reports? Lol
     };
 
     class GraphViewer {
@@ -77,14 +89,19 @@ namespace RPGraph {
             GraphViewer & operator=(const GraphViewer& other) = delete;
             // TODO: void init(std::string file_path);
             void show(int iter); /**< Display or print data, depends on output method. */
+            void iterate_on_layout(int num_iters);
+            RPGraph::GraphLayout* get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
+            void compress();
+            void expand();
             // TODO: void set_comm_algo(RPGraph::CommAlgo);
             // TODO: void set_layout_method(/* CPU or GPU FA2 */);
             // TODO: void set_display_method(/* png writer */);
 
 
         private:
-            std::vector< DerivedGraphHyperEdge > derived_graphs_and_maps; // TODO: Analysis this datastructure, memory leaks?
+            std::stack < DerivedGraphHyperEdge > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
             RPGraph::SCoDA comm_algo;
+            RPGraph::ForceAtlas2* fa2; // TODO: Make some kind of safe pointer or something.
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;
@@ -95,7 +112,7 @@ namespace RPGraph {
             const float gravity;
             const bool approximate;
             const bool use_linlog;
-            const float percentage_iterations_on_comm_graph;
+            const float percentage_iterations_on_comm_graph; // TODO: Will need different parameters than this.
             const char *edgelist_path;
             const char *out_path;
             const char *out_file_prefix;

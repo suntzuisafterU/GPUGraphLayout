@@ -42,7 +42,7 @@ namespace RPGraph
     contiguous_nid_t DatasetAdapter::RPFileIterator add_to_maps(nid_t node_id) {
         this->nid_to_contig[node_id] = this->current_idx;
         this->contig_to_nid[this->current_idx] = node_id;
-        return this->current_idx++; // Increment and return.  Optimization.
+        return this->current_idx++; // Return and then increment. Optimization.
     }
 
     nid_t DatasetAdapter::translate(const contiguous_nid_t node_id) {

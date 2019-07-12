@@ -2,7 +2,7 @@
 
 namespace RPGraph {
 
-SCoDA_Results SCoDA::compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
+SCoDA_Report SCoDA::compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
             nid_comm_map_t& nid_comm_map) { // TODO: Use the typedefs
 
 #define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map.insert({nid, comm_id})) /// Defines function to update community association of node nid.
@@ -102,7 +102,7 @@ SCoDA_Results SCoDA::compute_partition(const RPGraph::UGraph& original_graph, RP
     uint32_t num_original_e = original_graph.num_edges();
     float edge_comp_ratio = (float) original_graph.num_edges() / (float) comm_graph.num_edges();
 
-    SCoDA_Results results = { 
+    SCoDA_Report results = { 
         num_null_e, 
         num_duplicate_comm_edges, 
         num_comm_nodes,

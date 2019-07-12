@@ -7,7 +7,12 @@
 
 namespace RPGraph {
 
-float stress(RPGraph::GraphLayout* layout, int L);
+struct StressReport {
+    float stress;
+    // TODO: Should this have some way to reference the graph? Parameters that were used, etc.
+};
+
+StressReport stress(RPGraph::GraphLayout* layout, int L);
 
 inline float distU(Coordinate c1, Coordinate c2);
 

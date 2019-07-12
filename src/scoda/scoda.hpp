@@ -18,10 +18,10 @@
 #include "DisjointPartitionAlgo.hpp"
 
 namespace RPGraph {
-    struct SCoDA_Results;
+    struct SCoDA_Report;
 
     class SCoDA {
-        SCoDA_Results compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
+        SCoDA_Report compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
                     nid_comm_map_t& nid_comm_map);
 
         uint32_t compute_mode_of_degree(const RPGraph::UGraph& in_graph);
@@ -29,7 +29,7 @@ namespace RPGraph {
         void print_partition(nid_comm_map_t &nid_comm_map);
     };
 
-    struct SCoDA_Results {
+    struct SCoDA_Report {
         int num_null_e;
         int num_duplicate_comm_edges;
         uint32_t num_comm_nodes;

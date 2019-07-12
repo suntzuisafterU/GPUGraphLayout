@@ -41,7 +41,7 @@ namespace RPGraph
 
     public:
         GraphLayout(RPGraph::UGraph &graph,
-                    float width = 10000, float height = 10000);
+                    float width = 10000, float height = 10000); // TODO: Change to power of 2?
         
         GraphLayout(const GraphLayout& other) = delete;             /// Disallow copy construction.
         GraphLayout & operator=(const GraphLayout& other) = delete; /// Disallow copy assignment.

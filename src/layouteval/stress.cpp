@@ -14,11 +14,11 @@ using RPGraph::Coordinate;
  *      compute k_ij = k/distG**2
  *      result += k_ij * [distU - (L * distG)]**2
  */
-float stress(RPGraph::GraphLayout* layout, int L) {
+RPGraph::StressReport stress(RPGraph::GraphLayout* layout, int L) {
     // Iterate over all nodes in layout.graph
     RPGraph::Graph& g = layout->graph; // If I use a reference here does this get copied?
     
-    return 0.0F; // TODO: Temp
+    return StressReport{0.0F}; // TODO: Temp
 }
 
 float distU(Coordinate c1, Coordinate c2) {

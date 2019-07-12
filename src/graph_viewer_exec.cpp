@@ -27,9 +27,10 @@
  ==============================================================================
 */
 
-// Reading May 21th
+#include "graph_viewer/RPGraphViewer.hpp"
+#include <utility>
 
-RPGraph::GraphViewer parseCommandLine() {
+RPGraph::GraphViewer* parseCommandLine() { // TODO: Belongs in IO utils
     // Parse commandline arguments
     if (argc < 10)
     {
@@ -95,9 +96,22 @@ RPGraph::GraphViewer parseCommandLine() {
 
     fflush(stdout); // TODO: Why do this?
 
-    // return unique_ptr<RPGraph::GraphViewer> // TODO: Use after testing
-    return GraphViewer(// args
-    );
+    return new GraphViewer(
+        cuda_requested,
+        max_iterations,
+        num_screenshots,
+        strong_gravity,
+        scale,
+        gravity,
+        approximate,
+        use_linlog,
+        percentage_iterations_on_comm_graph,
+        *edgelist_path, // infile
+        *out_path, // output directory for images.
+        *out_file_prefix, // annotated outfile names
+        out_format, // default make png that is 1250x1250
+        image_w,
+        image_h);
 }
 
 int main(int argc, const char **argv)
@@ -106,19 +120,13 @@ int main(int argc, const char **argv)
     // srandom(1234);
     srandom( time(NULL) ); // TODO: Parameterize
 
-    GraphViewer graph_viewer;
-    parseCommandLine(graph_viewer); // TODO: Easiest way to initialize??
-    std::string file_path = "temp";
-    graph_viewer.init(file_path);
+    std::unique_ptr<GraphViewer> graph_viewer( parseCommandLine() ); // TODO: Easiest way to initialize??
+    // TODO: graph_viewer.init(file_path);
     // TODO: graph_viewer.set_comm_algo(/* scoda */);
     // TODO: graph_viewer.set_layout_method(/* CPU or GPU FA2 */);
     // TODO: graph_viewer.set_display_method(/* png writer */);
 
     graph_viewer.compress(); // Could be done multiple times.
-    // TODO: Cleanup
-    printf("Finished scoda\n");
-    printf("done.\n");
-    printf("    fetched %d nodes and %d edges.\n", full_graph.num_nodes(), full_graph.num_edges());
 
     // TODO: Replace functionality somehow.
     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
@@ -126,9 +134,12 @@ int main(int argc, const char **argv)
     //     produceOutput(iteration); // TODO: Refactor
     // }
 
-    graph_viewer.layout(/* int number of times */);
-    graph_viewer.show();
+    int change_me = 999;
+    graph_viewer.iterate_on_layout(change_me);
+    int need_to_track_iterations_I_guess = 123987;
+    graph_viewer.show(need_to_track_iterations_I_guess);
+    // TODO: show_swing(); Or jitter?
     graph_viewer.expand(); // Back to original graph
-    graph_viewer.layout(/* int number of times */)
-    graph_viewer.show();
+    graph_viewer.iterate_on_layout(change_me);
+    graph_viewer.show(need_to_track_iterations_I_guess);
 }

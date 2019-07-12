@@ -33,10 +33,10 @@ namespace RPGraph {
         private:
             std::string file_path;
 
-            std::unordered_map<nid_t, contiguous_nid_t> nid_to_contig;
-            std::unordered_map<contiguous_nid_t, nid_t> contig_to_nid; // TODO: Swap with vector after testing.
+            std::unordered_map<nid_t, contiguous_nid_t> nid_to_contig; /// For input.
+            std::unordered_map<contiguous_nid_t, nid_t> contig_to_nid; /// For output. TODO: Swap with vector after testing.
 
-            inline nid_t translate(const contiguous_nid_t node_id);
+            inline nid_t translate(const contiguous_nid_t node_id); // TODO: How do we make this polymorphic? Templates? Or do we just want 2 different methods? How does a template impact inlining?
             inline contiguous_nid_t translate(const nid_t node_id);
     };
 
