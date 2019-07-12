@@ -63,17 +63,17 @@ namespace RPGraph {
 
             void GraphViewer::iterate_on_layout(int num_iters) {
                 // Create the GraphLayout and ForceAtlas2 objects.
-                RPGraph::GraphLayout* current_layout = get_current_layout(); // TODO: IS THIS HOW WE WANT TO DO THIS??
+                RPGraph::GraphLayout& current_layout = get_current_layout(); // TODO: IS THIS HOW WE WANT TO DO THIS??
                 RPGraph::ForceAtlas2* fa2;
                 bool randomize = true; // TODO: Needs to be parameterized.
                 #ifdef __NVCC__
                 if(cuda_requested)
                     // GPU FA2
-                    fa2 = new RPGraph::CUDAForceAtlas2(*current_layout, approximate,
+                    fa2 = new RPGraph::CUDAForceAtlas2(current_layout, approximate,
                                                     strong_gravity, gravity, scale, randomize, use_linlog);
                 else
                 #endif
-                    fa2 = new RPGraph::CPUForceAtlas2(*current_layout, approximate,
+                    fa2 = new RPGraph::CPUForceAtlas2(current_layout, approximate,
                                                     strong_gravity, gravity, scale, randomize, use_linlog);
 
                 const int print_period = ceil((float)num_iters*0.05);
