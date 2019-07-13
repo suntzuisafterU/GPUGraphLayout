@@ -1,4 +1,4 @@
-for d in ../generated_datasets/new/*
+for d in ../worktree_gen_datasets/*
 do
   echo $d
   OUTFILE_PREFIX=$(head -n 1 $d | cut -d" " -f 3)
