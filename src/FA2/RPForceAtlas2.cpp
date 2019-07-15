@@ -22,6 +22,7 @@
 */
 
 #include "RPForceAtlas2.hpp"
+#include "../common/RPTypeDefs.hpp"
 
 namespace RPGraph
 {

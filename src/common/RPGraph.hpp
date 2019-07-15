@@ -41,7 +41,7 @@ namespace RPGraph
         public:
             virtual uint32_t num_nodes() const = 0;
             virtual uint32_t num_edges() const = 0;
-            virtual int degree(contiguous_nid_t nid) = 0;
+            virtual uint32_t degree(contiguous_nid_t nid) const = 0;
             virtual std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) const = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
             virtual ~Graph() = 0; /**< Pure virtual method, specified by `= 0;`. Means that deriving class must override, but can use optional implementation provided by superclass via the `= default;` keyword. see https://stackoverflow.com/questions/34383516/should-i-default-virtual-destructors */
     };
@@ -56,15 +56,18 @@ namespace RPGraph
         UGraph();
         UGraph(std::string edgelist_path);
 
-        UGraph(const UGraph&) = delete;             /// Disallow copying.
-        UGraph & operator=(const UGraph&) = delete; /// Disallow copy assignment operator.
+        UGraph(const UGraph& other);
+        UGraph& operator=(const UGraph& other);
+
+        // TODO: TEMP: UGraph(const UGraph&) = delete;             /// Disallow copying.
+        // TODO: TEMP: UGraph & operator=(const UGraph&) = delete; /// Disallow copy assignment operator.
         /// Also disallows move semantics, unless explicitly specified.
 
         ~UGraph(); /* Explicity declare and define destructors. */
 
         virtual uint32_t num_nodes() const override; /// Use uint32_t to increase the range we can support.
         virtual uint32_t num_edges() const override;
-        virtual int degree(contiguous_nid_t nid) override;
+        virtual uint32_t degree(contiguous_nid_t nid) const;
 
         std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) const override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
         // friend class GraphLayout;
@@ -120,7 +123,7 @@ namespace RPGraph
 
         virtual uint32_t num_nodes() const override;
         virtual uint32_t num_edges() const override;
-        virtual int degree(contiguous_nid_t nid) override;
+        virtual uint32_t degree(contiguous_nid_t nid) const override;
 
         contiguous_nid_t nbr_id_for_node(contiguous_nid_t nid, contiguous_nid_t nbr_no);
     };

@@ -43,8 +43,12 @@ namespace RPGraph
         GraphLayout(RPGraph::UGraph &graph,
                     float width = 10000, float height = 10000); // TODO: Change to power of 2?
         
-        GraphLayout(const GraphLayout& other) = delete;             /// Disallow copy construction.
-        GraphLayout & operator=(const GraphLayout& other) = delete; /// Disallow copy assignment.
+        // TODO: Get rid of this.
+        GraphLayout(const GraphLayout& other);        // TODO: TEMP: GraphLayout(const GraphLayout& other) = delete;             /// Disallow copy construction.
+        // TODO: TEMP: GraphLayout & operator=(const GraphLayout& other) = delete; /// Disallow copy assignment.
+
+        GraphLayout(GraphLayout&& other);
+        GraphLayout& operator= (GraphLayout&& other);
 
         ~GraphLayout();
 
@@ -58,7 +62,7 @@ namespace RPGraph
         float getDistance(contiguous_nid_t n1, contiguous_nid_t n2);
         Real2DVector getDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
         Real2DVector getNormalizedDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
-        Coordinate getCoordinate(contiguous_nid_t node_id);
+        Coordinate getCoordinate(contiguous_nid_t node_id) const;
         Coordinate getCenter();
 
 

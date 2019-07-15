@@ -45,6 +45,34 @@ namespace RPGraph
         coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));
     }
 
+    GraphLayout::GraphLayout(const GraphLayout &other):width(other.width),height(other.height),graph(other.graph) {
+            coordinates = other.coordinates;
+        };
+
+    GraphLayout::GraphLayout(GraphLayout&& other):
+        width(other.width),
+        height(other.height),
+        graph{ other.graph } {
+            coordinates = other.coordinates;
+            other.coordinates = nullptr;
+    }
+
+    GraphLayout& GraphLayout::operator= (GraphLayout&& other) {
+
+        // self assignment check.
+        if(&other == this)
+            return *this;
+
+        width = other.width;
+        height = other.height;
+        graph = other.graph;
+
+        coordinates = other.coordinates;
+        other.coordinates = nullptr;
+
+        return *this;
+    }
+
     GraphLayout::~GraphLayout()
     {
         free(coordinates);

@@ -44,6 +44,26 @@ namespace RPGraph
         this->read_edgelist_file(edgelist_path);
     }
 
+    UGraph::UGraph(const UGraph& other):
+        node_count{other.node_count},
+        edge_count{other.edge_count},
+        degrees{other.degrees},
+        adjacency_list{other.adjacency_list} { 
+
+        }
+
+    UGraph& UGraph::operator= (const UGraph& other) {
+        if(&other == this)
+            return *this;
+        
+        node_count = other.node_count;
+        edge_count = other.edge_count;
+        degrees = other.degrees;
+        adjacency_list = other.adjacency_list;
+
+        return *this;
+    }
+
     UGraph::~UGraph() = default;
 
     /**
@@ -122,7 +142,7 @@ namespace RPGraph
 	 *
 	 * TODO: Make these functions that use internal nids private, or friend + private and define new functions that also map the nids for us...
 	 */
-    int UGraph::degree(contiguous_nid_t nid)
+    uint32_t UGraph::degree(contiguous_nid_t nid) const
     {
         return degrees[nid];
     }
@@ -210,7 +230,7 @@ namespace RPGraph
         }
     }
 
-    int CSRUGraph::degree(contiguous_nid_t nid)
+    uint32_t CSRUGraph::degree(contiguous_nid_t nid) const
     {
         // If nid is last element of `offsets'... we prevent out of bounds.
         uint32_t r_bound;

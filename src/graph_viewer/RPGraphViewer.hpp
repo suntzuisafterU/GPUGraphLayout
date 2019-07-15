@@ -30,17 +30,41 @@ namespace RPGraph {
 
     /// Store graph together with associated layout.  
     struct DerivedGraph {
-		DerivedGraph::DerivedGraph(RPGraph::UGraph& ug) : graph{ ug } { // How do we take this and move the stuff in?
-			if (ug.num_nodes() == 0) throw "Error, UGraph not iniatialized.";  // Die
-			// IF we initialize a layout here, the ug must be full.
-			// Need move semantics
-			this->layout = RPGraph::GraphLayout(ug);
-		}
+        // DerivedGraph(): graph{}, layout{} { };
 
-		DerivedGraph(const DerivedGraph& other) = delete;
-		DerivedGraph operator= (const DerivedGraph& other) = delete;
+        DerivedGraph(RPGraph::UGraph& ug) : graph{ std::move(ug) }, layout{ ug } { // How do we take this and move the stuff in?
+            if (ug.num_nodes() == 0) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
+            // IF we survive this constructor, the ug must be full, and the layout must have nodes in it.
+            // TODO: Need move semantics for UGraph for this to work.
+        };
 
-        const RPGraph::UGraph graph;
+		// TODO: TEMP: DerivedGraph(const DerivedGraph& other) = delete;
+		// TODO: TEMP: DerivedGraph operator= (const DerivedGraph& other) = delete;
+
+        // TODO: Get rid of this.
+        DerivedGraph(const DerivedGraph& other): 
+                graph{ other.graph }, 
+                layout{ other.layout } { };
+
+        DerivedGraph(DerivedGraph&& other): 
+                graph{ other.graph },
+                layout{ other.layout } {
+            // The destructor of `other` should be called when it goes out of scope.
+        };
+
+        DerivedGraph& operator= (DerivedGraph&& other) {
+            // Self-assignment detection.
+            if (&other == this)
+                return *this;
+            
+            // Transfer ownership.
+            this->graph = other.graph;
+            this->layout = std::move(other.layout);
+
+            return *this;
+        };
+
+        RPGraph::UGraph graph; // TODO: Was const
 		RPGraph::GraphLayout layout;
         // std::unique_ptr<RPGraph::GraphLayout> layout_ptr; // Unique ptr, then is mutable.
     };
@@ -53,9 +77,33 @@ namespace RPGraph {
     
     /// Compression via community algo associates 2 graphs with each other. Expansion uses this association as well.
     struct DerivedGraphHyperEdge { // TODO: naming?
-        const DerivedGraph& source_dg;
-        const RPGraph::nid_comm_map_t nid_comm_map; // Map associates these 2 graphs.  This is the only place that the map lives? May have to implement move semantics.
-        const DerivedGraph& result_dg;
+
+        // TODO: first 2 args were const
+        DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :
+                source_dg { std::move(sg) }, 
+                nid_comm_map { nid_comm_map },
+                result_dg { rg }, // TODO: This
+                reports { reports }
+                { };
+
+        DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):
+                source_dg{ std::move(other.source_dg) },
+                nid_comm_map{ other.nid_comm_map },
+                result_dg{ other.result_dg },
+                reports{ other.reports } { 
+                    // Other DGHE Destructor should be called I believe.
+                };
+
+        // TODO: Get rid of this.  Temp.
+        DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other):
+                source_dg{ other.source_dg },
+                nid_comm_map{ other.nid_comm_map },
+                result_dg{ other.result_dg },
+                reports{ other.reports } { };
+
+        const DerivedGraph& source_dg; // was const, working out bugs
+        const RPGraph::nid_comm_map_t nid_comm_map; // was const
+        DerivedGraph result_dg; // Not const, we can access the Layout
 
         HyperEdgeReports& reports; // All reports associated with this step, in either direction. (compression or expansion)
         // TODO: Have a destructor or something that prints the reports? Lol
@@ -92,13 +140,15 @@ namespace RPGraph {
                         out_file_prefix{out_file_prefix},
                         out_format{out_format},
                         image_w{image_w},
-                        image_h{image_h} { };
+                        image_h{image_h} {
+
+                         };
 
             GraphViewer() = delete;
 
             GraphViewer(const GraphViewer& other) = delete;
             GraphViewer & operator=(const GraphViewer& other) = delete;
-            // TODO: void init(std::string file_path);
+            void init();
             void show(int iter); /**< Display or print data, depends on output method. */
             void iterate_on_layout(int num_iters);
 
@@ -133,8 +183,8 @@ namespace RPGraph {
             RPGraph::GraphLayout& get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
 			const RPGraph::UGraph& get_current_source_graph();
-			const RPGraph::UGraph& get_current_result_graph(); // Could be null?
-			void add_hyper_edge(DerivedGraphHyperEdge dghe);
+			RPGraph::UGraph& get_current_result_graph(); // Could be null?
+            RPGraph::DerivedGraph& get_current_source_derived_graph();
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;
@@ -152,6 +202,7 @@ namespace RPGraph {
             std::string out_format;
             int image_w;
             int image_h;
+            RPGraph::DerivedGraph original_graph;
     };
 } // namespace RPGraph
 

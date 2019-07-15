@@ -203,7 +203,7 @@ void AttractiveForceKernel(int nedgesd,
  *
  * NOTE
  * -----------
- *   Node ids do NOT correspond to dataset node ids.  They correspond to UGraph internal node ids.
+ *   Node ids do NOT correspond to dataset node ids.  They correspond to UGraph contiguous_nid_t node ids.
  * 
  * Params
  * -----------

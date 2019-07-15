@@ -29,8 +29,10 @@
 
 #include "graph_viewer/RPGraphViewer.hpp"
 #include <utility>
+#include <memory>
 
-RPGraph::GraphViewer* parseCommandLine() { // TODO: Belongs in IO utils
+int main(int argc, const char **argv) {
+// RPGraph::GraphViewer* parseCommandLine() { // TODO: Belongs in IO utils
     // Parse commandline arguments
     if (argc < 10)
     {
@@ -96,7 +98,9 @@ RPGraph::GraphViewer* parseCommandLine() { // TODO: Belongs in IO utils
 
     fflush(stdout); // TODO: Why do this?
 
-    return new GraphViewer(
+    // return 
+    // TODO: TEMP
+    std::unique_ptr<RPGraph::GraphViewer> graph_viewer (new RPGraph::GraphViewer(
         cuda_requested,
         max_iterations,
         num_screenshots,
@@ -106,27 +110,27 @@ RPGraph::GraphViewer* parseCommandLine() { // TODO: Belongs in IO utils
         approximate,
         use_linlog,
         percentage_iterations_on_comm_graph,
-        *edgelist_path, // infile
-        *out_path, // output directory for images.
-        *out_file_prefix, // annotated outfile names
+        edgelist_path, // infile
+        out_path, // output directory for images.
+        out_file_prefix, // annotated outfile names
         out_format, // default make png that is 1250x1250
         image_w,
-        image_h);
-}
+        image_h));
 
-int main(int argc, const char **argv)
-{
     // For reproducibility.
     // srandom(1234);
     srandom( time(NULL) ); // TODO: Parameterize
 
-    std::unique_ptr<GraphViewer> graph_viewer( parseCommandLine() ); // TODO: Easiest way to initialize??
+    ////////////////TODO: JUST TESTING COMPILATION///////////////
+    // std::unique_ptr<GraphViewer> graph_viewer( parseCommandLine() ); // TODO: Easiest way to initialize??
+    ////////////////////////////////
     // TODO: graph_viewer.init(file_path);
     // TODO: graph_viewer.set_comm_algo(/* scoda */);
     // TODO: graph_viewer.set_layout_method(/* CPU or GPU FA2 */);
     // TODO: graph_viewer.set_display_method(/* png writer */);
 
-    graph_viewer.compress(); // Could be done multiple times.
+    graph_viewer->init();
+    graph_viewer->compress(); // Could be done multiple times.
 
     // TODO: Replace functionality somehow.
     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
@@ -135,11 +139,11 @@ int main(int argc, const char **argv)
     // }
 
     int change_me = 999;
-    graph_viewer.iterate_on_layout(change_me);
+    graph_viewer->iterate_on_layout(change_me);
     int need_to_track_iterations_I_guess = 123987;
-    graph_viewer.show(need_to_track_iterations_I_guess);
+    graph_viewer->show(need_to_track_iterations_I_guess);
     // TODO: show_swing(); Or jitter?
-    graph_viewer.expand(); // Back to original graph
-    graph_viewer.iterate_on_layout(change_me);
-    graph_viewer.show(need_to_track_iterations_I_guess);
+    graph_viewer->expand(); // Back to original graph
+    graph_viewer->iterate_on_layout(change_me);
+    graph_viewer->show(need_to_track_iterations_I_guess);
 }

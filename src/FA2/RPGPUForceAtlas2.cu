@@ -33,6 +33,7 @@
 #include "RPBHFA2LaunchParameters.cuh"
 #include "RPBHKernels.cuh"
 #include "RPFA2Kernels.cuh"
+#include "../common/RPTypeDefs.hpp"
 
 namespace RPGraph
 {
@@ -70,7 +71,7 @@ namespace RPGraph
         fy_prev  = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
 
 		// TODO: Why not just use memset?
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             body_pos[n] = {layout.getX(n), layout.getY(n)}; /// What type of initialization is this?
             body_mass[n] = ForceAtlas2::mass(n);

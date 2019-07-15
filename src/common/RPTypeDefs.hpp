@@ -24,6 +24,8 @@ typedef std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t> nid_co
 
     // Community algos available.
     enum CommAlgo { SCoDA_ENUM };
+
+    // TODO: Could use an Enum and bitset to define options to GraphViewer without changing the function prototype if options are added. https://www.learncpp.com/cpp-tutorial/3-8a-bit-flags-and-bit-masks/
   } // namespace Enums
 
 } // namespace RPGraph

@@ -122,7 +122,7 @@ all: scoda_exec graph_viewer_exec stress_exec
 scoda_exec: $(SCODA_EXE_OBJS) $(SCODA_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
-graph_viewer_exec: $(GV_EXE_OBJS) $(GRAPH_VIEWER_SRC)
+graph_viewer_exec: $(GV_EXE_OBJS) $(GV_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 stress_exec: $(STRESS_EXE_OBJS) $(STRESS_EXE_SRC)
@@ -165,6 +165,6 @@ $(PNGWRITER_OBJS): $(PNGWRITER_SRCS)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(L_SRC_DIR)/%.cc)
 
 clean:
-	rm -rf scoda_exec graph_viewer stress_exec $(OBJ_DIR)/* ./.depend
+	rm -rf scoda_exec graph_viewer_exec stress_exec $(OBJ_DIR)/* ./.depend
 
 .PHONY: all clean depend

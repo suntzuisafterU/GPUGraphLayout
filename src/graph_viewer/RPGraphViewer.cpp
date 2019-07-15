@@ -44,6 +44,7 @@ namespace RPGraph {
             //     RPGraph::UGraph full_graph(edgelist_path); // Initialize full_graph from provided path.
             // }
 
+
             void GraphViewer::show(int iteration) {
                 // RPGraph::UGraph& original_graph = this->derived_graphs_and_maps.size() == 0 ? this->very_first_graph : this->derived_graphs_and_maps.last_item_or_whatever().first;
                 // TODO: Keep a curent layout reference/pointer. RPGraph::GraphLayout& current_layout = this->derived_graphs_and_maps.size() == 0 ? this
@@ -56,7 +57,7 @@ namespace RPGraph {
                 this->fa2->sync_layout();
 
                 // if (out_format == "png")
-                    writeToPNG(this->get_current_layout(), this->image_w, this->image_h, op); // TODO: How should we handle determining the current layout?
+                    writeToPNG(&this->get_current_layout(), this->image_w, this->image_h, op);
 
                 printf("done.\n"); // TODO: Remove after refactoring.
             }
@@ -102,22 +103,38 @@ namespace RPGraph {
 			}
 
 			const RPGraph::UGraph& GraphViewer::get_current_source_graph() {
-				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-				return dghe.source_dg.graph;
+                // If no hyper edges have been made, then the original graph is the current graph.
+                if(this->hyper_edges.size() == 0) {
+                    return this->original_graph.graph;
+                } else {
+                    // If a hyper edge has been made, then the current source is a comm graph.
+                    DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
+                    return dghe.source_dg.graph;
+                }
 			}
 
-			const RPGraph::UGraph& GraphViewer::get_current_result_graph() {
+			RPGraph::UGraph& GraphViewer::get_current_result_graph() {
 				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
 				return dghe.result_dg.graph;
 			}
 
-			// void add_hyper_edge(DerivedGraphHyperEdge dghe) {
-			// 	this->hyper_edges.push(dghe);
-			// }
+            RPGraph::DerivedGraph& GraphViewer::get_current_source_derived_graph() {
+				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
+                return dghe.result_dg;
+            }
+
+            void GraphViewer::init() {
+                // Read source file and create UGraph.
+                RPGraph::UGraph graph1(this->edgelist_path);
+                // Insert into a new DerivedGraph.
+                RPGraph::DerivedGraph dg_1(graph1);
+                // This is the original graph, assign it.
+                this->original_graph = std::move(dg_1);
+            }
 
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
-				const RPGraph::UGraph& original_graph = get_current_source_graph();
+				const RPGraph::UGraph& original_graph = get_current_source_graph(); // TODO: Was const
 				// TODO: Will have to create a container for all the maps, reports, etc.
                 std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 				// Can we use move semantics to deal with this?
@@ -128,10 +145,11 @@ namespace RPGraph {
                 // Add results to containers.
 				RPGraph::HyperEdgeReports hyper_edge_reports{ scoda_report }; // TODO: DANGER::: This is dependent on ordering!
 				// TODO: Will need move semantics.
+                RPGraph::DerivedGraph& original_derived_graph = get_current_source_derived_graph();
                 hyper_edges.emplace_back( // TODO: Is this a nameless dghe?
-					original_graph, 
+					original_derived_graph, 
 					nid_comm_map, 
-					comm_graph, 
+					comm_graph,  // Constructs a DerivedGraph struct.
 					hyper_edge_reports); // TODO: This should not have to provide and initialized layout object.
             }
 
