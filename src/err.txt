@@ -4,6 +4,7 @@
 [common\RPGraph.hpp:44] -> [common\RPGraph.hpp:70]: (style) The function 'degree' overrides a function in a base class but is not marked with a 'override' specifier.
 [FA2\RPBarnesHutApproximator.cpp:92]: (style) The scope of the variable 'cur_cell' can be reduced.
 [common\RPGraphLayout.hpp:43]: (style) Class 'GraphLayout' has a constructor with 1 argument that is not explicit.
+[FA2\RPLayoutAlgorithm.hpp:37]: (style) Class 'LayoutAlgorithm' has a constructor with 1 argument that is not explicit.
 [FA2\RPCPUForceAtlas2.cpp:46]: (style) C-style pointer casting
 [FA2\RPCPUForceAtlas2.cpp:47]: (style) C-style pointer casting
 [common\RPCommon.hpp:92] -> [FA2\RPCPUForceAtlas2.cpp:107]: (style) Local variable 'distance' shadows outer function
