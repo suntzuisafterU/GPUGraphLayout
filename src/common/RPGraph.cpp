@@ -108,8 +108,8 @@ namespace RPGraph
         // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
         if(!has_node_internal(s)) add_node_internal(s);
         if(!has_node_internal(t)) add_node_internal(t);
-        nid_t s_mapped = node_map[s];
-        nid_t t_mapped = node_map[t];
+        contiguous_nid_t s_mapped = node_map[s];
+        contiguous_nid_t t_mapped = node_map[t];
 
         // Insert edge into adjacency_list
         adjacency_list[std::min(s_mapped, t_mapped)].push_back(std::max(s_mapped, t_mapped));
@@ -135,6 +135,8 @@ namespace RPGraph
         }
 
         edgelist_file.close();
+
+        // Temporary: checking values.
     }
 
     bool UGraph::has_node(contiguous_nid_t nid)
@@ -190,7 +192,7 @@ namespace RPGraph
 	 */
     uint32_t UGraph::degree(contiguous_nid_t nid) const
     {
-        return degrees.at(nid);
+        return degrees[nid];
     }
 
     /**
@@ -200,7 +202,7 @@ namespace RPGraph
     {
         printf("num_nodes: %u", this->node_count);
         printf(", nid: %u\n", nid);
-        auto results = adjacency_list.at(nid);
+        auto results = adjacency_list[nid];
         return results;
     }
 

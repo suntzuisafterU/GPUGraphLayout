@@ -24,7 +24,7 @@ SCoDA_Report SCoDA::compute_partition(const RPGraph::UGraph& original_graph, RPG
 
     // if (original_graph.num_nodes() == 0 || original_graph.num_edges() == 0) exit(EXIT_FAILURE); // ERROR, empty UGraph.
     // TODO: Move explicit manipulation of UGraph to internal function or iterator class.
-    for (RPGraph::contiguous_nid_t src_id = 0; src_id < original_graph.num_nodes(); ++src_id) // Iterate over source nodes
+    for (RPGraph::contiguous_nid_t src_id = 0; src_id < original_graph.num_nodes(); src_id++) // Iterate over source nodes
     {
         for (RPGraph::contiguous_nid_t dst_id : original_graph.neighbors_with_geq_id(src_id)) // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger.
         {
