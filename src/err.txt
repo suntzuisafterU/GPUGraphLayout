@@ -1,0 +1,47 @@
+[FA2\RPBarnesHutApproximator.cpp:34] -> [FA2\RPBarnesHutApproximator.hpp:48]: (style, inconclusive) Member variable 'BarnesHutCell::mass_center' is in the wrong place in the initializer list.
+[FA2\RPBarnesHutApproximator.cpp:68] -> [FA2\RPBarnesHutApproximator.hpp:69]: (style, inconclusive) Member variable 'BarnesHutApproximator::theta' is in the wrong place in the initializer list.
+[common\RPGraph.hpp:57]: (style) Class 'UGraph' has a constructor with 1 argument that is not explicit.
+[common\RPGraph.hpp:44] -> [common\RPGraph.hpp:70]: (style) The function 'degree' overrides a function in a base class but is not marked with a 'override' specifier.
+[FA2\RPBarnesHutApproximator.cpp:92]: (style) The scope of the variable 'cur_cell' can be reduced.
+[common\RPGraphLayout.hpp:43]: (style) Class 'GraphLayout' has a constructor with 1 argument that is not explicit.
+[FA2\RPCPUForceAtlas2.cpp:46]: (style) C-style pointer casting
+[FA2\RPCPUForceAtlas2.cpp:47]: (style) C-style pointer casting
+[common\RPCommon.hpp:92] -> [FA2\RPCPUForceAtlas2.cpp:107]: (style) Local variable 'distance' shadows outer function
+[FA2\RPForceAtlas2.cpp:37] -> [FA2\RPForceAtlas2.hpp:59]: (style, inconclusive) Member variable 'ForceAtlas2::use_linlog' is in the wrong place in the initializer list.
+[FA2\RPForceAtlas2.hpp:57] -> [FA2\RPForceAtlas2.cpp:77]: (style, inconclusive) Function 'setGravity' argument 1 names different: declaration 's' definition 'g'.
+[common\RPCommon.cpp:150] -> [common\RPCommon.hpp:81]: (style, inconclusive) Technically the member function 'RPGraph::Coordinate::operator==' can be const.
+[common\RPCommon.cpp:183] -> [common\RPCommon.hpp:86]: (style, inconclusive) Technically the member function 'RPGraph::Coordinate::quadrant' can be const.
+[common\RPGraph.cpp:291] -> [common\RPGraph.hpp:129]: (style, inconclusive) Technically the member function 'RPGraph::CSRUGraph::nbr_id_for_node' can be const.
+[common\RPGraph.hpp:129] -> [common\RPGraph.cpp:291]: (style, inconclusive) Function 'nbr_id_for_node' argument 2 names different: declaration 'nbr_no' definition 'edge_no'.
+[common\RPGraphLayout.cpp:94] -> [common\RPGraphLayout.hpp:60]: (style, inconclusive) Technically the member function 'RPGraph::GraphLayout::getX' can be const.
+[common\RPGraphLayout.cpp:99] -> [common\RPGraphLayout.hpp:60]: (style, inconclusive) Technically the member function 'RPGraph::GraphLayout::getY' can be const.
+[common\RPGraphLayout.cpp:46]: (style) C-style pointer casting
+[graph_viewer\RPGraphViewer.hpp:115]: (warning) Member variable 'GraphViewer::fa2' is not initialized in the constructor.
+[graph_viewer\RPGraphViewer.hpp:180]: (performance, inconclusive) Technically the member function 'RPGraph::GraphViewer::cast_comm_to_contig' can be static (but you may consider moving to unnamed namespace).
+[graph_viewer\RPGraphViewer.hpp:34]: (style) Struct 'DerivedGraph' has a constructor with 1 argument that is not explicit.
+[graph_viewer\RPGraphViewer.hpp:154] -> [graph_viewer\RPGraphViewer.cpp:58]: (style, inconclusive) Function 'show' argument 1 names different: declaration 'iter' definition 'iteration'.
+[graph_viewer\RPGraphViewer.hpp:81]: (performance) Function parameter 'nid_comm_map' should be passed by const reference.
+[graph_viewer\RPGraphViewer.hpp:127]: (performance) Function parameter 'out_format' should be passed by const reference.
+[graph_viewer\RPGraphViewer.cpp:85] -> [graph_viewer\RPGraphViewer.cpp:81]: (style, inconclusive) Found duplicate branches for 'if' and 'else'.
+[graph_viewer_exec.cpp:65]: (style) Variable 'arg_no' is assigned a value that is never used.
+[layouteval\stress.cpp:19]: (style) Variable 'g' is assigned a value that is never used.
+[scoda\scoda.cpp:123] -> [scoda\scoda.hpp:28]: (performance, inconclusive) Technically the member function 'RPGraph::SCoDA::compute_mode_of_degree' can be static (but you may consider moving to unnamed namespace).
+[utils\DatasetAdapter.cpp:10]: (performance) Variable 'file_path' is assigned in constructor body. Consider performing initialization in initialization list.
+[utils\DatasetAdapter.hpp:27]: (style) Class 'DatasetAdapter' has a constructor with 1 argument that is not explicit.
+[utils\DatasetAdapter.cpp:9]: (performance) Function parameter 'file_path' should be passed by const reference.
+[utils\DatasetAdapter.cpp:24]: (style) Variable 'contig_node_id' is assigned a value that is never used.
+[layouteval\stress.cpp:37]: (style) The function 'allPairsShortestPaths' is never used.
+[layouteval\stress.cpp:29]: (style) The function 'distG' is never used.
+[layouteval\stress.cpp:24]: (style) The function 'distU' is never used.
+[FA2\RPForceAtlas2.cpp:67]: (style) The function 'doSteps' is never used.
+[common\RPGraph.cpp:273]: (style) The function 'fix_edge_ids' is never used.
+[common\RPCommon.cpp:102]: (style) The function 'getNormalized' is never used.
+[common\RPGraphLayout.cpp:180]: (style) The function 'getNormalizedDistanceVector' is never used.
+[graph_viewer\RPGraphViewer.cpp:126]: (style) The function 'get_current_result_graph' is never used.
+[common\RPGraph.cpp:256]: (style) The function 'insert_node' is never used.
+[common\RPGraph.cpp:291]: (style) The function 'nbr_id_for_node' is never used.
+[common\RPCommon.cpp:107]: (style) The function 'normalize' is never used.
+[common\RPCommon.cpp:212]: (style) The function 'normalizedDirection' is never used.
+[scoda\scoda.cpp:137]: (style) The function 'print_partition' is never used.
+[layouteval\stress.cpp:17]: (style) The function 'stress' is never used.
+(information) Cppcheck cannot find all the include files (use --check-config for details)
