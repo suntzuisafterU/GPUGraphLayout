@@ -31,7 +31,7 @@ namespace RPGraph {
             // TODO: Instead of returning an iterator, try turning this class into a functor.
             inline bool membership(nid_t node_id); // TODO: What is this for again?
             operator bool() const;
-			std::istream& operator>> (std::istream& stream, DatasetAdapter& da);
+			friend std::istream& operator>> (std::istream& stream, DatasetAdapter& da);
             // operator ()(); // Where the magic happens.  Returns data from file as iterator....
 
             // class RPFileIterator : RPIterator; // TODO: Is this inheritence syntax correct?

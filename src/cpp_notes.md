@@ -14,3 +14,6 @@ CRTP (Curriously Recurring Template Pattern) for static (compile time) polymorph
     - https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern
 Variadic templates: https://en.wikipedia.org/wiki/Variadic_template
 Operator overloading conventions: https://stackoverflow.com/questions/4421706/what-are-the-basic-rules-and-idioms-for-operator-overloading
+
+
+TODO: Check this and see if it is valuable: https://stackoverflow.com/questions/30679445/python-like-c-decorators
