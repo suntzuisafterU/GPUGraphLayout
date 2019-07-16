@@ -48,7 +48,7 @@ namespace RPGraph
         for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             forces[n]      = Real2DVector(0.0f, 0.0f);
-            prev_forces[n] = Real2DVector(0.0f, 0.0f);
+            prev_forces[n] = Real2DVector(0.0f, 0.0f); // TODO: According to VS there is a possible buffer overrun here. Prev_forces may also be NULL apparently. Same with the line above.
         }
     }
 
@@ -183,7 +183,7 @@ namespace RPGraph
         float minJT = std::sqrt(estimated_optimal_jitter_tollerance);
         float jt = jitter_tolerance * fmaxf(minJT,
                                            fminf(k_s_max,
-                                                 estimated_optimal_jitter_tollerance * total_effective_traction / powf(layout.graph.num_nodes(), 2.0F)
+                                                 estimated_optimal_jitter_tollerance * total_effective_traction / powf(layout.graph.num_nodes(), 2.0F) // TODO: conversion from uint32_t to float (in powf), analyze.
                                                  )
                                            );
         float min_speed_efficiency = 0.05F;
@@ -239,7 +239,7 @@ namespace RPGraph
         for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             BH_Approximator.insertParticle(layout.getCoordinate(n),
-                                           layout.graph.degree(n)+1);
+                                           layout.graph.degree(n)+1); // TODO: Conversion from uint32_t to float, analyze.
         }
     }
 
