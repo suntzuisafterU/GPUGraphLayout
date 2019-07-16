@@ -123,7 +123,7 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
 uint32_t SCoDA::compute_mode_of_degree(RPGraph::UGraph& in_graph) {
     std::unordered_map<uint32_t, uint32_t> degree_frequencies; // NOTE: uint32_t used in case of dataset with very large number of nodes with the same degree.  Keeps bounds in line with everything else.
     for(auto deg : in_graph.degrees ) {
-        degree_frequencies[deg.first] += 1; // TODO: BUG HERE, is not counting the frequencies properly. Was working before I changed the DerivedGraph struct.  in_graph is a valid graph from the looks of it in gdb.
+        degree_frequencies[deg.second] += 1; // TODO: BUG HERE, is not counting the frequencies properly. Was working before I changed the DerivedGraph struct.  in_graph is a valid graph from the looks of it in gdb.
     }
 
     // When inspecting the in_graph, it appears to have numbers of elements for size of degrees and adjacency_list that are way out to lunch, must be a conversion between unsigned and signed somewhere.  Going to check with VisualStudio.
