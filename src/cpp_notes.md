@@ -15,5 +15,9 @@ CRTP (Curriously Recurring Template Pattern) for static (compile time) polymorph
 Variadic templates: https://en.wikipedia.org/wiki/Variadic_template
 Operator overloading conventions: https://stackoverflow.com/questions/4421706/what-are-the-basic-rules-and-idioms-for-operator-overloading
 
+Tools:
+free static checker (see MISRA-C compliance): https://stackoverflow.com/a/49439561/11385910
 
 TODO: Check this and see if it is valuable: https://stackoverflow.com/questions/30679445/python-like-c-decorators
+
+
