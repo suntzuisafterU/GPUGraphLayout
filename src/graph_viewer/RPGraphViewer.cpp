@@ -115,17 +115,17 @@ namespace RPGraph {
 			RPGraph::UGraph& GraphViewer::get_current_source_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-                    return this->original_graph->graph;
+                    return this->original_graph->get_graph();
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-                    return dghe.source_dg.graph;
+                    return dghe.source_dg.get_graph();
                 }
 			}
 
 			RPGraph::UGraph& GraphViewer::get_current_result_graph() {
 				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-				return dghe.result_dg.graph;
+				return dghe.result_dg.get_graph();
 			}
 
             RPGraph::DerivedGraph& GraphViewer::get_current_source_derived_graph() {

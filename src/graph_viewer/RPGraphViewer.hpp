@@ -30,9 +30,8 @@ namespace RPGraph {
 
     /// Store graph together with associated layout.  
     struct DerivedGraph {
-        // DerivedGraph(): graph{}, layout{} { };
 
-        DerivedGraph(RPGraph::UGraph& ug) : graph{ ug }, layout{ ug } { // How do we take this and move the stuff in?
+        DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } { // How do we take this and move the stuff in?
             if (ug.num_nodes() == 0) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
             // IF we survive this constructor, the ug must be full, and the layout must have nodes in it.
             // TODO: Need move semantics for UGraph for this to work.
@@ -43,11 +42,9 @@ namespace RPGraph {
 
         // TODO: Get rid of this.
         DerivedGraph(const DerivedGraph& other): 
-                graph{ other.graph }, 
                 layout{ other.layout } { };
 
         DerivedGraph(DerivedGraph&& other): 
-                graph{ other.graph },
                 layout{ other.layout } {
             // The destructor of `other` should be called when it goes out of scope.
         };
@@ -58,13 +55,15 @@ namespace RPGraph {
                 return *this;
             
             // Transfer ownership.
-            this->graph = other.graph;
             this->layout = std::move(other.layout);
 
             return *this;
         };
 
-        RPGraph::UGraph graph; // TODO: Was const
+        UGraph& get_graph() {
+            return this->layout.graph;
+        };
+
 		RPGraph::GraphLayout layout;
         // std::unique_ptr<RPGraph::GraphLayout> layout_ptr; // Unique ptr, then is mutable.
     };
@@ -78,7 +77,7 @@ namespace RPGraph {
     /// Compression via community algo associates 2 graphs with each other. Expansion uses this association as well.
     struct DerivedGraphHyperEdge { // TODO: naming?
 
-        // TODO: first 2 args were const
+        //                                                                                              TODO: Turn this into a DG arg
         DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :
                 source_dg { /*std::move(sg)*/ sg },  // TODO: Is moving appropriate?
                 nid_comm_map { nid_comm_map },
