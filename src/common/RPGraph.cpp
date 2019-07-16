@@ -73,6 +73,52 @@ namespace RPGraph
     void UGraph::read_edgelist_file(std::string edgelist_path) {
         std::fstream edgelist_file(edgelist_path, std::ifstream::in);
 
+    typedef uint32_t nid_t;
+
+    std::unordered_map<nid_t, contiguous_nid_t> node_map;
+
+    auto has_node_internal = [&](nid_t nid) {
+        return node_map.count(nid) > 0;
+    };
+
+    // has edge
+    // auto has_edge_internal = [&](nid_t s, nid_t t) {
+    //     if(has_node_internal(s) || has_node_internal(t)) return true;
+
+    //     contiguous_nid_t s_mapped = node_map[s];
+    //     contiguous_nid_t t_mapped = node_map[t];
+
+    //     if(adjacency_list.count(std::min(s_mapped, t_mapped)) == 0) return false;
+
+    //     std::vector<nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
+    //     if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end())
+    //         return false;
+    //     else
+    //         return true;
+    // };
+
+    // add node
+    auto add_node_internal = [&](nid_t nid) {
+        node_map[nid] = node_count;
+        node_count++;
+    };
+
+    // add edge
+    auto add_edge_internal = [&](nid_t s, nid_t t){
+        // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
+        if(!has_node_internal(s)) add_node_internal(s);
+        if(!has_node_internal(t)) add_node_internal(t);
+        nid_t s_mapped = node_map[s];
+        nid_t t_mapped = node_map[t];
+
+        // Insert edge into adjacency_list
+        adjacency_list[std::min(s_mapped, t_mapped)].push_back(std::max(s_mapped, t_mapped));
+        degrees[s_mapped] += 1;
+        degrees[t_mapped] += 1;
+        edge_count++;
+    };
+
+    // original loop
         std::string line;
         while(std::getline(edgelist_file, line))
         {
@@ -81,11 +127,11 @@ namespace RPGraph
 			if(line[0] == '%') continue;
 
             // Read source and target from file
-            contiguous_nid_t s, t;
+            nid_t s, t;
             std::istringstream(line) >> s >> t;
 
             // if(s != t and !has_edge(s, t)) add_edge(s, t); // Original behaviour of graph_viewer was to ignore duplicate edges. // TODO: Decide how to handle duplicate/weighted edges.
-            add_edge(s, t);
+            add_edge_internal(s, t);
         }
 
         edgelist_file.close();
@@ -111,7 +157,7 @@ namespace RPGraph
 
     inline void UGraph::add_node()
     {
-        node_count++;
+        node_count++; // TODO: Revert to old version, get everything else working.
     }
 
     void UGraph::add_edge(contiguous_nid_t s, contiguous_nid_t t)
@@ -144,7 +190,7 @@ namespace RPGraph
 	 */
     uint32_t UGraph::degree(contiguous_nid_t nid) const
     {
-        return degrees[nid];
+        return degrees.at(nid);
     }
 
     /**
@@ -152,7 +198,10 @@ namespace RPGraph
      */
     std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid) const
     {
-        return adjacency_list[nid];
+        printf("num_nodes: %u", this->node_count);
+        printf(", nid: %u\n", nid);
+        auto results = adjacency_list.at(nid);
+        return results;
     }
 
 //	UG_Iter::UG_Iter(const& UGraph) {

@@ -74,8 +74,9 @@ namespace RPGraph
         // friend class RPCPUForceAtlas2; // Why did I want to define these?
     private:
         uint32_t node_count, edge_count;
-        std::vector <uint32_t> degrees; /**< Vector of degrees, indexed by contiguous_nid_t */
-        std::vector <std::vector<contiguous_nid_t> > adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
+
+        std::unordered_map <contiguous_nid_t, uint32_t> degrees;
+        std::unordered_map <contiguous_nid_t, std::vector<contiguous_nid_t> > adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
 
         void add_node(); /* Moved add_node back to private section for safety. */
         void add_edge(contiguous_nid_t s, contiguous_nid_t t); /**< Adding an edge also adds any nodes. */

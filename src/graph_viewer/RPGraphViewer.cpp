@@ -44,6 +44,16 @@ namespace RPGraph {
             //     RPGraph::UGraph full_graph(edgelist_path); // Initialize full_graph from provided path.
             // }
 
+            GraphViewer::~GraphViewer() {
+                free(original_graph);
+            }
+
+            void GraphViewer::init() {
+                // Read source file and create UGraph.
+                RPGraph::UGraph graph1(this->edgelist_path);
+                // This is the original graph, assign it.
+                this->original_graph = new RPGraph::DerivedGraph(graph1);
+            }
 
             void GraphViewer::show(int iteration) {
                 // RPGraph::UGraph& original_graph = this->derived_graphs_and_maps.size() == 0 ? this->very_first_graph : this->derived_graphs_and_maps.last_item_or_whatever().first;
@@ -105,7 +115,7 @@ namespace RPGraph {
 			const RPGraph::UGraph& GraphViewer::get_current_source_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-                    return this->original_graph.graph;
+                    return this->original_graph->graph;
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
@@ -121,15 +131,6 @@ namespace RPGraph {
             RPGraph::DerivedGraph& GraphViewer::get_current_source_derived_graph() {
 				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
                 return dghe.result_dg;
-            }
-
-            void GraphViewer::init() {
-                // Read source file and create UGraph.
-                RPGraph::UGraph graph1(this->edgelist_path);
-                // Insert into a new DerivedGraph.
-                RPGraph::DerivedGraph dg_1(graph1);
-                // This is the original graph, assign it.
-                this->original_graph = std::move(dg_1);
             }
 
             void GraphViewer::compress() {

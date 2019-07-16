@@ -20,6 +20,7 @@ SCoDA_Report SCoDA::compute_partition(const RPGraph::UGraph& original_graph, RPG
 
     uint32_t src_deg, dst_deg;
     std::vector<uint32_t> degrees; /// Required since SCoDA must track the degree of edges as they are streamed.
+    degrees.reserve(original_graph.num_nodes());
 
     // if (original_graph.num_nodes() == 0 || original_graph.num_edges() == 0) exit(EXIT_FAILURE); // ERROR, empty UGraph.
     // TODO: Move explicit manipulation of UGraph to internal function or iterator class.
@@ -119,11 +120,11 @@ SCoDA_Report SCoDA::compute_partition(const RPGraph::UGraph& original_graph, RPG
 // TODO: Write one that takes a degree threshold parameter.
 
 uint32_t SCoDA::compute_mode_of_degree(const RPGraph::UGraph& in_graph) {
-    std::unordered_map<int, uint32_t> degree_frequencies; // NOTE: uint32_t used in case of dataset with very large number of nodes with the same degree.  Keeps bounds in line with everything else.
+    std::unordered_map<uint32_t, uint32_t> degree_frequencies; // NOTE: uint32_t used in case of dataset with very large number of nodes with the same degree.  Keeps bounds in line with everything else.
     for(auto deg : in_graph.degrees ) {
-        degree_frequencies[deg] += 1;
+        degree_frequencies[deg.first] += 1;
     }
-    std::pair<int, uint32_t> maxPair = findMaxKeyValuePair(degree_frequencies); // TODO: Testing.
+    std::pair<uint32_t, uint32_t> maxPair = findMaxKeyValuePair(degree_frequencies); // TODO: Testing.
     return maxPair.first;
 }
 

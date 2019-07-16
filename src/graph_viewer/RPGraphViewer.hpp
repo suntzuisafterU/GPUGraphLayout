@@ -141,10 +141,11 @@ namespace RPGraph {
                         out_format{out_format},
                         image_w{image_w},
                         image_h{image_h} {
-
+                            original_graph = nullptr;
                          };
 
             GraphViewer() = delete;
+            ~GraphViewer();
 
             GraphViewer(const GraphViewer& other) = delete;
             GraphViewer & operator=(const GraphViewer& other) = delete;
@@ -202,7 +203,7 @@ namespace RPGraph {
             std::string out_format;
             int image_w;
             int image_h;
-            RPGraph::DerivedGraph original_graph;
+            RPGraph::DerivedGraph* original_graph; // TODO: Turn into smart pointer. (shared pointer??)
     };
 } // namespace RPGraph
 
