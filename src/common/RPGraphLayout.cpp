@@ -27,6 +27,7 @@
 #include <fstream>
 #include <cmath>
 #include <limits>
+#include <iostream> // TODO: TEMP, DEBUGGING
 
 /**
  * Most of the methods on the GraphLayout class seem to be associated with the CPU implementation, and not the GPU.
@@ -46,6 +47,7 @@ namespace RPGraph
     }
 
     GraphLayout::GraphLayout(const GraphLayout &other):width(other.width),height(other.height),graph(other.graph) {
+            std::cout << "In GraphLayout copy constructor\n" << std::endl;
             coordinates = other.coordinates;
         };
 
@@ -53,12 +55,14 @@ namespace RPGraph
         width(other.width),
         height(other.height),
         graph{ other.graph } {
+        std::cout<<"In GraphLayout move constructor\n"<<std::endl;
             coordinates = other.coordinates;
             other.coordinates = nullptr;
     }
 
     GraphLayout& GraphLayout::operator= (GraphLayout&& other) {
 
+        std::cout << "In GraphLayout move assignment\n" << std::endl;
         // self assignment check.
         if(&other == this)
             return *this;

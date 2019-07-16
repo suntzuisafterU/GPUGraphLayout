@@ -22,10 +22,10 @@ namespace RPGraph {
 
     class SCoDA {
 	public:
-        SCoDA_Report compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
+        SCoDA_Report compute_partition(RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
                     nid_comm_map_t& nid_comm_map);
 
-        uint32_t compute_mode_of_degree(const RPGraph::UGraph& in_graph);
+        uint32_t compute_mode_of_degree(RPGraph::UGraph& in_graph);
 
         void print_partition(nid_comm_map_t &nid_comm_map);
     };

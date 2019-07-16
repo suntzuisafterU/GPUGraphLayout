@@ -32,7 +32,7 @@ namespace RPGraph {
     struct DerivedGraph {
         // DerivedGraph(): graph{}, layout{} { };
 
-        DerivedGraph(RPGraph::UGraph& ug) : graph{ std::move(ug) }, layout{ ug } { // How do we take this and move the stuff in?
+        DerivedGraph(RPGraph::UGraph& ug) : graph{ ug }, layout{ ug } { // How do we take this and move the stuff in?
             if (ug.num_nodes() == 0) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
             // IF we survive this constructor, the ug must be full, and the layout must have nodes in it.
             // TODO: Need move semantics for UGraph for this to work.
@@ -80,17 +80,19 @@ namespace RPGraph {
 
         // TODO: first 2 args were const
         DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :
-                source_dg { std::move(sg) }, 
+                source_dg { /*std::move(sg)*/ sg },  // TODO: Is moving appropriate?
                 nid_comm_map { nid_comm_map },
                 result_dg { rg }, // TODO: This
-                reports { reports }
+                reports { reports } // error: cannot bind non-const lvalue reference of type ‘RPGraph::DerivedGraph&’ to an rvalue of type ‘std::remove_reference<RPGraph::DerivedGraph&>::type’ {aka ‘RPGraph::DerivedGraph’}
+                                                // reports { reports }
                 { };
 
         DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):
-                source_dg{ std::move(other.source_dg) },
-                nid_comm_map{ other.nid_comm_map },
+                source_dg{ /*std::move(other.source_dg)*/ other.source_dg }, // TODO: Is moving appropriate?
+                nid_comm_map{ other.nid_comm_map }, // TODO: Shouldn't we move this?
                 result_dg{ other.result_dg },
-                reports{ other.reports } { 
+                reports{ other.reports } { // error: cannot bind non-const lvalue reference of type ‘RPGraph::DerivedGraph&’ to an rvalue of type ‘std::remove_reference<RPGraph::DerivedGraph&>::type’ {aka ‘RPGraph::DerivedGraph’}
+                                                     // reports{ other.reports } {
                     // Other DGHE Destructor should be called I believe.
                 };
 
@@ -101,8 +103,8 @@ namespace RPGraph {
                 result_dg{ other.result_dg },
                 reports{ other.reports } { };
 
-        const DerivedGraph& source_dg; // was const, working out bugs
-        const RPGraph::nid_comm_map_t nid_comm_map; // was const
+        DerivedGraph& source_dg; // was const, working out bugs
+        const RPGraph::nid_comm_map_t nid_comm_map;
         DerivedGraph result_dg; // Not const, we can access the Layout
 
         HyperEdgeReports& reports; // All reports associated with this step, in either direction. (compression or expansion)
@@ -183,7 +185,7 @@ namespace RPGraph {
 
             RPGraph::GraphLayout& get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
-			const RPGraph::UGraph& get_current_source_graph();
+			RPGraph::UGraph& get_current_source_graph();
 			RPGraph::UGraph& get_current_result_graph(); // Could be null?
             RPGraph::DerivedGraph& get_current_source_derived_graph();
 

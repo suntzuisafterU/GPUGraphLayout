@@ -2,7 +2,7 @@
 
 namespace RPGraph {
 
-SCoDA_Report SCoDA::compute_partition(const RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
+SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
             nid_comm_map_t& nid_comm_map) { // TODO: Use the typedefs
 
 #define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map.insert({nid, comm_id})) /// Defines function to update community association of node nid.
@@ -119,7 +119,7 @@ SCoDA_Report SCoDA::compute_partition(const RPGraph::UGraph& original_graph, RPG
 
 // TODO: Write one that takes a degree threshold parameter.
 
-uint32_t SCoDA::compute_mode_of_degree(const RPGraph::UGraph& in_graph) {
+uint32_t SCoDA::compute_mode_of_degree(RPGraph::UGraph& in_graph) {
     std::unordered_map<uint32_t, uint32_t> degree_frequencies; // NOTE: uint32_t used in case of dataset with very large number of nodes with the same degree.  Keeps bounds in line with everything else.
     for(auto deg : in_graph.degrees ) {
         degree_frequencies[deg.first] += 1;

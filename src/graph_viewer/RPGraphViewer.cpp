@@ -112,7 +112,7 @@ namespace RPGraph {
 				return dghe.nid_comm_map;
 			}
 
-			const RPGraph::UGraph& GraphViewer::get_current_source_graph() {
+			RPGraph::UGraph& GraphViewer::get_current_source_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
                     return this->original_graph->graph;
@@ -135,7 +135,7 @@ namespace RPGraph {
 
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
-				const RPGraph::UGraph& original_graph = get_current_source_graph(); // TODO: Was const
+				RPGraph::UGraph& original_graph = get_current_source_graph(); // TODO: Was const
 				// TODO: Will have to create a container for all the maps, reports, etc.
                 std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 				// Can we use move semantics to deal with this?

@@ -190,7 +190,7 @@ namespace RPGraph
 	 *
 	 * TODO: Make these functions that use internal nids private, or friend + private and define new functions that also map the nids for us...
 	 */
-    uint32_t UGraph::degree(contiguous_nid_t nid) const
+    uint32_t UGraph::degree(contiguous_nid_t nid)
     {
         return degrees[nid];
     }
@@ -198,12 +198,9 @@ namespace RPGraph
     /**
      * Index via MAPPED nids
      */
-    std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid) const
+    std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid)
     {
-        printf("num_nodes: %u", this->node_count);
-        printf(", nid: %u\n", nid);
-        auto results = adjacency_list[nid];
-        return results;
+        return adjacency_list[nid];
     }
 
 //	UG_Iter::UG_Iter(const& UGraph) {
@@ -281,7 +278,7 @@ namespace RPGraph
         }
     }
 
-    uint32_t CSRUGraph::degree(contiguous_nid_t nid) const
+    uint32_t CSRUGraph::degree(contiguous_nid_t nid)
     {
         // If nid is last element of `offsets'... we prevent out of bounds.
         uint32_t r_bound;
