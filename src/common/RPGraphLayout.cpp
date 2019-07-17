@@ -49,7 +49,7 @@ namespace RPGraph
     GraphLayout::GraphLayout(const GraphLayout &other):width(other.width),height(other.height),graph(other.graph) {
             std::cout << "In GraphLayout copy constructor\n" << std::endl;
             coordinates = other.coordinates;
-        };
+        }
 
     GraphLayout::GraphLayout(GraphLayout&& other):
         width(other.width),

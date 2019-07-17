@@ -25,13 +25,16 @@
 #include "../FA2/RPGPUForceAtlas2.hpp"
 #endif // __NVCC__
 
+#include <iostream> // TODO: Temp, debugging
 
 namespace RPGraph {
 
     /// Store graph together with associated layout.  
     struct DerivedGraph {
 
-        DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } { // How do we take this and move the stuff in?
+        explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } { // How do we take this and move the stuff in?
+            std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
+            
             if (ug.num_nodes() == 0) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
             // IF we survive this constructor, the ug must be full, and the layout must have nodes in it.
             // TODO: Need move semantics for UGraph for this to work.
@@ -42,14 +45,18 @@ namespace RPGraph {
 
         // TODO: Get rid of this.
         DerivedGraph(const DerivedGraph& other): 
-                layout{ other.layout } { };
+                layout{ other.layout } { 
+                    std::cout<< "In: DerivedGraph(const DerivedGraph& other): " << std::endl;
+                };
 
         DerivedGraph(DerivedGraph&& other): 
                 layout{ other.layout } {
+                    std::cout<< "In: DerivedGraph(DerivedGraph&& other): " << std::endl;
             // The destructor of `other` should be called when it goes out of scope.
         };
 
         DerivedGraph& operator= (DerivedGraph&& other) {
+                std::cout<< "In: DerivedGraph& operator= (DerivedGraph&& other) {" << std::endl;
             // Self-assignment detection.
             if (&other == this)
                 return *this;
@@ -84,7 +91,10 @@ namespace RPGraph {
                 result_dg { rg }, // TODO: This
                 reports { reports } // error: cannot bind non-const lvalue reference of type ‘RPGraph::DerivedGraph&’ to an rvalue of type ‘std::remove_reference<RPGraph::DerivedGraph&>::type’ {aka ‘RPGraph::DerivedGraph’}
                                                 // reports { reports }
-                { };
+                {
+
+                    std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :" << std::endl;
+                 };
 
         DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):
                 source_dg{ /*std::move(other.source_dg)*/ other.source_dg }, // TODO: Is moving appropriate?
@@ -93,6 +103,7 @@ namespace RPGraph {
                 reports{ other.reports } { // error: cannot bind non-const lvalue reference of type ‘RPGraph::DerivedGraph&’ to an rvalue of type ‘std::remove_reference<RPGraph::DerivedGraph&>::type’ {aka ‘RPGraph::DerivedGraph’}
                                                      // reports{ other.reports } {
                     // Other DGHE Destructor should be called I believe.
+                        std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):" << std::endl;
                 };
 
         // TODO: Get rid of this.  Temp.
@@ -100,7 +111,9 @@ namespace RPGraph {
                 source_dg{ other.source_dg },
                 nid_comm_map{ other.nid_comm_map },
                 result_dg{ other.result_dg },
-                reports{ other.reports } { };
+                reports{ other.reports } { 
+                    std::cout<<"In: DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other):" << std::endl;
+                };
 
         DerivedGraph& source_dg; // was const, working out bugs
         const RPGraph::nid_comm_map_t nid_comm_map;

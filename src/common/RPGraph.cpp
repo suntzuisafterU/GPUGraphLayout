@@ -29,16 +29,20 @@
 #include <algorithm>
 #include "RPGraph.hpp"
 
+#include <iostream> // TODO: Temp, debugging.
+
 namespace RPGraph
 {
     Graph::~Graph() = default;
 
     UGraph::UGraph() {
+        std::cout<< "in UGraph() " << std::endl;
         node_count = 0;
         edge_count = 0;
     }
 
     UGraph::UGraph(std::string edgelist_path) {
+        std::cout<< "in UGraph::UGraph(std::string edgelist_path) " << std::endl;
         node_count = 0;
         edge_count = 0;
         this->read_edgelist_file(edgelist_path);
@@ -49,10 +53,12 @@ namespace RPGraph
         edge_count{other.edge_count},
         degrees{other.degrees},
         adjacency_list{other.adjacency_list} { 
+            std::cout<< "in UGraph::UGraph(const UGraph& other)" << std::endl;
 
         }
 
     UGraph& UGraph::operator= (const UGraph& other) {
+        std::cout<<"in UGraph& UGraph::operator= (const UGraph& other)" << std::endl;
         if(&other == this)
             return *this;
         
