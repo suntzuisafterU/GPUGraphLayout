@@ -45,7 +45,7 @@ namespace RPGraph {
             // }
 
             GraphViewer::~GraphViewer() {
-                free(original_graph);
+                delete original_graph;
             }
 
             void GraphViewer::init() {
