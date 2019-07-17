@@ -197,7 +197,6 @@ namespace RPGraph {
                     // TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
                     full_layout.setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }
-				// We have already discarded the old hyper edge.
 				_discard_hyper_edge(); // Will have to pop off the top here to get access to the underlying full_layout.
             }
 
