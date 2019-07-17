@@ -49,8 +49,9 @@ namespace RPGraph {
             }
 
             void GraphViewer::init() {
+				RPGraph::UGraph graph1(this->edgelist_path);
                 // Read source file and create UGraph.
-                this->original_graph = new RPGraph::DerivedGraph(this->edgelist_path);
+                this->original_graph = new RPGraph::DerivedGraph(graph1);
             }
 
             void GraphViewer::show(int iteration) {
