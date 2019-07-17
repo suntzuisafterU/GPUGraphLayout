@@ -52,7 +52,7 @@ namespace RPGraph
 
         ~GraphLayout();
 
-        UGraph &graph; // to lay-out
+        UGraph graph; // to lay-out TODO: TESTING, new home for graph...
 
         // randomize the layout position of all nodes.
         void randomizePositions();

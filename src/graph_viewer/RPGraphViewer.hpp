@@ -32,10 +32,10 @@ namespace RPGraph {
     /// Store graph together with associated layout.  
     struct DerivedGraph {
 
-		explicit DerivedGraph(RPGraph::UGraph& ug) : graph{ ug }, layout { ug } { // How do we take this and move the stuff in?
+		explicit DerivedGraph(RPGraph::UGraph& ug) : layout { ug } { // How do we take this and move the stuff in?
             std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
             
-            if (ug.num_nodes() != graph.num_nodes() || graph.num_nodes() != layout.graph.num_nodes()) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
+            if (ug.num_nodes() != layout.graph.num_nodes()) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
             // IF we survive this constructor, the ug must be full, and the layout must have nodes in it.
             // TODO: Need move semantics for UGraph for this to work.
         };
@@ -68,10 +68,9 @@ namespace RPGraph {
         };
 
         UGraph& get_graph() {
-            return this->graph;
+            return this->layout.graph;
         };
 
-		RPGraph::UGraph graph;
 		RPGraph::GraphLayout layout;
         // std::unique_ptr<RPGraph::GraphLayout> layout_ptr; // Unique ptr, then is mutable.
     };
