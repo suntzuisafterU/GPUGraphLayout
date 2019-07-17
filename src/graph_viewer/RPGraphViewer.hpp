@@ -195,6 +195,7 @@ namespace RPGraph {
 			}
 
             RPGraph::GraphLayout& get_current_layout(); /// Gets the layout from the HyperEdge on the top of the stack.
+			RPGraph::GraphLayout& get_previous_layout();
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
 			RPGraph::UGraph& get_current_source_graph();
 			RPGraph::UGraph& get_current_result_graph(); // Could be null?
