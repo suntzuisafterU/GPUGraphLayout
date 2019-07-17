@@ -50,7 +50,7 @@ namespace RPGraph {
 
             void GraphViewer::init() {
                 // Read source file and create UGraph.
-                RPGraph::UGraph graph1(this->edgelist_path);
+                RPGraph::UGraph graph1(this->edgelist_path); // TODO: Possible error here.  graph1 goes out of scope.
                 // This is the original graph, assign it.
                 this->original_graph = new RPGraph::DerivedGraph(graph1);
             }
