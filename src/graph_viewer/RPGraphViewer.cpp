@@ -58,7 +58,8 @@ namespace RPGraph {
                 // RPGraph::UGraph& original_graph = this->derived_graphs_and_maps.size() == 0 ? this->very_first_graph : this->derived_graphs_and_maps.last_item_or_whatever().first;
                 // TODO: Keep a curent layout reference/pointer. RPGraph::GraphLayout& current_layout = this->derived_graphs_and_maps.size() == 0 ? this
                 std::string op(this->out_path);
-                op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
+                // op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
+                op.append("/").append(std::to_string(iteration)).append(".").append(this->out_format);
                 printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / this->max_iterations, out_format.c_str());
 
                 fflush(stdout); // TODO: Why is this necessary?
