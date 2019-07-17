@@ -32,7 +32,7 @@ namespace RPGraph {
     /// Store graph together with associated layout.  
     struct DerivedGraph {
 
-		explicit DerivedGraph(RPGraph::UGraph ug) : layout { ug } { // How do we take this and move the stuff in?
+		explicit DerivedGraph(RPGraph::UGraph ug) : layout { ug } { // TODO: use std::move
             std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
             
             if (ug.num_nodes() != layout.graph.num_nodes()) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
@@ -44,10 +44,10 @@ namespace RPGraph {
 		// TODO: TEMP: DerivedGraph operator= (const DerivedGraph& other) = delete;
 
         // TODO: Get rid of this.
-        DerivedGraph(const DerivedGraph& other): 
-                layout{ other.layout } { 
-                    std::cout<< "In: DerivedGraph(const DerivedGraph& other): " << std::endl;
-                };
+        // DerivedGraph(const DerivedGraph& other): 
+        //         layout{ other.layout } { 
+        //             std::cout<< "In: DerivedGraph(const DerivedGraph& other): " << std::endl;
+        //         };
 
         DerivedGraph(DerivedGraph&& other): 
                 layout{ other.layout } {
@@ -85,7 +85,7 @@ namespace RPGraph {
     struct DerivedGraphHyperEdge { // TODO: naming?
 
         //                                                                                              TODO: Turn this into a DG arg
-        DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :
+        DerivedGraphHyperEdge(RPGraph::DerivedGraph* sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::DerivedGraph* rg, HyperEdgeReports* reports) :
                 source_dg { /*std::move(sg)*/ sg },  // TODO: Is moving appropriate?
                 nid_comm_map { nid_comm_map },
                 result_dg { rg }, // TODO: This
@@ -105,21 +105,22 @@ namespace RPGraph {
                     std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):" << std::endl;
                 };
 
-        // TODO: Get rid of this.  Temp.
-        DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other):
-                source_dg{ other.source_dg },
-                nid_comm_map{ other.nid_comm_map },
-                result_dg{ other.result_dg },
-                reports{ other.reports } { 
-                    std::cout<<"In: DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other):" << std::endl;
-                };
+		DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other) = delete;
+		DerivedGraphHyperEdge& operator= (const RPGraph::DerivedGraphHyperEdge& other) = delete;
+        // DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other):
+        //         source_dg{ other.source_dg },
+        //         nid_comm_map{ other.nid_comm_map },
+        //         result_dg{ other.result_dg },
+        //         reports{ other.reports } { 
+        //             std::cout<<"In: DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other):" << std::endl;
+        //         };
 
-        DerivedGraph& source_dg; // was const, working out bugs
+
+        DerivedGraph* source_dg; // was const, working out bugs
         const RPGraph::nid_comm_map_t nid_comm_map;
-        DerivedGraph result_dg; // Not const, we can access the Layout
+        DerivedGraph* result_dg; // Not const, we can access the Layout
 
-        HyperEdgeReports& reports; // All reports associated with this step, in either direction. (compression or expansion)
-        // TODO: Have a destructor or something that prints the reports? Lol
+        HyperEdgeReports* reports; // All reports associated with this step, in either direction. (compression or expansion)
     };
 
     class GraphViewer {
@@ -174,7 +175,6 @@ namespace RPGraph {
 
 
         private:
-			// TODO: stack could be stack of references to dghes.  Then hold actual dghes in a vector or something.
             std::vector < DerivedGraphHyperEdge > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
 			std::vector < DerivedGraphHyperEdge > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.
             RPGraph::SCoDA comm_algo;
