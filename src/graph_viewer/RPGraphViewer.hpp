@@ -185,7 +185,7 @@ namespace RPGraph {
 			}
 
 			inline void _discard_hyper_edge() {
-				__old_hyper_edges.push_back(hyper_edges.back()); // TODO: Testing
+				// __old_hyper_edges.push_back(hyper_edges.back()); // TODO: Testing
 				hyper_edges.pop_back(); // Erases, no return.
 			}
 
