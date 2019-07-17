@@ -130,6 +130,11 @@ int main(int argc, const char **argv) {
     // TODO: graph_viewer.set_display_method(/* png writer */);
 
     graph_viewer->init();
+
+	// Iterate on original graph
+    int change_me = 9;
+    graph_viewer->iterate_on_layout(change_me);
+
     graph_viewer->compress(); // Could be done multiple times.
 
     // TODO: Replace functionality somehow.
@@ -138,8 +143,9 @@ int main(int argc, const char **argv) {
     //     produceOutput(iteration); // TODO: Refactor
     // }
 
-    int change_me = 9;
+	// iterate on comm_graph
     graph_viewer->iterate_on_layout(change_me);
+
     int need_to_track_iterations_I_guess = 123456789;
     graph_viewer->show(need_to_track_iterations_I_guess);
     // TODO: show_swing(); Or jitter?

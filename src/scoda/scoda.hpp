@@ -31,8 +31,8 @@ namespace RPGraph {
     };
 
     struct SCoDA_Report {
-        int num_null_e;
-        int num_duplicate_comm_edges;
+        uint32_t num_null_e;
+        uint32_t num_duplicate_comm_edges;
         uint32_t num_comm_nodes;
         uint32_t num_full_nodes;
         float node_comp_ratio;
