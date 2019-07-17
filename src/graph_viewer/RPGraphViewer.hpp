@@ -32,7 +32,7 @@ namespace RPGraph {
     /// Store graph together with associated layout.  
     struct DerivedGraph {
 
-		explicit DerivedGraph(RPGraph::UGraph& ug) : layout { ug } { // How do we take this and move the stuff in?
+		explicit DerivedGraph(RPGraph::UGraph ug) : layout { ug } { // How do we take this and move the stuff in?
             std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
             
             if (ug.num_nodes() != layout.graph.num_nodes()) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
