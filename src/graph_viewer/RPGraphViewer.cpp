@@ -59,12 +59,11 @@ namespace RPGraph {
                 // TODO: Keep a curent layout reference/pointer. RPGraph::GraphLayout& current_layout = this->derived_graphs_and_maps.size() == 0 ? this
                 std::string op(this->out_path);
                 // op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
-                op.append("/").append(std::to_string(iteration)).append(".").append(this->out_format);
+                op.append(std::to_string(iteration)).append(".").append(this->out_format);
                 printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / this->max_iterations, out_format.c_str());
 
                 fflush(stdout); // TODO: Why is this necessary?
 
-                this->fa2->sync_layout();
 
                 // if (out_format == "png")
                     writeToPNG(&this->get_current_layout(), this->image_w, this->image_h, op);
@@ -98,6 +97,8 @@ namespace RPGraph {
                         printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/num_iters);
                     }
                 }
+
+                this->fa2->sync_layout();
 
                 delete fa2; // Cleanup.
                 };
