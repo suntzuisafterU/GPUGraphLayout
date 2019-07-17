@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
-  <help_text>// Uncomment the following line to change the fontsize and font:
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><help_text>// Uncomment the following line to change the fontsize and font:
 fontsize=18
 fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
 
@@ -23,41 +21,9 @@ fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// This text will be stored with each diagram;  use it for notes.</help_text>
-  <zoom_level>5</zoom_level>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>590</x>
-      <y>90</y>
-      <w>85</w>
-      <h>15</h>
-    </coordinates>
-    <panel_attributes>/RPGraph::Graph/
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>605</x>
-      <y>100</y>
-      <w>65</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>580</x>
-      <y>150</y>
-      <w>160</w>
-      <h>135</h>
-    </coordinates>
-    <panel_attributes>RPGraph::UGraph
+// This text will be stored with each diagram;  use it for notes.</help_text><element><id>UMLClass</id><coordinates><x>1620</x><y>80</y><w>170</w><h>30</h></coordinates><panel_attributes>/RPGraph::Graph/
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1650</x><y>100</y><w>100</w><h>120</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1600</x><y>200</y><w>320</w><h>270</h></coordinates><panel_attributes>RPGraph::UGraph
 {adjacency_list}
 --
 -adjacency_list
@@ -70,18 +36,7 @@ fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
 -add_edge(nid_t, nid_t)
 +has_edge(nid_t, nid_t)
 --
-Responsibilities</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1020</x>
-      <y>265</y>
-      <w>190</w>
-      <h>300</h>
-    </coordinates>
-    <panel_attributes>RPGraph::DatasetAdapter
+Responsibilities</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2440</x><y>430</y><w>380</w><h>600</h></coordinates><panel_attributes>RPGraph::DatasetAdapter
 {Map node ids for other DSs}
 --
 DatasetAdapter(filePath??: String)
@@ -108,18 +63,7 @@ Responsibilities:
 -- Provides mapped iterator/stream over file.
 
 -- Output: Accept contiguous node id streams, 
--- and write as original node id streams.</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>405</x>
-      <y>360</y>
-      <w>210</w>
-      <h>165</h>
-    </coordinates>
-    <panel_attributes>RPGraph::GraphViewer
+-- and write as original node id streams.</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1250</x><y>620</y><w>420</w><h>330</h></coordinates><panel_attributes>RPGraph::GraphViewer
 {Public graph_viewer interface}
 --
 +GraphViewer(filePath: String)
@@ -136,57 +80,13 @@ Responsibilities:
 +Show(): Side effect ==&gt; IO is displayed.
 --
 Responsibilities
--- Aggregate and initialize all components</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>740</x>
-      <y>450</y>
-      <w>130</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>/RPGraph::CommunityAlgo/
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>710</x>
-      <y>520</y>
-      <w>210</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>RPGraph::DisjointPartitionAlgo
+-- Aggregate and initialize all components</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1920</x><y>800</y><w>260</w><h>40</h></coordinates><panel_attributes>/RPGraph::CommunityAlgo/
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1860</x><y>940</y><w>420</w><h>100</h></coordinates><panel_attributes>RPGraph::DisjointPartitionAlgo
 {Compute a disjoiint partition of a network}
 --
 +compute_partition(UGraph): DisjointResults
-+write_partition(DatasetAdapter, filePath: String)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>775</x>
-      <y>465</y>
-      <w>65</w>
-      <h>65</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>730</x>
-      <y>605</y>
-      <w>225</w>
-      <h>95</h>
-    </coordinates>
-    <panel_attributes>CommunityAlgos?::SCoDA
++write_partition(DatasetAdapter, filePath: String)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1990</x><y>830</y><w>100</w><h>130</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1900</x><y>1110</y><w>450</w><h>190</h></coordinates><panel_attributes>CommunityAlgos?::SCoDA
 {Execute SCoDA algorithm}
 --
 SCoDA(????): result_struct??
@@ -194,58 +94,14 @@ SCoDA(????): result_struct??
 -get_mode_degree(UGraph): int; (round up or down on tie? up)
 --
 Responsibilities
--- Create disjoint partition with SCoDA algorithm.</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>775</x>
-      <y>565</y>
-      <w>65</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>610</x>
-      <y>465</y>
-      <w>110</w>
-      <h>75</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-1</panel_attributes>
-    <additional_attributes>200.0;130.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLPackage</id>
-    <coordinates>
-      <x>1105</x>
-      <y>55</y>
-      <w>355</w>
-      <h>640</h>
-    </coordinates>
-    <panel_attributes>Non-contiguous Node Ids
+-- Create disjoint partition with SCoDA algorithm.</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1990</x><y>1030</y><w>100</w><h>100</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1660</x><y>830</y><w>220</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+1</panel_attributes><additional_attributes>200;130;10;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>2650</x><y>0</y><w>710</w><h>1280</h></coordinates><panel_attributes>Non-contiguous Node Ids
 
 ONLY PLACE WHERE:
 original dataset node ids live.
 --
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>0</x>
-      <y>65</y>
-      <w>430</w>
-      <h>225</h>
-    </coordinates>
-    <panel_attributes>IMPORTANT: Either we want to isolate the original node_ids to the dataset, and use contiguous node_ids everywhere internally,
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>440</x><y>30</y><w>860</w><h>450</h></coordinates><panel_attributes>IMPORTANT: Either we want to isolate the original node_ids to the dataset, and use contiguous node_ids everywhere internally,
 OR we want to use the original node_ids everywhere EXCEPT for when absolutely necessary for data structures.
 
 Contiguous:
@@ -260,92 +116,15 @@ Original:
     Internal representations that are publicly visible will match external representations!!
   Cons:
     Hard to work with GPU code.  Possible to make bad errors.
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1265</x>
-      <y>510</y>
-      <w>155</w>
-      <h>35</h>
-    </coordinates>
-    <panel_attributes>_partition_output_file: fstream_
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2970</x><y>920</y><w>310</w><h>70</h></coordinates><panel_attributes>_partition_output_file: fstream_
 --
-Non-contiguous node_id partitions</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1275</x>
-      <y>275</y>
-      <w>105</w>
-      <h>35</h>
-    </coordinates>
-    <panel_attributes>_edgelist_file: fstream_
+Non-contiguous node_id partitions</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2990</x><y>450</y><w>210</w><h>70</h></coordinates><panel_attributes>_edgelist_file: fstream_
 --
-Non-contiguous node_id pairs</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1205</x>
-      <y>275</y>
-      <w>80</w>
-      <h>25</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-&lt;&lt;READS&gt;&gt;</panel_attributes>
-    <additional_attributes>140.0;30.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1205</x>
-      <y>510</y>
-      <w>70</w>
-      <h>25</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-&lt;&lt;WRITES&gt;&gt;</panel_attributes>
-    <additional_attributes>120.0;30.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>610</x>
-      <y>390</y>
-      <w>420</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-1</panel_attributes>
-    <additional_attributes>820.0;40.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>915</x>
-      <y>535</y>
-      <w>115</w>
-      <h>25</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-**&lt;&lt;USES TO WRITE&gt;&gt;**</panel_attributes>
-    <additional_attributes>210.0;30.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>845</x>
-      <y>150</y>
-      <w>160</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>RPGraph::CommUGraph
+Non-contiguous node_id pairs</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2810</x><y>460</y><w>200</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+&lt;&lt;READS&gt;&gt;</panel_attributes><additional_attributes>180;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>2810</x><y>930</y><w>180</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+&lt;&lt;WRITES&gt;&gt;</panel_attributes><additional_attributes>160;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1660</x><y>690</y><w>800</w><h>50</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+1</panel_attributes><additional_attributes>780;30;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2270</x><y>980</y><w>190</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+**&lt;&lt;USES TO WRITE&gt;&gt;**</panel_attributes><additional_attributes>170;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2130</x><y>200</y><w>320</w><h>200</h></coordinates><panel_attributes>RPGraph::CommUGraph
 {adjacency_list}
 --
 -adjacency_list
@@ -353,95 +132,134 @@ Non-contiguous node_id pairs</panel_attributes>
 ???????Determines adapter used?
 --
 --
-Responsibilities</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>735</x>
-      <y>165</y>
-      <w>120</w>
-      <h>25</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;30.0;220.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>815</x>
-      <y>55</y>
-      <w>280</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>TODO: Add GraphLayout, and all other classes as necessary.
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>630</x>
-      <y>280</y>
-      <w>400</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-**&lt;&lt;USES TO READ&gt;&gt;**</panel_attributes>
-    <additional_attributes>780.0;180.0;10.0;180.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>465</x>
-      <y>225</y>
-      <w>125</w>
-      <h>145</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+Responsibilities</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1910</x><y>240</y><w>240</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes><additional_attributes>10;20;220;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>2070</x><y>10</y><w>560</w><h>80</h></coordinates><panel_attributes>TODO: Add GraphLayout, and all other classes as necessary.
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1700</x><y>460</y><w>760</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+**&lt;&lt;USES TO READ&gt;&gt;**</panel_attributes><additional_attributes>740;180;10;180;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1370</x><y>360</y><w>250</w><h>280</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
 1+
 
-(Includes CommUGraphs)</panel_attributes>
-    <additional_attributes>230.0;30.0;10.0;30.0;10.0;270.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>1050</x>
-      <y>180</y>
-      <w>120</w>
-      <h>85</h>
-    </coordinates>
-    <panel_attributes>Should we extended an 
+(Includes CommUGraphs)</panel_attributes><additional_attributes>230;20;10;20;10;260</additional_attributes></element><element><id>UMLNote</id><coordinates><x>2540</x><y>260</y><w>240</w><h>170</h></coordinates><panel_attributes>Should we extended an 
 fstream class??  Can we?
 Overload operator&gt;&gt;???
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>160</x>
-      <y>390</y>
-      <w>120</w>
-      <h>25</h>
-    </coordinates>
-    <panel_attributes>graph_viewer_exec
-fontsize=22</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>275</x>
-      <y>385</y>
-      <w>140</w>
-      <h>25</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-*ENTRY POINT*</panel_attributes>
-    <additional_attributes>260.0;30.0;10.0;30.0</additional_attributes>
-  </element>
-</diagram>
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>760</x><y>680</y><w>240</w><h>50</h></coordinates><panel_attributes>graph_viewer_exec
+fontsize=22</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>680</y><w>280</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*ENTRY POINT*</panel_attributes><additional_attributes>260;20;10;20</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1480</x><y>1460</y><w>1340</w><h>820</h></coordinates><panel_attributes>TEMP SIMPLIFIED: Internals of GraphViewer
+
+--
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2060</x><y>1590</y><w>100</w><h>80</h></coordinates><panel_attributes>DerivedGraph
+--
+UG
+Layout</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2200</x><y>1690</y><w>200</w><h>110</h></coordinates><panel_attributes>DerivedGraphHyperEdge
+--
+DG source;
+nid_to_comm_map;
+SCoDA_Results;
+DG comm_G;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2060</x><y>1810</y><w>100</w><h>80</h></coordinates><panel_attributes>DerivedGraph
+--
+UG
+Layout</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>680</x><y>290</y><w>190</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;170;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2150</x><y>1630</y><w>70</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;50;90</additional_attributes></element><element><id>Relation</id><coordinates><x>2150</x><y>1760</y><w>70</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;80;50;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>2390</x><y>1830</y><w>120</w><h>40</h></coordinates><panel_attributes>expand()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1850</x><y>1590</y><w>230</w><h>50</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*Uses BOTH*</panel_attributes><additional_attributes>210;30;10;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>1680</x><y>1550</y><w>190</w><h>70</h></coordinates><panel_attributes>layout() 
+### With LayoutAlgorithm ###</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1860</x><y>1650</y><w>220</w><h>50</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*Uses LAYOUT*</panel_attributes><additional_attributes>200;10;10;30</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>1750</x><y>1660</y><w>120</w><h>40</h></coordinates><panel_attributes>show()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1840</x><y>1830</y><w>240</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*TAKES AS INPUT*</panel_attributes><additional_attributes>220;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>1840</x><y>1910</y><w>400</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*PRODUCES AS OUTPUT*</panel_attributes><additional_attributes>380;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2220</x><y>1920</y><w>200</w><h>110</h></coordinates><panel_attributes>DerivedGraphHyperEdge
+--
+DG source;
+nid_to_comm_map;
+SCoDA_Results;
+DG comm_G;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2150</x><y>1990</y><w>90</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;70;70;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2150</x><y>1870</y><w>90</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;70;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2060</x><y>2030</y><w>100</w><h>80</h></coordinates><panel_attributes>DerivedGraph
+--
+UG
+Layout</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1840</x><y>1910</y><w>400</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*PRODUCES AS OUTPUT*
+*VIA DerivedGraphHyperEdge*</panel_attributes><additional_attributes>250;120;10;70;380;90;10;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>1740</x><y>1890</y><w>120</w><h>40</h></coordinates><panel_attributes>compress()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2350</x><y>1850</y><w>130</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*CONSUMES!!*</panel_attributes><additional_attributes>10;70;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2100</x><y>1830</y><w>320</w><h>110</h></coordinates><panel_attributes>lt=&lt;..
+*MODIFIES LAYOUT*</panel_attributes><additional_attributes>10;30;100;10;130;90;300;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2150</x><y>1860</y><w>470</w><h>290</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*CONSUMES!!*
+*VIA DerivedGraphHyperEdge*</panel_attributes><additional_attributes>10;220;310;270;270;130;320;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>2520</x><y>1830</y><w>260</w><h>200</h></coordinates><panel_attributes>When consumed, 
+Do we still store it somewhere?
+Or do we lose the SCoDA_Results as well?
+Or do we store the SCoDA_Results 
+(since they are small)
+and discard everything else?
+
+Answer: Add some identifying information to
+the report/results ==&gt; name change, call it a 
+report.  And then store it in a larger report
+container.
+
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>1520</x><y>1820</y><w>200</w><h>250</h></coordinates><panel_attributes>compress():
+
+1. Get UG, original.
+2. Create extra stuff for SCoDA
+3. Call SCoDA
+4. Store results from SCoDA?
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>1250</y><w>1190</w><h>830</h></coordinates><panel_attributes>Container for DerivedGraph/DerivedGraphHyperEdge Linked list.
+--
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1180</x><y>1440</y><w>960</w><h>300</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+*NEW DATASTUCTURE*</panel_attributes><additional_attributes>10;10;90;240;940;280</additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>1530</y><w>100</w><h>80</h></coordinates><panel_attributes>DerivedGraph
+--
+UG
+Layout</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>370</x><y>1600</y><w>200</w><h>110</h></coordinates><panel_attributes>DerivedGraphHyperEdge
+--
+DG source;
+nid_to_comm_map;
+SCoDA_Results;
+DG comm_G;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>1270</y><w>530</w><h>220</h></coordinates><panel_attributes>&lt;&lt;Container&gt;&gt;
+Package::CompressionGraphList
+{Some Properties}
+--
+-id: Long
+_-ClassAttribute: Long_
+--
+#push(DerivedGraphHyperEdge): 
+^----- NOTE: Puts a new graph on as well.
+#pop(): DerivedGraphHyperEdge
+  ^-------NOTE: Removes a Graph as well.
+#get_original(): DerivedGraph
+#peek(): DerivedGraph
+#_get(int idx): DG or DGHE?
+#
+
+--
+Responsibilities
+-- Resp1
+*-- Resp2*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>176</x><y>820</y><w>600</w><h>290</h></coordinates><panel_attributes>SCoDA: 
+Printing a partition.
+Printing the partition of the original comm graph simply means:
+
+1. Mapping through the original nid_comm map
+2. Mapping AGAIN through the DatasetAdapter
+3. Printing the result.
+
+Printing any recursive partition means:
+
+1. Mapping through the nth nid_comm map
+2. Mapping through each nid_comm map up to the original
+3. Mapping AGAIN through the DatasetAdapter
+4. Printing the result.
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>1690</y><w>100</w><h>80</h></coordinates><panel_attributes>DerivedGraph
+--
+UG
+Layout</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>306</x><y>1590</y><w>90</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;70;40</additional_attributes></element><element><id>Relation</id><coordinates><x>306</x><y>1670</y><w>90</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;50;70;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>666</x><y>1530</y><w>210</w><h>360</h></coordinates><panel_attributes>List of results from SCoDA
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>716</x><y>1580</y><w>100</w><h>30</h></coordinates><panel_attributes>SCoDA_Report
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>716</x><y>1620</y><w>100</w><h>30</h></coordinates><panel_attributes>SCoDA_Report
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>716</x><y>1660</y><w>100</w><h>30</h></coordinates><panel_attributes>SCoDA_Report
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>716</x><y>1700</y><w>100</w><h>30</h></coordinates><panel_attributes>SCoDA_Report
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>556</x><y>1590</y><w>180</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>160;10;10;70</additional_attributes></element><element><id>Text</id><coordinates><x>526</x><y>1730</y><w>40</w><h>30</h></coordinates><panel_attributes>Etc.
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>3350</x><y>1460</y><w>100</w><h>80</h></coordinates><panel_attributes>DerivedGraph
+--
+UG
+Layout</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>3550</x><y>1660</y><w>310</w><h>110</h></coordinates><panel_attributes>DerivedGraphHyperEdge
+--
+DG source;
+nid_to_comm_map;
+====????SCoDA_Results;??? move out of here?
+DG comm_G;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>3420</x><y>1530</y><w>90</w><h>370</h></coordinates><panel_attributes>lt=&lt;-
+compress()</panel_attributes><additional_attributes>10;350;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>3420</x><y>1670</y><w>150</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;.
+produces</panel_attributes><additional_attributes>130;20;10;20</additional_attributes></element></diagram>
