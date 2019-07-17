@@ -45,13 +45,13 @@ namespace RPGraph {
             // }
 
             GraphViewer::~GraphViewer() {
-                free(original_graph);
+				delete original_dg;
             }
 
             void GraphViewer::init() {
 				RPGraph::UGraph graph1(this->edgelist_path);
                 // Read source file and create UGraph.
-                this->original_graph = new RPGraph::DerivedGraph(graph1);
+                this->original_dg = new RPGraph::DerivedGraph(graph1);
             }
 
             void GraphViewer::show(int iteration) {
@@ -102,8 +102,14 @@ namespace RPGraph {
                 };
 
 			RPGraph::GraphLayout& GraphViewer::get_current_layout() {
-				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-				return dghe.result_dg.layout;
+                // If no hyper edges have been made, then the original graph is the current graph.
+                if(this->hyper_edges.size() == 0) {
+					return this->original_dg->layout;
+                } else {
+                    // If a hyper edge has been made, then the current source is a comm graph.
+                    DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
+					return dghe.source_dg.layout;
+                }
 			}
 
 			const RPGraph::nid_comm_map_t& GraphViewer::get_current_comm_map() {
@@ -114,7 +120,7 @@ namespace RPGraph {
 			RPGraph::UGraph& GraphViewer::get_current_source_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-                    return this->original_graph->get_graph();
+                    return this->original_dg->get_graph();
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
