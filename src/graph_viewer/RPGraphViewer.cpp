@@ -44,14 +44,13 @@ namespace RPGraph {
             //     RPGraph::UGraph full_graph(edgelist_path); // Initialize full_graph from provided path.
             // }
 
-            GraphViewer::~GraphViewer() {
-				delete original_dg;
-            }
+            GraphViewer::~GraphViewer() { }
 
             void GraphViewer::init() {
-				RPGraph::UGraph graph1(this->edgelist_path);
                 // Read source file and create UGraph.
-                this->original_dg = new RPGraph::DerivedGraph(graph1);
+				RPGraph::UGraph graph1(this->edgelist_path);
+				// Push new unique pointer to derived graph onto vetor.
+				this->derived_graphs.push_back(std::unique_ptr<RPGraph::DerivedGraph> (new RPGraph::DerivedGraph(graph1)));
             }
 
             void GraphViewer::show(int iteration) {
@@ -106,11 +105,11 @@ namespace RPGraph {
 			RPGraph::GraphLayout& GraphViewer::get_current_layout() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-					return this->original_dg->layout;
+					return this->derived_graphs.back()->layout;
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-					return dghe.source_dg.layout;
+					return dghe.source_dg->layout;
                 }
 			}
 
@@ -122,27 +121,27 @@ namespace RPGraph {
 			RPGraph::UGraph& GraphViewer::get_current_source_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-                    return this->original_dg->get_graph();
+                    return this->derived_graphs.back()->get_graph();
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-                    return dghe.source_dg.get_graph();
+                    return dghe.source_dg->get_graph();
                 }
 			}
 
 			RPGraph::UGraph& GraphViewer::get_current_result_graph() {
 				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-				return dghe.result_dg.get_graph();
+				return dghe.result_dg->get_graph();
 			}
 
             RPGraph::DerivedGraph& GraphViewer::get_current_source_derived_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-					return *this->original_dg;
+					return *this->derived_graphs[0];
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-                    return dghe.source_dg;
+                    return *dghe.source_dg;
                 }
             }
 
@@ -179,7 +178,6 @@ namespace RPGraph {
 				const RPGraph::GraphLayout& comm_layout = get_current_layout();
 				// TODO: This portion is easy to screw up.
 				// TODO: Technically NOT SAFE since we are storing the actual nid_comm_map inside of the hyper edge.
-				_discard_hyper_edge(); // Will have to pop off the top here to get access to the underlying full_layout.
 				RPGraph::GraphLayout& full_layout = get_current_layout();
 
                 for (const auto& nid_commid_pair : nid_comm_map) {
@@ -189,7 +187,7 @@ namespace RPGraph {
                     // TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
                     full_layout.setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }
-				// We have already discarded the old hyper edge.
+				_discard_hyper_edge(); // Will have to pop off the top here to get access to the underlying full_layout.
             }
 
 } // namespace RPGraph

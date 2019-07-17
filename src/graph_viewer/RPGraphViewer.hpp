@@ -154,9 +154,7 @@ namespace RPGraph {
                         out_file_prefix{out_file_prefix},
                         out_format{out_format},
                         image_w{image_w},
-                        image_h{image_h} {
-                            original_dg = nullptr;
-                         };
+                        image_h{image_h} { };
 
             GraphViewer() = delete;
             ~GraphViewer();
@@ -178,6 +176,7 @@ namespace RPGraph {
             std::vector < DerivedGraphHyperEdge > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
 			std::vector < DerivedGraphHyperEdge > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.
             RPGraph::SCoDA comm_algo;
+            std::vector < std::unique_ptr<RPGraph::DerivedGraph> > derived_graphs; // TODO: Turn into smart pointer. (shared pointer??)
             // RPGraph::ForceAtlas2* fa2; // TODO: Make some kind of safe pointer or something.
 
 			inline RPGraph::DerivedGraphHyperEdge& get_current_hyper_edge() {
@@ -216,7 +215,6 @@ namespace RPGraph {
             std::string out_format;
             int image_w;
             int image_h;
-            RPGraph::DerivedGraph* original_dg; // TODO: Turn into smart pointer. (shared pointer??)
     };
 } // namespace RPGraph
 
