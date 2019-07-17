@@ -109,8 +109,18 @@ namespace RPGraph {
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-					return dghe.source_dg->layout;
+					return dghe.result_dg->layout;
                 }
+			}
+
+			RPGraph::GraphLayout& GraphViewer::get_previous_layout() {
+				if (this->hyper_edges.size() == 0) {
+					throw "ERROR: Trying to expand without a previous layout!";
+				}
+				else {
+					DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
+					return dghe.source_dg->layout;
+				}
 			}
 
 			const RPGraph::nid_comm_map_t& GraphViewer::get_current_comm_map() {
@@ -178,7 +188,7 @@ namespace RPGraph {
 				const RPGraph::GraphLayout& comm_layout = get_current_layout();
 				// TODO: This portion is easy to screw up.
 				// TODO: Technically NOT SAFE since we are storing the actual nid_comm_map inside of the hyper edge.
-				RPGraph::GraphLayout& full_layout = get_current_layout();
+				RPGraph::GraphLayout& full_layout = get_previous_layout();
 
                 for (const auto& nid_commid_pair : nid_comm_map) {
                     RPGraph::contiguous_nid_t node = nid_commid_pair.first;
