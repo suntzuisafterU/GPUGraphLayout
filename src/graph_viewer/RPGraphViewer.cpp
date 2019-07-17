@@ -45,14 +45,12 @@ namespace RPGraph {
             // }
 
             GraphViewer::~GraphViewer() {
-                delete original_graph;
+                free(original_graph);
             }
 
             void GraphViewer::init() {
                 // Read source file and create UGraph.
-                RPGraph::UGraph graph1(this->edgelist_path); // TODO: Possible error here.  graph1 goes out of scope.
-                // This is the original graph, assign it.
-                this->original_graph = new RPGraph::DerivedGraph(graph1);
+                this->original_graph = new RPGraph::DerivedGraph(this->edgelist_path);
             }
 
             void GraphViewer::show(int iteration) {
