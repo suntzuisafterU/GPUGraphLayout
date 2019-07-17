@@ -100,10 +100,9 @@ namespace RPGraph {
                 source_dg{ /*std::move(other.source_dg)*/ other.source_dg }, // TODO: Is moving appropriate?
                 nid_comm_map{ other.nid_comm_map }, // TODO: Shouldn't we move this?
                 result_dg{ other.result_dg },
-                reports{ other.reports } { // error: cannot bind non-const lvalue reference of type ‘RPGraph::DerivedGraph&’ to an rvalue of type ‘std::remove_reference<RPGraph::DerivedGraph&>::type’ {aka ‘RPGraph::DerivedGraph’}
-                                                     // reports{ other.reports } {
+                reports{ other.reports } {
                     // Other DGHE Destructor should be called I believe.
-                        std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):" << std::endl;
+                    std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):" << std::endl;
                 };
 
         // TODO: Get rid of this.  Temp.
