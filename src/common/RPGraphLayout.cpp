@@ -48,7 +48,7 @@ namespace RPGraph
     }
 
     GraphLayout::GraphLayout(const GraphLayout &other):width(other.width),height(other.height),graph(other.graph) {
-            std::cout << "In GraphLayout copy constructor\n" << std::endl;
+		std::cout << "In GraphLayout::GraphLayout(const GraphLayout &other):width(other.width),height(other.height),graph(other.graph) {" << std::endl;
             coordinates = other.coordinates;
         }
 
@@ -56,14 +56,14 @@ namespace RPGraph
         width(other.width),
         height(other.height),
         graph{ other.graph } {
-        std::cout<<"In GraphLayout move constructor\n"<<std::endl;
+		std::cout << "In GraphLayout::GraphLayout(GraphLayout&& other):" << std::endl;
             coordinates = other.coordinates;
             other.coordinates = nullptr;
     }
 
     GraphLayout& GraphLayout::operator= (GraphLayout&& other) {
+		std::cout << "In GraphLayout& GraphLayout::operator= (GraphLayout&& other) {" << std::endl;
 
-        std::cout << "In GraphLayout move assignment\n" << std::endl;
         // self assignment check.
         if(&other == this)
             return *this;
@@ -80,6 +80,7 @@ namespace RPGraph
 
     GraphLayout::~GraphLayout()
     {
+		std::cout << "In GraphLayout::~GraphLayout()" << std::endl;
         free(coordinates);
     }
 
