@@ -179,7 +179,7 @@ namespace RPGraph {
             std::vector < DerivedGraphHyperEdge > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
 			std::vector < DerivedGraphHyperEdge > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.
             RPGraph::SCoDA comm_algo;
-            RPGraph::ForceAtlas2* fa2; // TODO: Make some kind of safe pointer or something.
+            // RPGraph::ForceAtlas2* fa2; // TODO: Make some kind of safe pointer or something.
 
 			inline RPGraph::DerivedGraphHyperEdge& get_current_hyper_edge() {
 				return hyper_edges.back();

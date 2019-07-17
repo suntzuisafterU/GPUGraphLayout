@@ -98,7 +98,7 @@ namespace RPGraph {
                     }
                 }
 
-                this->fa2->sync_layout();
+                fa2->sync_layout();
 
                 delete fa2; // Cleanup.
                 };
