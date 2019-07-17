@@ -135,7 +135,7 @@ namespace RPGraph {
 
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
-				RPGraph::UGraph& original_graph = get_current_source_graph(); // TODO: Was const
+				RPGraph::UGraph& original_graph = get_current_source_graph(); // TODO: BUG: This does not return the correct value. It returns an invalid UG object.
 				// TODO: Will have to create a container for all the maps, reports, etc.
                 std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 				// Can we use move semantics to deal with this?
