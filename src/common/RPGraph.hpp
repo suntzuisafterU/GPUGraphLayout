@@ -85,14 +85,6 @@ namespace RPGraph
 
     };
 
-	// // template<typename node_type>
-	// class UG_Iter {
-	// public:
-	// 	explicit UG_Iter(const& UGraph ug);
-	// 	void operator++();
-	// 	U_Edge get_edge();
-	// };
-
     /**
 	 * Compressed sparserow (CSR) for undirected graphs.
 	 * 
