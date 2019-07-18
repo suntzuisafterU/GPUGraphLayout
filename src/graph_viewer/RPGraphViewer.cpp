@@ -82,11 +82,10 @@ namespace RPGraph {
                 printf("done.\n"); // TODO: Remove after refactoring.
             }
 
-            void GraphViewer::iterate_on_layout(int num_iters) {
+            void GraphViewer::iterate_on_layout(int num_iters, bool randomize) {
                 // Create the GraphLayout and ForceAtlas2 objects.
                 RPGraph::GraphLayout* current_layout = get_current_layout(); // TODO: IS THIS HOW WE WANT TO DO THIS??
                 RPGraph::ForceAtlas2* fa2;
-                bool randomize = true; // TODO: Needs to be parameterized.
                 #ifdef __NVCC__
                 if(cuda_requested)
                     // GPU FA2
@@ -169,7 +168,7 @@ namespace RPGraph {
 
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
-				RPGraph::UGraph* source_graph = get_current_source_graph(); // TODO: BUG: This does not return the correct value. It returns an invalid UG object.
+				UGraph* source_graph = get_current_source_graph(); // TODO: BUG: This does not return the correct value. It returns an invalid UG object.
 				// TODO: Will have to create a container for all the maps, reports, etc.
                 std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 				// Can we use move semantics to deal with this?

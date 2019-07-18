@@ -89,6 +89,7 @@ namespace RPGraph {
 
 		~DerivedGraphHyperEdge() {
 			delete result_dg;
+			// nid_comm_map and reports go out of scope here.
 		}
 
 		DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other) = delete;
@@ -144,7 +145,7 @@ namespace RPGraph {
             GraphViewer & operator=(const GraphViewer& other) = delete;
             void init();
             void show(int iter); /**< Display or print data, depends on output method. */
-            void iterate_on_layout(int num_iters);
+            void iterate_on_layout(int num_iters, bool randomize);
 
             void compress();
             void expand();

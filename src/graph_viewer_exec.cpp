@@ -129,7 +129,7 @@ int main(int argc, const char **argv) {
 
 	// Iterate on original graph
     int change_me = 9;
-    graph_viewer->iterate_on_layout(change_me);
+    graph_viewer->iterate_on_layout(change_me, true);
 
     graph_viewer->compress(); // Could be done multiple times.
 
@@ -140,12 +140,12 @@ int main(int argc, const char **argv) {
     // }
 
 	// iterate on comm_graph
-    graph_viewer->iterate_on_layout(change_me);
+    graph_viewer->iterate_on_layout(change_me, false);
 
     int need_to_track_iterations_I_guess = 123456789;
     graph_viewer->show(need_to_track_iterations_I_guess);
     // TODO: show_swing(); Or jitter?
     graph_viewer->expand(); // Back to original graph
-    graph_viewer->iterate_on_layout(change_me);
+    graph_viewer->iterate_on_layout(change_me, false);
     graph_viewer->show(need_to_track_iterations_I_guess);
 }
