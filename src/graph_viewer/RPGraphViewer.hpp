@@ -45,7 +45,6 @@ namespace RPGraph {
             
             if (ug->num_nodes() != layout_ptr->graph.num_nodes()) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
             // IF we survive this constructor, the ug must be full, and the layout must have nodes in it.
-            // TODO: Need move semantics for UGraph for this to work.
         };
 
 		DerivedGraph(const DerivedGraph& other) = delete;
@@ -149,10 +148,6 @@ namespace RPGraph {
 
             void compress();
             void expand();
-            // TODO: void set_comm_algo(RPGraph::CommAlgo);
-            // TODO: void set_layout_method(/* CPU or GPU FA2 */);
-            // TODO: void set_display_method(/* png writer */);
-
 
         private:
             std::vector < DerivedGraphHyperEdge* > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
