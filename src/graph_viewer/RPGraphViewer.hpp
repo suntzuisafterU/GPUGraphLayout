@@ -29,19 +29,32 @@
 
 namespace RPGraph {
 
-    /// Store graph together with associated layout.  
+
+	/**
+	 * Ownership: UGraph and Associated layout.
+	 */
     struct DerivedGraph {
 
-		explicit DerivedGraph(RPGraph::UGraph ug) : layout { ug } { // TODO: use std::move
+		UGraph* graph_ptr = nullptr;
+        GraphLayout* layout_ptr = nullptr;
+
+		explicit DerivedGraph(RPGraph::UGraph* ug) { // TODO: use std::move
             std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
+			graph_ptr = ug;
+			layout_ptr = new GraphLayout(*ug); // TODO: Does this call copy constructor?
             
-            if (ug.num_nodes() != layout.graph.num_nodes()) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
+            if (ug->num_nodes() != layout_ptr->graph.num_nodes()) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
             // IF we survive this constructor, the ug must be full, and the layout must have nodes in it.
             // TODO: Need move semantics for UGraph for this to work.
         };
 
-		// TODO: TEMP: DerivedGraph(const DerivedGraph& other) = delete;
-		// TODO: TEMP: DerivedGraph operator= (const DerivedGraph& other) = delete;
+		DerivedGraph(const DerivedGraph& other) = delete;
+		DerivedGraph operator= (const DerivedGraph& other) = delete;
+
+		~DerivedGraph() {
+			delete graph_ptr;
+			delete layout_ptr;
+		}
 
         // TODO: Get rid of this.
         // DerivedGraph(const DerivedGraph& other): 
@@ -49,30 +62,27 @@ namespace RPGraph {
         //             std::cout<< "In: DerivedGraph(const DerivedGraph& other): " << std::endl;
         //         };
 
-        DerivedGraph(DerivedGraph&& other): 
-                layout{ other.layout } {
-                    std::cout<< "In: DerivedGraph(DerivedGraph&& other): " << std::endl;
-            // The destructor of `other` should be called when it goes out of scope.
+        // DerivedGraph(DerivedGraph&& other): 
+        //         layout{ other.layout } {
+        //             std::cout<< "In: DerivedGraph(DerivedGraph&& other): " << std::endl;
+        //     // The destructor of `other` should be called when it goes out of scope.
+        // };
+
+        // DerivedGraph& operator= (DerivedGraph&& other) {
+        //         std::cout<< "In: DerivedGraph& operator= (DerivedGraph&& other) {" << std::endl;
+        //     // Self-assignment detection.
+        //     if (&other == this)
+        //         return *this;
+        //     
+        //     // Transfer ownership.
+        //     this->layout = std::move(other.layout);
+
+        //     return *this;
+        // };
+
+        UGraph* get_graph() {
+            return this->graph_ptr;
         };
-
-        DerivedGraph& operator= (DerivedGraph&& other) {
-                std::cout<< "In: DerivedGraph& operator= (DerivedGraph&& other) {" << std::endl;
-            // Self-assignment detection.
-            if (&other == this)
-                return *this;
-            
-            // Transfer ownership.
-            this->layout = std::move(other.layout);
-
-            return *this;
-        };
-
-        UGraph& get_graph() {
-            return this->layout.graph;
-        };
-
-		RPGraph::GraphLayout layout;
-        // std::unique_ptr<RPGraph::GraphLayout> layout_ptr; // Unique ptr, then is mutable.
     };
 
     struct HyperEdgeReports {
@@ -85,7 +95,7 @@ namespace RPGraph {
     struct DerivedGraphHyperEdge { // TODO: naming?
 
         //                                                                                              TODO: Turn this into a DG arg
-        DerivedGraphHyperEdge(RPGraph::DerivedGraph* sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::DerivedGraph* rg, HyperEdgeReports* reports) :
+        DerivedGraphHyperEdge(RPGraph::DerivedGraph* sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::DerivedGraph* rg, HyperEdgeReports reports) :
                 source_dg { /*std::move(sg)*/ sg },  // TODO: Is moving appropriate?
                 nid_comm_map { nid_comm_map },
                 result_dg { rg }, // TODO: This
@@ -120,7 +130,7 @@ namespace RPGraph {
         const RPGraph::nid_comm_map_t nid_comm_map;
         DerivedGraph* result_dg; // Not const, we can access the Layout
 
-        HyperEdgeReports* reports; // All reports associated with this step, in either direction. (compression or expansion)
+        HyperEdgeReports reports; // All reports associated with this step, in either direction. (compression or expansion)
     };
 
     class GraphViewer {
