@@ -123,14 +123,14 @@ namespace RPGraph
         // Temporary: checking values.
     }
 
-    bool UGraph::has_node(contiguous_nid_t nid)
+    bool UGraph::has_node_private(contiguous_nid_t nid)
     {
         return degrees[nid] > 0; // Membership check by degree.
     }
 
-    bool UGraph::has_edge(contiguous_nid_t s, contiguous_nid_t t)
+    bool UGraph::has_edge_private(contiguous_nid_t s, contiguous_nid_t t)
     {
-        if(!has_node(s) or !has_node(t)) return false;
+        if(!has_node_private(s) or !has_node(t)) return false;
 
         if(adjacency_list[std::min(s, t)].size() == 0) return false;
 
@@ -141,16 +141,16 @@ namespace RPGraph
             return true;
     }
 
-    inline void UGraph::add_node()
+    inline void UGraph::add_node_private()
     {
         node_count++; // TODO: Revert to old version, get everything else working.
     }
 
-    void UGraph::add_edge(contiguous_nid_t s, contiguous_nid_t t)
+    void UGraph::add_edge_private(contiguous_nid_t s, contiguous_nid_t t)
     {
         // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
-        if(!has_node(s)) add_node();
-        if(!has_node(t)) add_node();
+        if(!has_node_private(s)) add_node_private();
+        if(!has_node_private(t)) add_node_private();
 
         // Insert edge into adjacency_list
         adjacency_list[std::min(s, t)].push_back(std::max(s, t));
