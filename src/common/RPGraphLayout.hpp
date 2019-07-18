@@ -43,12 +43,11 @@ namespace RPGraph
         GraphLayout(RPGraph::UGraph graph,
                     float width = 10000, float height = 10000); // TODO: Change to power of 2?
         
-        // TODO: Get rid of this.
-        GraphLayout(const GraphLayout& other);        // TODO: TEMP: GraphLayout(const GraphLayout& other) = delete;             /// Disallow copy construction.
-        // TODO: TEMP: GraphLayout & operator=(const GraphLayout& other) = delete; /// Disallow copy assignment.
+		GraphLayout(const GraphLayout& other) = delete;
+        GraphLayout & operator=(const GraphLayout& other) = delete; /// Disallow copy assignment.
 
-        GraphLayout(GraphLayout&& other);
-        GraphLayout& operator= (GraphLayout&& other);
+        // GraphLayout(GraphLayout&& other);
+        // GraphLayout& operator= (GraphLayout&& other);
 
         ~GraphLayout();
 
