@@ -35,13 +35,13 @@ namespace RPGraph
 {
     Graph::~Graph() = default;
 
-    explicit UGraph::UGraph() {
+	UGraph::UGraph() {
         std::cout<< "in UGraph() " << std::endl;
         node_count = 0;
         edge_count = 0;
     }
 
-    explicit UGraph::UGraph(std::string edgelist_path) {
+    UGraph::UGraph(std::string edgelist_path) {
         std::cout<< "in UGraph::UGraph(std::string edgelist_path) " << std::endl;
         node_count = 0;
         edge_count = 0;

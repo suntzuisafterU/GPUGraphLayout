@@ -53,11 +53,11 @@ namespace RPGraph
     {
     friend class SCoDA;
     public:
-        UGraph();
-        UGraph(std::string edgelist_path);
+        explicit UGraph();
+        explicit UGraph(std::string edgelist_path);
 
-        UGraph(const UGraph& other);
-        UGraph& operator=(const UGraph& other);
+        // UGraph(const UGraph& other);
+        // UGraph& operator=(const UGraph& other);
 
         // TODO: TEMP: UGraph(const UGraph&) = delete;             /// Disallow copying.
         // TODO: TEMP: UGraph & operator=(const UGraph&) = delete; /// Disallow copy assignment operator.
