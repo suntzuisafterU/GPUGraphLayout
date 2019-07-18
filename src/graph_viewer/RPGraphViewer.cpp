@@ -105,11 +105,11 @@ namespace RPGraph {
 			RPGraph::GraphLayout& GraphViewer::get_current_layout() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-					return this->derived_graphs.back()->layout;
+					return *this->original_dg->layout_ptr;
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
-                    DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-					return dghe.result_dg->layout;
+                    DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
+					return dghe->result_dg->layout_ptr;
                 }
 			}
 
@@ -118,40 +118,40 @@ namespace RPGraph {
 					throw "ERROR: Trying to expand without a previous layout!";
 				}
 				else {
-					DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-					return dghe.source_dg->layout;
+					DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
+					return dghe->source_dg->layout_ptr;
 				}
 			}
 
 			const RPGraph::nid_comm_map_t& GraphViewer::get_current_comm_map() {
-				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-				return dghe.nid_comm_map;
+				DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
+				return dghe->nid_comm_map;
 			}
 
 			RPGraph::UGraph& GraphViewer::get_current_source_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-                    return this->derived_graphs.back()->get_graph();
+					return *this->original_dg->get_graph();
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
-                    DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-                    return dghe.source_dg->get_graph();
+                    DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
+                    return dghe->source_dg->get_graph();
                 }
 			}
 
 			RPGraph::UGraph& GraphViewer::get_current_result_graph() {
-				DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-				return dghe.result_dg->get_graph();
+				DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
+				return dghe->result_dg->get_graph();
 			}
 
-            RPGraph::DerivedGraph& GraphViewer::get_current_source_derived_graph() {
+            RPGraph::DerivedGraph* GraphViewer::get_current_source_derived_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-					return *this->derived_graphs[0];
+					return this->original_dg;
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
-                    DerivedGraphHyperEdge& dghe = get_current_hyper_edge();
-                    return *dghe.source_dg;
+                    DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
+                    return dghe->source_dg;
                 }
             }
 
@@ -168,7 +168,7 @@ namespace RPGraph {
                 // Add results to containers.
 				RPGraph::HyperEdgeReports hyper_edge_reports{ scoda_report }; // TODO: DANGER::: This is dependent on ordering!
 				// TODO: Will need move semantics.
-                RPGraph::DerivedGraph& original_derived_graph = get_current_source_derived_graph();
+                RPGraph::DerivedGraph* original_derived_graph = get_current_source_derived_graph();
                 hyper_edges.emplace_back( // TODO: Is this a nameless dghe?
 					original_derived_graph, 
 					nid_comm_map, 

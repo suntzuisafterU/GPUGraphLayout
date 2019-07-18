@@ -186,12 +186,12 @@ namespace RPGraph {
 
 
         private:
-            std::vector < DerivedGraphHyperEdge > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
-			std::vector < DerivedGraphHyperEdge > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.
+            std::vector < DerivedGraphHyperEdge* > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
+			std::vector < DerivedGraphHyperEdge* > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.
             RPGraph::SCoDA comm_algo;
 			DerivedGraph* original_dg;
 
-			inline RPGraph::DerivedGraphHyperEdge& get_current_hyper_edge() {
+			inline RPGraph::DerivedGraphHyperEdge* get_current_hyper_edge() {
 				return hyper_edges.back();
 			}
 
@@ -210,7 +210,7 @@ namespace RPGraph {
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
 			RPGraph::UGraph& get_current_source_graph();
 			RPGraph::UGraph& get_current_result_graph(); // Could be null?
-            RPGraph::DerivedGraph& get_current_source_derived_graph();
+            RPGraph::DerivedGraph* get_current_source_derived_graph();
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;
