@@ -80,29 +80,11 @@ namespace RPGraph {
                 result_dg { rg },
                 reports { reports }
                  {
-
                     std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :" << std::endl;
                  };
 
-        DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):
-                source_dg{ /*std::move(other.source_dg)*/ other.source_dg }, // TODO: Is moving appropriate?
-                nid_comm_map{ other.nid_comm_map }, // TODO: Shouldn't we move this?
-                result_dg{ other.result_dg },
-                reports{ other.reports } {
-                    // Other DGHE Destructor should be called I believe.
-                    std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraphHyperEdge&& other):" << std::endl;
-                };
-
 		DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other) = delete;
 		DerivedGraphHyperEdge& operator= (const RPGraph::DerivedGraphHyperEdge& other) = delete;
-        // DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other):
-        //         source_dg{ other.source_dg },
-        //         nid_comm_map{ other.nid_comm_map },
-        //         result_dg{ other.result_dg },
-        //         reports{ other.reports } { 
-        //             std::cout<<"In: DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other):" << std::endl;
-        //         };
-
 
         DerivedGraph* source_dg; // Weak ptr, does not need to be freed. Memory is managed by GraphViewer.
         const RPGraph::nid_comm_map_t nid_comm_map;
