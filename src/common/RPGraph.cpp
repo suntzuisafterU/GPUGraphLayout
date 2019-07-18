@@ -76,6 +76,11 @@ namespace RPGraph
         edgelist_file.close();
     }
 
+	const std::unordered_map <contiguous_nid_t, uint32_t> UGraph::get_degrees() const {
+		/// Allow const access to degrees map. 
+		return degrees;
+	}
+
 	void UGraph::add_edge_public(dangerous_nid_t s, dangerous_nid_t t) {
         // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
         if(!has_node_private(s)) add_node_private(s);
