@@ -162,7 +162,12 @@ namespace RPGraph
     const std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid)
     {
 		// TODO: I believe the issue is here, somehow we are allowing someone to overwrite the adjacency_list.
-        return adjacency_list.at(nid);
+		if (adjacency_list.count(nid) > 0) return adjacency_list.at(nid);
+		else {
+			// Create and return an empty vector.
+			std::vector<contiguous_nid_t> temp; /// Temporary empty vector to indicate that nid does not refer to a source node for any edges.
+			return temp;
+		}
     }
 
 //	UG_Iter::UG_Iter(const& UGraph) {
