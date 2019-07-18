@@ -8,14 +8,21 @@ namespace RPGraph {
 // TODO: Define a type for tracking data such as counts, degrees, etc.
 // TODO: Make sure that we have safety checks for unsigned integer overflow.
 
-// Strong typedefs, as per: https://blog.demofox.org/2015/02/05/getting-strongly-typed-typedefs-using-phantom-types/
+// source: https://stackoverflow.com/questions/34287842/c-strongly-typed-using-and-typedef
+#define SAFE_TYPEDEF(Base, name) \
+class name : public Base { \
+public: \
+    template <class... Args> \
+    explicit name (Args... args) : Base(args...) {} \
+    const Base& raw() const { return *this; } \
+};
 
 // Type to represent node IDs.
 // NOTE: we limit to 4,294,967,296 nodes through uint32_t.
-BOOST_STRONG_TYPEDEF(uint32_t, contiguous_nid_t);
+SAFE_TYPEDEF(uint32_t, contiguous_nid_t);
 
 // Type to represent community ids.
-BOOST_STRONG_TYPEDEF(uint32_t, comm_id_t);
+SAFE_TYPEDEF(uint32_t, comm_id_t);
 
 // Container for mapping contiguous_nid_t to comm_ids
 typedef std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::comm_id_t> nid_comm_map_t;
