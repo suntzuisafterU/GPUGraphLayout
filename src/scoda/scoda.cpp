@@ -82,12 +82,12 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
             else if (src_deg > degree_threshold && dst_deg > degree_threshold)
             {
 				// TODO: Fix the insertion mapping of community nodes...
-                if (comm_graph.has_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id)))
+                if (comm_graph.has_edge_private(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id)))
                 {
                     num_duplicate_comm_edges++;
                 }
                 // add community edge. Includes duplicates.
-                comm_graph.add_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id));
+                comm_graph.add_edge_private(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id));
             }
 
             // TODO: Remove after testing, this is just for counting null edges.
