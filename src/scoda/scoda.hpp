@@ -31,6 +31,7 @@ namespace RPGraph {
     };
 
     struct SCoDA_Report {
+		uint32_t degree_threshold;
         uint32_t num_null_e;
         uint32_t num_duplicate_comm_edges;
         uint32_t num_full_nodes;
@@ -42,6 +43,7 @@ namespace RPGraph {
 
         // TODO: Override the << operator to print this.
 		friend std::ostream & operator << (std::ostream& out, SCoDA_Report& report) {
+			out << "degree threshold: " << report.degree_threshold << std::endl;
 			out << "num_null_e: " << report.num_null_e << std::endl;
 			out << "num_duplicate_comm_edges: " << report.num_duplicate_comm_edges << std::endl;
 			out << "num_full_nodes: " << report.num_full_nodes << std::endl;

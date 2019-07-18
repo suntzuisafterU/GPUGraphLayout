@@ -13,8 +13,8 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
     /* Memory allocation & initialisation */
     nid_comm_map.reserve(original_graph.num_nodes()); // TODO: Testing
 
-    int num_null_e = 0; // Just for counting the number of FULLY ignored edges.
-    int num_duplicate_comm_edges = 0;
+    uint32_t num_null_e = 0; // Just for counting the number of FULLY ignored edges.
+    uint32_t num_duplicate_comm_edges = 0;
 
     printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
@@ -105,6 +105,7 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
     float edge_comp_ratio = (float) original_graph.num_edges() / (float) comm_graph.num_edges();
 
     SCoDA_Report results = { 
+		degree_threshold,
         num_null_e, 
         num_duplicate_comm_edges, 
         num_original_nodes,
