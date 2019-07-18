@@ -56,30 +56,6 @@ namespace RPGraph {
 			delete layout_ptr;
 		}
 
-        // TODO: Get rid of this.
-        // DerivedGraph(const DerivedGraph& other): 
-        //         layout{ other.layout } { 
-        //             std::cout<< "In: DerivedGraph(const DerivedGraph& other): " << std::endl;
-        //         };
-
-        // DerivedGraph(DerivedGraph&& other): 
-        //         layout{ other.layout } {
-        //             std::cout<< "In: DerivedGraph(DerivedGraph&& other): " << std::endl;
-        //     // The destructor of `other` should be called when it goes out of scope.
-        // };
-
-        // DerivedGraph& operator= (DerivedGraph&& other) {
-        //         std::cout<< "In: DerivedGraph& operator= (DerivedGraph&& other) {" << std::endl;
-        //     // Self-assignment detection.
-        //     if (&other == this)
-        //         return *this;
-        //     
-        //     // Transfer ownership.
-        //     this->layout = std::move(other.layout);
-
-        //     return *this;
-        // };
-
         UGraph* get_graph() {
             return this->graph_ptr;
         };
@@ -96,7 +72,7 @@ namespace RPGraph {
 
         //                                                                                              TODO: Turn this into a DG arg
         DerivedGraphHyperEdge(RPGraph::DerivedGraph* sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::DerivedGraph* rg, HyperEdgeReports reports) :
-                source_dg { /*std::move(sg)*/ sg },  // TODO: Is moving appropriate?
+                source_dg { sg },  // TODO: Is moving appropriate?
                 nid_comm_map { nid_comm_map },
                 result_dg { rg }, // TODO: This
                 reports { reports } // error: cannot bind non-const lvalue reference of type ‘RPGraph::DerivedGraph&’ to an rvalue of type ‘std::remove_reference<RPGraph::DerivedGraph&>::type’ {aka ‘RPGraph::DerivedGraph’}
@@ -128,7 +104,7 @@ namespace RPGraph {
 
         DerivedGraph* source_dg; // Weak ptr, does not need to be freed. Memory is managed by GraphViewer.
         const RPGraph::nid_comm_map_t nid_comm_map;
-        DerivedGraph* result_dg; // Not const, we can access the Layout
+        DerivedGraph* result_dg; // Ownership: DGHE manages result_dg
 
         HyperEdgeReports reports; // All reports associated with this step, in either direction. (compression or expansion)
     };
