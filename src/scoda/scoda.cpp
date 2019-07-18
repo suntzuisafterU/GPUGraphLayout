@@ -81,6 +81,7 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
             //       communities AND add a community connecting edge at the same time.  Probably undesireable.)
             else if (src_deg > degree_threshold && dst_deg > degree_threshold)
             {
+				// TODO: Fix the insertion mapping of community nodes...
                 if (comm_graph.has_edge(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id)))
                 {
                     num_duplicate_comm_edges++;

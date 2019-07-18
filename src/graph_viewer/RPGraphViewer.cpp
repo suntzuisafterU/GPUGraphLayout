@@ -53,15 +53,12 @@ namespace RPGraph {
             }
 
             void GraphViewer::show(int iteration) {
-                // RPGraph::UGraph& original_graph = this->derived_graphs_and_maps.size() == 0 ? this->very_first_graph : this->derived_graphs_and_maps.last_item_or_whatever().first;
-                // TODO: Keep a curent layout reference/pointer. RPGraph::GraphLayout& current_layout = this->derived_graphs_and_maps.size() == 0 ? this
                 std::string op(this->out_path);
                 // op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
                 op.append(std::to_string(iteration)).append(".").append(this->out_format);
                 printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / this->max_iterations, out_format.c_str());
 
                 fflush(stdout); // TODO: Why is this necessary?
-
 
                 // if (out_format == "png")
                     writeToPNG(this->get_current_layout(), this->image_w, this->image_h, op);
@@ -122,6 +119,9 @@ namespace RPGraph {
 			}
 
 			const nid_comm_map_t& GraphViewer::get_current_comm_map() {
+				if (hyper_edges.size() == 0) {
+					throw "ERROR: Trying to access a community map before any have been created. (or when the last valid one was discarded)";
+				}
 				DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
 				return dghe->nid_comm_map;
 			}
