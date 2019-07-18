@@ -66,6 +66,10 @@ namespace RPGraph
         virtual uint32_t num_edges() const override;
         virtual uint32_t degree(contiguous_nid_t nid);
 
+		void add_edge_public(dangerous_nid_t, dangerous_nid_t);
+
+		bool has_edge_public(dangerous_nid_t, dangerous_nid_t) const;
+
 		const std::unordered_map <contiguous_nid_t, uint32_t> get_degrees(); /// Allow const access to degrees map.
 
         const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
@@ -74,17 +78,17 @@ namespace RPGraph
     private:
         uint32_t node_count, edge_count;
 
-		std::unordered_map<dangerous_nid_t, contiguous_nid_t> exteranl_to_contig; /// Used on insertion of data to graph.
+		std::unordered_map<dangerous_nid_t, contiguous_nid_t> external_to_contig; /// Used on insertion of data to graph.
 		std::unordered_map<contiguous_nid_t, dangerous_nid_t> contig_to_external; /// Used when extracting data from graph for IO or... 
 
         std::unordered_map <contiguous_nid_t, uint32_t> degrees;
         std::unordered_map <contiguous_nid_t, std::vector<contiguous_nid_t> > adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
 
-        void add_node_private();
+        void add_node_private(dangerous_nid_t nid);
         void add_edge_private(contiguous_nid_t s, contiguous_nid_t t); /**< Adding an edge also adds any nodes. */
 
-        bool has_edge_private(contiguous_nid_t s, contiguous_nid_t t); // TODO: Moved for testing purposes. Make private again later.
-        bool has_node_private(contiguous_nid_t nid); // TODO: Find usage
+        bool has_node_private(dangerous_nid_t nid) const;
+        bool has_edge_private(contiguous_nid_t s, contiguous_nid_t t) const;
 
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
 

@@ -57,51 +57,6 @@ namespace RPGraph
     void UGraph::read_edgelist_file(std::string edgelist_path) {
         std::fstream edgelist_file(edgelist_path, std::ifstream::in);
 
-    typedef uint32_t nid_t;
-
-    std::unordered_map<nid_t, contiguous_nid_t> node_map;
-
-    auto has_node_internal = [&](nid_t nid) {
-        return node_map.count(nid) > 0;
-    };
-
-    // has edge
-    // auto has_edge_internal = [&](nid_t s, nid_t t) {
-    //     if(has_node_internal(s) || has_node_internal(t)) return true;
-
-    //     contiguous_nid_t s_mapped = node_map[s];
-    //     contiguous_nid_t t_mapped = node_map[t];
-
-    //     if(adjacency_list.count(std::min(s_mapped, t_mapped)) == 0) return false;
-
-    //     std::vector<nid_t> neighbors = adjacency_list[std::min(s_mapped, t_mapped)];
-    //     if(std::find(neighbors.begin(), neighbors.end(), std::max(s_mapped, t_mapped)) == neighbors.end())
-    //         return false;
-    //     else
-    //         return true;
-    // };
-
-    // add node
-    auto add_node_internal = [&](nid_t nid) {
-        node_map[nid] = node_count;
-        node_count++;
-    };
-
-    // add edge
-    auto add_edge_internal = [&](nid_t s, nid_t t){
-        // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
-        if(!has_node_internal(s)) add_node_internal(s);
-        if(!has_node_internal(t)) add_node_internal(t);
-        contiguous_nid_t s_mapped = node_map[s];
-        contiguous_nid_t t_mapped = node_map[t];
-
-        // Insert edge into adjacency_list
-        adjacency_list[std::min(s_mapped, t_mapped)].push_back(std::max(s_mapped, t_mapped));
-        degrees[s_mapped] += 1;
-        degrees[t_mapped] += 1;
-        edge_count++;
-    };
-
     // original loop
         std::string line;
         while(std::getline(edgelist_file, line))
@@ -111,53 +66,66 @@ namespace RPGraph
 			if(line[0] == '%') continue;
 
             // Read source and target from file
-            nid_t s, t;
+            dangerous_nid_t s, t;
             std::istringstream(line) >> s >> t;
 
             // if(s != t and !has_edge(s, t)) add_edge(s, t); // Original behaviour of graph_viewer was to ignore duplicate edges. // TODO: Decide how to handle duplicate/weighted edges.
-            add_edge_internal(s, t);
+            add_edge_public(s, t);
         }
 
         edgelist_file.close();
-
-        // Temporary: checking values.
     }
 
-    bool UGraph::has_node_private(contiguous_nid_t nid)
-    {
-        return degrees[nid] > 0; // Membership check by degree.
-    }
+	void UGraph::add_edge_public(dangerous_nid_t s, dangerous_nid_t t) {
+        // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
+        if(!has_node_private(s)) add_node_private(s);
+        if(!has_node_private(t)) add_node_private(t);
+        contiguous_nid_t mapped_s = external_to_contig[s];
+        contiguous_nid_t mapped_t = external_to_contig[t];
 
-    bool UGraph::has_edge_private(contiguous_nid_t s, contiguous_nid_t t)
-    {
-        if(!has_node_private(s) or !has_node(t)) return false;
-
-        if(adjacency_list[std::min(s, t)].size() == 0) return false;
-
-        std::vector<contiguous_nid_t> neighbors = adjacency_list[std::min(s, t)];
-        if(std::find(neighbors.begin(), neighbors.end(), std::max(s, t)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
-            return false;
-        else
-            return true;
-    }
-
-    inline void UGraph::add_node_private()
-    {
-        node_count++; // TODO: Revert to old version, get everything else working.
-    }
+		add_edge_private(mapped_s, mapped_t);
+	}
 
     void UGraph::add_edge_private(contiguous_nid_t s, contiguous_nid_t t)
     {
-        // if(has_edge(s, t) or s == t) return; // Allow weighted edges as duplicates
-        if(!has_node_private(s)) add_node_private();
-        if(!has_node_private(t)) add_node_private();
-
         // Insert edge into adjacency_list
         adjacency_list[std::min(s, t)].push_back(std::max(s, t));
         degrees[s] += 1;
         degrees[t] += 1;
         edge_count++;
     }
+
+	bool UGraph::has_edge_public(dangerous_nid_t s, dangerous_nid_t t) const {
+        if(!has_node_private(s) || !has_node_private(t)) return false;
+
+		/// If we get here then the maps must contain s and t.  If this fails it is an internal logic error with the UGraph design.
+		contiguous_nid_t mapped_s = external_to_contig.at(s);
+		contiguous_nid_t mapped_t = external_to_contig.at(t);
+		has_edge_private(mapped_s, mapped_t);
+	}
+
+    bool UGraph::has_edge_private(contiguous_nid_t s, contiguous_nid_t t) const {
+        if(adjacency_list.at(std::min(s, t)).size() == 0) return false;
+
+        std::vector<contiguous_nid_t> neighbors = adjacency_list.at(std::min(s, t));
+        if(std::find(neighbors.begin(), neighbors.end(), std::max(s, t)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
+            return false;
+        else
+            return true;
+    }
+
+	bool UGraph::has_node_private(dangerous_nid_t nid) const {
+		return external_to_contig.count(nid) > 0; /// Simple membership check;
+	}
+
+	void UGraph::add_node_private(dangerous_nid_t nid) {
+		if (has_node_private(nid)) throw "ERROR: Trying to add node that exists."; /// This is an internal UGraph error if it occurs.
+
+		external_to_contig[nid] = node_count;
+		contig_to_external[node_count] = nid;
+		node_count++;
+	}
+
 
     contiguous_nid_t UGraph::num_nodes() const
     {
@@ -176,7 +144,7 @@ namespace RPGraph
 	 */
     uint32_t UGraph::degree(contiguous_nid_t nid)
     {
-        return degrees[nid];
+        return degrees.at(nid);
     }
 
     /**
@@ -185,7 +153,7 @@ namespace RPGraph
     const std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid)
     {
 		// TODO: I believe the issue is here, somehow we are allowing someone to overwrite the adjacency_list.
-        return adjacency_list[nid];
+        return adjacency_list.at(nid);
     }
 
 //	UG_Iter::UG_Iter(const& UGraph) {
