@@ -75,11 +75,11 @@ namespace RPGraph
         std::unordered_map <contiguous_nid_t, uint32_t> degrees;
         std::unordered_map <contiguous_nid_t, std::vector<contiguous_nid_t> > adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
 
-        void add_node(); /* Moved add_node back to private section for safety. */
-        void add_edge(contiguous_nid_t s, contiguous_nid_t t); /**< Adding an edge also adds any nodes. */
+        void add_node_private();
+        void add_edge_private(contiguous_nid_t s, contiguous_nid_t t); /**< Adding an edge also adds any nodes. */
 
-        bool has_edge(contiguous_nid_t s, contiguous_nid_t t); // TODO: Moved for testing purposes. Make private again later.
-        bool has_node(contiguous_nid_t nid); // TODO: Find usage
+        bool has_edge_private(contiguous_nid_t s, contiguous_nid_t t); // TODO: Moved for testing purposes. Make private again later.
+        bool has_node_private(contiguous_nid_t nid); // TODO: Find usage
 
         void read_edgelist_file(std::string edgelist_path); /**< read file at path and initialize graph. */
 
