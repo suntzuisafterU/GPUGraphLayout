@@ -31,6 +31,8 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
     {
         for (RPGraph::contiguous_nid_t dst_id : original_graph.neighbors_with_geq_id(src_id)) // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger.
         {
+			// IMPORTANT: Found definite bug in the way nid_comm_map is built.  The nodes are ONLY being mapped to a community of the same id.
+
             /// If this is the first time we have seen these nodes, add them to the nid_comm_map.
             // .count() is used for membership test...
             if (nid_comm_map.count(src_id) == 0)
