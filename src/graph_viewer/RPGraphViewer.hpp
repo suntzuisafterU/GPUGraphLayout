@@ -41,7 +41,7 @@ namespace RPGraph {
 		explicit DerivedGraph(RPGraph::UGraph* ug) { // TODO: use std::move
             std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
 			graph_ptr = ug;
-			layout_ptr = new GraphLayout(*ug); // TODO: Does this call copy constructor?
+			layout_ptr = new GraphLayout(*ug); // Passed by reference.
             
             if (ug->num_nodes() != layout_ptr->graph.num_nodes()) throw "Error, UGraph not iniatialized.";  // Die, TODO: This may be bad practice, and late.  But we are crashing the application so should be fine.
             // IF we survive this constructor, the ug must be full, and the layout must have nodes in it.
@@ -59,6 +59,10 @@ namespace RPGraph {
         UGraph* get_graph() {
             return this->graph_ptr;
         };
+
+		GraphLayout* get_layout() {
+			return this->layout_ptr;
+		};
     };
 
     struct HyperEdgeReports {
