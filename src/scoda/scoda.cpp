@@ -23,7 +23,7 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
 
     uint32_t src_deg, dst_deg;
     std::vector<uint32_t> degrees; /// Required since SCoDA must track the degree of edges as they are streamed.
-    degrees.reserve(original_graph.num_nodes());
+    degrees.resize(original_graph.num_nodes()); // IMPORTANT: DEFINITE BUG HERE, DEGREES VECTOR WAS EMPTY!! Hopefully fixed.
 
     // if (original_graph.num_nodes() == 0 || original_graph.num_edges() == 0) exit(EXIT_FAILURE); // ERROR, empty UGraph.
     // TODO: Move explicit manipulation of UGraph to internal function or iterator class.
