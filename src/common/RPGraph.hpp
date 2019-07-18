@@ -72,7 +72,7 @@ namespace RPGraph
 		bool has_edge_public(dangerous_nid_t, dangerous_nid_t) const;
 
 		inline contiguous_nid_t getContigFromComm(comm_id_t comm_node_id) const {
-			return external_to_contig[comm_node_id];
+			return external_to_contig.at(comm_node_id);
 		}; /// IMPORTANT: When accessing nodes use appropriiate maps.
 
         const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
