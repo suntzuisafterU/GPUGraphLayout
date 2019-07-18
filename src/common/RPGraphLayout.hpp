@@ -59,7 +59,7 @@ namespace RPGraph
         Real2DVector getDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
         Real2DVector getNormalizedDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
         Coordinate getCoordinate(contiguous_nid_t node_id) const;
-		Coordinate GraphLayout::getCoordinateFromCommNode(comm_id_t node_id) const;
+		Coordinate getCoordinateFromCommNode(comm_id_t node_id) const;
         Coordinate getCenter();
 
         void setX(contiguous_nid_t node_id, float x_value), setY(contiguous_nid_t node_id, float y_value);
