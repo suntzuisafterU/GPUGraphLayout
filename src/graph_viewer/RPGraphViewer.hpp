@@ -72,16 +72,14 @@ namespace RPGraph {
     };
     
     /// Compression via community algo associates 2 graphs with each other. Expansion uses this association as well.
-    struct DerivedGraphHyperEdge { // TODO: naming?
+    struct DerivedGraphHyperEdge {
 
-        //                                                                                              TODO: Turn this into a DG arg
         DerivedGraphHyperEdge(RPGraph::DerivedGraph* sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::DerivedGraph* rg, HyperEdgeReports reports) :
-                source_dg { sg },  // TODO: Is moving appropriate?
+                source_dg { sg },
                 nid_comm_map { nid_comm_map },
-                result_dg { rg }, // TODO: This
-                reports { reports } // error: cannot bind non-const lvalue reference of type ‘RPGraph::DerivedGraph&’ to an rvalue of type ‘std::remove_reference<RPGraph::DerivedGraph&>::type’ {aka ‘RPGraph::DerivedGraph’}
-                                                // reports { reports }
-                {
+                result_dg { rg },
+                reports { reports }
+                 {
 
                     std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :" << std::endl;
                  };
