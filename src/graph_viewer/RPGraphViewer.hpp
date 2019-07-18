@@ -38,7 +38,7 @@ namespace RPGraph {
 		UGraph* graph_ptr = nullptr;
         GraphLayout* layout_ptr = nullptr;
 
-		explicit DerivedGraph(RPGraph::UGraph* ug) { // TODO: use std::move
+		explicit DerivedGraph(RPGraph::UGraph* ug) {
             std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
 			graph_ptr = ug;
 			layout_ptr = new GraphLayout(*ug); // Passed by reference.

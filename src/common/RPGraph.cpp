@@ -184,6 +184,7 @@ namespace RPGraph
      */
     std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid)
     {
+		// TODO: I believe the issue is here, somehow we are allowing someone to overwrite the adjacency_list.
         return adjacency_list[nid];
     }
 
