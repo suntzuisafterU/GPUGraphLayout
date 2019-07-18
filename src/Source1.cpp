@@ -3,54 +3,50 @@
 #include <map>
 #include <unordered_map>
 
-// define some tags to create uniqueness
-struct portal_tag {};
-struct cake_tag {};
-
 // a string-like identifier that is typed on a tag type
 template<class Tag>
-struct string_id
+struct uint_id
 {
     using tag_type = Tag;
 
     // needs to be default-constuctable because of use in map[] below
-    string_id(std::string s) : _value(std::move(s)) {}
-    string_id() : _value() {}
+    uint_id(std::uint32_t s) : _value(std::move(s)) {}
+    uint_id() : _value() {}
 
     // provide access to the underlying string value
-    const std::string& value() const { return _value; }
+    const std::uint32_t& value() const { return _value; }
 private:
-    std::string _value;
+    std::uint32_t _value;
 
     // will only compare against same type of id.
-    friend bool operator < (const string_id& l, const string_id& r) {
+    friend bool operator < (const uint_id& l, const uint_id& r) {
         return l._value < r._value;
     }
 
-    friend bool operator == (const string_id& l, const string_id& r) {
+    friend bool operator == (const uint_id& l, const uint_id& r) {
         return l._value == r._value;
     }
 
     // and let's go ahead and provide expected free functions
     friend
-    auto to_string(const string_id& r)
-    -> const std::string&
+    auto to_string(const uint_id& r)
+    -> const std::uint32_t&
     {
         return r._value;
     }
 
     friend
-    auto operator << (std::ostream& os, const string_id& sid)
+    auto operator << (std::ostream& os, const uint_id& sid)
     -> std::ostream&
     {
         return os << sid.value();
     }
 
     friend
-    std::size_t hash_code(const string_id& sid)
+    std::size_t hash_code(const uint_id& sid)
     {
         std::size_t seed = typeid(tag_type).hash_code();
-        seed ^= std::hash<std::string>()(sid._value);
+        seed ^= std::hash<std::uint32_t>()(sid._value);
         return seed;
     }
 
@@ -60,9 +56,9 @@ private:
 
 namespace std {
     template<class Tag>
-    struct hash<string_id<Tag>>
+    struct hash<uint_id<Tag>>
     {
-        using argument_type = string_id<Tag>;
+        using argument_type = uint_id<Tag>;
         using result_type = std::size_t;
 
         result_type operator()(const argument_type& arg) const {
@@ -71,18 +67,21 @@ namespace std {
     };
 }
 
+// define some tags to create uniqueness
+struct portal_tag {};
+struct cake_tag {};
 
 // create some type aliases for ease of use
-using PortalId = string_id<portal_tag>;
-using CakeId = string_id<cake_tag>;
+using PortalId = uint_id<portal_tag>;
+using CakeId = uint_id<cake_tag>;
 
 using namespace std;
 
 // confirm that requirements are met
 auto main() -> int
 {
-    PortalId portal_id("2");
-    CakeId cake_id("is a lie");
+    PortalId portal_id(1);
+    CakeId cake_id(2);
     std::map<CakeId, PortalId> p_to_cake; // OK
 
     p_to_cake[cake_id]   = portal_id; // OK
@@ -90,13 +89,13 @@ auto main() -> int
 
     //    portal_id = cake_id;        // COMPILER ERROR
     //    portal_id = "1.0";          // COMPILER ERROR
-    portal_id = PortalId("42"); // OK
+    portal_id = PortalId(3); // OK
 
     // extra checks
 
     std::unordered_map<CakeId, PortalId> hashed_ptocake;
-    hashed_ptocake.emplace(CakeId("foo"), PortalId("bar"));
-    hashed_ptocake.emplace(CakeId("baz"), PortalId("bar2"));
+    hashed_ptocake.emplace(CakeId(4), PortalId(5));
+    hashed_ptocake.emplace(CakeId(6), PortalId(7));
 
     for(const auto& entry : hashed_ptocake) {
         cout << entry.first << " = " << entry.second << '\n';
@@ -108,11 +107,7 @@ auto main() -> int
 
     // if I really want to copy the values of dissimilar types I can express it:
 
-    const CakeId cake1("a cake ident");
-    auto convert = PortalId(to_string(cake1));
-
-    cout << "this portal is called '" << convert << "', just like the cake called '" << cake1 << "'\n";
-
+    const CakeId cake1(9);
 
     return 0;
 }
