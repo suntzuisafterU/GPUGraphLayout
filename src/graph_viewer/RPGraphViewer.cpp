@@ -157,7 +157,7 @@ namespace RPGraph {
                 // Create new comm_map and graph, add each to container.
 				UGraph* source_graph = get_current_source_graph(); // TODO: BUG: This does not return the correct value. It returns an invalid UG object.
 				// TODO: Will have to create a container for all the maps, reports, etc.
-                std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
+				nid_comm_map_t nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 				// Can we use move semantics to deal with this?
 				UGraph* comm_graph = new UGraph(); // Initialize empty comm_graph for scoda to fill. This probably has to be a pointer.  Will probably just have to use a bunch of poiters. We can free one graph and one map every time we delete a hyper edge....
                 // run CommunityAlgo
@@ -198,7 +198,7 @@ namespace RPGraph {
                 for (const auto& nid_commid_pair : nid_comm_map) {
                     contiguous_nid_t node = nid_commid_pair.first;
                     comm_id_t comm = nid_commid_pair.second;
-                    Coordinate comm_coordinate = comm_layout->getCoordinate(comm);
+                    Coordinate comm_coordinate = comm_layout->getCoordinateFromCommNode(comm); // TODO: THIS MUST MAP THROUGH THE ASSOCIATED GRAPH!
                     // TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
                     full_layout->setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }

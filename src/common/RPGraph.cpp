@@ -136,12 +136,12 @@ namespace RPGraph
 	}
 
 
-    contiguous_nid_t UGraph::num_nodes() const
+    uint32_t UGraph::num_nodes() const
     {
         return node_count;
     }
 
-    contiguous_nid_t UGraph::num_edges() const
+    uint32_t UGraph::num_edges() const
     {
         return edge_count;
     }
