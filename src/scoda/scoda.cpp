@@ -129,7 +129,7 @@ uint32_t SCoDA::compute_mode_of_degree(RPGraph::UGraph& in_graph) {
     // When inspecting the in_graph, it appears to have numbers of elements for size of degrees and adjacency_list that are way out to lunch, must be a conversion between unsigned and signed somewhere.  Going to check with VisualStudio.
 
     std::pair<uint32_t, uint32_t> maxPair = findMaxKeyValuePair(degree_frequencies); // TODO: Testing.
-    return maxPair.first;
+	return std::max(maxPair.first, 2U);
 }
 
 // TODO: Accept a file and send this through a DatasetAdapter...
