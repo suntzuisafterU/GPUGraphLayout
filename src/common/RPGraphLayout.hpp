@@ -46,9 +46,6 @@ namespace RPGraph
 		GraphLayout(const GraphLayout& other) = delete;
         GraphLayout & operator=(const GraphLayout& other) = delete; /// Disallow copy assignment.
 
-        // GraphLayout(GraphLayout&& other);
-        // GraphLayout& operator= (GraphLayout&& other);
-
         ~GraphLayout();
 
         UGraph graph; // to lay-out TODO: TESTING, new home for graph...

@@ -47,37 +47,6 @@ namespace RPGraph
         coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));
     }
 
-    // GraphLayout::GraphLayout(const GraphLayout &other):width(other.width),height(other.height),graph(other.graph) {
-	// 	std::cout << "In GraphLayout::GraphLayout(const GraphLayout &other):width(other.width),height(other.height),graph(other.graph) {" << std::endl;
-    //         coordinates = other.coordinates;
-    //     }
-
-    // GraphLayout::GraphLayout(GraphLayout&& other):
-    //     width(other.width),
-    //     height(other.height),
-    //     graph{ other.graph } {
-	// 	std::cout << "In GraphLayout::GraphLayout(GraphLayout&& other):" << std::endl;
-    //         coordinates = other.coordinates;
-    //         other.coordinates = nullptr;
-    // }
-
-    // GraphLayout& GraphLayout::operator= (GraphLayout&& other) {
-	// 	std::cout << "In GraphLayout& GraphLayout::operator= (GraphLayout&& other) {" << std::endl;
-
-    //     // self assignment check.
-    //     if(&other == this)
-    //         return *this;
-
-    //     width = other.width;
-    //     height = other.height;
-    //     graph = other.graph;
-
-    //     coordinates = other.coordinates;
-    //     other.coordinates = nullptr;
-
-    //     return *this;
-    // }
-
     GraphLayout::~GraphLayout()
     {
 		std::cout << "In GraphLayout::~GraphLayout()" << std::endl;
