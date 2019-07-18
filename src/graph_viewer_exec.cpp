@@ -129,7 +129,7 @@ int main(int argc, const char **argv) {
 
 	// Iterate on original graph
     int change_me = 9;
-    graph_viewer->iterate_on_layout(change_me, true);
+    // graph_viewer->iterate_on_layout(change_me, true);
 
     graph_viewer->compress(); // Could be done multiple times.
 
