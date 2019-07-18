@@ -84,7 +84,8 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
 
             // TODO: Try > and >=, (>= will mean that if both nodes have degree=degree_threshold then we will move
             //       communities AND add a community connecting edge at the same time.  Probably undesireable.)
-            else if (src_deg > degree_threshold && dst_deg > degree_threshold)
+            else if (src_deg > degree_threshold && dst_deg > degree_threshold && 
+					COMMUNITY_OF(src_id) != COMMUNITY_OF(dst_id)) // IMPORTANT: Avoid adding self edges to comm_graph.  TODO: Testing.
             {
 				// TODO: Fix the insertion mapping of community nodes...
                 if (comm_graph.has_edge_public(COMMUNITY_OF(src_id), COMMUNITY_OF(dst_id)))
