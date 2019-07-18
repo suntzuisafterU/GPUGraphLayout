@@ -163,6 +163,10 @@ namespace RPGraph {
                 // run CommunityAlgo
                 // TODO: Implement move assignment for SCoDA?? Or does this get derived automatically?
                 SCoDA_Report scoda_report = this->comm_algo.compute_partition(*source_graph, *comm_graph, nid_comm_map); /**< Currently the streaming algorithm is required to also initialize any UGraph datastructures that are required. */
+
+				// TEMP: Print scoda report.
+				std::cout << scoda_report;
+
                 // Add results to containers.
 				HyperEdgeReports hyper_edge_reports{ scoda_report }; // TODO: DANGER::: This is dependent on ordering!
 
