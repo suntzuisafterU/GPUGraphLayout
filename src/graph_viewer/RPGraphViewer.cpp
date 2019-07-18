@@ -102,10 +102,10 @@ namespace RPGraph {
                 delete fa2; // Cleanup.
                 };
 
-			RPGraph::GraphLayout& GraphViewer::get_current_layout() {
+			RPGraph::GraphLayout* GraphViewer::get_current_layout() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-					return *this->original_dg->layout_ptr;
+					return this->original_dg->layout_ptr;
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
@@ -113,7 +113,7 @@ namespace RPGraph {
                 }
 			}
 
-			RPGraph::GraphLayout& GraphViewer::get_previous_layout() {
+			RPGraph::GraphLayout* GraphViewer::get_previous_layout() {
 				if (this->hyper_edges.size() == 0) {
 					throw "ERROR: Trying to expand without a previous layout!";
 				}
@@ -128,10 +128,10 @@ namespace RPGraph {
 				return dghe->nid_comm_map;
 			}
 
-			RPGraph::UGraph& GraphViewer::get_current_source_graph() {
+			RPGraph::UGraph* GraphViewer::get_current_source_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-					return *this->original_dg->get_graph();
+					return this->original_dg->get_graph();
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
@@ -139,7 +139,7 @@ namespace RPGraph {
                 }
 			}
 
-			RPGraph::UGraph& GraphViewer::get_current_result_graph() {
+			RPGraph::UGraph* GraphViewer::get_current_result_graph() {
 				DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
 				return dghe->result_dg->get_graph();
 			}
@@ -157,7 +157,7 @@ namespace RPGraph {
 
             void GraphViewer::compress() {
                 // Create new comm_map and graph, add each to container.
-				RPGraph::UGraph& original_graph = get_current_source_graph(); // TODO: BUG: This does not return the correct value. It returns an invalid UG object.
+				RPGraph::UGraph* original_graph = get_current_source_graph(); // TODO: BUG: This does not return the correct value. It returns an invalid UG object.
 				// TODO: Will have to create a container for all the maps, reports, etc.
                 std::unordered_map<RPGraph::contiguous_nid_t, RPGraph::contiguous_nid_t> nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 				// Can we use move semantics to deal with this?

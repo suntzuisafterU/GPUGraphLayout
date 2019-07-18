@@ -124,10 +124,6 @@ int main(int argc, const char **argv) {
     ////////////////TODO: JUST TESTING COMPILATION///////////////
     // std::unique_ptr<GraphViewer> graph_viewer( parseCommandLine() ); // TODO: Easiest way to initialize??
     ////////////////////////////////
-    // TODO: graph_viewer.init(file_path);
-    // TODO: graph_viewer.set_comm_algo(/* scoda */);
-    // TODO: graph_viewer.set_layout_method(/* CPU or GPU FA2 */);
-    // TODO: graph_viewer.set_display_method(/* png writer */);
 
     graph_viewer->init();
 

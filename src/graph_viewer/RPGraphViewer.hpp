@@ -166,11 +166,11 @@ namespace RPGraph {
 				return val;
 			}
 
-			RPGraph::GraphLayout& get_current_layout();
-			RPGraph::GraphLayout& get_previous_layout();
+			RPGraph::GraphLayout* get_current_layout();
+			RPGraph::GraphLayout* get_previous_layout();
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
-			RPGraph::UGraph& get_current_source_graph();
-			RPGraph::UGraph& get_current_result_graph(); // Could be null?
+			RPGraph::UGraph* get_current_source_graph();
+			RPGraph::UGraph* get_current_result_graph(); // Could be null?
             RPGraph::DerivedGraph* get_current_source_derived_graph();
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
