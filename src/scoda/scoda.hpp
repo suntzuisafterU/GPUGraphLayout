@@ -33,14 +33,25 @@ namespace RPGraph {
     struct SCoDA_Report {
         uint32_t num_null_e;
         uint32_t num_duplicate_comm_edges;
-        uint32_t num_comm_nodes;
         uint32_t num_full_nodes;
+        uint32_t num_comm_nodes;
         float node_comp_ratio;
-        uint32_t num_comm_edges;
         uint32_t num_full_edges;
+        uint32_t num_comm_edges;
         float edge_comp_ratio;
 
         // TODO: Override the << operator to print this.
+		friend std::ostream & operator << (std::ostream& out, SCoDA_Report& report) {
+			out << "num_null_e: " << report.num_null_e << std::endl;
+			out << "num_duplicate_comm_edges: " << report.num_duplicate_comm_edges << std::endl;
+			out << "num_full_nodes: " << report.num_full_nodes << std::endl;
+			out << "num_comm_nodes: " << report.num_comm_nodes << std::endl;
+			out << "node compression ratio: " << report.node_comp_ratio << std::endl;
+			out << "num full graph edges: " << report.num_full_edges << std::endl;
+			out << "num community graph edges: " << report.num_comm_edges << std::endl;
+			out << "edge compression ratio: " << report.edge_comp_ratio << std::endl;
+			return out;
+		};
     };
     
     /**

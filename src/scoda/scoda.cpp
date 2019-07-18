@@ -97,21 +97,21 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
         }
     }
 
-    uint32_t num_comm_nodes = comm_graph.num_nodes();
     uint32_t num_original_nodes = original_graph.num_nodes();
+    uint32_t num_comm_nodes = comm_graph.num_nodes();
     float node_comp_ratio = (float) original_graph.num_nodes() / (float) comm_graph.num_nodes();
-    uint32_t num_comm_e = comm_graph.num_edges();
     uint32_t num_original_e = original_graph.num_edges();
+    uint32_t num_comm_e = comm_graph.num_edges();
     float edge_comp_ratio = (float) original_graph.num_edges() / (float) comm_graph.num_edges();
 
     SCoDA_Report results = { 
         num_null_e, 
         num_duplicate_comm_edges, 
-        num_comm_nodes,
         num_original_nodes,
+        num_comm_nodes,
         node_comp_ratio,
-        num_comm_e,
         num_original_e,
+        num_comm_e,
         edge_comp_ratio 
     };
 
