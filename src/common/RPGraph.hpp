@@ -28,6 +28,7 @@
 #include <string>
 #include <unordered_map>
 #include "RPTypeDefs.hpp"
+#include "RPDangerousTypeDefs.hpp"
 
 namespace RPGraph
 {
@@ -72,6 +73,9 @@ namespace RPGraph
         // friend class RPCPUForceAtlas2; // Why did I want to define these?
     private:
         uint32_t node_count, edge_count;
+
+		std::unordered_map<dangerous_nid_t, contiguous_nid_t> exteranl_to_contig; /// Used on insertion of data to graph.
+		std::unordered_map<contiguous_nid_t, dangerous_nid_t> contig_to_external; /// Used when extracting data from graph for IO or... 
 
         std::unordered_map <contiguous_nid_t, uint32_t> degrees;
         std::unordered_map <contiguous_nid_t, std::vector<contiguous_nid_t> > adjacency_list; /**< adjacency_list: Maps nid_t to list of nodes adjacent AND with ids greater than the mapped id. */
