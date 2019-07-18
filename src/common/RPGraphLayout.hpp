@@ -40,7 +40,7 @@ namespace RPGraph
         float minX(), minY(), maxX(), maxY();
 
     public:
-        GraphLayout(RPGraph::UGraph graph,
+        GraphLayout(RPGraph::UGraph& graph,
                     float width = 10000, float height = 10000); // TODO: Change to power of 2?
         
 		GraphLayout(const GraphLayout& other) = delete;
@@ -48,7 +48,7 @@ namespace RPGraph
 
         ~GraphLayout();
 
-        UGraph graph; // to lay-out TODO: TESTING, new home for graph...
+        UGraph& graph; // to lay-out TODO: TESTING, new home for graph...
 
         // randomize the layout position of all nodes.
         void randomizePositions();
