@@ -3,6 +3,8 @@
 
 namespace RPGraph {
 
+// TODO: Replace macros with inlined functions.
+
 SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
             nid_comm_map_t& nid_comm_map) { // TODO: Use the typedefs
 
