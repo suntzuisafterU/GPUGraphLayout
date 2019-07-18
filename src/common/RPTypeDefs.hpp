@@ -8,6 +8,9 @@ namespace RPGraph {
 // TODO: Define a type for tracking data such as counts, degrees, etc.
 // TODO: Make sure that we have safety checks for unsigned integer overflow.
 
+// typedefs do not provide type safety: https://stackoverflow.com/questions/9588009/typesafe-typedef-in-c
+// Using boost macro instead: https://www.boost.org/doc/libs/1_49_0/libs/serialization/doc/strong_typedef.html
+
 // Type to represent node IDs.
 // NOTE: we limit to 4,294,967,296 nodes through uint32_t.
 typedef uint32_t contiguous_nid_t;
