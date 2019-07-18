@@ -51,7 +51,6 @@ namespace RPGraph
 	 */
     class UGraph : public Graph
     {
-    friend class SCoDA;
     public:
         explicit UGraph();
         explicit UGraph(std::string edgelist_path);
@@ -65,6 +64,8 @@ namespace RPGraph
         virtual uint32_t num_nodes() const override; /// Use uint32_t to increase the range we can support.
         virtual uint32_t num_edges() const override;
         virtual uint32_t degree(contiguous_nid_t nid);
+
+		const std::unordered_map <contiguous_nid_t, uint32_t> get_degrees(); /// Allow const access to degrees map.
 
         const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
         // friend class GraphLayout;
