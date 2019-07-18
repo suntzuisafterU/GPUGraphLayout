@@ -8,8 +8,8 @@ namespace RPGraph {
 SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::UGraph& comm_graph, 
             nid_comm_map_t& nid_comm_map) { // TODO: Use the typedefs
 
-// IMPORTANT: unordered_map.insert({...}) does NOT overwrite existing values.  As such the communities were not being assigned properly.
-#define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map[nid] = comm_id) /// Defines function to update community association of node nid. 
+// IMPORTANT: Bug in INSERT_COMMUNITY macro fixed.
+#define INSERT_COMMUNITY(nid, comm_id) (nid_comm_map[nid] = comm_id)         /// Defines function to update community association of node nid. 
 #define COMMUNITY_OF(nid) (nid_comm_map.at(nid))                             /// Defines function for accessing the community id associated with the ith node.
 
     uint32_t degree_threshold = compute_mode_of_degree(original_graph);
