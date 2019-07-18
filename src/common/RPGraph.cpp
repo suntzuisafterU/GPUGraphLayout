@@ -109,11 +109,15 @@ namespace RPGraph
 		return has_edge_private(mapped_s, mapped_t);
 	}
 
-    bool UGraph::has_edge_private(contiguous_nid_t s, contiguous_nid_t t) const {
-        if(adjacency_list.at(std::min(s, t)).size() == 0) return false;
+    bool UGraph::has_edge_private(contiguous_nid_t nid1, contiguous_nid_t nid2) const {
+		contiguous_nid_t s = std::min(nid1, nid2);
+		contiguous_nid_t t = std::max(nid1, nid2);
 
-        std::vector<contiguous_nid_t> neighbors = adjacency_list.at(std::min(s, t));
-        if(std::find(neighbors.begin(), neighbors.end(), std::max(s, t)) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
+		if (adjacency_list.count(s) == 0) return false; /// Safety, check membership in adjacency_list.
+        if (adjacency_list.at(s).size() == 0) return false;
+
+        std::vector<contiguous_nid_t> neighbors = adjacency_list.at(s);
+        if(std::find(neighbors.begin(), neighbors.end(), t) == neighbors.end()) // TODO: Carfully read this and check it for correctness.
             return false;
         else
             return true;
