@@ -184,11 +184,11 @@ namespace RPGraph {
                 DerivedGraph* source_derived_graph = get_current_source_derived_graph();
 				// Create new DG, DGHE will manage this as the result_dg.
 				DerivedGraph* result_derived_graph = new RPGraph::DerivedGraph(comm_graph);
-                hyper_edges.emplace_back( // TODO: Is this a nameless dghe?
+				hyper_edges.push_back(new DerivedGraphHyperEdge(
 					source_derived_graph, 
 					nid_comm_map, 
 					result_derived_graph,
-					hyper_edge_reports); // reports passed by value.
+					hyper_edge_reports)); // reports passed by value.
             }
 
             /**
