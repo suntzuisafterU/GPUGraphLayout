@@ -71,10 +71,14 @@ namespace RPGraph {
         RPGraph::PairwiseLayoutReport pairwise_layout_report; // Where the rubber meets the road.
     };
     
-    /// Compression via community algo associates 2 graphs with each other. Expansion uses this association as well.
+    /**
+	 * Compression via community algo associates 2 graphs with each other. Expansion uses this association as well.
+	 *
+	 * Ownership: result_dg
+	 */
     struct DerivedGraphHyperEdge {
 
-        DerivedGraphHyperEdge(RPGraph::DerivedGraph* sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::DerivedGraph* rg, HyperEdgeReports reports) :
+        explicit DerivedGraphHyperEdge(RPGraph::DerivedGraph* sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::DerivedGraph* rg, HyperEdgeReports reports) :
                 source_dg { sg },
                 nid_comm_map { nid_comm_map },
                 result_dg { rg },
@@ -82,6 +86,10 @@ namespace RPGraph {
                  {
                     std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :" << std::endl;
                  };
+
+		~DerivedGraphHyperEdge() {
+			delete result_dg;
+		}
 
 		DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other) = delete;
 		DerivedGraphHyperEdge& operator= (const RPGraph::DerivedGraphHyperEdge& other) = delete;
