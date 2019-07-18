@@ -165,11 +165,6 @@ namespace RPGraph {
 				hyper_edges.pop_back(); // Erases, no return.
 			}
 
-			RPGraph::contiguous_nid_t cast_comm_to_contig(RPGraph::comm_id_t comm_id) {
-				contiguous_nid_t val = comm_id; // TODO: Get rid of this function.
-				return val;
-			}
-
 			RPGraph::GraphLayout* get_current_layout();
 			RPGraph::GraphLayout* get_previous_layout();
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
