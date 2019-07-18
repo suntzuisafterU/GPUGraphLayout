@@ -106,7 +106,7 @@ namespace RPGraph
 		/// If we get here then the maps must contain s and t.  If this fails it is an internal logic error with the UGraph design.
 		contiguous_nid_t mapped_s = external_to_contig.at(s);
 		contiguous_nid_t mapped_t = external_to_contig.at(t);
-		has_edge_private(mapped_s, mapped_t);
+		return has_edge_private(mapped_s, mapped_t);
 	}
 
     bool UGraph::has_edge_private(contiguous_nid_t s, contiguous_nid_t t) const {
