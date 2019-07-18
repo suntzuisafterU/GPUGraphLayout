@@ -184,13 +184,13 @@ namespace RPGraph
      */
     void GraphLayout::setX(contiguous_nid_t node_id, float x_value)
     {
-		if (!isfinite(x_value)) throw "ERROR: Invalid x_value attempting to be assigned to coordinate.";
+		if (!std::isfinite(x_value)) throw "ERROR: Invalid x_value attempting to be assigned to coordinate.";
         coordinates[node_id].x = x_value;
     }
 
     void GraphLayout::setY(contiguous_nid_t node_id, float y_value)
     {
-		if (!isfinite(y_value)) throw "ERROR: Invalid y_value attempting to be assigned to coordinate.";
+		if (!std::isfinite(y_value)) throw "ERROR: Invalid y_value attempting to be assigned to coordinate.";
         coordinates[node_id].y = y_value;
     }
 
