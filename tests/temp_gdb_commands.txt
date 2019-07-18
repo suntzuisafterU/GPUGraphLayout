@@ -1,0 +1,9 @@
+display original_graph
+display degree_threshold
+display src_deg
+display dst_deg
+display src_id
+display dst_id
+display degrees
+display nid_comm_map
+display comm_graph
