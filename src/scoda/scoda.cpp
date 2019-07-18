@@ -136,7 +136,7 @@ uint32_t SCoDA::compute_mode_of_degree(RPGraph::UGraph& in_graph) {
 
 // TODO: Accept a file and send this through a DatasetAdapter...
 // produce partition from nid_commid_map
-void SCoDA::print_partition(nid_comm_map_t &nid_comm_map) {
+void SCoDA::print_partition(nid_comm_map_t &nid_comm_map/* TODO: , UGraph must be used to unmap the node ids in current configuration. */) {
 	throw "DANGER: Will print a partition that does not correlate with external data!";
     // TODO: Testing, can we initialize vectors of size zero?
     std::vector< std::vector<RPGraph::contiguous_nid_t> > partition;
