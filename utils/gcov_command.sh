@@ -1,1 +1,1 @@
-gcov -d -o ../builds/linux/obj/ -s ../src/ ../builds/linux/graph_viewer cpu 20 1 sg 40.0 1.0 approximate ../datasets/amazon0601/out.amazon0601 ../out/
+gcov -d -o ../builds/linux/obj/ -s ../src/ ../builds/linux/graph_viewer_exec cpu 10 1 wg 40.0 1.0 approximate regular 55 ../datasets/amazon0601/out.amazon0601 ../out/
