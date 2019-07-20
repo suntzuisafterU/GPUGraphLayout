@@ -196,10 +196,10 @@ namespace RPGraph {
 				GraphLayout* full_layout = get_previous_layout();
 
                 for (const auto& nid_commid_pair : nid_comm_map) {
+					// The community graph is not complete.  We must check for community membership first.
                     contiguous_nid_t node = nid_commid_pair.first;
                     comm_id_t comm = nid_commid_pair.second; // TODO: IMPORTANT: MAJOR BUG TRACKED TO HERE.  VALUES OF nid_comm_map do not appear to be extracted correctly, OR they are not correct to begin with.
-                    Coordinate comm_coordinate = comm_layout->getCoordinateFromCommNode(comm);
-                    // TODO: Is it possible for a node to not have a community in the graph??? Probably yes. Does not seem to be an issue.
+					Coordinate comm_coordinate = comm_layout->getCoordinateFromCommNode(comm);
                     full_layout->setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }
 				_discard_hyper_edge();

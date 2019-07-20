@@ -176,8 +176,14 @@ namespace RPGraph
     Coordinate GraphLayout::getCoordinateFromCommNode(comm_id_t comm_node_id) const
     {
 		// Map through associated UGraph.
-		contiguous_nid_t safe_node_id = graph.getContigFromComm(comm_node_id);
-        return coordinates[safe_node_id];
+		if (graph.contains(comm_node_id)) {
+			contiguous_nid_t safe_node_id = graph.getContigFromComm(comm_node_id);
+			return coordinates[safe_node_id];
+		}
+		else {
+			Coordinate result(0, 0);
+			return result;
+		}
     }
 
     /**

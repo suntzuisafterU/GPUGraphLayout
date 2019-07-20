@@ -71,6 +71,10 @@ namespace RPGraph
 		void add_edge_public(dangerous_nid_t, dangerous_nid_t);
 		bool has_edge_public(dangerous_nid_t, dangerous_nid_t) const;
 
+		inline bool contains(comm_id_t comm) const {
+			return external_to_contig.count(comm) > 0;
+		};
+
 		inline contiguous_nid_t getContigFromComm(comm_id_t comm_node_id) const {
 			return external_to_contig.at(comm_node_id);
 		}; /// IMPORTANT: When accessing nodes use appropriiate maps.
