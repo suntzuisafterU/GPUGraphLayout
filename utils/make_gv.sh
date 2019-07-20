@@ -6,6 +6,7 @@ USAGE="Usage: \n $SCRIPT_NAME [-g | --debug] [--(no-)cuda] [--clean]\nClean and 
 TARGET=all
 FAST=0 # O0 optimization
 DEBUG=0
+PROFILE=0 # gcov
 CUDA_SUPPORT=1
 
 while [[ $# -gt 0 ]]
@@ -13,6 +14,10 @@ do op="$1"
   case $op in
     -g | --debug )
       DEBUG=1
+      shift
+      ;;
+    --profile )
+      PROFILE=1
       shift
       ;;
     --cuda )
@@ -53,7 +58,7 @@ if [ "$CLEAN" ];then
   make clean -C ../builds/linux
 fi
 
-make -k -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG FAST=$FAST $TARGET
+make -k -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG FAST=$FAST PROFILE=$PROFILE $TARGET
 
 echo -e "\nExecutables exist(may have just been made):" \
 && ls -1 --color=always ../builds/linux/graph_viewer_exec ../builds/linux/scoda_exec ../builds/linux/stress_exec

@@ -4,7 +4,6 @@ SCRIPT_NAME="$0"
 USAGE="Usage: \n $SCRIPT_NAME -f <in file path> -o <out file path> [positional args (if any)]"
 
 # defaults
-EXECUTABLE='graph_viewer_seed1234'
 EXECUTION_MODE="gpu"
 INPATH='../datasets/ca-AstroPh/out.ca-AstroPh'
 OUTPATH_PREFIX='../out/'
@@ -13,6 +12,8 @@ F_G="Set_this_variable"
 F_R="Set_this_variable"
 NUM_ITERATIONS=500
 NUM_SNAPS=10
+LINLOG="regular"
+PERCENT_ITERS_ON_COMM=50
 OUTFILE_PREFIX="_"
 HEIGHT=10000
 WIDTH=10000
@@ -28,11 +29,6 @@ do op="$1"
       ;;
     -o )
       OUTPATH_PREFIX="$2"
-      shift
-      shift
-      ;;
-    --executable )
-      EXECUTABLE="$2"
       shift
       shift
       ;;
@@ -63,6 +59,15 @@ do op="$1"
       ;;
     --num-snaps )
       NUM_SNAPS="$2"
+      shift
+      shift
+      ;;
+    --linlog )
+      LINLOG="linlog"
+      shift
+      ;;
+    --percent-comm )
+      PERCENT_ITERS_ON_COMM="$2"
       shift
       shift
       ;;
@@ -114,7 +119,7 @@ BASENAME=$(basename -- "$INPATH") # Extract base file name here.
 echo "BASENAME: $BASENAME"
 
 # automatically name outpath
-OUTPATH="$OUTPATH_PREFIX""original_gv_""$BASENAME""_""$EXECUTION_MODE""_""$LINLOG""_F_R-$F_R""_F_G-$F_G""_iters_""$NUM_ITERATIONS"
+OUTPATH="$OUTPATH_PREFIX""$BASENAME""_""$EXECUTION_MODE""_""$LINLOG""_F_R-$F_R""_F_G-$F_G""_iters_""$NUM_ITERATIONS""_commPercentage_""$PERCENT_ITERS_ON_COMM"
 
 # Annotate path with purpose for output
 if [ "$ANNOTATION" ]; then
@@ -140,11 +145,21 @@ if [ "$(ls -A $OUTPATH)" ]; then
   fi
 fi
 
-if [ "$VERBOSE" ]; then
-  echo "$EXECUTABLE $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
+if [ "$ORIGINAL" ] && [ "$EXECUTABLE" ]; then
+  if [ "$VERBOSE" ]; then
+    echo "$EXECUTABLE $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
+  fi
+
+  "$EXECUTABLE" "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
+
+else
+  if [ "$VERBOSE" ]; then
+    echo "../builds/linux/graph_viewer_exec $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
+  fi
+
+
+  ../builds/linux/graph_viewer_exec "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
 fi
 
-
-"$EXECUTABLE" "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
 
 
