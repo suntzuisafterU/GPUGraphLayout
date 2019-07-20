@@ -232,7 +232,7 @@ namespace RPGraph
             float factor = global_speed / (1.0F + std::sqrt(global_speed * swg(n)));
 			// TEMP: DEBUGGING
 			Real2DVector resulting_force(forces[n] * factor);
-			std::cout << "Resulting force vector for node: " << n << " is equal to: " << resulting_force << std::endl;
+			std::cout << "Resulting force vector for node: " << n << " is equal to: x == " << resulting_force.x  << ", y == " << resulting_force.y << std::endl;
             layout.moveNode(n, forces[n] * factor); // IMPORTANT: TODO: Tracked bug involving x values of -inf here. 
 			/** With my test dataset, forces[n] = 
 			 * forces[n] {...}RPGraph::Real2DVector
