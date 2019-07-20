@@ -31,6 +31,8 @@
 #include <chrono>
 // chrono library must have been used for benchmarking in the past.
 
+#include <iostream> // TEMP: DEBUGGING
+
 /**
  * Which classes does this file rely on? What about the GPU version? 
  */
@@ -228,7 +230,17 @@ namespace RPGraph
         {
 
             float factor = global_speed / (1.0F + std::sqrt(global_speed * swg(n)));
-            layout.moveNode(n, forces[n] * factor);
+			// TEMP: DEBUGGING
+			Real2DVector resulting_force(forces[n] * factor);
+			std::cout << "Resulting force vector for node: " << n << " is equal to: " << resulting_force << std::endl;
+            layout.moveNode(n, forces[n] * factor); // IMPORTANT: TODO: Tracked bug involving x values of -inf here. 
+			/** With my test dataset, forces[n] = 
+			 * forces[n] {...}RPGraph::Real2DVector
+											x -1 float
+											y 7.62615592e-37 float
+			 * factor = 25.6289062 float
+			 * And for some reason, forces[n].x * factor = -inf
+			 */
         }
     }
 

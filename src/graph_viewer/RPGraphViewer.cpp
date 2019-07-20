@@ -38,6 +38,7 @@ namespace RPGraph {
 					ptr = nullptr;
 				}
 				hyper_edges.clear();
+
 				for (auto& ptr : __old_hyper_edges) {
 					delete ptr;
 					ptr = nullptr;
