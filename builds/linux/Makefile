@@ -20,26 +20,57 @@ SCODA_OBJ_DIR     := $(OBJ_DIR)/scoda
 FA2_OBJ_DIR       := $(OBJ_DIR)/FA2
 LO_EVAL_OBJ_DIR   := $(OBJ_DIR)/layouteval
 
+#######################################################
+################# BEGIN CUDA SUPPORT FLAGS ############
+#######################################################
 # Compile with CUDA support by default
 CUDA_SUPPORT ?= 1
 ifeq ($(CUDA_SUPPORT), 1)
 	CC:=nvcc
 	MY_CXXFLAGS:=-Xcompiler -Wextra -Xcompiler -Wall
+	# Debug compilation, disable by default
+	DEBUG ?= 0
+	ifeq ($(DEBUG), 1)
+		MY_CXXFLAGS:=$(MY_CXXFLAGS) -Xcompiler -pg
+		CXXFLAGS:=-pg -g
+		NVCCFLAGS:=-G
+		O_LVL:=-O0
+	else
+		NVCCFLAGS:=-D NDEBUG
+		O_LVL:=-O3
+	endif
+
+	PROFILE ?= 0
+	ifeq ($(PROFILE), 1)
+		# TODO: Do we need Xcompiler here? Does this even work with nvcc?
+		CXXFLAGS:=$(CXXFLAGS) -fprofile-arcs -ftest-coverage
+		LDFLAGS:=-lgcov --coverage
+	endif
+########################################################
+################# END CUDA SUPPORT FLAGS ###############
+########################################################
+
+###### NO CUDA SUPPORT FLAGS
 else
 	MY_CXXFLAGS:=-Wextra -Wall
-endif
+	# Debug compilation, disable by default
+	DEBUG ?= 0
+	ifeq ($(DEBUG), 1)
+		CXXFLAGS:=-pg -g
+		O_LVL:=-O0
+	else
+		O_LVL:=-O3
+	endif
 
-# Debug compilation, disable by default
-DEBUG ?= 0
-ifeq ($(DEBUG), 1)
-	CXXFLAGS:=-pg -g
-	NVCCFLAGS:=-G
-	O_LVL:=-O0
-else
-	NVCCFLAGS:=-D NDEBUG
-	O_LVL:=-O3
+	PROFILE ?= 0
+	ifeq ($(PROFILE), 1)
+		CXXFLAGS:=$(CXXFLAGS) -fprofile-arcs -ftest-coverage
+		LDFLAGS:=-lgcov --coverage
+	endif
 endif
+###### END NO CUDA SUPPORT FLAGS
 
+###### SHARED FLAGS
 # Override -O3 optimization if requested.
 FAST ?= 0
 ifeq ($(FAST), 1)
@@ -54,7 +85,8 @@ CFLAGS   :=$(O_LVL)
 CXXFLAGS :=$(CXXFLAGS) $(O_LVL) -std=c++11
 
 # Linker flags
-LDFLAGS  :=-lc -lm -lstdc++ -lpng
+LDFLAGS  :=-lc -lm -lstdc++ -lpng $(LDFLAGS)
+###### END SHARED FLAGS
 
 # inspiration: https://devhints.io/makefile
 # more inspiration: https://gist.github.com/isaacs/62a2d1825d04437c6f08
