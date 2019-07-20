@@ -26,6 +26,9 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
     std::vector<uint32_t> degrees; /// Required since SCoDA must track the degree of edges as they are streamed.
     degrees.resize(original_graph.num_nodes()); // IMPORTANT: if resize is not used the incrementation of value of degree inside the loop will not work at all.
 
+	// TEMP
+	int loop_count = 0;
+
     // if (original_graph.num_nodes() == 0 || original_graph.num_edges() == 0) exit(EXIT_FAILURE); // ERROR, empty UGraph.
     // TODO: Move explicit manipulation of UGraph to internal function or iterator class.
     for (RPGraph::contiguous_nid_t src_id = 0; src_id < original_graph.num_nodes(); src_id++) // Iterate over source nodes
@@ -33,6 +36,7 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
         for (RPGraph::contiguous_nid_t dst_id : original_graph.neighbors_with_geq_id(src_id)) // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger.
         {
 			// IMPORTANT: Found definite bug in the way nid_comm_map is built.  The nodes are ONLY being mapped to a community of the same id.
+			loop_count++; //TEMP
 
             /// If this is the first time we have seen these nodes, add them to the nid_comm_map.
             // .count() is used for membership test...
