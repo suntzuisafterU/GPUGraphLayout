@@ -54,3 +54,5 @@ PropertySheet.props
 ## Temp binaries and scripts
 **/.nfs*
 TEMP_ORIGINAL/
+utils/generate_output/
+utils/junk_out/
