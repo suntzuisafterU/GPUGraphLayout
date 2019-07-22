@@ -1,0 +1,3 @@
+b RPCPUForceAtlas2.cpp:231 if !std::isfinite(forces[n].x)
+b RPGraphLayout.cpp:setX(unsigned int, float) if (!std::isfinite(x_value))
+b 

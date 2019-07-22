@@ -22,6 +22,7 @@
 */
 
 #include "RPForceAtlas2.hpp"
+#include "../common/RPTypeDefs.hpp"
 
 namespace RPGraph
 {
@@ -81,7 +82,7 @@ namespace RPGraph
 	/**
 	 * mass of a node in FA2 is equal to degree of node.
 	 */
-    float ForceAtlas2::mass(nid_t n)
+    float ForceAtlas2::mass(contiguous_nid_t n)
     {
         return layout.graph.degree(n) + 1.0F;
     }

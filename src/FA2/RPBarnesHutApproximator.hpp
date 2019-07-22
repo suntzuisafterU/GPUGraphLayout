@@ -28,6 +28,7 @@
 
 #include "../common/RPGraph.hpp"
 #include "../common/RPCommon.hpp"
+#include "../common/RPTypeDefs.hpp"
 
 namespace RPGraph
 {
@@ -45,7 +46,7 @@ namespace RPGraph
         ~BarnesHutCell();
 
         Coordinate cell_center, mass_center;
-        nid_t num_subparticles = 0;
+        contiguous_nid_t num_subparticles = 0;
         float total_mass;
         const float length;   // length of a cell = width = height
         BarnesHutCell *sub_cells[4] = {nullptr, nullptr, nullptr, nullptr}; // per quadrant.

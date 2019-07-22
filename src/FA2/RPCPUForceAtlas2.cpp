@@ -31,6 +31,8 @@
 #include <chrono>
 // chrono library must have been used for benchmarking in the past.
 
+#include <iostream> // TEMP: DEBUGGING
+
 /**
  * Which classes does this file rely on? What about the GPU version? 
  */
@@ -45,10 +47,10 @@ namespace RPGraph
     {
         forces      = (Real2DVector *)malloc(sizeof(Real2DVector) * layout.graph.num_nodes());
         prev_forces = (Real2DVector *)malloc(sizeof(Real2DVector) * layout.graph.num_nodes());
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             forces[n]      = Real2DVector(0.0f, 0.0f);
-            prev_forces[n] = Real2DVector(0.0f, 0.0f);
+            prev_forces[n] = Real2DVector(0.0f, 0.0f); // TODO: According to VS there is a possible buffer overrun here. Prev_forces may also be NULL apparently. Same with the line above.
         }
     }
 
@@ -58,10 +60,10 @@ namespace RPGraph
         free(prev_forces);
     }
 
-    void CPUForceAtlas2::apply_attract(nid_t n)
+    void CPUForceAtlas2::apply_attract(contiguous_nid_t n)
     {
         Real2DVector f = Real2DVector(0.0, 0.0);
-        for (nid_t t : layout.graph.neighbors_with_geq_id(n))
+        for (contiguous_nid_t t : layout.graph.neighbors_with_geq_id(n))
         {
             // Here we define the magnitude of the attractive force `f_a'
             // *divided* by the length distance between `n' and `t', i.e. `f_a_over_d'
@@ -90,7 +92,7 @@ namespace RPGraph
         forces[n] += f;
     }
 
-    void CPUForceAtlas2::apply_repulsion(nid_t n)
+    void CPUForceAtlas2::apply_repulsion(contiguous_nid_t n)
     {
         // Approximation, O(log n), dependent on theta.
         if (use_barneshut)
@@ -101,17 +103,17 @@ namespace RPGraph
 		// Exact, O(n) (n^2 to calculate for all nodes)
         else
         {
-            for (nid_t t = 0; t < layout.graph.num_nodes(); ++t)
+            for (contiguous_nid_t t = 0; t < layout.graph.num_nodes(); ++t)
             {
                 if (n == t) continue;
-                float  distance = layout.getDistance(n, t);
+                float distance = layout.getDistance(n, t);
                 float f_r = distance == 0.0 ? std::numeric_limits<float>::max() : k_r * mass(n) * mass(t) / distance / distance;
                 forces[n] += layout.getDistanceVector(n, t) * f_r;
             }
         }
     }
 
-    void CPUForceAtlas2::apply_gravity(nid_t n)
+    void CPUForceAtlas2::apply_gravity(contiguous_nid_t n)
     {
         float f_g, d;
 
@@ -137,7 +139,7 @@ namespace RPGraph
      *  Eq. (8)
      *  TODO: Equation numbers from which paper?
      */
-    float CPUForceAtlas2::swg(nid_t n)
+    float CPUForceAtlas2::swg(contiguous_nid_t n)
     {
         return (forces[n] - prev_forces[n]).magnitude();
     }
@@ -145,7 +147,7 @@ namespace RPGraph
     /**
      *  Eq. (9)
      */
-    float CPUForceAtlas2::s(nid_t n)
+    float CPUForceAtlas2::s(contiguous_nid_t n)
     {
         return (k_s * global_speed)/(1.0f+global_speed*std::sqrt(swg(n)));
     }
@@ -153,7 +155,7 @@ namespace RPGraph
     /**
      *  Eq. (12)
      */
-    float CPUForceAtlas2::tra(nid_t n)
+    float CPUForceAtlas2::tra(contiguous_nid_t n)
     {
         return (forces[n] + prev_forces[n]).magnitude() / 2.0F;
     }
@@ -170,7 +172,7 @@ namespace RPGraph
         // `Auto adjust speeds'
         float total_swinging = 0.0;
         float total_effective_traction = 0.0;
-        for (nid_t nid = 0; nid < layout.graph.num_nodes(); ++nid)
+        for (contiguous_nid_t nid = 0; nid < layout.graph.num_nodes(); ++nid)
         {
             total_swinging += mass(nid) * swg(nid); // Eq. (11)
             total_effective_traction += mass(nid) * tra(nid); // Eq. (13)
@@ -183,7 +185,7 @@ namespace RPGraph
         float minJT = std::sqrt(estimated_optimal_jitter_tollerance);
         float jt = jitter_tolerance * fmaxf(minJT,
                                            fminf(k_s_max,
-                                                 estimated_optimal_jitter_tollerance * total_effective_traction / powf(layout.graph.num_nodes(), 2.0F)
+                                                 estimated_optimal_jitter_tollerance * total_effective_traction / powf(layout.graph.num_nodes(), 2.0F) // TODO: conversion from uint32_t to float (in powf), analyze.
                                                  )
                                            );
         float min_speed_efficiency = 0.05F;
@@ -216,7 +218,7 @@ namespace RPGraph
         global_speed += fminf(targetSpeed - global_speed, max_rise * global_speed);
     }
 
-    void CPUForceAtlas2::apply_displacement(nid_t n)
+    void CPUForceAtlas2::apply_displacement(contiguous_nid_t n)
     {
         if (prevent_overlap)
         {
@@ -228,7 +230,17 @@ namespace RPGraph
         {
 
             float factor = global_speed / (1.0F + std::sqrt(global_speed * swg(n)));
-            layout.moveNode(n, forces[n] * factor);
+			// TEMP: DEBUGGING
+			Real2DVector resulting_force(forces[n] * factor);
+			std::cout << "Resulting force vector for node: " << n << " is equal to: x == " << resulting_force.x  << ", y == " << resulting_force.y << std::endl;
+            layout.moveNode(n, forces[n] * factor); // IMPORTANT: TODO: Tracked bug involving x values of -inf here. 
+			/** With my test dataset, forces[n] = 
+			 * forces[n] {...}RPGraph::Real2DVector
+											x -1 float
+											y 7.62615592e-37 float
+			 * factor = 25.6289062 float
+			 * And for some reason, forces[n].x * factor = -inf
+			 */
         }
     }
 
@@ -236,10 +248,10 @@ namespace RPGraph
     {
         BH_Approximator.reset(layout.getCenter(), layout.getSpan()+10);
 
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             BH_Approximator.insertParticle(layout.getCoordinate(n),
-                                           layout.graph.degree(n)+1);
+                                           layout.graph.degree(n)+1); // TODO: Conversion from uint32_t to float, analyze.
         }
     }
 
@@ -247,7 +259,7 @@ namespace RPGraph
     {
         if (use_barneshut) rebuild_bh();
 
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             apply_gravity(n);
             apply_attract(n);
@@ -256,7 +268,7 @@ namespace RPGraph
 
         updateSpeeds();
 
-        for (nid_t n = 0; n < layout.graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
             apply_displacement(n);
             prev_forces[n]  = forces[n];

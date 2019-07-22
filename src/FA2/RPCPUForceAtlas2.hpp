@@ -46,17 +46,17 @@ namespace RPGraph
         Real2DVector *forces, *prev_forces;
         BarnesHutApproximator BH_Approximator;
 
-        float swg(nid_t n);            // swinging ..
-        float s(nid_t n);              // swinging as well ..
-        float tra(nid_t n);            // traction ..
+        float swg(contiguous_nid_t n);            // swinging ..
+        float s(contiguous_nid_t n);              // swinging as well ..
+        float tra(contiguous_nid_t n);            // traction ..
 
         // Substeps of one step in layout process.
         void rebuild_bh();
-        void apply_repulsion(nid_t n);
-        void apply_gravity(nid_t n);
-        void apply_attract(nid_t n);
+        void apply_repulsion(contiguous_nid_t n);
+        void apply_gravity(contiguous_nid_t n);
+        void apply_attract(contiguous_nid_t n);
         void updateSpeeds();
-        void apply_displacement(nid_t n);
+        void apply_displacement(contiguous_nid_t n);
     };
 }
 #endif

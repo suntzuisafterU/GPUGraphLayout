@@ -29,13 +29,13 @@ namespace RPGraph {
         pngwriter layout_png(image_w, image_h, 0, path.c_str());
         layout_png.invert(); // set bg. to white
 
-        for (nid_t n1 = 0; n1 < layout->graph.num_nodes(); ++n1)
+        for (contiguous_nid_t n1 = 0; n1 < layout->graph.num_nodes(); ++n1)
         {
             // Plot node,
             layout_png.filledcircle_blend((layout->getX(n1) - minX)*xScale,
                                           (layout->getY(n1) - minY)*yScale,
                                           3, node_opacity, 0, 0, 0);
-            for (nid_t n2 : layout->graph.neighbors_with_geq_id(n1)) {
+            for (contiguous_nid_t n2 : layout->graph.neighbors_with_geq_id(n1)) {
                 // ... and edge.
                 layout_png.line_blend((layout->getX(n1) - minX)*xScale, (layout->getY(n1) - minY)*yScale,
                                       (layout->getX(n2) - minX)*xScale, (layout->getY(n2) - minY)*yScale,
@@ -46,53 +46,53 @@ namespace RPGraph {
         layout_png.write_png();
     }
 
-    /**
-     * Writing to csv may be a good way to streamline testing the decompressions effectiveness.
-     * NOTE: There is no loadFromCSV method.  Would go in this file.
-     */
-    void writeToCSV(RPGraph::GraphLayout* layout, std::string path)
-    {
-        if (is_file_exists(path.c_str()))
-        {
-            printf("Error: File exists at %s\n", path.c_str());
-            exit(EXIT_FAILURE);
-        }
-
-        std::ofstream out_file(path);
-
-        for (nid_t n = 0; n < layout->graph.num_nodes(); ++n)
-        {
-            nid_t id = layout->graph.node_map_r[n]; // id as found in edgelist
-            out_file << id << "," << layout->getX(n) << "," << layout->getY(n) << "\n";
-        }
-
-        out_file.close();
-    }
-
-    /**
-     * Do we have any use for writing to bin?
-     */
-    void writeToBin(RPGraph::GraphLayout* layout, std::string path)
-    {
-        if (is_file_exists(path.c_str()))
-        {
-            printf("Error: File exists at %s\n", path.c_str());
-            exit(EXIT_FAILURE);
-        }
-
-        std::ofstream out_file(path, std::ofstream::binary);
-
-        for (nid_t n = 0; n < layout->graph.num_nodes(); ++n)
-        {
-            nid_t id = layout->graph.node_map_r[n]; // id as found in edgelist
-            float x = layout->getX(n);
-            float y = layout->getY(n);
-
-            out_file.write(reinterpret_cast<const char*>(&id), sizeof(id));
-            out_file.write(reinterpret_cast<const char*>(&x), sizeof(x));
-            out_file.write(reinterpret_cast<const char*>(&y), sizeof(y));
-        }
-
-        out_file.close();
-    }
+//     /**
+//      * Writing to csv may be a good way to streamline testing the decompressions effectiveness.
+//      * NOTE: There is no loadFromCSV method.  Would go in this file.
+//      */
+//     void writeToCSV(RPGraph::GraphLayout* layout, std::string path)
+//     {
+//         if (is_file_exists(path.c_str()))
+//         {
+//             printf("Error: File exists at %s\n", path.c_str());
+//             exit(EXIT_FAILURE);
+//         }
+// 
+//         std::ofstream out_file(path);
+// 
+//         for (contiguous_nid_t n = 0; n < layout->graph.num_nodes(); ++n)
+//         {
+//             contiguous_nid_t id = layout->graph.node_map_r[n]; // id as found in edgelist
+//             out_file << id << "," << layout->getX(n) << "," << layout->getY(n) << "\n";
+//         }
+// 
+//         out_file.close();
+//     }
+// 
+//     /**
+//      * Do we have any use for writing to bin?
+//      */
+//     void writeToBin(RPGraph::GraphLayout* layout, std::string path)
+//     {
+//         if (is_file_exists(path.c_str()))
+//         {
+//             printf("Error: File exists at %s\n", path.c_str());
+//             exit(EXIT_FAILURE);
+//         }
+// 
+//         std::ofstream out_file(path, std::ofstream::binary);
+// 
+//         for (contiguous_nid_t n = 0; n < layout->graph.num_nodes(); ++n)
+//         {
+//             contiguous_nid_t id = layout->graph.node_map_r[n]; // id as found in edgelist
+//             float x = layout->getX(n);
+//             float y = layout->getY(n);
+// 
+//             out_file.write(reinterpret_cast<const char*>(&id), sizeof(id));
+//             out_file.write(reinterpret_cast<const char*>(&x), sizeof(x));
+//             out_file.write(reinterpret_cast<const char*>(&y), sizeof(y));
+//         }
+// 
+//         out_file.close();
+//     }
 } // namespace RPGraph

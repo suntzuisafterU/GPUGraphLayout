@@ -27,6 +27,7 @@
 #include <fstream>
 #include <cmath>
 #include <limits>
+#include <iostream> // TODO: TEMP, DEBUGGING
 
 /**
  * Most of the methods on the GraphLayout class seem to be associated with the CPU implementation, and not the GPU.
@@ -38,33 +39,35 @@ namespace RPGraph
 	 * 
      * Q: What are width and height for?  Size of image?
      */
-    GraphLayout::GraphLayout(UGraph &graph, float width, float height)
+    GraphLayout::GraphLayout(UGraph& graph, float width, float height)
         : width(width), height(height), graph(graph)
     {
-        // Mem complexity: O(|V|)
+        std::cout<<"In: GraphLayout::GraphLayout(UGraph& graph, float width, float height) : width(width), height(height), graph(graph)" << std::endl;
+
         coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));
     }
 
     GraphLayout::~GraphLayout()
     {
+		std::cout << "In GraphLayout::~GraphLayout()" << std::endl;
         free(coordinates);
     }
 
     void GraphLayout::randomizePositions()
     {
-        for (nid_t i = 0; i <  graph.num_nodes(); ++i)
+        for (contiguous_nid_t i = 0; i <  graph.num_nodes(); ++i)
         {
             setX(i, get_random(-width/2.0, width/2.0));
             setY(i, get_random(-height/2.0, height/2.0));
         }
     }
 
-    float GraphLayout::getX(nid_t node_id)
+    float GraphLayout::getX(contiguous_nid_t node_id)
     {
         return coordinates[node_id].x;
     }
 
-    float GraphLayout::getY(nid_t node_id)
+    float GraphLayout::getY(contiguous_nid_t node_id)
     {
         return coordinates[node_id].y;
     }
@@ -72,7 +75,7 @@ namespace RPGraph
     float GraphLayout::minX()
     {
         float minX = std::numeric_limits<float>::max();
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < graph.num_nodes(); ++n)
             if (getX(n) < minX) minX = getX(n);
         return minX;
     }
@@ -80,7 +83,7 @@ namespace RPGraph
     float GraphLayout::maxX()
     {
         float maxX = std::numeric_limits<float>::min();
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < graph.num_nodes(); ++n)
             if (getX(n) > maxX) maxX = getX(n);
         return maxX;
     }
@@ -88,7 +91,7 @@ namespace RPGraph
     float GraphLayout::minY()
     {
         float minY = std::numeric_limits<float>::max();
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < graph.num_nodes(); ++n)
             if (getY(n) < minY) minY = getY(n);
         return minY;
     }
@@ -96,7 +99,7 @@ namespace RPGraph
     float GraphLayout::maxY()
     {
         float maxY = std::numeric_limits<float>::min();
-        for (nid_t n = 0; n < graph.num_nodes(); ++n)
+        for (contiguous_nid_t n = 0; n < graph.num_nodes(); ++n)
             if (getY(n) > maxY) maxY = getY(n);
         return maxY;
     }
@@ -126,7 +129,7 @@ namespace RPGraph
      * Usage:
 	 *   CPU FA2 apply_attract and apply_repulsion.
      */
-    float GraphLayout::getDistance(nid_t n1, nid_t n2)
+    float GraphLayout::getDistance(contiguous_nid_t n1, contiguous_nid_t n2)
     {
         const float dx = getX(n1)-getX(n2);
         const float dy = getY(n1)-getY(n2);
@@ -137,7 +140,7 @@ namespace RPGraph
      * Which of these 2 are used?
      * Vectors are used in CPU FA2 implementation.
      */
-    Real2DVector GraphLayout::getDistanceVector(nid_t n1, nid_t n2)
+    Real2DVector GraphLayout::getDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2)
     {
         return Real2DVector(getX(n2) - getX(n1), getY(n2) - getY(n1));
     }
@@ -145,7 +148,7 @@ namespace RPGraph
     /**
      * Make that which of these 3 are used? IRRELEVANT: Commented out in CPU FA2 only.
      */
-    Real2DVector GraphLayout::getNormalizedDistanceVector(nid_t n1, nid_t n2)
+    Real2DVector GraphLayout::getNormalizedDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2)
     {
         const float x1 = getX(n1);
         const float x2 = getX(n2);
@@ -160,10 +163,29 @@ namespace RPGraph
 
     /**
      * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
+	 * See `getCoordinateFromCommNode(comm_id_t)`
      */
-    Coordinate GraphLayout::getCoordinate(nid_t node_id)
+    Coordinate GraphLayout::getCoordinate(contiguous_nid_t node_id) const
     {
         return coordinates[node_id];
+    }
+
+    /**
+     * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
+     */
+    Coordinate GraphLayout::getCoordinateFromCommNode(comm_id_t comm_node_id) const
+    {
+		// Map through associated UGraph.
+		if (graph.contains(comm_node_id)) {
+			contiguous_nid_t safe_node_id = graph.getContigFromComm(comm_node_id);
+			return coordinates[safe_node_id];
+		}
+		else {
+            // If graph does not contain an associated community node, return the origin as starting point.
+            // TODO: Upstream, record how many community nodes do not make it into the graph.
+			Coordinate result(0, 0);
+			return result;
+		}
     }
 
     /**
@@ -179,26 +201,28 @@ namespace RPGraph
     /**
      * Updates x in coordinates array.
      */
-    void GraphLayout::setX(nid_t node_id, float x_value)
+    void GraphLayout::setX(contiguous_nid_t node_id, float x_value)
     {
+		if (!std::isfinite(x_value)) throw "ERROR: Invalid x_value attempting to be assigned to coordinate.";
         coordinates[node_id].x = x_value;
     }
 
-    void GraphLayout::setY(nid_t node_id, float y_value)
+    void GraphLayout::setY(contiguous_nid_t node_id, float y_value)
     {
+		if (!std::isfinite(y_value)) throw "ERROR: Invalid y_value attempting to be assigned to coordinate.";
         coordinates[node_id].y = y_value;
     }
 
     /**
      * Why is move only used with a 2DVector?
      */
-    void GraphLayout::moveNode(nid_t n, RPGraph::Real2DVector v)
+    void GraphLayout::moveNode(contiguous_nid_t n, RPGraph::Real2DVector v)
     {
         setX(n, getX(n) + v.x);
         setY(n, getY(n) + v.y);
     }
 
-    void GraphLayout::setCoordinates(nid_t node_id, Coordinate c)
+    void GraphLayout::setCoordinates(contiguous_nid_t node_id, Coordinate c)
     {
         setX(node_id, c.x);
         setY(node_id, c.y);

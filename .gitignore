@@ -16,11 +16,10 @@
 SCoDA_GPU_FULL.code-workspace
 
 ## Build generated
-**/graph_viewer
-**/scoda_exec
-**/stress_exec
 build/
-builds/linux/graph_viewer
+builds/linux/graph_viewer_exec
+builds/linux/scoda_exec
+builds/linux/stress_exec
 builds/linux/.depend
 out/
 DerivedData/
@@ -54,3 +53,6 @@ PropertySheet.props
 
 ## Temp binaries and scripts
 **/.nfs*
+TEMP_ORIGINAL/
+utils/generate_output/
+utils/junk_out/
