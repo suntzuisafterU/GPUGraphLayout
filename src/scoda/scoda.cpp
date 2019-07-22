@@ -26,7 +26,7 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
     std::vector<uint32_t> degrees; /// Required since SCoDA must track the degree of edges as they are streamed.
     degrees.resize(original_graph.num_nodes()); // IMPORTANT: if resize is not used the incrementation of value of degree inside the loop will not work at all.
 
-	// TEMP
+	// TEMP, DEBUGGING
 	int loop_count = 0;
 
     // if (original_graph.num_nodes() == 0 || original_graph.num_edges() == 0) exit(EXIT_FAILURE); // ERROR, empty UGraph.

@@ -149,6 +149,10 @@ namespace RPGraph {
             void compress();
             void expand();
 
+            int getMaxIterations() {
+                return this->max_iterations;
+            }
+
         private:
             std::vector < DerivedGraphHyperEdge* > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
 			std::vector < DerivedGraphHyperEdge* > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.

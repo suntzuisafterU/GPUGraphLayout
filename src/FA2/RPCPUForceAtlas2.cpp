@@ -106,7 +106,7 @@ namespace RPGraph
             for (contiguous_nid_t t = 0; t < layout.graph.num_nodes(); ++t)
             {
                 if (n == t) continue;
-                float  distance = layout.getDistance(n, t);
+                float distance = layout.getDistance(n, t);
                 float f_r = distance == 0.0 ? std::numeric_limits<float>::max() : k_r * mass(n) * mass(t) / distance / distance;
                 forces[n] += layout.getDistanceVector(n, t) * f_r;
             }

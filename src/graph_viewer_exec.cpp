@@ -130,12 +130,19 @@ int main(int argc, const char **argv) {
 	std::cout << "GV::init() works" << std::endl;
 
 	// Iterate on original graph
-    int change_me = 9;
+    int change_me = graph_viewer->getMaxIterations();
+    int change_me_too = 98765;
+
     graph_viewer->iterate_on_layout(change_me, true);
 	std::cout << "GV::iterate_on_layout() works on original graph." << std::endl;
+    std::cout << "\nGV::show() on initial layout." << std::endl;
+    graph_viewer->show(change_me_too); change_me_too++;
 
     graph_viewer->compress(); // Could be done multiple times.
 	std::cout << "GV::compress() works, if everything is intact here." << std::endl;
+
+    std::cout << "\nGV::show() on RANDOM COMMUNITY LAYOUT." << std::endl;
+    graph_viewer->show(change_me_too); change_me_too++;
 
     // TODO: Replace functionality somehow.
     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
@@ -148,16 +155,18 @@ int main(int argc, const char **argv) {
 	std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
 
     int need_to_track_iterations_I_guess = 123456789;
-    graph_viewer->show(need_to_track_iterations_I_guess);
+    graph_viewer->show(need_to_track_iterations_I_guess); need_to_track_iterations_I_guess++;
 	std::cout << "GV::show() works on community graph, if everythin is intact here." << std::endl;
 
     // TODO: show_swing(); Or jitter?
     graph_viewer->expand(); // Back to original graph
 	std::cout << "GV::expand() works, if everything is intact here." << std::endl;
+    graph_viewer->show(change_me_too); change_me_too++;
+    std::cout << "GV::show() of initial layout after expansion. " << std::endl;
 
     graph_viewer->iterate_on_layout(change_me, false);
 	std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
 
-    graph_viewer->show(need_to_track_iterations_I_guess);
+    graph_viewer->show(need_to_track_iterations_I_guess); need_to_track_iterations_I_guess++;
 	std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
 }
