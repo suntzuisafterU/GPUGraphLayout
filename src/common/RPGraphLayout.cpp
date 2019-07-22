@@ -181,6 +181,8 @@ namespace RPGraph
 			return coordinates[safe_node_id];
 		}
 		else {
+            // If graph does not contain an associated community node, return the origin as starting point.
+            // TODO: Upstream, record how many community nodes do not make it into the graph.
 			Coordinate result(0, 0);
 			return result;
 		}

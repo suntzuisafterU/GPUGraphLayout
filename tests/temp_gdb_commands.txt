@@ -7,3 +7,4 @@ display dst_id
 display degrees
 display nid_comm_map
 display comm_graph
+display loop_count
