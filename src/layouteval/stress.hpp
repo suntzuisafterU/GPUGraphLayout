@@ -7,6 +7,8 @@
 
 namespace RPGraph {
 
+typedef std::vector< std::vector< uint32_t > > matrix;
+
 struct StressReport {
     float stress;
     // TODO: Should this have some way to reference the graph? Parameters that were used, etc.
@@ -21,7 +23,7 @@ inline float distG();
 /**
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
  */
-std::vector< std::vector< int > >* allPairsShortestPaths(RPGraph::Graph* graph);
+std::vector< std::vector< int > > allPairsShortestPaths(RPGraph::Graph* graph);
 
 } // RPGraph
 
