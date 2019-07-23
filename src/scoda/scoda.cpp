@@ -144,6 +144,24 @@ uint32_t SCoDA::compute_mode_of_degree(RPGraph::UGraph& in_graph) {
 	return std::max(maxPair.first, 2U);
 }
 
+void SCoDA::compute_and_print_comm_edges(UGraph& ingraph, std::string outpath) {
+    // Initialize datastructures to use SCoDA.
+    UGraph outgraph;
+    nid_comm_map_t nid_comm_map;
+    SCoDA_Report scoda_report = compute_partition(ingraph, outgraph, nid_comm_map); // Produce the required community graph.  Will not need the community map.
+
+    std::ofstream outfile(outpath);
+    outfile << scoda_report;
+    // iterate over the edges of outgraph and print to file.
+    for (RPGraph::contiguous_nid_t src_id = 0; src_id < outgraph.num_nodes(); src_id++) // Iterate over source nodes
+    {
+        for (RPGraph::contiguous_nid_t dst_id : outgraph.neighbors_with_geq_id(src_id)) // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger.
+        {
+            outfile << src_id << "\t" << dst_id << std::endl;
+        }
+    }
+}
+
 // TODO: Accept a file and send this through a DatasetAdapter...
 // produce partition from nid_commid_map
 void SCoDA::print_partition(nid_comm_map_t &nid_comm_map/* TODO: , UGraph must be used to unmap the node ids in current configuration. */) {

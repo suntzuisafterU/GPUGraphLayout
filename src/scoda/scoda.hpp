@@ -27,6 +27,7 @@ namespace RPGraph {
 
         uint32_t compute_mode_of_degree(RPGraph::UGraph& in_graph);
 
+        void compute_and_print_comm_edges(UGraph& ingraph, std::string outpath);
         void print_partition(nid_comm_map_t &nid_comm_map);
     };
 
@@ -43,15 +44,16 @@ namespace RPGraph {
 
         // TODO: Override the << operator to print this.
 		friend std::ostream & operator << (std::ostream& out, SCoDA_Report& report) {
-			out << "degree threshold: " << report.degree_threshold << std::endl;
-			out << "num_null_e: " << report.num_null_e << std::endl;
-			out << "num_duplicate_comm_edges: " << report.num_duplicate_comm_edges << std::endl;
-			out << "num_full_nodes: " << report.num_full_nodes << std::endl;
-			out << "num_comm_nodes: " << report.num_comm_nodes << std::endl;
-			out << "node compression ratio: " << report.node_comp_ratio << std::endl;
-			out << "num full graph edges: " << report.num_full_edges << std::endl;
-			out << "num community graph edges: " << report.num_comm_edges << std::endl;
-			out << "edge compression ratio: " << report.edge_comp_ratio << std::endl;
+            out << "###### SCoDA report #######" << std::endl;
+			out << "# degree threshold: " << report.degree_threshold << std::endl;
+			out << "# num_null_e: " << report.num_null_e << std::endl;
+			out << "# num_duplicate_comm_edges: " << report.num_duplicate_comm_edges << std::endl;
+			out << "# num_full_nodes: " << report.num_full_nodes << std::endl;
+			out << "# num_comm_nodes: " << report.num_comm_nodes << std::endl;
+			out << "# node compression ratio: " << report.node_comp_ratio << std::endl;
+			out << "# num full graph edges: " << report.num_full_edges << std::endl;
+			out << "# num community graph edges: " << report.num_comm_edges << std::endl;
+			out << "# edge compression ratio: " << report.edge_comp_ratio << std::endl;
 			return out;
 		};
     };

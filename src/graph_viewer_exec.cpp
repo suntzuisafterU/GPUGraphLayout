@@ -36,7 +36,7 @@ int main(int argc, const char **argv) {
     // Parse commandline arguments
     if (argc < 10)
     {
-        fprintf(stderr, "Usage: graph_viewer gpu|cpu max_iterations num_snaps sg|wg scale gravity exact|approximate linlog|regular [percentage_iterations_on_comm_graph] edgelist_path out_path [png image_w image_h|csv|bin]\n");
+        fprintf(stderr, "Usage: graph_viewer gpu|cpu max_iterations num_snaps sg|wg scale gravity exact|approximate linlog|regular [percentage_iterations_on_comm_graph] edgelist_path out_path out_file_prefix [png image_w image_h|csv|bin]\n");
         exit(EXIT_FAILURE);
     }
 
@@ -62,6 +62,7 @@ int main(int argc, const char **argv) {
         out_format = "png";
         image_w = std::stoi(argv[arg_no+1]);
         image_h = std::stoi(argv[arg_no+2]);
+        std::cout << "Set image_w to " << image_w << " and image_h to " << image_h << std::endl;
         arg_no += 2;
     }
 
@@ -125,48 +126,61 @@ int main(int argc, const char **argv) {
     // std::unique_ptr<GraphViewer> graph_viewer( parseCommandLine() ); // TODO: Easiest way to initialize??
     ////////////////////////////////
 
+    printf("Loading edgelist at '%s'...", edgelist_path);
+    fflush(stdout);
     graph_viewer->init();
+    RPGraph::UGraph* graph = graph_viewer->get_current_source_graph();
+    printf("done.\n");
+    printf("    fetched %d nodes and %d edges.\n", graph->num_nodes(), graph->num_edges());
+    graph = nullptr;
 
 	std::cout << "GV::init() works" << std::endl;
 
 	// Iterate on original graph
-    int change_me = graph_viewer->getMaxIterations();
-    int change_me_too = 98765;
+    // New, simple graph_viewer script, same-ish as original.
 
-    graph_viewer->iterate_on_layout(change_me, true);
-	std::cout << "GV::iterate_on_layout() works on original graph." << std::endl;
-    std::cout << "\nGV::show() on initial layout." << std::endl;
-    graph_viewer->show(change_me_too); change_me_too++;
+    graph_viewer->iterate_and_periodically_show();
 
-    graph_viewer->compress(); // Could be done multiple times.
-	std::cout << "GV::compress() works, if everything is intact here." << std::endl;
+    std::cout << "Finished with simplified GV script." << std::endl;
+    
 
-    std::cout << "\nGV::show() on RANDOM COMMUNITY LAYOUT." << std::endl;
-    graph_viewer->show(change_me_too); change_me_too++;
-
-    // TODO: Replace functionality somehow.
-    // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
-    // {
-    //     produceOutput(iteration); // TODO: Refactor
-    // }
-
-	// iterate on comm_graph
-    graph_viewer->iterate_on_layout(change_me, false);
-	std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
-
-    int need_to_track_iterations_I_guess = 123456789;
-    graph_viewer->show(need_to_track_iterations_I_guess); need_to_track_iterations_I_guess++;
-	std::cout << "GV::show() works on community graph, if everythin is intact here." << std::endl;
-
-    // TODO: show_swing(); Or jitter?
-    graph_viewer->expand(); // Back to original graph
-	std::cout << "GV::expand() works, if everything is intact here." << std::endl;
-    graph_viewer->show(change_me_too); change_me_too++;
-    std::cout << "GV::show() of initial layout after expansion. " << std::endl;
-
-    graph_viewer->iterate_on_layout(change_me, false);
-	std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
-
-    graph_viewer->show(need_to_track_iterations_I_guess); need_to_track_iterations_I_guess++;
-	std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
+    ////// BELOW is old graphviewer script.
+//     int change_me_too = 98765;
+// 
+//     graph_viewer->iterate_on_layout(change_me, true);
+// 	std::cout << "GV::iterate_on_layout() works on original graph." << std::endl;
+//     std::cout << "\nGV::show() on initial layout." << std::endl;
+//     graph_viewer->show(change_me_too); change_me_too++;
+// 
+//     graph_viewer->compress(); // Could be done multiple times.
+// 	std::cout << "GV::compress() works, if everything is intact here." << std::endl;
+// 
+//     std::cout << "\nGV::show() on RANDOM COMMUNITY LAYOUT." << std::endl;
+//     graph_viewer->show(change_me_too); change_me_too++;
+// 
+//     // TODO: Replace functionality somehow.
+//     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
+//     // {
+//     //     produceOutput(iteration); // TODO: Refactor
+//     // }
+// 
+// 	// iterate on comm_graph
+//     graph_viewer->iterate_on_layout(change_me, false);
+// 	std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
+// 
+//     int need_to_track_iterations_I_guess = 123456789;
+//     graph_viewer->show(need_to_track_iterations_I_guess); need_to_track_iterations_I_guess++;
+// 	std::cout << "GV::show() works on community graph, if everythin is intact here." << std::endl;
+// 
+//     // TODO: show_swing(); Or jitter?
+//     graph_viewer->expand(); // Back to original graph
+// 	std::cout << "GV::expand() works, if everything is intact here." << std::endl;
+//     graph_viewer->show(change_me_too); change_me_too++;
+//     std::cout << "GV::show() of initial layout after expansion. " << std::endl;
+// 
+//     graph_viewer->iterate_on_layout(change_me, false);
+// 	std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
+// 
+//     graph_viewer->show(need_to_track_iterations_I_guess); need_to_track_iterations_I_guess++;
+// 	std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
 }

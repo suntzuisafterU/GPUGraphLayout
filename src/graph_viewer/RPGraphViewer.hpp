@@ -145,13 +145,12 @@ namespace RPGraph {
             void init();
             void show(int iter); /**< Display or print data, depends on output method. */
             void iterate_on_layout(int num_iters, bool randomize);
+            void iterate_and_periodically_show(); // TODO: Reorganize GVs concept of state.
+
+			RPGraph::UGraph* get_current_source_graph(); // TODO: Temp, move back to private?
 
             void compress();
             void expand();
-
-            int getMaxIterations() {
-                return this->max_iterations;
-            }
 
         private:
             std::vector < DerivedGraphHyperEdge* > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
@@ -172,7 +171,6 @@ namespace RPGraph {
 			RPGraph::GraphLayout* get_current_layout();
 			RPGraph::GraphLayout* get_previous_layout();
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
-			RPGraph::UGraph* get_current_source_graph();
 			RPGraph::UGraph* get_current_result_graph(); // Could be null?
             RPGraph::DerivedGraph* get_current_source_derived_graph();
 
