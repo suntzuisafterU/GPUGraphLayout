@@ -158,6 +158,8 @@ namespace RPGraph
 
     /**
      * Index via MAPPED nids
+	 * 
+	 * Can this method be const?
      */
     const std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid)
     {

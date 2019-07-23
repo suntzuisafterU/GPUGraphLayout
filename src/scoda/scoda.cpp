@@ -22,9 +22,8 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
     printf("\nStarting scoda.\n");
     /* Main SCoDA loop */
 
-    uint32_t src_deg, dst_deg;
     std::vector<uint32_t> degrees; /// Required since SCoDA must track the degree of edges as they are streamed.
-    degrees.resize(original_graph.num_nodes()); // IMPORTANT: if resize is not used the incrementation of value of degree inside the loop will not work at all.
+    degrees.resize(original_graph.num_nodes()); // Resizes and zeroes out all new memory.
 
 	// TEMP, DEBUGGING
 	int loop_count = 0;
@@ -35,7 +34,6 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
     {
         for (RPGraph::contiguous_nid_t dst_id : original_graph.neighbors_with_geq_id(src_id)) // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger.
         {
-			// IMPORTANT: Found definite bug in the way nid_comm_map is built.  The nodes are ONLY being mapped to a community of the same id.
 			loop_count++; //TEMP
 
             /// If this is the first time we have seen these nodes, add them to the nid_comm_map.
@@ -48,8 +46,8 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
             degrees[src_id] += 1;
             degrees[dst_id] += 1;
             
-            src_deg = degrees[src_id];
-            dst_deg = degrees[dst_id];
+            uint32_t src_deg = degrees[src_id];
+            uint32_t dst_deg = degrees[dst_id];
 
             // This is the modification I am interested in testing:
             // if( src_deg <= degree_threshold || dst_deg <= degree_threshold )
@@ -130,17 +128,12 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
     return results;
 }
 
-// TODO: Write one that takes a degree threshold parameter.
-
 uint32_t SCoDA::compute_mode_of_degree(RPGraph::UGraph& in_graph) {
     std::unordered_map<uint32_t, uint32_t> degree_frequencies; // NOTE: uint32_t used in case of dataset with very large number of nodes with the same degree.  Keeps bounds in line with everything else.
     for(auto& deg : in_graph.get_degrees() ) {
-        degree_frequencies[deg.second] += 1; // TODO: BUG HERE, is not counting the frequencies properly. Was working before I changed the DerivedGraph struct.  in_graph is a valid graph from the looks of it in gdb.
+        degree_frequencies[deg.second] += 1; // Works now.
     }
-
-    // When inspecting the in_graph, it appears to have numbers of elements for size of degrees and adjacency_list that are way out to lunch, must be a conversion between unsigned and signed somewhere.  Going to check with VisualStudio.
-
-    std::pair<uint32_t, uint32_t> maxPair = findMaxKeyValuePair(degree_frequencies); // TODO: Testing.
+    std::pair<uint32_t, uint32_t> maxPair = findMaxKeyValuePair(degree_frequencies);
 	return std::max(maxPair.first, 2U);
 }
 
@@ -162,7 +155,6 @@ void SCoDA::compute_and_print_comm_edges(UGraph& ingraph, std::string outpath) {
     }
 }
 
-// TODO: Accept a file and send this through a DatasetAdapter...
 // produce partition from nid_commid_map
 void SCoDA::print_partition(nid_comm_map_t &nid_comm_map/* TODO: , UGraph must be used to unmap the node ids in current configuration. */) {
 	throw "DANGER: Will print a partition that does not correlate with external data!";
