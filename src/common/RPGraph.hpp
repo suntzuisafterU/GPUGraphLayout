@@ -79,6 +79,7 @@ namespace RPGraph
 			return external_to_contig.at(comm_node_id);
 		}; /// IMPORTANT: When accessing nodes use appropriiate maps.
 
+		// can this method be const?  Would that make a difference?
         const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
         // friend class GraphLayout;
         // friend class RPCPUForceAtlas2; // Why did I want to define these?

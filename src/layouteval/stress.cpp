@@ -1,4 +1,7 @@
 #include "stress.hpp"
+#include <vector>
+#include <iostream>
+#include <limits>
 
 namespace RPGraph {
 
@@ -31,11 +34,41 @@ float distG() {
 }
 
 /**
- * O(N**2) memory complexity, O(N**3)?? time complexity. 
- * Maybe just do Dijkstras
+ * Floyd-Warshall algorithm.
  */
-std::vector< std::vector< float > >* allPairsShortestPaths(RPGraph::Graph* graph) {
-    // TODO: Basically Dijkstras algo on each node individually. OR: floyd-warshall algo. Probably better.
+matrix allPairsShortestPaths(RPGraph::Graph* graph) {
+	const uint32_t n{ graph->num_nodes() }; // Uniform initialization, should prevent narrowing or unsafe conversions.
+	std::cout << "n := " << n << std::endl;
+
+	// dist := n by n matrix, with all non-diagonal values infinity,
+	// and diagonals initialized to zero.
+	constexpr uint32_t infinity = std::numeric_limits<uint32_t>::max(); // constexpr means compile time evaluation.
+	std::cout << "infinity := " << infinity << std::endl;
+	matrix dist(n, std::vector<uint32_t>(n, infinity));
+	for (int i = 0; i < n; i++) {
+		dist[i][i] = 0; // Set all self distances to zero.
+	}
+
+	// for each edge (u,v) in graph: 
+	//                       set dist[u][v] = 1 // The weight of the edge.
+	//                   and set dist[v][u] = 1 // Since this is an undirected graph.
+	// TODO: Make more efficient after testing initial implementation.
+
+	
+	// TODO: Read edges from graph
+
+	// O(|V|**3), core of Floyd-Warshall.
+	for (int k = 0; k < n; k++) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (dist[i][j] > dist[i][k] + dist[k][j]) {
+					dist[i][j] = dist[i][k] + dist[k][j];
+				}
+			}
+		}
+	}
+
+	return dist; /// Compiler should optimize to move assignment.
 }
 
 } // RPGraph
