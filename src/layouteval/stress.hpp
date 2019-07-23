@@ -20,9 +20,8 @@ inline float distG();
 
 /**
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
- * Maybe just do Dijkstras
  */
-std::vector< std::vector< float > >* allPairsShortestPaths(RPGraph::Graph* graph);
+std::vector< std::vector< int > >* allPairsShortestPaths(RPGraph::Graph* graph);
 
 } // RPGraph
 

@@ -1,4 +1,7 @@
 #include "stress.hpp"
+#include <vector>
+#include <iostream>
+#include <limits>
 
 namespace RPGraph {
 
@@ -31,11 +34,26 @@ float distG() {
 }
 
 /**
- * O(N**2) memory complexity, O(N**3)?? time complexity. 
- * Maybe just do Dijkstras
+ * Floyd-Warshall algorithm.
  */
-std::vector< std::vector< float > >* allPairsShortestPaths(RPGraph::Graph* graph) {
-    // TODO: Basically Dijkstras algo on each node individually. OR: floyd-warshall algo. Probably better.
+std::vector< std::vector< int > >* allPairsShortestPaths(RPGraph::Graph* graph) {
+	typedef std::vector< std::vector< int > > matrix;
+	const int n = graph->num_nodes(); // TODO: Is this type conversion safe?
+	std::cout << "n := " << n << std::endl;
+	// dist := n by n matrix, with all non-diagonal values infinity,
+	// and diagonals initialized to zero.
+	constexpr int infinity = std::numeric_limits<int>::max(); // constexpr means compile time evaluation.
+	std::cout << "infinity := " << infinity << std::endl;
+	matrix dist(n, std::vector<int>(n, infinity));
+
+	// for each edge (u,v) in graph: 
+	//                       set dist[u][v] = 1 // The weight of the edge.
+	//                   and set dist[v][u] = 1 // Since this is an undirected graph.
+	// TODO: Make more efficient after testing initial implementation.
+	
+	for (int i; i < n; i++) {
+		dist[i][i] = 0; // Set all self distances to zero.
+	}
 }
 
 } // RPGraph
