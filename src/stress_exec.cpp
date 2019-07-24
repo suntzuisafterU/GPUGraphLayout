@@ -11,7 +11,7 @@
 int main(int argc, const char** argv) {
 	if (argc != 2) {
 		std::cout << "Usage: stress_exec [edge list path] [generated layout path]" << std::endl;
-		exit EXIT_FAILURE;
+		exit(EXIT_FAILURE);
 	}
 
 	// Accept layout file?
@@ -45,7 +45,7 @@ int main(int argc, const char** argv) {
 	int L = 1; // TODO: TEMP, we will likely want to implement optimizing over L as in the
 	           //       provided msc-graphstudy code.
 	// TODO: Call stress algo.
-	StressReport report = RPGraph::stress(layout, L);
+	RPGraph::StressReport report = RPGraph::stress(layout, L);
 
 	std::cout << report;
 
