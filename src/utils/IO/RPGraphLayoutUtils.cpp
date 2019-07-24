@@ -62,7 +62,7 @@ namespace RPGraph {
  
          for (contiguous_nid_t n = 0; n < layout->graph.num_nodes(); ++n)
          {
-             dangerous_nid_t id = layout->graph.getExternalFromContig[n]; // id as found in edgelist
+             dangerous_nid_t id = layout->graph.getExternalFromContig(n); // id as found in edgelist
              out_file << id << "," << layout->getX(n) << "," << layout->getY(n) << "\n";
          }
  
