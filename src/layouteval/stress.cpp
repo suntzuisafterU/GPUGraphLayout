@@ -1,8 +1,10 @@
-#include "stress.hpp"
-#include "../common/RPTypeDefs.hpp"
 #include <vector>
 #include <iostream>
 #include <limits>
+#include <cmath>
+
+#include "stress.hpp"
+#include "../common/RPTypeDefs.hpp"
 
 namespace RPGraph {
 
@@ -77,8 +79,8 @@ StressReport stress(RPGraph::GraphLayout* layout, int L) {
 			if (i != j) {
 				float dist_g{ i < j ? all_pairs_shortests[i][j] : all_pairs_shortest[j][i] }; /// Result from Floyd-Warshal algorithm.
 				float dist_u{ layout->getDistance(i, j) }; /// Euclidean distance in the layout.
-				float k_ij = k / (dist_g**2); /// Value defined in original paper.
-				stress += k_ij * (dist_u - (L * dist_g))**2;
+				float k_ij = k / std::pow(dist_g, 2); /// Value defined in original paper.
+				stress += k_ij * std::pow(dist_u - (L * dist_g), 2);
 			}
 		}
 	}
