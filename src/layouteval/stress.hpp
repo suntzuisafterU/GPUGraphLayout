@@ -30,7 +30,7 @@ StressReport stress(RPGraph::GraphLayout& layout, int L);
 /**
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
  */
-matrix allPairsShortestPaths(RPGraph::Graph& graph);
+matrix allPairsShortestPaths(RPGraph::UGraph& graph);
 
 } // RPGraph
 
