@@ -11,7 +11,7 @@ int main(int argc, const char** argv) {
 	std::string edge_list = argv[1];
 	std::string layout_file = argv[2];
 
-	RPGraph::UGraph graph(edge_list);
+	RPGraph::UGraph graph = new RPGraph::UGraph(edge_list);
 	RPGraph::GraphLayout layout(graph);
 
 	// TODO: Read layout file and update all coordinates in layout.
@@ -34,6 +34,10 @@ int main(int argc, const char** argv) {
 		curr_node++;
 	}
 	layout_file.close();
+
+	
+
+	delete graph;
 
 	return EXIT_SUCCESS;
 }

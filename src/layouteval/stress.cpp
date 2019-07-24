@@ -12,7 +12,7 @@ namespace RPGraph {
 /**
  * Floyd-Warshall algorithm.
  */
-matrix allPairsShortestPaths(RPGraph::Graph* graph) {
+matrix allPairsShortestPaths(RPGraph::UGraph* graph) {
 	const uint32_t n{ graph->num_nodes() }; // Uniform initialization, should prevent narrowing or unsafe conversions.
 	std::cout << "n := " << n << std::endl;
 
@@ -60,6 +60,8 @@ matrix allPairsShortestPaths(RPGraph::Graph* graph) {
  *      result += k_ij * [distU - (L * distG)]**2
  */
 StressReport stress(RPGraph::GraphLayout* layout, int L) {
+
+	uint32_t n{ layout->graph.num_nodes() };
 	// Calculate all pairs shortest paths.
 	matrix all_pairs_shortests = allPairsShortestPaths(layout->graph); // TODO: Does this get passed correctly as a pointer?
 	
