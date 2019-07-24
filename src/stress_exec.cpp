@@ -9,6 +9,11 @@
 
 
 int main(int argc, const char** argv) {
+	if (argc != 2) {
+		std::cout << "Usage: stress_exec [edge list path] [generated layout path]" << std::endl;
+		exit EXIT_FAILURE;
+	}
+
 	// Accept layout file?
 	std::string edge_list = argv[1];
 	std::string layout_path = argv[2];
@@ -38,7 +43,7 @@ int main(int argc, const char** argv) {
 	layout_stream.close();
 
 	// TODO: Call stress algo.
-	
+	StressReport report = 
 
 	return EXIT_SUCCESS;
 }

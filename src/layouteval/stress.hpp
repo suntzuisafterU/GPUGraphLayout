@@ -2,6 +2,7 @@
 #define stress_hpp
 
 #include <vector>
+#include <iostream>
 #include "../common/RPCommon.hpp" // Coordinate
 #include "../common/RPGraphLayout.hpp" // GraphLayout
 
@@ -12,6 +13,12 @@ typedef std::vector< std::vector< uint32_t > > matrix;
 struct StressReport {
     float stress;
     // TODO: Should this have some way to reference the graph? Parameters that were used, etc.
+
+	friend std::ostream& operator<<(std::ostream& out, StressReport& report) {
+		out << "##### Stress Report #####" << std::endl;
+		out << "# stress: " << report.stress << std::endl;
+		return out;
+	}
 };
 
 StressReport stress(RPGraph::GraphLayout& layout, int L);
