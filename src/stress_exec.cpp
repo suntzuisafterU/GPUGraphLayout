@@ -11,11 +11,11 @@ int main(int argc, const char** argv) {
 	std::string edge_list = argv[1];
 	std::string layout_path = argv[2];
 
-	RPGraph::UGraph graph = new RPGraph::UGraph(edge_list);
+	RPGraph::UGraph graph(edge_list);
 	RPGraph::GraphLayout layout(graph);
 
 	// TODO: Read layout file and update all coordinates in layout.
-	std::fstream layout_stream(layout_path, std::ifstream::in);
+	std::ifstream layout_stream(layout_path);
 
 	RPGraph::contiguous_nid_t curr_node;
 	std::string line;
