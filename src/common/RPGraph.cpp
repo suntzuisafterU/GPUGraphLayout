@@ -161,7 +161,7 @@ namespace RPGraph
 	 * 
 	 * Can this method be const?
      */
-    const std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid)
+    const std::vector<contiguous_nid_t> UGraph::neighbors_with_geq_id(contiguous_nid_t nid) const
     {
 		// TODO: I believe the issue is here, somehow we are allowing someone to overwrite the adjacency_list.
 		if (adjacency_list.count(nid) > 0) return adjacency_list.at(nid);
