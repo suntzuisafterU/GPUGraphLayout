@@ -9,29 +9,11 @@ namespace RPGraph {
 using RPGraph::Coordinate;
 // using std::vector; // Doesn't seem to work...
 
-/**
- * Stress formula;
- * Given layout, L
- * initialize float result
- * for all node pairs:
- *      compute distG and distU,
- *      compute k_ij = k/distG**2
- *      result += k_ij * [distU - (L * distG)]**2
- */
 RPGraph::StressReport stress(RPGraph::GraphLayout* layout, int L) {
     // Iterate over all nodes in layout.graph
     RPGraph::Graph& g = layout->graph; // If I use a reference here does this get copied?
     
     return StressReport{0.0F}; // TODO: Temp
-}
-
-float distU(Coordinate c1, Coordinate c2) {
-    // OR: Just use the provided getDistance(con_nidt, con_nidt) method.
-    // TODO: Euclidean distance
-}
-
-float distG() {
-    // TODO: shortest path distance.
 }
 
 /**
@@ -75,8 +57,37 @@ matrix allPairsShortestPaths(RPGraph::Graph* graph) {
 	return dist; /// Compiler should optimize to move assignment.
 }
 
+/**
+ * Stress formula;
+ * Given layout, L
+ * initialize float result
+ * for all node pairs:
+ *      compute distG and distU,
+ *      compute k_ij = k/distG**2
+ *      result += k_ij * [distU - (L * distG)]**2
+ */
 StressReport stress(RPGraph::GraphLayout* layout, int L) {
+	// Calculate all pairs shortest paths.
+	matrix all_pairs_shortests = allPairsShortestPaths(layout->graph); // TODO: Does this get passed correctly as a pointer?
+	
+	int k = 1; // TODO: TEMP: What is k supposed to be?
+	int stress = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (i != j) {
+				float dist_g{ i < j ? all_pairs_shortests[i][j] : all_pairs_shortest[j][i] };
+				float dist_u{ layout->getDistance(i, j) };
+				float k_ij = k / dist_g * *2;
+				stress += k_ij * (dist_u - (L * dist_g))**2;
+			}
+		}
+	}
 
+	StressReport results = {
+		stress
+	};
+
+	return results;
 }
 
 } // RPGraph
