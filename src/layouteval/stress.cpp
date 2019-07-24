@@ -61,9 +61,9 @@ matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
  */
 StressReport stress(RPGraph::GraphLayout& layout, int L) {
 
-	uint32_t n{ layout->graph.num_nodes() };
+	uint32_t n{ layout.graph.num_nodes() };
 	// Calculate all pairs shortest paths.
-	matrix all_pairs_shortests = allPairsShortestPaths(layout->graph); // TODO: Does this get passed correctly as a pointer?
+	matrix all_pairs_shortests = allPairsShortestPaths(layout.graph); // TODO: Does this get passed correctly as a pointer?
 	
 	int k = 1; // TODO: TEMP: What is k supposed to be?
 	float stress = 0;
@@ -71,7 +71,7 @@ StressReport stress(RPGraph::GraphLayout& layout, int L) {
 		for (uint32_t j = 0; j < n; j++) {
 			if (i != j) {
 				float dist_g{ i < j ? all_pairs_shortests[i][j] : all_pairs_shortests[j][i] }; /// Result from Floyd-Warshal algorithm.
-				float dist_u{ layout->getDistance(i, j) }; /// Euclidean distance in the layout.
+				float dist_u{ layout.getDistance(i, j) }; /// Euclidean distance in the layout.
 				float k_ij = k / std::pow(dist_g, 2); /// Value defined in original paper.
 				stress += k_ij * std::pow(dist_u - (L * dist_g), 2);
 			}
