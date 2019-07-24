@@ -43,7 +43,7 @@ namespace RPGraph
             virtual uint32_t num_nodes() const = 0;
             virtual uint32_t num_edges() const = 0;
             virtual uint32_t degree(contiguous_nid_t nid) = 0;
-            virtual const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) const; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
+            virtual const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) = 0; /**< Returns adjacency list associated with nid. Used by CPU-FA2 and PNG-writer only */
             virtual ~Graph() = 0; /**< Pure virtual method, specified by `= 0;`. Means that deriving class must override, but can use optional implementation provided by superclass via the `= default;` keyword. see https://stackoverflow.com/questions/34383516/should-i-default-virtual-destructors */
     };
 
@@ -80,7 +80,7 @@ namespace RPGraph
 		}; /// IMPORTANT: When accessing nodes use appropriiate maps.
 
 		// can this method be const?  Would that make a difference?
-        const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) const override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
+        const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
         // friend class GraphLayout;
         // friend class RPCPUForceAtlas2; // Why did I want to define these?
     private:

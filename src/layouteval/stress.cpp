@@ -12,7 +12,7 @@ namespace RPGraph {
 /**
  * Floyd-Warshall algorithm.
  */
-matrix allPairsShortestPaths(const RPGraph::UGraph& graph) {
+matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
 	const uint32_t n{ graph.num_nodes() }; // Uniform initialization, should prevent narrowing or unsafe conversions.
 	std::cout << "n := " << n << std::endl;
 
@@ -59,7 +59,7 @@ matrix allPairsShortestPaths(const RPGraph::UGraph& graph) {
  *      compute k_ij = k/distG**2
  *      result += k_ij * [distU - (L * distG)]**2
  */
-StressReport stress(RPGraph::GraphLayout* layout, int L) {
+StressReport stress(RPGraph::GraphLayout& layout, int L) {
 
 	uint32_t n{ layout->graph.num_nodes() };
 	// Calculate all pairs shortest paths.

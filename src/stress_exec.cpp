@@ -35,6 +35,7 @@ int main(int argc, const char** argv) {
 	}
 	layout_file.close();
 
+	// TODO: Call stress algo.
 	
 
 	delete graph;

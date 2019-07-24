@@ -14,12 +14,12 @@ struct StressReport {
     // TODO: Should this have some way to reference the graph? Parameters that were used, etc.
 };
 
-StressReport stress(RPGraph::GraphLayout* layout, int L);
+StressReport stress(RPGraph::GraphLayout& layout, int L);
 
 /**
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
  */
-matrix allPairsShortestPaths(RPGraph::Graph* graph);
+matrix allPairsShortestPaths(RPGraph::Graph& graph);
 
 } // RPGraph
 
