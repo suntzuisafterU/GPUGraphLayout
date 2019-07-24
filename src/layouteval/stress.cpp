@@ -1,4 +1,5 @@
 #include "stress.hpp"
+#include "../common/RPTypeDefs.hpp"
 #include <vector>
 #include <iostream>
 #include <limits>
@@ -53,10 +54,13 @@ matrix allPairsShortestPaths(RPGraph::Graph* graph) {
 	//                       set dist[u][v] = 1 // The weight of the edge.
 	//                   and set dist[v][u] = 1 // Since this is an undirected graph.
 	// TODO: Make more efficient after testing initial implementation.
-
+	for (contiguous_nid_t src_id = 0; src_id < graph->num_nodes(); src_id++) { // Iterate over source nodes
+		for (contiguous_nid_t dst_id : graph->neighbors_with_geq_id(src_id)) { // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger. 
+			dist[src_id][dst_id] = 1;
+			dist[dst_id][src_id] = 1;
+		}
+	}
 	
-	// TODO: Read edges from graph
-
 	// O(|V|**3), core of Floyd-Warshall.
 	for (int k = 0; k < n; k++) {
 		for (int i = 0; i < n; i++) {
@@ -69,6 +73,10 @@ matrix allPairsShortestPaths(RPGraph::Graph* graph) {
 	}
 
 	return dist; /// Compiler should optimize to move assignment.
+}
+
+StressReport stress(RPGraph::GraphLayout* layout, int L) {
+
 }
 
 } // RPGraph

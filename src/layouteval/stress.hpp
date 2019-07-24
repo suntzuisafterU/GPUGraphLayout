@@ -23,7 +23,7 @@ inline float distG();
 /**
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
  */
-std::vector< std::vector< int > > allPairsShortestPaths(RPGraph::Graph* graph);
+matrix allPairsShortestPaths(RPGraph::Graph* graph);
 
 } // RPGraph
 
