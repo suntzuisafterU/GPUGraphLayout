@@ -37,9 +37,9 @@ matrix allPairsShortestPaths(const RPGraph::UGraph& graph) {
 	}
 	
 	// O(|V|**3), core of Floyd-Warshall.
-	for (int k = 0; k < n; k++) {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
+	for (uint32_t k = 0; k < n; k++) {
+		for (uint32_t i = 0; i < n; i++) {
+			for (uint32_t j = 0; j < n; j++) {
 				if (dist[i][j] > dist[i][k] + dist[k][j]) {
 					dist[i][j] = dist[i][k] + dist[k][j];
 				}
