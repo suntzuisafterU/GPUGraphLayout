@@ -78,6 +78,10 @@ namespace RPGraph
 		inline contiguous_nid_t getContigFromComm(comm_id_t comm_node_id) const {
 			return external_to_contig.at(comm_node_id);
 		}; /// IMPORTANT: When accessing nodes use appropriiate maps.
+		
+		inline dangerous_nid_t getExternalFromContig(contiguous_nid_t nid) {
+			return contig_to_external.at(nid); // Will fail if does not exist, by design.
+		};
 
 		// can this method be const?  Would that make a difference?
         const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */

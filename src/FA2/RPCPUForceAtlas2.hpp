@@ -33,7 +33,7 @@ namespace RPGraph
     public:
         CPUForceAtlas2(GraphLayout &layout, bool use_barneshut,
                        bool strong_gravity, float gravity, float scale,
-					   bool randomize, bool use_linlog);
+					   bool randomize, bool use_linlog=false);
 
         CPUForceAtlas2(const CPUForceAtlas2& other) = delete;             /// Disallow copy construction.
         CPUForceAtlas2 & operator=(const CPUForceAtlas2& other) = delete; /// Disallow copy assignment.

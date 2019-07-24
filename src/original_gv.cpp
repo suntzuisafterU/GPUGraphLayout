@@ -127,14 +127,15 @@ int main(int argc, const char **argv)
     // Create the GraphLayout and ForceAtlas2 objects.
     RPGraph::GraphLayout layout(graph);
     RPGraph::ForceAtlas2 *fa2;
+	bool randomize = true;
     #ifdef __NVCC__
     if(cuda_requested)
         fa2 = new RPGraph::CUDAForceAtlas2(layout, approximate,
-                                           strong_gravity, gravity, scale);
+                                           strong_gravity, gravity, scale, randomize);
     else
     #endif
         fa2 = new RPGraph::CPUForceAtlas2(layout, approximate,
-                                          strong_gravity, gravity, scale);
+                                          strong_gravity, gravity, scale, randomize);
 
     printf("Started Layout algorithm...\n");
     const int snap_period = ceil((float)max_iterations/num_screenshots);
