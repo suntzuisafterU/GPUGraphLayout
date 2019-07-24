@@ -32,7 +32,7 @@ int main(int argc, const char** argv) {
 	// TODO: Read layout file and update all coordinates in layout.
 	std::ifstream layout_stream(layout_path);
 
-	RPGraph::contiguous_nid_t curr_node;
+	RPGraph::contiguous_nid_t curr_node = 0;
 	std::string line;
 	while(std::getline(layout_stream, line))
 	{
