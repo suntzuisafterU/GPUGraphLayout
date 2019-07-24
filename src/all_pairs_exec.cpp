@@ -22,7 +22,7 @@ int main(int argc, const char** argv) {
 	RPGraph::UGraph graph(edge_list);
 
 	// Calculate all pair shortest path matrix.
-	matrix dist = RPGraph::allPairsShortestPaths(graph);
+	RPGraph::matrix dist = RPGraph::allPairsShortestPaths(graph);
 
 	std::cout << dist << std::endl; // TODO: Try this, see if it prints nice.
 
