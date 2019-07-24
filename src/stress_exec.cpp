@@ -34,7 +34,10 @@ int main(int argc, const char** argv) {
 	// TODO: Read layout file and update all coordinates in layout.
 	std::ifstream layout_stream(layout_path);
 
-	RPGraph::contiguous_nid_t curr_node = 0;
+	// This is code that reads a custom layout format. Specifically:
+	// node_id: uint32_t, x_coord: float, y_coord: float
+	// TODO: This would be best put somewhere else, for example in IO utils, if it were being used anywhere else.
+	uint32_t temp_counter = 0;
 	std::string line;
 	while(std::getline(layout_stream, line))
 	{
@@ -43,12 +46,18 @@ int main(int argc, const char** argv) {
 		if(line[0] == '%') continue;
 
 		// Read source and target from file
+		RPGraph::contiguous_nid_t curr_node;
 		float x, y;
-		std::istringstream(line) >> x >> y;
+		std::istringstream ss(line);
+		ss >> curr_node;
+		if (ss.peek() == ',') ss.ignore();
+		ss >> x;
+		if (ss.peek() == ',') ss.ignore();
+		ss >> y;
 
 		layout.setCoordinates(curr_node, RPGraph::Coordinate(x, y));
 
-		curr_node++;
+		temp_counter++;
 	}
 	layout_stream.close();
 
