@@ -20,10 +20,12 @@ int main(int argc, const char** argv) {
 
 	if (!is_file_exists(edge_list.c_str())) {
 		std::cout << "ERROR: No file at " << edge_list << std::endl;
+		exit(EXIT_FAILURE);
 	}
 
 	if (!is_file_exists(layout_path.c_str())) {
 		std::cout << "ERROR: No file at " << layout_path << std::endl;
+		exit(EXIT_FAILURE);
 	}
 
 	RPGraph::UGraph graph(edge_list);
