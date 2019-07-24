@@ -32,6 +32,8 @@ StressReport stress(RPGraph::GraphLayout& layout, int L);
  */
 matrix allPairsShortestPaths(RPGraph::UGraph& graph);
 
+void print_matrix(RPGraph::matrix& mat, const char* reason);
+
 } // RPGraph
 
 #endif // stress_hpp

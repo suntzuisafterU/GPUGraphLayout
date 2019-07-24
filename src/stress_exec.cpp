@@ -9,6 +9,7 @@
 
 
 int main(int argc, const char** argv) {
+
 	if (argc != 3) {
 		std::cout << "Usage: stress_exec [edge list path] [generated layout path]" << std::endl;
 		exit(EXIT_FAILURE);
