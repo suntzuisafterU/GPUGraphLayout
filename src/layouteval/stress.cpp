@@ -8,15 +8,6 @@
 
 namespace RPGraph {
 
-using RPGraph::Coordinate;
-// using std::vector; // Doesn't seem to work...
-
-RPGraph::StressReport stress(RPGraph::GraphLayout* layout, int L) {
-    // Iterate over all nodes in layout.graph
-    RPGraph::Graph& g = layout->graph; // If I use a reference here does this get copied?
-    
-    return StressReport{0.0F}; // TODO: Temp
-}
 
 /**
  * Floyd-Warshall algorithm.
