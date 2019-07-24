@@ -71,13 +71,13 @@ StressReport stress(RPGraph::GraphLayout* layout, int L) {
 	matrix all_pairs_shortests = allPairsShortestPaths(layout->graph); // TODO: Does this get passed correctly as a pointer?
 	
 	int k = 1; // TODO: TEMP: What is k supposed to be?
-	int stress = 0;
+	float stress = 0;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			if (i != j) {
-				float dist_g{ i < j ? all_pairs_shortests[i][j] : all_pairs_shortest[j][i] };
-				float dist_u{ layout->getDistance(i, j) };
-				float k_ij = k / dist_g * *2;
+				float dist_g{ i < j ? all_pairs_shortests[i][j] : all_pairs_shortest[j][i] }; /// Result from Floyd-Warshal algorithm.
+				float dist_u{ layout->getDistance(i, j) }; /// Euclidean distance in the layout.
+				float k_ij = k / (dist_g**2); /// Value defined in original paper.
 				stress += k_ij * (dist_u - (L * dist_g))**2;
 			}
 		}
