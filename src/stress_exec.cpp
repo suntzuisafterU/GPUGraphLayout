@@ -42,8 +42,12 @@ int main(int argc, const char** argv) {
 	}
 	layout_stream.close();
 
+	int L = 1; // TODO: TEMP, we will likely want to implement optimizing over L as in the
+	           //       provided msc-graphstudy code.
 	// TODO: Call stress algo.
-	StressReport report = 
+	StressReport report = RPGraph::stress(layout, L);
+
+	std::cout << report;
 
 	return EXIT_SUCCESS;
 }

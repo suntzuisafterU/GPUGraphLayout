@@ -64,7 +64,7 @@ StressReport stress(RPGraph::GraphLayout& layout, int L) {
 	uint32_t n{ layout.graph.num_nodes() };
 	// Calculate all pairs shortest paths.
 	matrix all_pairs_shortests = allPairsShortestPaths(layout.graph); // TODO: Does this get passed correctly as a pointer?
-	
+
 	int k = 1; // TODO: TEMP: What is k supposed to be?
 	float stress = 0;
 	for (uint32_t i = 0; i < n; i++) {
@@ -78,8 +78,17 @@ StressReport stress(RPGraph::GraphLayout& layout, int L) {
 		}
 	}
 
+	uint32_t num_nodes{ layout.graph.num_nodes() };
+	uint32_t num_edges{ layout.graph.num_edges() };
+	float stress_per_node{ stress / num_nodes };
+	float stress_per_edge{ stress / num_edges };
+
 	StressReport results = {
-		stress
+		stress,
+		num_nodes,
+		num_edges,
+		stress_per_node,
+		stress_per_edge
 	};
 
 	return results;
