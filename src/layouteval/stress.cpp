@@ -12,8 +12,8 @@ namespace RPGraph {
 /**
  * Floyd-Warshall algorithm.
  */
-matrix allPairsShortestPaths(RPGraph::UGraph* graph) {
-	const uint32_t n{ graph->num_nodes() }; // Uniform initialization, should prevent narrowing or unsafe conversions.
+matrix allPairsShortestPaths(const RPGraph::UGraph& graph) {
+	const uint32_t n{ graph.num_nodes() }; // Uniform initialization, should prevent narrowing or unsafe conversions.
 	std::cout << "n := " << n << std::endl;
 
 	// dist := n by n matrix, with all non-diagonal values infinity,
@@ -29,8 +29,8 @@ matrix allPairsShortestPaths(RPGraph::UGraph* graph) {
 	//                       set dist[u][v] = 1 // The weight of the edge.
 	//                   and set dist[v][u] = 1 // Since this is an undirected graph.
 	// TODO: Make more efficient after testing initial implementation.
-	for (contiguous_nid_t src_id = 0; src_id < graph->num_nodes(); src_id++) { // Iterate over source nodes
-		for (contiguous_nid_t dst_id : graph->neighbors_with_geq_id(src_id)) { // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger. 
+	for (contiguous_nid_t src_id = 0; src_id < graph.num_nodes(); src_id++) { // Iterate over source nodes
+		for (contiguous_nid_t dst_id : graph.neighbors_with_geq_id(src_id)) { // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger. 
 			dist[src_id][dst_id] = 1;
 			dist[dst_id][src_id] = 1;
 		}
@@ -67,8 +67,8 @@ StressReport stress(RPGraph::GraphLayout* layout, int L) {
 	
 	int k = 1; // TODO: TEMP: What is k supposed to be?
 	float stress = 0;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
+	for (uint32_t i = 0; i < n; i++) {
+		for (uint32_t j = 0; j < n; j++) {
 			if (i != j) {
 				float dist_g{ i < j ? all_pairs_shortests[i][j] : all_pairs_shortest[j][i] }; /// Result from Floyd-Warshal algorithm.
 				float dist_u{ layout->getDistance(i, j) }; /// Euclidean distance in the layout.
