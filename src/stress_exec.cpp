@@ -18,6 +18,14 @@ int main(int argc, const char** argv) {
 	std::string edge_list = argv[1];
 	std::string layout_path = argv[2];
 
+	if (!is_file_exists(edge_list.c_str())) {
+		std::cout << "ERROR: No file at " << edge_list << std::endl;
+	}
+
+	if (!is_file_exists(layout_path.c_str())) {
+		std::cout << "ERROR: No file at " << layout_path << std::endl;
+	}
+
 	RPGraph::UGraph graph(edge_list);
 	RPGraph::GraphLayout layout(graph);
 
