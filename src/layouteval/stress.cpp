@@ -31,7 +31,7 @@ matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
 	// TODO: Make more efficient after testing initial implementation.
 	for (contiguous_nid_t src_id = 0; src_id < graph.num_nodes(); src_id++) { // Iterate over source nodes
 		for (contiguous_nid_t dst_id : graph.neighbors_with_geq_id(src_id)) { // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger. 
-			dist[src_id][dst_id] = 1;
+			dist[src_id][dst_id] = 1; /// NOTE: IF edge weights were to be interpreted here, they would actually mean that 2 nodes were MORE tightly connected.  As such some form of inverse relation would have to be defined.  The simplest would be setting edge weights for the purpose of allPairsShortestPaths calculation to be 1/(weight that is used for force layout).  I am not sure if this is an actual legitimate inverse calculation.  Realistically any inverse should be based on the layout algorithm used to have any real meaning.
 			dist[dst_id][src_id] = 1;
 		}
 	}
