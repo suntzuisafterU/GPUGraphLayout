@@ -125,14 +125,17 @@ GV_EXE_SRC        := $(SRC_DIR)/graph_viewer_exec.cpp
 
 STRESS_EXE_SRC    := $(SRC_DIR)/stress_exec.cpp
 
+ALL_PAIRS_EXE_SRC := $(SRC_DIR)/all_pairs_exec.cpp
+
 CPP_SRCS          := $(COMMON_SRCS) $(UTILS_SRCS) $(IO_SRCS) $(SCODA_SRCS) \
 					 $(FA2_SRCS) $(LO_EVAL_SRCS) $(GV_SRCS) $(SCODA_EXE_SRC) \
-					 $(GV_EXE_SRC) $(STRESS_EXE_SRC) $(PNGWRITER_SRCS)
+					 $(GV_EXE_SRC) $(STRESS_EXE_SRC) $(PNGWRITER_SRCS) $(ALL_PAIRS_EXE_SRC)
 CUDA_SRCS         := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRCS)
 GV_EXE_OBJS       := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(IO_OBJS) $(GV_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
 SCODA_EXE_OBJS    := $(COMMON_OBJS) $(SCODA_OBJS)
 STRESS_EXE_OBJS   := $(COMMON_OBJS) $(LO_EVAL_OBJS) # $(UTILS_OBJS)
+ALL_PAIRS_EXE_OBJS:= $(COMMON_OBJS) $(LO_EVAL_OBJS)
 CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
@@ -158,6 +161,9 @@ graph_viewer_exec: $(GV_EXE_OBJS) $(GV_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 stress_exec: $(STRESS_EXE_OBJS) $(STRESS_EXE_SRC)
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
+
+all_pairs_exec: $(ALL_PAIRS_EXE_OBJS) $(ALL_PAIRS_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 $(COMMON_OBJS): $(COMMON_SRCS)
@@ -197,6 +203,6 @@ $(PNGWRITER_OBJS): $(PNGWRITER_SRCS)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(L_SRC_DIR)/%.cc)
 
 clean:
-	rm -rf scoda_exec graph_viewer_exec stress_exec $(OBJ_DIR)/* ./.depend
+	rm -rf scoda_exec graph_viewer_exec stress_exec all_pairs_exec $(OBJ_DIR)/* ./.depend
 
 .PHONY: all clean depend
