@@ -40,7 +40,5 @@ int main(int argc, const char** argv) {
 	// TODO: Call stress algo.
 	
 
-	delete graph;
-
 	return EXIT_SUCCESS;
 }
