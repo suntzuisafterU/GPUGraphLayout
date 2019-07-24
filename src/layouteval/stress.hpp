@@ -16,10 +16,6 @@ struct StressReport {
 
 StressReport stress(RPGraph::GraphLayout* layout, int L);
 
-inline float distU(Coordinate c1, Coordinate c2);
-
-inline float distG();
-
 /**
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
  */
