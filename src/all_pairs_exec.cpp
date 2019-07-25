@@ -4,10 +4,10 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <string>
 
 #include "layouteval/stress.hpp"
 #include "common/RPGraph.hpp"
-
 
 int main(int argc, const char** argv) {
 	// Accept edge list file and verify name.
@@ -24,7 +24,7 @@ int main(int argc, const char** argv) {
 	// Calculate all pair shortest path matrix.
 	RPGraph::matrix dist = RPGraph::allPairsShortestPaths(graph);
 
-	std::cout << dist << std::endl; // TODO: Try this, see if it prints nice. Doesn't print at all.  Will fix.
+	RPGraph::print_matrix(dist, "Output at end of all_pairs_exec.  Should be complete distance matrix.");
 
 	return EXIT_SUCCESS;
 }

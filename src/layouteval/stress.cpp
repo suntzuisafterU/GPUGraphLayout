@@ -2,11 +2,42 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <string>
+#include <iomanip>
 
 #include "stress.hpp"
 #include "../common/RPTypeDefs.hpp"
 
 namespace RPGraph {
+
+void print_matrix(RPGraph::matrix& mat, const char* reason) {
+	int n = mat.size(); /// Assumes square matrix.
+	constexpr uint32_t infinity = std::numeric_limits<uint32_t>::max(); // constexpr means compile time evaluation.
+
+	if(n < 30) {
+		// Just print the entire thing.
+		std::cout << "\n#############################################################################" << std::endl;
+		std::cout << "# Matrix values. Reason for printing: " << reason << std::endl;
+		for(int i = 0; i < n; ++i) {
+			std::cout << std::endl; // Newline.
+			std::cout << "[ ";
+			for(int j = 0; j < n; ++j) {
+				if(mat[i][j] == infinity) {
+					std::cout << " " << "+inf" << " ";
+				} else {
+					std::cout << " " << std::setw(4) << mat[i][j] << " ";
+				}
+			}
+			std::cout << " ]";
+		}
+		std::cout << "\n#############################################################################" << std::endl;
+		std::cout << std::endl; // Final new line.
+
+	} else {
+		// Print the corners, 15 x 15 corners?
+		throw "Not implemented.";
+	}
+};
 
 
 /**
@@ -21,9 +52,11 @@ matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
 	constexpr uint32_t infinity = std::numeric_limits<uint32_t>::max(); // constexpr means compile time evaluation.
 	std::cout << "infinity := " << infinity << std::endl;
 	matrix dist(n, std::vector<uint32_t>(n, infinity));
-	for (int i = 0; i < n; i++) {
+	for (uint32_t i = 0; i < n; i++) {
 		dist[i][i] = 0; // Set all self distances to zero.
 	}
+	
+	print_matrix(dist, "Initial matrix setup.  Should be max values everywhere, and zeroes on the diagonal."); // Good here.
 
 	// for each edge (u,v) in graph: 
 	//                       set dist[u][v] = 1 // The weight of the edge.
@@ -35,16 +68,20 @@ matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
 			dist[dst_id][src_id] = 1;
 		}
 	}
+
+	print_matrix(dist, "Matrix of initial graph.  Sould be all max values, and a few 1's. Matrix should be semetric.");
 	
 	// O(|V|**3), core of Floyd-Warshall.
 	for (uint32_t k = 0; k < n; k++) {
 		for (uint32_t i = 0; i < n; i++) {
 			for (uint32_t j = 0; j < n; j++) {
-				if (dist[i][j] > dist[i][k] + dist[k][j]) {
+				if (dist[i][k] != infinity && dist[k][j] != infinity && /// IMPORTANT: Required since 'infinity' as an unsigned int is a value that is +1 from wrapping back around to 0...
+					dist[i][j] > dist[i][k] + dist[k][j]) {
 					dist[i][j] = dist[i][k] + dist[k][j];
 				}
 			}
 		}
+		print_matrix(dist, "Matrix after one of the intermediate nodes has been considered.");
 	}
 
 	return dist; /// Compiler should optimize to move assignment.

@@ -20,6 +20,7 @@ build/
 builds/linux/graph_viewer_exec
 builds/linux/scoda_exec
 builds/linux/stress_exec
+builds/linux/all_pairs_exec
 builds/linux/.depend
 out/
 DerivedData/
