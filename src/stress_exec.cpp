@@ -62,7 +62,6 @@ int main(int argc, const char** argv) {
 
 		temp_counter++;
 	}
-	layout_stream.close(); /// Bug right here. Closing file is not necessary since it was never opened with the .open() method.
 
 	std::cout << "Calculating all pairs shortest paths." << std::endl;
 	// Calculate all pairs shortest paths.  O(|V|**3)
