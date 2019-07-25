@@ -35,19 +35,18 @@ int main(int argc, const char** argv) {
 
 	std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
 	// TODO: Read layout file and update all coordinates in layout.
-	std::ifstream layout_stream(layout_path);
-	layout_stream.open(layout_path);
+	std::fstream layout_stream(layout_path, std::ifstream::in);
 
 	// This is code that reads a custom layout format. Specifically:
 	// node_id: uint32_t, x_coord: float, y_coord: float
 	// TODO: This would be best put somewhere else, for example in IO utils, if it were being used anywhere else.
 	uint32_t temp_counter = 0;
 	std::string line;
-	while(std::getline(layout_stream, line))
+	while (std::getline(layout_stream, line))
 	{
 		// Skip any comments
-		if(line[0] == '#') continue;
-		if(line[0] == '%') continue;
+		if (line[0] == '#') continue;
+		if (line[0] == '%') continue;
 
 		// Read source and target from file
 		RPGraph::contiguous_nid_t curr_node;
@@ -69,7 +68,7 @@ int main(int argc, const char** argv) {
 	// Calculate all pairs shortest paths.  O(|V|**3)
 	RPGraph::matrix all_pairs = RPGraph::allPairsShortestPaths(graph);
 	int L = 1; // TODO: TEMP, we will likely want to implement optimizing over L as in the
-	           //       provided msc-graphstudy code.
+			   //       provided msc-graphstudy code.
 
 	std::cout << "Calculating the stress, and generating report." << std::endl;
 	RPGraph::StressReport report = RPGraph::stress(layout, all_pairs, L);
@@ -78,4 +77,4 @@ int main(int argc, const char** argv) {
 
 	// When the layout goes out of scope, the destructor is trying to free the coordinates array.
 	return EXIT_SUCCESS;
-}
+};
