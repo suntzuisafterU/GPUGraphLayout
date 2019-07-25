@@ -70,6 +70,12 @@ int main(int argc, const char** argv) {
 		temp_counter++;
 	}
 
+	if (layout_stream.fail()) {
+		std::cout << "Failed after while loop." << temp_counter << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+
 	std::cout << "About to close the layout file" << std::endl;
 	layout_stream.close();
 
