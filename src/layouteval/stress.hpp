@@ -29,7 +29,7 @@ struct StressReport {
 	}
 };
 
-StressReport stress(RPGraph::GraphLayout& layout, matrix all_pairs_shortest, int L);
+StressReport stress(RPGraph::GraphLayout& layout, matrix& all_pairs_shortest, int L);
 
 /**
  * O(N**2) memory complexity, O(N**3)?? time complexity. 
