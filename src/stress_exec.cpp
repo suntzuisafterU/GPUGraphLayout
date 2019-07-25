@@ -36,7 +36,8 @@ int main(int argc, const char** argv) {
 
 	std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
 	// TODO: Read layout file and update all coordinates in layout.
-	std::fstream layout_stream(layout_path, std::ifstream::in);
+	std::ifstream layout_stream;
+	layout_stream.open(layout_path);
 
 	// This is code that reads a custom layout format. Specifically:
 	// node_id: uint32_t, x_coord: float, y_coord: float
@@ -45,6 +46,11 @@ int main(int argc, const char** argv) {
 	std::string line;
 	while (std::getline(layout_stream, line))
 	{
+		if (layout_stream.fail()) {
+			std::cout << "Failed on iteartion " << temp_counter << std::endl;
+			exit(EXIT_FAILURE);
+		}
+
 		// Skip any comments
 		if (line[0] == '#') continue;
 		if (line[0] == '%') continue;
