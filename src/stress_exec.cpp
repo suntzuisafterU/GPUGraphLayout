@@ -36,6 +36,7 @@ int main(int argc, const char** argv) {
 	std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
 	// TODO: Read layout file and update all coordinates in layout.
 	std::ifstream layout_stream(layout_path);
+	layout_stream.open(layout_path);
 
 	// This is code that reads a custom layout format. Specifically:
 	// node_id: uint32_t, x_coord: float, y_coord: float
@@ -62,6 +63,7 @@ int main(int argc, const char** argv) {
 
 		temp_counter++;
 	}
+	layout_stream.close();
 
 	std::cout << "Calculating all pairs shortest paths." << std::endl;
 	// Calculate all pairs shortest paths.  O(|V|**3)
