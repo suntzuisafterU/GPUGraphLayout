@@ -110,10 +110,11 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 			if (i != j) {
 				/// Warning: narrowing conversion from unsigned int to float here.  Why would this be a narrowing conversion? Answer: https://stackoverflow.com/a/11521166/11385910
 				/// Even with a double it would technically be narrowing.  We should never get close to values that would be narrowing though.
-				float dist_g{ i < j ? all_pairs_shortest[i][j] : all_pairs_shortest[j][i] }; /// Result from Floyd-Warshal algorithm.
+				uint32_t dist_g{ i < j ? all_pairs_shortest[i][j] : all_pairs_shortest[j][i] }; /// Result from Floyd-Warshal algorithm.
 				float dist_u{ layout.getDistance(i, j) }; /// Euclidean distance in the layout.
-				float k_ij = k / std::pow(dist_g, 2); /// Value defined in original paper.
-				stress += k_ij * std::pow(dist_u - (L * dist_g), 2);
+				float k_ij{ k / std::pow(dist_g, 2) }; /// Value defined in original paper.
+				float current_stress{ k_ij * std::pow(dist_u - (L * dist_g), 2) };
+				stress += current_stress;
 			}
 		}
 	}
