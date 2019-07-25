@@ -34,50 +34,43 @@ int main(int argc, const char** argv) {
 	RPGraph::UGraph graph(edge_list);
 	RPGraph::GraphLayout layout(graph);
 
-	std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
-	// TODO: Read layout file and update all coordinates in layout.
-	std::ifstream layout_stream;
-	layout_stream.open(layout_path);
-
-	// This is code that reads a custom layout format. Specifically:
-	// node_id: uint32_t, x_coord: float, y_coord: float
-	// TODO: This would be best put somewhere else, for example in IO utils, if it were being used anywhere else.
-	uint32_t temp_counter = 0;
-	std::string line;
-	while (std::getline(layout_stream, line))
 	{
-		if (layout_stream.fail()) {
-			std::cout << "Failed on iteartion " << temp_counter << std::endl;
-			exit(EXIT_FAILURE);
+		std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
+		// TODO: Read layout file and update all coordinates in layout.
+		std::ifstream layout_stream;
+		layout_stream.open(layout_path);
+
+		// This is code that reads a custom layout format. Specifically:
+		// node_id: uint32_t, x_coord: float, y_coord: float
+		// TODO: This would be best put somewhere else, for example in IO utils, if it were being used anywhere else.
+		uint32_t temp_counter = 0;
+		std::string line;
+		while (std::getline(layout_stream, line))
+		{
+			// Skip any comments
+			if (line[0] == '#') continue;
+			if (line[0] == '%') continue;
+
+			// Read source and target from file
+			RPGraph::contiguous_nid_t curr_node;
+			float x, y;
+			std::istringstream ss(line);
+			ss >> curr_node;
+			if (ss.peek() == ',') ss.ignore();
+			ss >> x;
+			if (ss.peek() == ',') ss.ignore();
+			ss >> y;
+
+			layout.setCoordinates(curr_node, RPGraph::Coordinate(x, y));
+
+			temp_counter++;
 		}
 
-		// Skip any comments
-		if (line[0] == '#') continue;
-		if (line[0] == '%') continue;
-
-		// Read source and target from file
-		RPGraph::contiguous_nid_t curr_node;
-		float x, y;
-		std::istringstream ss(line);
-		ss >> curr_node;
-		if (ss.peek() == ',') ss.ignore();
-		ss >> x;
-		if (ss.peek() == ',') ss.ignore();
-		ss >> y;
-
-		layout.setCoordinates(curr_node, RPGraph::Coordinate(x, y));
-
-		temp_counter++;
-	}
-
-	if (layout_stream.fail()) {
-		std::cout << "Failed after while loop." << temp_counter << std::endl;
-		exit(EXIT_FAILURE);
-	}
+	} // End nested scope, destroys file stream.
 
 
-	std::cout << "About to close the layout file" << std::endl;
-	layout_stream.close();
+	// std::cout << "About to close the layout file" << std::endl;
+	// layout_stream.close();
 
 	std::cout << "Calculating all pairs shortest paths." << std::endl;
 	// Calculate all pairs shortest paths.  O(|V|**3)
