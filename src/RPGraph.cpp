@@ -49,6 +49,7 @@ namespace RPGraph
         {
             // Skip any comments
             if(line[0] == '#') continue;
+            if(line[0] == '%') continue;
 
             // Read source and target from file
             nid_t s, t;
