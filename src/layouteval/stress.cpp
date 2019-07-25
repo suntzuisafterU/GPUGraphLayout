@@ -104,25 +104,25 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 	// Calculate all pairs shortest paths.
 
 	int k = 1; // TODO: TEMP: What is k supposed to be?
-	float stress = 0;
+	double stress = 0;
 	for (uint32_t i = 0; i < n; i++) {
 		for (uint32_t j = 0; j < n; j++) {
 			if (i != j) {
-				/// Warning: narrowing conversion from unsigned int to float here.  Why would this be a narrowing conversion? Answer: https://stackoverflow.com/a/11521166/11385910
+				/// Warning: narrowing conversion from unsigned int to double here.  Why would this be a narrowing conversion? Answer: https://stackoverflow.com/a/11521166/11385910
 				/// Even with a double it would technically be narrowing.  We should never get close to values that would be narrowing though.
 				uint32_t dist_g{ i < j ? all_pairs_shortest[i][j] : all_pairs_shortest[j][i] }; /// Result from Floyd-Warshal algorithm.
-				float dist_u{ layout.getDistance(i, j) }; /// Euclidean distance in the layout.
-				float k_ij{ k / std::pow(dist_g, 2) }; /// Value defined in original paper.
-				float current_stress{ k_ij * std::pow(dist_u - (L * dist_g), 2) };
+				double dist_u{ layout.getDistance(i, j) }; /// Euclidean distance in the layout.
+				double k_ij{ k / std::pow(dist_g, 2) }; /// Value defined in original paper.
+				double current_stress{ k_ij * std::pow(dist_u - (L * dist_g), 2) };
 				stress += current_stress;
 			}
 		}
 	}
 
 	uint32_t num_nodes{ layout.graph.num_nodes() };
-	float stress_per_node{ stress / num_nodes };
+	double stress_per_node{ stress / num_nodes };
 	uint32_t num_edges{ layout.graph.num_edges() };
-	float stress_per_edge{ stress / num_edges };
+	double stress_per_edge{ stress / num_edges };
 
 	StressReport results = {
 		stress,

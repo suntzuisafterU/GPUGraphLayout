@@ -11,11 +11,11 @@ namespace RPGraph {
 typedef std::vector< std::vector< uint32_t > > matrix;
 
 struct StressReport {
-    float stress;
+    double stress;
 	uint32_t num_nodes;
-	float stress_per_node;
+	double stress_per_node;
 	uint32_t num_edges;
-	float stress_per_edge;
+	double stress_per_edge;
     // TODO: Should this have some way to reference the graph? Parameters that were used, etc.
 
 	friend std::ostream& operator<<(std::ostream& out, StressReport& report) {
