@@ -45,7 +45,6 @@ namespace RPGraph
         std::cout<<"In: GraphLayout::GraphLayout(UGraph& graph, float width, float height) : width(width), height(height), graph(graph)" << std::endl;
 
         coordinates = (Coordinate *) malloc(graph.num_nodes() * sizeof(Coordinate));
-		std::cout << "Value of coordinates pointer: " << coordinates << std::endl;
     }
 
     GraphLayout::~GraphLayout()
