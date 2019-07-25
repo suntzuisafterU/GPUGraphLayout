@@ -96,17 +96,17 @@ matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
  *      compute k_ij = k/distG**2
  *      result += k_ij * [distU - (L * distG)]**2
  */
-StressReport stress(RPGraph::GraphLayout& layout, int L) {
+StressReport stress(GraphLayout& layout, matrix& all_pairs_shortests, int L) {
 
 	uint32_t n{ layout.graph.num_nodes() };
 	// Calculate all pairs shortest paths.
-	matrix all_pairs_shortests = allPairsShortestPaths(layout.graph); // TODO: Does this get passed correctly as a pointer?
 
 	int k = 1; // TODO: TEMP: What is k supposed to be?
 	float stress = 0;
 	for (uint32_t i = 0; i < n; i++) {
 		for (uint32_t j = 0; j < n; j++) {
 			if (i != j) {
+				/// Warning: narrowing conversion from unsigned int to float here.  Why would this be a narrowing conversion? Answer: https://stackoverflow.com/a/11521166/11385910
 				float dist_g{ i < j ? all_pairs_shortests[i][j] : all_pairs_shortests[j][i] }; /// Result from Floyd-Warshal algorithm.
 				float dist_u{ layout.getDistance(i, j) }; /// Euclidean distance in the layout.
 				float k_ij = k / std::pow(dist_g, 2); /// Value defined in original paper.
