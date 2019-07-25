@@ -62,7 +62,7 @@ int main(int argc, const char** argv) {
 
 		temp_counter++;
 	}
-	layout_stream.close();
+	layout_stream.close(); /// Bug right here.
 
 	std::cout << "Calculating all pairs shortest paths." << std::endl;
 	// Calculate all pairs shortest paths.  O(|V|**3)
