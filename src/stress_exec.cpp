@@ -70,5 +70,6 @@ int main(int argc, const char** argv) {
 
 	std::cout << report;
 
+	// When the layout goes out of scope, the destructor is trying to free the coordinates array.
 	return EXIT_SUCCESS;
 }
