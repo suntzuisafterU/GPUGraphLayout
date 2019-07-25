@@ -29,9 +29,11 @@ int main(int argc, const char** argv) {
 		exit(EXIT_FAILURE);
 	}
 
+	std::cout << "Reading the edgelist file and initializing graph and layout." << std::endl;
 	RPGraph::UGraph graph(edge_list);
 	RPGraph::GraphLayout layout(graph);
 
+	std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
 	// TODO: Read layout file and update all coordinates in layout.
 	std::ifstream layout_stream(layout_path);
 
@@ -62,10 +64,13 @@ int main(int argc, const char** argv) {
 	}
 	layout_stream.close();
 
+	std::cout << "Calculating all pairs shortest paths." << std::endl;
 	// Calculate all pairs shortest paths.  O(|V|**3)
 	RPGraph::matrix all_pairs = RPGraph::allPairsShortestPaths(graph);
 	int L = 1; // TODO: TEMP, we will likely want to implement optimizing over L as in the
 	           //       provided msc-graphstudy code.
+
+	std::cout << "Calculating the stress, and generating report." << std::endl;
 	RPGraph::StressReport report = RPGraph::stress(layout, all_pairs, L);
 
 	std::cout << report;
