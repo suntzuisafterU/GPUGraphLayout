@@ -1,12 +1,13 @@
 #include <iostream>
 #include <istream>
 #include <fstream>
-#include <sstream>
+#include <sstream> // for istringstream
 #include <string>
 
 #include "layouteval/stress.hpp"
 #include "common/RPGraph.hpp"
 #include "common/RPGraphLayout.hpp"
+#include "common/RPCommon.hpp" // contiguous_nid_t
 
 
 int main(int argc, const char** argv) {
@@ -26,15 +27,15 @@ int main(int argc, const char** argv) {
 	}
 
 	if (!is_file_exists(layout_path.c_str())) {
-		std::cout << "ERROR: No file at " << layout_path << std::endl;
-		exit(EXIT_FAILURE);
+	 	std::cout << "ERROR: No file at " << layout_path << std::endl;
+	 	exit(EXIT_FAILURE);
 	}
 
 	std::cout << "Reading the edgelist file and initializing graph and layout." << std::endl;
 	RPGraph::UGraph graph(edge_list);
 	RPGraph::GraphLayout layout(graph);
 
-	{
+	{ // Begin nested scope, manages ifstream.
 		std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
 		// TODO: Read layout file and update all coordinates in layout.
 		std::ifstream layout_stream;
@@ -66,6 +67,7 @@ int main(int argc, const char** argv) {
 			temp_counter++;
 		}
 
+		std::cout << "Reaching end of nested scope." << std::endl;
 	} // End nested scope, destroys file stream.
 
 
