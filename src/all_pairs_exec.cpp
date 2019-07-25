@@ -24,7 +24,7 @@ int main(int argc, const char** argv) {
 	// Calculate all pair shortest path matrix.
 	RPGraph::matrix dist = RPGraph::allPairsShortestPaths(graph);
 
-	std::cout << dist << std::endl; // TODO: Try this, see if it prints nice.
+	std::cout << dist << std::endl; // TODO: Try this, see if it prints nice. Doesn't print at all.  Will fix.
 
 	return EXIT_SUCCESS;
 }
