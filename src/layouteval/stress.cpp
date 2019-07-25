@@ -56,7 +56,7 @@ matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
 		dist[i][i] = 0; // Set all self distances to zero.
 	}
 	
-	print_matrix(dist, "Initial matrix setup.  Should be max values everywhere, and zeroes on the diagonal."); // Good here.
+	// print_matrix(dist, "Initial matrix setup.  Should be max values everywhere, and zeroes on the diagonal."); // Good here.
 
 	// for each edge (u,v) in graph: 
 	//                       set dist[u][v] = 1 // The weight of the edge.
@@ -69,7 +69,7 @@ matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
 		}
 	}
 
-	print_matrix(dist, "Matrix of initial graph.  Sould be all max values, and a few 1's. Matrix should be semetric.");
+	// print_matrix(dist, "Matrix of initial graph.  Sould be all max values, and a few 1's. Matrix should be semetric.");
 	
 	// O(|V|**3), core of Floyd-Warshall.
 	for (uint32_t k = 0; k < n; k++) {
@@ -81,8 +81,10 @@ matrix allPairsShortestPaths(RPGraph::UGraph& graph) {
 				}
 			}
 		}
-		print_matrix(dist, "Matrix after one of the intermediate nodes has been considered.");
+		// print_matrix(dist, "Matrix after one of the intermediate nodes has been considered.");
 	}
+
+	// print_matrix(dist, "Final all pairs shortest paths matrix.");
 
 	return dist; /// Compiler should optimize to move assignment.
 }
