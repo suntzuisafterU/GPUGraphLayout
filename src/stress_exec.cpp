@@ -62,10 +62,11 @@ int main(int argc, const char** argv) {
 	}
 	layout_stream.close();
 
+	// Calculate all pairs shortest paths.  O(|V|**3)
+	RPGraph::matrix all_pairs = RPGraph::allPairsShortestPaths(graph);
 	int L = 1; // TODO: TEMP, we will likely want to implement optimizing over L as in the
 	           //       provided msc-graphstudy code.
-	// TODO: Call stress algo.
-	RPGraph::StressReport report = RPGraph::stress(layout, L);
+	RPGraph::StressReport report = RPGraph::stress(layout, all_pairs, L);
 
 	std::cout << report;
 
