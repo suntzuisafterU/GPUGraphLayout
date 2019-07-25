@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ifstream>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -62,6 +63,8 @@ int main(int argc, const char** argv) {
 
 		temp_counter++;
 	}
+
+	std::cout << "About to close the layout file" << std::endl;
 	layout_stream.close();
 
 	std::cout << "Calculating all pairs shortest paths." << std::endl;
