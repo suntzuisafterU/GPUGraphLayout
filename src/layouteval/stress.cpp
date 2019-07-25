@@ -116,15 +116,15 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortests, int L) {
 	}
 
 	uint32_t num_nodes{ layout.graph.num_nodes() };
-	uint32_t num_edges{ layout.graph.num_edges() };
 	float stress_per_node{ stress / num_nodes };
+	uint32_t num_edges{ layout.graph.num_edges() };
 	float stress_per_edge{ stress / num_edges };
 
 	StressReport results = {
 		stress,
 		num_nodes,
-		num_edges,
 		stress_per_node,
+		num_edges,
 		stress_per_edge
 	};
 
