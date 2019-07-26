@@ -39,7 +39,7 @@ namespace RPGraph
         std::cout<< "in UGraph() " << std::endl;
         node_count = 0;
         edge_count = 0;
-		dataset_source = "Unknown";
+		dataset_source = "Unknown_probably_community_graph";
     }
 
     UGraph::UGraph(std::string edgelist_path) {

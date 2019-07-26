@@ -222,7 +222,7 @@ namespace RPGraph {
 				DerivedGraph* result_derived_graph = new RPGraph::DerivedGraph(comm_graph);
 				hyper_edges.push_back(new DerivedGraphHyperEdge(
 					source_derived_graph, 
-					nid_comm_map, 
+					nid_comm_map, // Map passed by value.
 					result_derived_graph,
 					hyper_edge_reports)); // reports passed by value.
             }
