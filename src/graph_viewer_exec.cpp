@@ -142,8 +142,9 @@ int main(int argc, const char **argv) {
     // std::cout << "GV::compress() works, if everything is intact here." << std::endl;
     graph_viewer->iterate_on_layout(max_iterations, true);
     std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
-    graph_viewer->show(max_iterations, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
-    std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
+    graph_viewer->show(max_iterations, "TEST_FULL_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
+    // graph_viewer->show(max_iterations, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
+    // std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
     // show
     // iterate again for proper amount
 
