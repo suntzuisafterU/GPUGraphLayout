@@ -32,7 +32,6 @@
 #include <memory>
 
 int main(int argc, const char **argv) {
-// RPGraph::GraphViewer* parseCommandLine() { // TODO: Belongs in IO utils
     // Parse commandline arguments
     if (argc < 10)
     {
@@ -129,62 +128,41 @@ int main(int argc, const char **argv) {
     printf("Loading edgelist at '%s'...", edgelist_path);
     fflush(stdout);
     graph_viewer->init(); // Required ?? since constructor would be to complex if it did all initialization.
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////// ONLY HERE TO KEEP OUTPUT SIMILAR TO ORIGINAL ////////////////////////////////////////
-    RPGraph::UGraph* graph = graph_viewer->get_current_source_graph();
-    printf("done.\n");
-    printf("    fetched %d nodes and %d edges.\n", graph->num_nodes(), graph->num_edges());
-    graph = nullptr;
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	std::cout << "GV::init() works" << std::endl;
 
-	// Iterate on original graph
-    // New, simple graph_viewer script, same-ish as original.
-
-    graph_viewer->iterate_and_periodically_show();
+    // graph_viewer->iterate_and_periodically_show(); /* Verified. */
 
     std::cout << "Finished with simplified GV script." << std::endl;
-    
 
-    ////// BELOW is old graphviewer script.
-//     int change_me_too = 98765;
-// 
-//     graph_viewer->iterate_on_layout(change_me, true);
-// 	std::cout << "GV::iterate_on_layout() works on original graph." << std::endl;
-//     std::cout << "\nGV::show() on initial layout." << std::endl;
-//     graph_viewer->show(change_me_too); change_me_too++;
-// 
-//     graph_viewer->compress(); // Could be done multiple times.
-// 	std::cout << "GV::compress() works, if everything is intact here." << std::endl;
-// 
-//     std::cout << "\nGV::show() on RANDOM COMMUNITY LAYOUT." << std::endl;
-//     graph_viewer->show(change_me_too); change_me_too++;
-// 
-//     // TODO: Replace functionality somehow.
-//     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
-//     // {
-//     //     produceOutput(iteration); // TODO: Refactor
-//     // }
-// 
-// 	// iterate on comm_graph
-//     graph_viewer->iterate_on_layout(change_me, false);
-// 	std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
-// 
-//     int need_to_track_iterations_I_guess = 123456789;
-//     graph_viewer->show(need_to_track_iterations_I_guess); need_to_track_iterations_I_guess++;
-// 	std::cout << "GV::show() works on community graph, if everythin is intact here." << std::endl;
-// 
-//     // TODO: show_swing(); Or jitter?
-//     graph_viewer->expand(); // Back to original graph
-// 	std::cout << "GV::expand() works, if everything is intact here." << std::endl;
-//     graph_viewer->show(change_me_too); change_me_too++;
-//     std::cout << "GV::show() of initial layout after expansion. " << std::endl;
-// 
-//     graph_viewer->iterate_on_layout(change_me, false);
-// 	std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
-// 
-//     graph_viewer->show(need_to_track_iterations_I_guess); need_to_track_iterations_I_guess++;
-// 	std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
+    // const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph/100));
+    // const int full_iters = max_iterations - comm_iters;
+    // call SCoDA, compress.
+    graph_viewer->compress();
+    std::cout << "GV::compress() works, if everything is intact here." << std::endl;
+    graph_viewer->iterate_on_layout(max_iterations, true);
+    std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
+    graph_viewer->show(max_iterations, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
+    std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
+    // show
+    // iterate again for proper amount
+
+
+    // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
+    // {
+    //     graph_viewer->show(iteration); // TODO: Refactor
+    // }
+    // // TODO: show_swing(); Or jitter?
+    // graph_viewer->expand(); // Back to original graph
+    // std::cout << "GV::expand() works, if everything is intact here." << std::endl;
+    // graph_viewer->show(change_me_too);
+    // std::cout << "GV::show() of initial layout after expansion. " << std::endl;
+
+    // graph_viewer->iterate_on_layout(change_me, false);
+    // std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
+
+    // graph_viewer->show(need_to_track_iterations_I_guess);
+    // need_to_track_iterations_I_guess++;
+    // std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
+    return EXIT_SUCCESS;
 }

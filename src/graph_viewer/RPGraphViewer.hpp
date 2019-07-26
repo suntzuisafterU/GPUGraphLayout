@@ -143,7 +143,7 @@ namespace RPGraph {
             GraphViewer(const GraphViewer& other) = delete;
             GraphViewer & operator=(const GraphViewer& other) = delete;
             void init();
-            void show(int iter); /**< Display or print data, depends on output method. */
+            void show(int iter, const char* explain); /**< Display or print data, depends on output method. */
             void iterate_on_layout(int num_iters, bool randomize);
             void iterate_and_periodically_show(); // TODO: Reorganize GVs concept of state.
 

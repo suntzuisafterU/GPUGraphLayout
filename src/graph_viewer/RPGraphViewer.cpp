@@ -53,24 +53,22 @@ namespace RPGraph {
 				this-> original_dg = new DerivedGraph(graph_ptr);
             }
 
-            void GraphViewer::show(int iteration) {
-                std::string op(this->out_path);
-                op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
-                op.append(std::to_string(iteration)).append(".").append(this->out_format);
-                printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / this->max_iterations, out_format.c_str());
+            void GraphViewer::show(int iteration, const char* explain) {
+                std::cout << "Showing... ";
+                std::string png_path(this->out_path);
+                std::string csv_path(this->out_path);
+                png_path.append("/").append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
+                csv_path.append("/").append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append("csv");
+                // png_path.append(std::to_string(iteration)).append(".").append(this->out_format); /* Use this if you have errors with the line above for some reason. */
 
-                fflush(stdout); // TODO: Why is this necessary?
-
-                // if (out_format == "png")
-                    writeToPNG(this->get_current_layout(), this->image_w, this->image_h, op);
-                // TODO: Add line for writing to csv? Or add function?
-
-                printf("done.\n"); // TODO: Remove after refactoring.
+                if (this->out_format == "png" ) writeToPNG(this->get_current_layout(), this->image_w, this->image_h, png_path);
+                writeToCSV(this->get_current_layout(), csv_path); /* Always write a CSV, sometimes don't write a png. */
+                std::cout << "done." << std::endl;
             }
 
             void GraphViewer::iterate_on_layout(int num_iters, bool randomize) {
                 // Create the GraphLayout and ForceAtlas2 objects.
-                GraphLayout* current_layout = get_current_layout(); // TODO: IS THIS HOW WE WANT TO DO THIS??
+                GraphLayout* current_layout = get_current_layout(); // TODO: IS THIS HOW WE WANT TO DO THIS?? I don't know, whats wrong with it?
                 RPGraph::ForceAtlas2* fa2;
                 #ifdef __NVCC__
                 if(cuda_requested)
@@ -86,7 +84,7 @@ namespace RPGraph {
                 /**
                 * Initial layout will be produced from community graph.
                 */
-                for (int iteration = 1; iteration < num_iters; ++iteration) // TODO: Should GraphViewer keep track of overall iterations??
+                for (int iteration = 1; iteration < num_iters; ++iteration)
                 {
                     fa2->doStep();
                     if (iteration % print_period == 0) {
@@ -94,7 +92,7 @@ namespace RPGraph {
                     }
                 }
 
-                fa2->sync_layout();
+                fa2->sync_layout(); /* Copies memory from GPU back to CPU, updates the coordinates in GraphLayout. */
 
                 delete fa2; // Cleanup.
                 };
@@ -129,7 +127,7 @@ namespace RPGraph {
                     if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
                     {
                         fa2->sync_layout();
-                        show(iteration);
+                        show(iteration, "OLDSTYLE_LAYOUT_LOOP");
 
                         printf("done.\n");
                     }
