@@ -50,16 +50,9 @@ namespace RPGraph {
 
      /**
       * Writing to csv may be a good way to streamline testing the decompressions effectiveness.
-      * NOTE: There is no loadFromCSV method.  Would go in this file.
       */
      void writeToCSV(RPGraph::GraphLayout* layout, std::string path)
      {
-         if (is_file_exists(path.c_str()))
-         {
-             printf("Error: File exists at %s\n", path.c_str());
-             exit(EXIT_FAILURE);
-         }
- 
          std::ofstream out_file(path);
  
          for (contiguous_nid_t n = 0; n < layout->graph.num_nodes(); ++n)

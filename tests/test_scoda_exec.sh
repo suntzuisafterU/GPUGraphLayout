@@ -2,4 +2,4 @@
 # NOTE: This will execute and not fail if the outpath is invalid.
 
 
-./scoda_exec ../datasets/ca-AstroPh/out.ca-AstroPh out_for_tests/scoda_exec_output.edges
+./scoda_exec ../datasets/ca-AstroPh/out.ca-AstroPh out/scoda_exec_output.edges

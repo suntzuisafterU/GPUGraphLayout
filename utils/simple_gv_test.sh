@@ -1,1 +1,1 @@
-./execute_graph_viewer.sh --execution-mode gpu --clean -f ../datasets/ca-AstroPh/out.ca-AstroPh -o ../out/ -v -r 3.0 -g 1.0 --num-iters 50 --num-snaps 1 --percent-comm 55 --annotate-path "simple_gv_test" --outfile-prefix "test_prefix" --pixels 1250 1250
+./execute_graph_viewer.sh --execution-mode gpu --clean -f ../datasets/ca-AstroPh/out.ca-AstroPh -o ../out/testing_executables/ -v -r 3.0 -g 1.0 --num-iters 50 --num-snaps 1 --percent-comm 55 --annotate-path "simple_gv_test" --outfile-prefix "test_prefix" --pixels 1250 1250

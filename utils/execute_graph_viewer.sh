@@ -147,11 +147,12 @@ mkdir -p $OUTPATH
 
 # Check if directory is empty.  Clean it or exit.
 if [ "$(ls -A $OUTPATH)" ]; then
-  echo "$OUTPATH is not empty. Handling..."
+  echo -ne "$OUTPATH is not empty. \nHandling...\n"
   if [ "$APPEND" ]; then
     echo "Appending to directory. May overwrite some files"
     continue
   elif [ "$CLEAN" ]; then
+    echo "Cleaning"
     echo "rm -f $OUTPATH*"
     rm -f "$OUTPATH*" 
   else

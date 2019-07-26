@@ -32,6 +32,9 @@
 #include <memory>
 
 int main(int argc, const char **argv) {
+    // Seed random number generator, for reproducability.
+    srandom(1234);
+
     // Parse commandline arguments
     if (argc < 10)
     {
@@ -125,45 +128,66 @@ int main(int argc, const char **argv) {
     // std::unique_ptr<GraphViewer> graph_viewer( parseCommandLine() ); // TODO: Easiest way to initialize??
     ////////////////////////////////
 
-    printf("Loading edgelist at '%s'...", edgelist_path);
-    fflush(stdout);
-    graph_viewer->init(); // Required ?? since constructor would be to complex if it did all initialization.
+    // TODO: Using lambdas temporarily to run different configurations.
 
-	std::cout << "GV::init() works" << std::endl;
+    auto like_original = [&] () { /* Verified. */
+        std::cout << "In lambda: like_original " << std::endl;
+        graph_viewer->init(); // Required ?? since constructor would be to complex if it did all initialization.
+        graph_viewer->iterate_and_periodically_show(); /* Verified. */
+        std::cout << "Finished with simplified GV script." << std::endl;
+    };
 
-    // graph_viewer->iterate_and_periodically_show(); /* Verified. */
+    auto compress_and_show_comm_graph = [&] () { /* TODO: Verify. */
+        std::cout << "In lambda: compress_and_show_comm_graph " << std::endl;
+        graph_viewer->init();
 
-    std::cout << "Finished with simplified GV script." << std::endl;
+        // call SCoDA, compress.
+        graph_viewer->compress(); /* Verify compress works. */
+        std::cout << "GV::compress() works, if everything is intact here." << std::endl;
 
-    // const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph/100));
-    // const int full_iters = max_iterations - comm_iters;
-    // call SCoDA, compress.
-    graph_viewer->compress(); /* Verify compress works. */
-    std::cout << "GV::compress() works, if everything is intact here." << std::endl;
-    graph_viewer->iterate_on_layout(max_iterations, true);
-    std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
-    // graph_viewer->show(max_iterations, "TEST_FULL_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
-    graph_viewer->show(max_iterations, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
-    std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
-    // show
-    // iterate again for proper amount
+        graph_viewer->iterate_on_layout(max_iterations, true);
+        std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
+        // graph_viewer->show(max_iterations, "TEST_FULL_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
 
+        graph_viewer->show(max_iterations, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
+        std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
+    };
+
+    auto full_scoda_pipeline = [&] () { /* TODO: Verify. */
+        std::cout << "In lambda: full_scoda_pipeline" << std::endl;
+        graph_viewer->init();
+        const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph/100));
+        const int full_iters = max_iterations - comm_iters;
+
+        // call SCoDA, compress.
+        graph_viewer->compress(); /* Verify compress works. */
+        std::cout << "GV::compress() works, if everything is intact here." << std::endl;
+
+        graph_viewer->iterate_on_layout(comm_iters, true);
+        std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
+
+        graph_viewer->show(comm_iters, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
+        std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
+
+        graph_viewer->expand(); // Back to original graph
+        std::cout << "GV::expand() works, if everything is intact here." << std::endl;
+
+        graph_viewer->show(comm_iters+1, "IMPORTANT_AFTER_EXPANSION_WITHOUT_ITERATION");
+        std::cout << "GV::show() of initial layout after expansion. " << std::endl;
+
+        graph_viewer->iterate_on_layout(full_iters, false); // false for randomization.
+        std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
+
+        graph_viewer->show(full_iters, "FINAL_FULL_PIPELINE_OUTPUT");
+        std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
+    };
+
+    like_original();
 
     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
     // {
     //     graph_viewer->show(iteration); // TODO: Refactor
     // }
-    // // TODO: show_swing(); Or jitter?
-    // graph_viewer->expand(); // Back to original graph
-    // std::cout << "GV::expand() works, if everything is intact here." << std::endl;
-    // graph_viewer->show(change_me_too);
-    // std::cout << "GV::show() of initial layout after expansion. " << std::endl;
 
-    // graph_viewer->iterate_on_layout(change_me, false);
-    // std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
-
-    // graph_viewer->show(need_to_track_iterations_I_guess);
-    // need_to_track_iterations_I_guess++;
-    // std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
     return EXIT_SUCCESS;
 }
