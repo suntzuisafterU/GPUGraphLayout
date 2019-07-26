@@ -33,7 +33,7 @@ namespace RPGraph {
 	 * Ownership: UGraph and Associated layout.
 	 */
     struct DerivedGraph {
-	private:
+	private: /* TODO: Test compilation. */
 		UGraph* graph_ptr = nullptr;
         GraphLayout* layout_ptr = nullptr;
 
@@ -181,7 +181,7 @@ namespace RPGraph {
             const char *edgelist_path;
             const char *out_path;
             const char *out_file_prefix;
-            std::string out_format;
+            std::string out_format; /* TODO: Change to 2 bools: One for outputing png, one for csv. Then we can output an associated png/csv pair to analyze. */
             int image_w;
             int image_h;
     };

@@ -102,6 +102,8 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 
 	uint32_t n{ layout.graph.num_nodes() };
 	// Calculate all pairs shortest paths.
+	
+	/* TODO: Implement random sampling based on check of how many nodes are in the associated graph. */
 
 	int k = 1; // TODO: TEMP: What is k supposed to be?
 	double stress = 0;
