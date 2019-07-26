@@ -1,7 +1,34 @@
 #!/bin/bash
 
 SCRIPT_NAME="$0"
-USAGE="Usage: \n $SCRIPT_NAME -f <in file path> -o <out file path> [other options to override defaults]]"
+USAGE=$(cat << END_OF_MESSAGE 
+Usage: \n $SCRIPT_NAME -f <in file path> -o <out file path> [other options to override defaults]]
+    -h | --help )
+    -f ) INPATH
+    -o ) OUTPATH
+    --execution-mode ) [gpu|cpu]
+    --gravity-type ) [wg|sg]
+    -g | --gravity-strength )
+    -r | --repulsion-strength )
+    --num-iters )
+    --num-snaps )
+    --linlog )
+    --percent-comm )
+    --outfile-prefix ) # for book keeping.
+    --pixels ) [width height]
+    --output-format ) only png maters.
+    --annotate-path ) # more book keeping.
+    --clean ) # cleans output dir if not empty.
+    --append ) # appends to output dir if not empty.
+    -v ) # verbose
+END_OF_MESSAGE
+)
+
+if [[ $# -eq 0 ]]; then
+  echo -e "$USAGE"
+  exit 1
+fi
+
 
 # defaults
 EXECUTION_MODE="gpu"
@@ -90,10 +117,6 @@ do op="$1"
     --output-format )
       OUTPUT_FORMAT="$2"
       shift
-      shift
-      ;;
-    --csv )
-      OUTPUT_FORMAT="csv"
       shift
       ;;
     --annotate-path )
