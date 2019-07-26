@@ -60,10 +60,13 @@ namespace RPGraph
         UGraph & operator=(const UGraph&) = delete; /// Disallow copy assignment operator.
         /// Also disallows move semantics, unless explicitly specified.
 
+		friend bool operator== (UGraph& lhs, UGraph& rhs); /* HACK: Equality is loosely defined.  Should always be the exact same object.*/
+
         ~UGraph(); /* Explicity declare and define destructors. */
 
         virtual uint32_t num_nodes() const override; /// Use uint32_t to increase the range we can support.
         virtual uint32_t num_edges() const override;
+		std::string dataset_source() const;
         virtual uint32_t degree(contiguous_nid_t nid);
 
 		const std::unordered_map <contiguous_nid_t, uint32_t> get_degrees() const; /// Allow const access to degrees map.
@@ -79,6 +82,7 @@ namespace RPGraph
 		// can this method be const?  Would that make a difference?
         const std::vector<contiguous_nid_t> neighbors_with_geq_id(contiguous_nid_t nid) override; /**< IMPORTANT: adjacency list only stores the ids of neighbors with greaterthan or equal id. */
     private:
+		std::string dataset_source; /// Possibly a path, or in case of a community graph, another graph.
         uint32_t node_count, edge_count;
 
 		std::unordered_map<dangerous_nid_t, contiguous_nid_t> external_to_contig; /// Used on insertion of data to graph.

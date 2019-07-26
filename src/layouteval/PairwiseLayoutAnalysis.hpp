@@ -7,9 +7,7 @@ namespace RPGraph {
         float average_distances_delta; // TODO: What should actually be reported?
     };
 
-    class PairwiseLayoutAnalysis {
-        // TODO: Implement.
-    };
+	PairwiseLayoutReport computePairwiseCoordinateError(GraphLayout& layout1, GraphLayout& layout2);
 
 } // namespace RPGraph
 

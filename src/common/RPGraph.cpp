@@ -39,14 +39,20 @@ namespace RPGraph
         std::cout<< "in UGraph() " << std::endl;
         node_count = 0;
         edge_count = 0;
+		dataset_source = "Unknown";
     }
 
     UGraph::UGraph(std::string edgelist_path) {
         std::cout<< "in UGraph::UGraph(std::string edgelist_path) " << std::endl;
         node_count = 0;
         edge_count = 0;
+		dataset_source = edgelist_path;
         this->read_edgelist_file(edgelist_path);
     }
+
+	bool operator== (UGraph& lhs, UGraph& rhs) {
+		return lhs.num_edges() == rhs.num_edges() && lhs.num_nodes() == rhs.num_nodes() && lhs.dataset_source() == rhs.dataset_source();
+	}
 
     UGraph::~UGraph() = default;
 
@@ -145,6 +151,10 @@ namespace RPGraph
     {
         return edge_count;
     }
+
+	std::string UGraph::dataset_source() const {
+		return dataset_source;
+	}
 
 	/**
 	 * Returns UNMAPPED DEGREE
