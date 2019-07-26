@@ -1,3 +1,5 @@
 # This script simply ensures you that there are no runtime errors.
+# NOTE: This will execute and not fail if the outpath is invalid.
 
-./scoda_exec 
+
+./scoda_exec ../datasets/ca-AstroPh/out.ca-AstroPh out_for_tests/scoda_exec_output.edges
