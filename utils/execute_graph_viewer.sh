@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_NAME="$0"
-USAGE="Usage: \n $SCRIPT_NAME -f <in file path> -o <out file path> [positional args (if any)]"
+USAGE="Usage: \n $SCRIPT_NAME -f <in file path> -o <out file path> [other options to override defaults]]"
 
 # defaults
 EXECUTION_MODE="gpu"
@@ -14,7 +14,7 @@ NUM_ITERATIONS=500
 NUM_SNAPS=10
 LINLOG="regular"
 PERCENT_ITERS_ON_COMM=50
-OUTFILE_PREFIX="_"
+OUTFILE_PREFIX="default_outfile_prefix"
 HEIGHT=10000
 WIDTH=10000
 OUTPUT_FORMAT="png"
@@ -22,6 +22,10 @@ OUTPUT_FORMAT="png"
 while [[ $# -gt 0 ]]
 do op="$1"
   case $op in
+    -h | --help )
+      echo -e "$USAGE"
+      exit 0
+      ;;
     -f )
       INPATH="$2"
       shift # past -f
