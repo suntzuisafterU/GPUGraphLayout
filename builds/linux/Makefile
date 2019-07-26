@@ -97,9 +97,6 @@ COMMON_OBJS       := $(COMMON_SRCS:$(COMMON_SRC_DIR)/%.cpp=$(COMMON_OBJ_DIR)/%.o
 UTILS_SRCS        := $(wildcard $(UTILS_SRC_DIR)/*.cpp)
 UTILS_OBJS        := $(UTILS_SRCS:$(UTILS_SRC_DIR)/%.cpp=$(UTILS_OBJ_DIR)/%.o)
 
-IO_SRCS           := $(wildcard $(IO_SRC_DIR)/*.cpp)
-IO_OBJS           := $(IO_SRCS:$(IO_SRC_DIR)/%.cpp=$(IO_OBJ_DIR)/%.o)
-
 GV_SRCS           := $(wildcard $(GV_SRC_DIR)/*.cpp)
 GV_OBJS           := $(GV_SRCS:$(GV_SRC_DIR)/%.cpp=$(GV_OBJ_DIR)/%.o)
 
@@ -119,6 +116,10 @@ LO_EVAL_OBJS      := $(LO_EVAL_SRCS:$(LO_EVAL_SRC_DIR)/%.cpp=$(LO_EVAL_OBJ_DIR)/
 PNGWRITER_SRCS    := $(L_SRC_DIR)/pngwriter/src/pngwriter.cc
 PNGWRITER_OBJS    := $(PNGWRITER_SRCS:$(L_SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
 
+IO_SRCS           := $(wildcard $(IO_SRC_DIR)/*.cpp)
+IO_OBJS           := $(IO_SRCS:$(IO_SRC_DIR)/%.cpp=$(IO_OBJ_DIR)/%.o)
+IO_OBJS           := $(IO_OBJS) $(PNGWRITER_OBJS)
+
 SCODA_EXE_SRC     := $(SRC_DIR)/scoda_exec.cpp
 
 GV_EXE_SRC        := $(SRC_DIR)/graph_viewer_exec.cpp
@@ -132,9 +133,9 @@ CPP_SRCS          := $(COMMON_SRCS) $(UTILS_SRCS) $(IO_SRCS) $(SCODA_SRCS) \
 					 $(GV_EXE_SRC) $(STRESS_EXE_SRC) $(PNGWRITER_SRCS) $(ALL_PAIRS_EXE_SRC)
 CUDA_SRCS         := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRCS)
-GV_EXE_OBJS       := $(PNGWRITER_OBJS) $(COMMON_OBJS) $(IO_OBJS) $(GV_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
+GV_EXE_OBJS       := $(COMMON_OBJS) $(IO_OBJS) $(GV_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
 SCODA_EXE_OBJS    := $(COMMON_OBJS) $(SCODA_OBJS)
-STRESS_EXE_OBJS   := $(COMMON_OBJS) $(LO_EVAL_OBJS) # $(UTILS_OBJS)
+STRESS_EXE_OBJS   := $(COMMON_OBJS) $(LO_EVAL_OBJS) $(IO_OBJS)
 ALL_PAIRS_EXE_OBJS:= $(COMMON_OBJS) $(LO_EVAL_OBJS)
 CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
