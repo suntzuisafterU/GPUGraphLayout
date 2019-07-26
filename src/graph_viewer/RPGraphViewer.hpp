@@ -34,10 +34,11 @@ namespace RPGraph {
 	 * Ownership: UGraph and Associated layout.
 	 */
     struct DerivedGraph {
-
+	private:
 		UGraph* graph_ptr = nullptr;
         GraphLayout* layout_ptr = nullptr;
 
+	public:
 		explicit DerivedGraph(RPGraph::UGraph* ug) {
             std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
 			graph_ptr = ug;
@@ -94,7 +95,7 @@ namespace RPGraph {
 		DerivedGraphHyperEdge(const RPGraph::DerivedGraphHyperEdge& other) = delete;
 		DerivedGraphHyperEdge& operator= (const RPGraph::DerivedGraphHyperEdge& other) = delete;
 
-        DerivedGraph* source_dg; // Weak ptr, does not need to be freed. Memory is managed by GraphViewer.
+        DerivedGraph* source_dg; // Weak ptr, does not need to be freed. Memory is managed by GraphViewer OR by previous DGHE.
         const RPGraph::nid_comm_map_t nid_comm_map;
         DerivedGraph* result_dg; // Ownership: DGHE manages result_dg
 
@@ -155,18 +156,12 @@ namespace RPGraph {
         private:
             std::vector < DerivedGraphHyperEdge* > hyper_edges; // TODO: Analysis this datastructure.  Nameing?
 			std::vector < DerivedGraphHyperEdge* > __old_hyper_edges; // TODO: Temporary until a better solution is discovered.
-            RPGraph::SCoDA comm_algo;
-			DerivedGraph* original_dg;
+            RPGraph::SCoDA comm_algo;  /// Object initialized for SCoDA execution.  Does not actually maintain any state.
+			DerivedGraph* original_dg; /// DG created from initial dataset with the init() function.
 
-			inline RPGraph::DerivedGraphHyperEdge* get_current_hyper_edge() {
-				return hyper_edges.back();
-			}
+			inline RPGraph::DerivedGraphHyperEdge* get_current_hyper_edge() { return hyper_edges.back(); }
 
-			inline void _discard_hyper_edge() {
-				// TODO: Might also just delete them here.
-				__old_hyper_edges.push_back(hyper_edges.back()); // TODO: Testing
-				hyper_edges.pop_back(); // Erases, no return.
-			}
+			inline void _discard_hyper_edge() { /* TODO: Might also just delete them here. */ __old_hyper_edges.push_back(hyper_edges.back()); /*< TODO: Testing */ hyper_edges.pop_back(); /*< Erases, no return. */ }
 
 			RPGraph::GraphLayout* get_current_layout();
 			RPGraph::GraphLayout* get_previous_layout();
