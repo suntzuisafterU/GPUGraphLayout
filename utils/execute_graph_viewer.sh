@@ -2,7 +2,9 @@
 
 SCRIPT_NAME="$0"
 USAGE=$(cat << END_OF_MESSAGE 
-Usage: \n $SCRIPT_NAME -f <in file path> -o <out file path> [other options to override defaults]]
+Usage: 
+$SCRIPT_NAME -f <in file path> -o <out file path> [other options to override defaults]]
+    --default ) # Just run with all default args.
     -h | --help )
     -f ) INPATH
     -o ) OUTPATH
@@ -134,6 +136,9 @@ do op="$1"
       ;;
     -v )
       VERBOSE="TRUE"
+      shift
+      ;;
+    --default ) # do nothing (don't die)
       shift
       ;;
     * )
