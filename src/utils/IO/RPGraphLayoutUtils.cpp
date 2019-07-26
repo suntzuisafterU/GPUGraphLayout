@@ -113,9 +113,19 @@ namespace RPGraph {
 		}
 	}
 
+    void writeCommunityGraphToEdgelist(RPGraph::UGraph& graph, SCoDA_Report report, std::string outpath) {
+        std::ofstream outfile(outpath);
+        outfile << report;
+        // Iterate over edges.  Write to edgelist file.
+        for (RPGraph::contiguous_nid_t src_id = 0; src_id < graph.num_nodes(); src_id++) // Iterate over source nodes
+        {
+            for (RPGraph::contiguous_nid_t dst_id : graph.neighbors_with_geq_id(src_id)) // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger.
+            {
+                outfile << src_id << "\t" << dst_id << std::endl;
+            }
+        }
+    }
 
-	// std::cout << "About to close the layout file" << std::endl;
-	// layout_stream.close();
 //     /**
 //      * Do we have any use for writing to bin?
 //      */
