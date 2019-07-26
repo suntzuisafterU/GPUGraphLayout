@@ -138,8 +138,8 @@ int main(int argc, const char **argv) {
     // const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph/100));
     // const int full_iters = max_iterations - comm_iters;
     // call SCoDA, compress.
-    graph_viewer->compress();
-    std::cout << "GV::compress() works, if everything is intact here." << std::endl;
+    // graph_viewer->compress();
+    // std::cout << "GV::compress() works, if everything is intact here." << std::endl;
     graph_viewer->iterate_on_layout(max_iterations, true);
     std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
     graph_viewer->show(max_iterations, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
