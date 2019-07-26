@@ -7,7 +7,7 @@ $SCRIPT_NAME -f <in file path> -o <out file path> [other options to override def
     --default ) # Just run with all default args.
     -h | --help )
     -f ) INPATH
-    -o ) OUTPATH
+    -o ) OUTPATH_PREFIX # Will create a sub directory.
     --execution-mode ) [gpu|cpu]
     --gravity-type ) [wg|sg]
     -g | --gravity-strength )
