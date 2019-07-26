@@ -116,7 +116,7 @@ namespace RPGraph {
                                                     strong_gravity, gravity, scale, randomize, use_linlog);
                 else
                 #endif
-                    fa2 = new RPGraph::CPUForceAtlas2(*current_layout, approximate,
+                    fa2 = new RPGraph::CPUForceAtlas2(*current_layout, approximate, /// `*current_layout` simply passes by reference.
                                                     strong_gravity, gravity, scale, randomize, use_linlog);
 
                 const int snap_period = ceil((float)max_iterations/num_screenshots);
