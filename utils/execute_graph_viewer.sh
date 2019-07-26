@@ -8,8 +8,8 @@ EXECUTION_MODE="gpu"
 INPATH='../datasets/ca-AstroPh/out.ca-AstroPh'
 OUTPATH_PREFIX='../out/'
 GRAVITY='wg'
-F_G="Set_this_variable"
-F_R="Set_this_variable"
+F_G=2.0
+F_R=5.0
 NUM_ITERATIONS=500
 NUM_SNAPS=10
 LINLOG="regular"
@@ -85,6 +85,11 @@ do op="$1"
       ;;
     --output-format )
       OUTPUT_FORMAT="$2"
+      shift
+      shift
+      ;;
+    --csv )
+      OUTPUT_FORMAT="csv"
       shift
       shift
       ;;
