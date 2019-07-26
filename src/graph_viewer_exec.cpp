@@ -128,11 +128,15 @@ int main(int argc, const char **argv) {
 
     printf("Loading edgelist at '%s'...", edgelist_path);
     fflush(stdout);
-    graph_viewer->init();
+    graph_viewer->init(); // Required ?? since constructor would be to complex if it did all initialization.
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////// ONLY HERE TO KEEP OUTPUT SIMILAR TO ORIGINAL ////////////////////////////////////////
     RPGraph::UGraph* graph = graph_viewer->get_current_source_graph();
     printf("done.\n");
     printf("    fetched %d nodes and %d edges.\n", graph->num_nodes(), graph->num_edges());
     graph = nullptr;
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	std::cout << "GV::init() works" << std::endl;
 

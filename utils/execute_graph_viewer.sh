@@ -1,20 +1,20 @@
 #!/bin/bash
 
 SCRIPT_NAME="$0"
-USAGE="Usage: \n $SCRIPT_NAME -f <in file path> -o <out file path> [positional args (if any)]"
+USAGE="Usage: \n $SCRIPT_NAME -f <in file path> -o <out file path> [other options to override defaults]]"
 
 # defaults
 EXECUTION_MODE="gpu"
 INPATH='../datasets/ca-AstroPh/out.ca-AstroPh'
 OUTPATH_PREFIX='../out/'
 GRAVITY='wg'
-F_G="Set_this_variable"
-F_R="Set_this_variable"
+F_G=2.0
+F_R=5.0
 NUM_ITERATIONS=500
 NUM_SNAPS=10
 LINLOG="regular"
-PERCENT_ITERS_ON_COMM=50
-OUTFILE_PREFIX="_"
+PERCENT_ITERS_ON_COMM=55
+OUTFILE_PREFIX="default_outfile_prefix"
 HEIGHT=10000
 WIDTH=10000
 OUTPUT_FORMAT="png"
@@ -22,6 +22,10 @@ OUTPUT_FORMAT="png"
 while [[ $# -gt 0 ]]
 do op="$1"
   case $op in
+    -h | --help )
+      echo -e "$USAGE"
+      exit 0
+      ;;
     -f )
       INPATH="$2"
       shift # past -f
@@ -88,6 +92,10 @@ do op="$1"
       shift
       shift
       ;;
+    --csv )
+      OUTPUT_FORMAT="csv"
+      shift
+      ;;
     --annotate-path )
       ANNOTATION="$2"
       shift
@@ -95,6 +103,10 @@ do op="$1"
       ;;
     --clean )
       CLEAN="TRUE"
+      shift
+      ;;
+    --append )
+      APPEND="TRUE"
       shift
       ;;
     -v )
@@ -136,11 +148,14 @@ mkdir -p $OUTPATH
 # Check if directory is empty.  Clean it or exit.
 if [ "$(ls -A $OUTPATH)" ]; then
   echo "$OUTPATH is not empty. Handling..."
-  if [ "$CLEAN" ]; then
+  if [ "$APPEND" ]; then
+    echo "Appending to directory. May overwrite some files"
+    continue
+  elif [ "$CLEAN" ]; then
     echo "rm -f $OUTPATH*"
     rm -f "$OUTPATH*" 
   else
-    echo "Output directory is not empty and --clean was not specified"
+    echo "Output directory is not empty and --append or --clean was not specified"
     exit 1
   fi
 fi

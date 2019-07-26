@@ -55,7 +55,7 @@ namespace RPGraph {
 
             void GraphViewer::show(int iteration) {
                 std::string op(this->out_path);
-                // op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
+                op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
                 op.append(std::to_string(iteration)).append(".").append(this->out_format);
                 printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / this->max_iterations, out_format.c_str());
 
@@ -63,6 +63,7 @@ namespace RPGraph {
 
                 // if (out_format == "png")
                     writeToPNG(this->get_current_layout(), this->image_w, this->image_h, op);
+                // TODO: Add line for writing to csv? Or add function?
 
                 printf("done.\n"); // TODO: Remove after refactoring.
             }
@@ -115,7 +116,7 @@ namespace RPGraph {
                                                     strong_gravity, gravity, scale, randomize, use_linlog);
                 else
                 #endif
-                    fa2 = new RPGraph::CPUForceAtlas2(*current_layout, approximate,
+                    fa2 = new RPGraph::CPUForceAtlas2(*current_layout, approximate, /// `*current_layout` simply passes by reference.
                                                     strong_gravity, gravity, scale, randomize, use_linlog);
 
                 const int snap_period = ceil((float)max_iterations/num_screenshots);
@@ -244,8 +245,8 @@ namespace RPGraph {
 
                 for (const auto& nid_commid_pair : nid_comm_map) {
 					// The community graph is not complete.  We must check for community membership first.
-                    contiguous_nid_t node = nid_commid_pair.first;
-                    comm_id_t comm = nid_commid_pair.second; // TODO: IMPORTANT: MAJOR BUG TRACKED TO HERE.  VALUES OF nid_comm_map do not appear to be extracted correctly, OR they are not correct to begin with.
+                    contiguous_nid_t node = nid_commid_pair.first; // node is contiguous to the full_layouts associated graph.
+                    comm_id_t comm = nid_commid_pair.second;
 					Coordinate comm_coordinate = comm_layout->getCoordinateFromCommNode(comm);
                     full_layout->setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }

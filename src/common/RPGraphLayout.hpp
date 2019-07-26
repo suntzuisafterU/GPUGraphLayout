@@ -58,13 +58,15 @@ namespace RPGraph
         float getDistance(contiguous_nid_t n1, contiguous_nid_t n2);
         Real2DVector getDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
         Real2DVector getNormalizedDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
-        Coordinate getCoordinate(contiguous_nid_t node_id) const;
+        Coordinate getCoordinate(contiguous_nid_t node_id) const; // TODO: Refactor to getCoordinateFromContig
 		Coordinate getCoordinateFromCommNode(comm_id_t node_id) const;
         Coordinate getCenter();
 
+        // TODO: Make as many methods private as possible.
         void setX(contiguous_nid_t node_id, float x_value), setY(contiguous_nid_t node_id, float y_value);
         void moveNode(contiguous_nid_t , Real2DVector v);
-        void setCoordinates(contiguous_nid_t node_id, Coordinate c);
+        void setCoordinates(contiguous_nid_t node_id, Coordinate c); // TODO: Refactor to setCoordinatesFromContig
+        // void setCoordinatesFromContig(contiguous_nid_t node_id, Coordinate c);
     };
 }
 
