@@ -1,0 +1,1 @@
+./execute_graph_viewer.sh --execution-mode gpu --append -f ../datasets/ca-AstroPh/out.ca-AstroPh -o ../out/pipeline_output_tests/ -v -r 3.0 -g 1.0 --num-iters 500 --num-snaps 1 --percent-comm 55 --annotate-path "pipeline_output_test" --outfile-prefix "same_as_original" --pixels 10000 10000
