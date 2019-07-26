@@ -13,7 +13,7 @@ F_R=5.0
 NUM_ITERATIONS=500
 NUM_SNAPS=10
 LINLOG="regular"
-PERCENT_ITERS_ON_COMM=50
+PERCENT_ITERS_ON_COMM=55
 OUTFILE_PREFIX="default_outfile_prefix"
 HEIGHT=10000
 WIDTH=10000
@@ -95,7 +95,6 @@ do op="$1"
     --csv )
       OUTPUT_FORMAT="csv"
       shift
-      shift
       ;;
     --annotate-path )
       ANNOTATION="$2"
@@ -104,6 +103,10 @@ do op="$1"
       ;;
     --clean )
       CLEAN="TRUE"
+      shift
+      ;;
+    --append )
+      APPEND="TRUE"
       shift
       ;;
     -v )
@@ -145,11 +148,14 @@ mkdir -p $OUTPATH
 # Check if directory is empty.  Clean it or exit.
 if [ "$(ls -A $OUTPATH)" ]; then
   echo "$OUTPATH is not empty. Handling..."
-  if [ "$CLEAN" ]; then
+  if [ "$APPEND" ]; then
+    echo "Appending to directory. May overwrite some files"
+    continue
+  elif [ "$CLEAN" ]; then
     echo "rm -f $OUTPATH*"
     rm -f "$OUTPATH*" 
   else
-    echo "Output directory is not empty and --clean was not specified"
+    echo "Output directory is not empty and --append or --clean was not specified"
     exit 1
   fi
 fi

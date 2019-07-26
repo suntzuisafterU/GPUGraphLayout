@@ -55,7 +55,7 @@ namespace RPGraph {
 
             void GraphViewer::show(int iteration) {
                 std::string op(this->out_path);
-                // op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
+                op.append("/").append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
                 op.append(std::to_string(iteration)).append(".").append(this->out_format);
                 printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100 * (float)iteration / this->max_iterations, out_format.c_str());
 
