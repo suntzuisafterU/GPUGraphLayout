@@ -15,12 +15,14 @@
 **/*.vscode
 SCoDA_GPU_FULL.code-workspace
 
+## sym links and builds
+**/graph_viewer_exec
+**/scoda_exec
+**/stress_exec
+**/all_pairs_exec
+
 ## Build generated
 build/
-builds/linux/graph_viewer_exec
-builds/linux/scoda_exec
-builds/linux/stress_exec
-builds/linux/all_pairs_exec
 builds/linux/.depend
 out/
 DerivedData/
