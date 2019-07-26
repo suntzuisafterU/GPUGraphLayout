@@ -63,6 +63,7 @@ namespace RPGraph {
 
                 // if (out_format == "png")
                     writeToPNG(this->get_current_layout(), this->image_w, this->image_h, op);
+                // TODO: Add line for writing to csv? Or add function?
 
                 printf("done.\n"); // TODO: Remove after refactoring.
             }
@@ -244,8 +245,8 @@ namespace RPGraph {
 
                 for (const auto& nid_commid_pair : nid_comm_map) {
 					// The community graph is not complete.  We must check for community membership first.
-                    contiguous_nid_t node = nid_commid_pair.first;
-                    comm_id_t comm = nid_commid_pair.second; // TODO: IMPORTANT: MAJOR BUG TRACKED TO HERE.  VALUES OF nid_comm_map do not appear to be extracted correctly, OR they are not correct to begin with.
+                    contiguous_nid_t node = nid_commid_pair.first; // node is contiguous to the full_layouts associated graph.
+                    comm_id_t comm = nid_commid_pair.second;
 					Coordinate comm_coordinate = comm_layout->getCoordinateFromCommNode(comm);
                     full_layout->setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }
