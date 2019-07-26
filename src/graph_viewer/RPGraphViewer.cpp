@@ -148,11 +148,11 @@ namespace RPGraph {
 			GraphLayout* GraphViewer::get_current_layout() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
-					return this->original_dg->layout_ptr;
+					return this->original_dg->get_layout();
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
-					return dghe->result_dg->layout_ptr;
+					return dghe->result_dg->get_layout();
                 }
 			}
 
@@ -162,7 +162,7 @@ namespace RPGraph {
 				}
 				else {
 					DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
-					return dghe->source_dg->layout_ptr;
+					return dghe->source_dg->get_layout();
 				}
 			}
 

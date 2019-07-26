@@ -165,7 +165,7 @@ namespace RPGraph
      * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
 	 * See `getCoordinateFromCommNode(comm_id_t)`
      */
-    Coordinate GraphLayout::getCoordinate(contiguous_nid_t node_id) const
+    Coordinate GraphLayout::getCoordinateFromContig(contiguous_nid_t node_id) const
     {
         return coordinates[node_id];
     }

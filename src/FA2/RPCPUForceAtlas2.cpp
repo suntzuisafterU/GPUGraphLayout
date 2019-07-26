@@ -97,7 +97,7 @@ namespace RPGraph
         // Approximation, O(log n), dependent on theta.
         if (use_barneshut)
         {
-            forces[n] += (BH_Approximator.approximateForce(layout.getCoordinate(n), mass(n), theta) * k_r);
+            forces[n] += (BH_Approximator.approximateForce(layout.getCoordinateFromContig(n), mass(n), theta) * k_r);
         }
 
 		// Exact, O(n) (n^2 to calculate for all nodes)
@@ -250,7 +250,7 @@ namespace RPGraph
 
         for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
-            BH_Approximator.insertParticle(layout.getCoordinate(n),
+            BH_Approximator.insertParticle(layout.getCoordinateFromContig(n),
                                            layout.graph.degree(n)+1); // TODO: Conversion from uint32_t to float, analyze.
         }
     }

@@ -51,7 +51,7 @@ namespace RPGraph
     }
 
 	bool operator== (UGraph& lhs, UGraph& rhs) {
-		return lhs.num_edges() == rhs.num_edges() && lhs.num_nodes() == rhs.num_nodes() && lhs.dataset_source() == rhs.dataset_source();
+		return lhs.num_edges() == rhs.num_edges() && lhs.num_nodes() == rhs.num_nodes() && lhs.get_dataset_source() == rhs.get_dataset_source();
 	}
 
     UGraph::~UGraph() = default;
@@ -152,7 +152,7 @@ namespace RPGraph
         return edge_count;
     }
 
-	std::string UGraph::dataset_source() const {
+	std::string UGraph::get_dataset_source() const {
 		return dataset_source;
 	}
 

@@ -16,7 +16,7 @@ namespace RPGraph {
 
 	PairwiseLayoutReport computePairwiseCoordinateError(GraphLayout& correct_layout, GraphLayout& community_expanded_layout) {
 		/* Ensure layouts are from the same graph. */
-		if (correct_layout.graph != community_expanded_layout.graph) {
+		if (!(correct_layout.graph == community_expanded_layout.graph)) {
 			std::cout << "ERROR: Trying to compare layouts of different graphs!!" << std::endl;
 			exit(EXIT_FAILURE);
 		}
@@ -43,7 +43,7 @@ namespace RPGraph {
 
 		/* In report, consider the size of the layout. Also compute the RMSE. */
 		PairwiseLayoutReport report = {
-			correct_layout.graph.dataset_source(),
+			correct_layout.graph.get_dataset_source(),
 			N,
 			total_error,
 			average_error,

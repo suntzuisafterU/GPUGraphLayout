@@ -66,7 +66,7 @@ namespace RPGraph
 
         virtual uint32_t num_nodes() const override; /// Use uint32_t to increase the range we can support.
         virtual uint32_t num_edges() const override;
-		std::string dataset_source() const;
+		std::string get_dataset_source() const;
         virtual uint32_t degree(contiguous_nid_t nid);
 
 		const std::unordered_map <contiguous_nid_t, uint32_t> get_degrees() const; /// Allow const access to degrees map.
