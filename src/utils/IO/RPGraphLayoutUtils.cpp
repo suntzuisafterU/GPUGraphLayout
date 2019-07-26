@@ -1,7 +1,6 @@
 #include "RPGraphLayoutUtils.hpp"
 
 #include <sstream>
-#include <fstream>
 
 namespace RPGraph {
     /**
@@ -73,7 +72,7 @@ namespace RPGraph {
      }
  
 
-    void readFromCSV(RPGraph::GraphLayout& layout, std::string layout_path) {
+     void readFromCSV(RPGraph::GraphLayout& layout, std::string layout_path) {
 		std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
 		// TODO: Read layout file and update all coordinates in layout.
 		std::ifstream layout_stream;

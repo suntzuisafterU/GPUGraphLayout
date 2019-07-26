@@ -1,6 +1,7 @@
 #ifndef RPGraphLayoutUtils_hpp
 #define RPGraphLayoutUtils_hpp
 
+#include <fstream>
 #include <string>
 
 #include "../../common/RPGraphLayout.hpp"
@@ -10,7 +11,7 @@
 namespace RPGraph {
     void writeToPNG(RPGraph::GraphLayout* layout, const int image_w, const int image_h, std::string path);
     void writeToCSV(RPGraph::GraphLayout* layout, std::string path);
-    void readFromCSV(RPGraph::GraphLayout& layout, std::string path);
+    void readFromCSV(RPGraph::GraphLayout& layout, std::string layout_path);
     // void writeToBin(RPGraph::GraphLayout* layout, std::string path);
 } // namespace RPGraph
 
