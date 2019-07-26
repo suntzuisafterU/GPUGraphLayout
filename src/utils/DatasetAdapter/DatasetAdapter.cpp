@@ -16,15 +16,15 @@ namespace RPGraph
 	 *   da >> src >> dst; // Reads nid_t from file and inserts mapped values into src and dst.
 	 */
 	std::istream& operator>> (std::istream& stream, DatasetAdapter& da) {
-		nid_t node_id;
-		da.file_stream >> node_id; // TODO: ERROR, no file_stream member in dataset adapter!
+		// nid_t node_id;
+		// da.file_stream >> node_id; // TODO: ERROR, no file_stream member in dataset adapter!
 
-		// NOTE: The internal class does not have special access to this pointer.  Does it have access to functions?j
-		// If nodes not already mapped, then add them to the map. Otherwise read map.
-		contiguous_nid_t contig_node_id = !membership(node_id) ? add_to_maps(node_id) : translate_nidt(node_id); // TODO: Scoping??
+		// // NOTE: The internal class does not have special access to this pointer.  Does it have access to functions?j
+		// // If nodes not already mapped, then add them to the map. Otherwise read map.
+		// contiguous_nid_t contig_node_id = !membership(node_id) ? add_to_maps(node_id) : translate_nidt(node_id); // TODO: Scoping??
 
-		stream>> node_id; // TODO: How do we insert something into the input stream??
-		return stream;
+		// stream>> node_id; // TODO: How do we insert something into the input stream??
+		// return stream;
 	}
 
 

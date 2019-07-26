@@ -18,6 +18,11 @@ namespace RPGraph {
     // TODO: What is the range of this unsigned integer type? Implement safety checks in the appropriate places to avoid uint overflow.
     typedef uint32_t nid_t;
 
+    /**
+     * This class was supposed to fix all of the potential errors that arrize from mapping and remapping node and community ids.
+     * 
+     * This would be extremely valuable if it were implemented correctly, but this is non-trivial and I have abandoned it for now.
+     */
     class DatasetAdapter {
         public:
             /**
@@ -43,11 +48,11 @@ namespace RPGraph {
             std::unordered_map<nid_t, contiguous_nid_t> nid_to_contig; /// For input.
             std::unordered_map<contiguous_nid_t, nid_t> contig_to_nid; /// For output. TODO: Swap with vector after testing.
 
-		inline contiguous_nid_t DatasetAdapter::translate_nid(const nid_t node_id) {
+		inline contiguous_nid_t translate_nid(const nid_t node_id) {
 			return this->nid_to_contig[node_id];
 		}
 
-		inline nid_t DatasetAdapter::translate_contig(const contiguous_nid_t node_id) {
+		inline nid_t translate_contig(const contiguous_nid_t node_id) {
 			return this->contig_to_nid[node_id];
 		}
     };
