@@ -49,6 +49,10 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
             uint32_t src_deg = degrees[src_id];
             uint32_t dst_deg = degrees[dst_id];
 
+            // Potential future work: SCoDA produces a disjoint partition with a large number of communities.  Could it be modified to produce a smaller number of larger communities?
+            //                        This would be much more useful for visualizing very large networks.
+            //   NOTE: The degree_threshold parameter would have to be investigated.  It could potentially be higher in this case and still give good results.
+            //         It probably wouldn't be optimized by the exact same degree parameter as the original.
             // This is the modification I am interested in testing:
             // if( src_deg <= degree_threshold || dst_deg <= degree_threshold )
             if (src_deg <= degree_threshold && dst_deg <= degree_threshold)
@@ -84,8 +88,6 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
 
             // a) detect static community edges.
 
-            // TODO: Try > and >=, (>= will mean that if both nodes have degree=degree_threshold then we will move
-            //       communities AND add a community connecting edge at the same time.  Probably undesireable.)
             else if (src_deg >= degree_threshold && dst_deg >= degree_threshold &&  /// IMPORTANT: Changed to >= since these communities are also static.  If another edge from either of these come, then they will not move.
 					COMMUNITY_OF(src_id) != COMMUNITY_OF(dst_id)) // IMPORTANT: Avoid adding self edges to comm_graph.  TODO: Testing.
             {
