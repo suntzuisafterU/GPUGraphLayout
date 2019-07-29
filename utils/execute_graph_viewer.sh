@@ -20,6 +20,7 @@ $SCRIPT_NAME -f <in file path> -o <out file path> [other options to override def
     --pixels ) [width height]
     --output-format ) only png maters.
     --annotate-path ) # more book keeping.
+    --debug ) # run with gdb --args 
     --clean ) # cleans output dir if not empty.
     --append ) # appends to output dir if not empty.
     -v ) # verbose
@@ -134,6 +135,10 @@ do op="$1"
       APPEND="TRUE"
       shift
       ;;
+    --debug )
+      DEBUG="TRUE"
+      shift
+      ;;
     -v )
       VERBOSE="TRUE"
       shift
@@ -178,7 +183,6 @@ if [ "$(ls -A $OUTPATH)" ]; then
   echo -ne "$OUTPATH is not empty. \nHandling...\n"
   if [ "$APPEND" ]; then
     echo "Appending to directory. May overwrite some files"
-    continue
   elif [ "$CLEAN" ]; then
     echo "Cleaning"
     echo "rm -f $OUTPATH*"
@@ -189,21 +193,16 @@ if [ "$(ls -A $OUTPATH)" ]; then
   fi
 fi
 
-if [ "$ORIGINAL" ] && [ "$EXECUTABLE" ]; then
-  if [ "$VERBOSE" ]; then
-    echo "$EXECUTABLE $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
-  fi
+# TODO: TEMPORARY to see if we can use multiple devices on our kepler machines that have 3 discrete GPUs
+# export CUDA_VISIBLE_DEVICES=0,1,2 # doesn't seem to do anything
 
-  "$EXECUTABLE" "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
+if [ "$DEBUG" ]; then
+  echo "gdb --args ../builds/linux/graph_viewer_exec $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
 
+  gdb --args ../builds/linux/graph_viewer_exec "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
 else
-  if [ "$VERBOSE" ]; then
-    echo "../builds/linux/graph_viewer_exec $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
-  fi
-
+  echo "../builds/linux/graph_viewer_exec $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
 
   ../builds/linux/graph_viewer_exec "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
 fi
-
-
 
