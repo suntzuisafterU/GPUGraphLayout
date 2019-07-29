@@ -36,14 +36,14 @@ namespace RPGraph
     Graph::~Graph() = default;
 
 	UGraph::UGraph() {
-        std::cout<< "in UGraph() " << std::endl;
+        // std::cout<< "in UGraph() " << std::endl;
         node_count = 0;
         edge_count = 0;
 		dataset_source = "Unknown_probably_community_graph";
     }
 
     UGraph::UGraph(std::string edgelist_path) {
-        std::cout<< "in UGraph::UGraph(std::string edgelist_path) " << std::endl;
+        // std::cout<< "in UGraph::UGraph(std::string edgelist_path) " << std::endl;
         node_count = 0;
         edge_count = 0;
 		dataset_source = edgelist_path;

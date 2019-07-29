@@ -200,6 +200,7 @@ namespace RPGraph {
             }
 
             void GraphViewer::compress() {
+                std::cout << "Compressing with SCoDA..." << std::endl;
                 // Create new comm_map and graph, add each to container.
 				UGraph* source_graph = get_current_source_graph(); // TODO: BUG: This does not return the correct value. It returns an invalid UG object.
 				// TODO: Will have to create a container for all the maps, reports, etc.
@@ -225,6 +226,7 @@ namespace RPGraph {
 					nid_comm_map, // Map passed by value.
 					result_derived_graph,
 					hyper_edge_reports)); // reports passed by value.
+                std::cout << "Finished compressing." << std::endl;
             }
 
             /**
@@ -232,6 +234,7 @@ namespace RPGraph {
             *   Use setCoordinates(node_id, coordinate(x,y)); to expand the community layout to a full graph layout.
             */
             void GraphViewer::expand() {
+                std::cout << "Expanding community layout back into source layout." << std::endl;
 				// Check for expandability.
 				if (hyper_edges.size() == 0) throw "Error: No hyper edges to expand.";
 
@@ -249,6 +252,7 @@ namespace RPGraph {
                     full_layout->setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }
 				_discard_hyper_edge();
+                std::cout << "Finished expanding." << std::endl;
             }
 
 } // namespace RPGraph
