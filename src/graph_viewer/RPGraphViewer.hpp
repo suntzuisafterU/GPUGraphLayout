@@ -39,7 +39,7 @@ namespace RPGraph {
 
 	public:
 		explicit DerivedGraph(RPGraph::UGraph* ug) {
-            std::cout<< "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
+            // std::cout << "In: explicit DerivedGraph(RPGraph::UGraph& ug) : layout{ ug } {" << std::endl;
 			graph_ptr = ug;
 			layout_ptr = new GraphLayout(*ug); // Passed by reference.
             
@@ -83,7 +83,7 @@ namespace RPGraph {
                 result_dg { rg },
                 reports { reports }
                  {
-                    std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :" << std::endl;
+                    // std::cout<< "In: DerivedGraphHyperEdge(RPGraph::DerivedGraph& sg, const RPGraph::nid_comm_map_t nid_comm_map, RPGraph::UGraph& rg, HyperEdgeReports& reports) :" << std::endl;
                  };
 
 		~DerivedGraphHyperEdge() {
@@ -143,9 +143,9 @@ namespace RPGraph {
             GraphViewer(const GraphViewer& other) = delete;
             GraphViewer & operator=(const GraphViewer& other) = delete;
             void init();
-            void show(int iter, const char* explain); /**< Display or print data, depends on output method. */
+            void show(int iter, std::string explain); /**< Display or print data, depends on output method. Always produce csv, if specified produce png. */
             void iterate_on_layout(int num_iters, bool randomize);
-            void iterate_and_periodically_show(); // TODO: Reorganize GVs concept of state.
+            void iterate_and_periodically_show(int num_iters, bool randomize, std::string explain) ; // TODO: Reorganize GVs concept of state.
 
 			RPGraph::UGraph* get_current_source_graph(); // TODO: Temp, move back to private?
 

@@ -53,16 +53,18 @@ namespace RPGraph {
 				this-> original_dg = new DerivedGraph(graph_ptr);
             }
 
-            void GraphViewer::show(int iteration, const char* explain) {
-                std::cout << "Showing... ";
+            void GraphViewer::show(int iteration, std::string explain) {
+                std::cout << "Showing... " << std::flush;
                 std::string png_path(this->out_path);
                 std::string csv_path(this->out_path);
-                png_path.append("/").append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
-                csv_path.append("/").append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append("csv");
+                if(png_path.back() != '/') png_path.append("/"); 
+                if(csv_path.back() != '/') csv_path.append("/");
+                png_path.append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
+                csv_path.append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append("csv");
                 // png_path.append(std::to_string(iteration)).append(".").append(this->out_format); /* Use this if you have errors with the line above for some reason. */
 
-                if (this->out_format == "png" ) writeToPNG(this->get_current_layout(), this->image_w, this->image_h, png_path);
                 writeToCSV(this->get_current_layout(), csv_path); /* Always write a CSV, sometimes don't write a png. */
+                if (this->out_format == "png" ) writeToPNG(this->get_current_layout(), this->image_w, this->image_h, png_path);
                 std::cout << "done." << std::endl;
             }
 
@@ -100,12 +102,10 @@ namespace RPGraph {
             /**
              *  Mimics behaviour of original graph_viewer, but handles files a bit differently.
              */
-            void GraphViewer::iterate_and_periodically_show() {
+            void GraphViewer::iterate_and_periodically_show(int num_iters, bool randomize, std::string explain) {
                 // Create the GraphLayout and ForceAtlas2 objects.
                 GraphLayout* current_layout = get_current_layout(); // TODO: IS THIS HOW WE WANT TO DO THIS??
                 RPGraph::ForceAtlas2* fa2;
-
-                bool randomize = true;
 
                 #ifdef __NVCC__
                 if(cuda_requested)
@@ -117,22 +117,24 @@ namespace RPGraph {
                     fa2 = new RPGraph::CPUForceAtlas2(*current_layout, approximate, /// `*current_layout` simply passes by reference.
                                                     strong_gravity, gravity, scale, randomize, use_linlog);
 
-                const int snap_period = ceil((float)max_iterations/num_screenshots);
-                const int print_period = ceil((float)max_iterations*0.05);
+                const int snap_period = ceil((float)num_iters/num_screenshots);
+                const int print_period = ceil((float)num_iters*0.05);
 
-                for (int iteration = 1; iteration <= max_iterations; ++iteration)
+                for (int iteration = 1; iteration <=num_iters; ++iteration)
                 {
-                    // Show starting layout.
-                    fa2->sync_layout();
-                    show(iteration, "OLDSTYLE_LAYOUT_LOOP_INITIAL_LAYOUT");
                     fa2->doStep();
                     // If we need to, write the result to a png
-                    if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
+                    if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == num_iters 
+                            || iteration == 1))
                     {
-                        fa2->sync_layout();
-                        show(iteration, "OLDSTYLE_LAYOUT_LOOP");
-
-                        printf("done.\n");
+                        if(iteration == 1) {
+                            // Showing initial layout.  NOTE: Layout can not be shown before at least one iteration for some reason, the sync_layout() function fails to terminate and I am assuming that the first step of fa2->do_step() does some form of initialization.
+                            fa2->sync_layout();
+                            show(iteration, explain.append("_INITIAL_LAYOUT"));
+                        } else { // NOTE: The nested conditional statement is required since the condition (iteration % snap_period == 0) could be true for a snap period of 1.
+                            fa2->sync_layout();
+                            show(iteration, explain);
+                        }
                     }
 
                     // Else we print (if we need to)
