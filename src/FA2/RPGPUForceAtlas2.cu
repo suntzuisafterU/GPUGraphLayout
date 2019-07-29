@@ -42,17 +42,6 @@ namespace RPGraph
                                      float scale, bool randomize, bool use_linlog)
     : ForceAtlas2(layout, use_barneshut, strong_gravity, gravity, scale, randomize, use_linlog)
     {
-        /**
-         * Device count refers to how many discrete GPUs are available.
-         */
-        int deviceCount;
-        cudaGetDeviceCount(&deviceCount);
-        if (deviceCount == 0)
-        {
-            fprintf(stderr, "error: No CUDA devices found.\n");
-            exit(EXIT_FAILURE);
-        }
-
         // Host initialization and setup //
         nbodies = layout.graph.num_nodes();
         nedges  = layout.graph.num_edges();
@@ -94,9 +83,28 @@ namespace RPGraph
             }
         }
 
+        /**
+         * Device count refers to how many discrete GPUs are available.
+         */
+        int deviceCount;
+        cudaGetDeviceCount(&deviceCount);
+        fprintf(stderr, "Found %d cuda devices.\n", deviceCount);
+        if (deviceCount == 0)
+        {
+            fprintf(stderr, "error: No CUDA devices found.\n");
+            exit(EXIT_FAILURE);
+        }
+
         // GPU initialization and setup //
+        int deviceToUse = 1; // Specify the device number you want to use as shown by `nvidia-smi`, kindof.  For us nvidia-smi #2 is device 1 here, so we are using device #2.
+        if (deviceCount < deviceToUse+1)
+        {
+            fprintf(stderr, "error: We have \n");
+            exit(EXIT_FAILURE);
+        }
+        cudaSetDevice(deviceToUse);
         cudaDeviceProp deviceProp;
-        cudaGetDeviceProperties(&deviceProp, 0);
+        cudaGetDeviceProperties(&deviceProp, deviceToUse);
 
         if (deviceProp.warpSize != WARPSIZE)
         {
