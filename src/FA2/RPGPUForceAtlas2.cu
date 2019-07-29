@@ -99,7 +99,7 @@ namespace RPGraph
         int deviceToUse = 1; // Specify the device number you want to use as shown by `nvidia-smi`, kindof.  For us nvidia-smi #2 is device 1 here, so we are using device #2.
         if (deviceCount < deviceToUse+1)
         {
-            fprintf(stderr, "error: We have \n");
+            fprintf(stderr, "error: We have requested using a GPU that does not exist. \nPlease change `int deviceToUse = ?` in RPGPUForceAtlas2.cu to a valid device number. \nIf you only have one GPU this should be set to 0. 0 is always a valid GPU specifier. \nIf you have multiple then check the output of `nvidia-smi` from the command line.\n");
             exit(EXIT_FAILURE);
         }
         cudaSetDevice(deviceToUse);
