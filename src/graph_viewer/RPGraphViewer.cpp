@@ -122,6 +122,9 @@ namespace RPGraph {
 
                 for (int iteration = 1; iteration <= max_iterations; ++iteration)
                 {
+                    // Show starting layout.
+                    fa2->sync_layout();
+                    show(iteration, "OLDSTYLE_LAYOUT_LOOP_INITIAL_LAYOUT");
                     fa2->doStep();
                     // If we need to, write the result to a png
                     if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
