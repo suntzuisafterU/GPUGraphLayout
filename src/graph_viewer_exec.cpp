@@ -145,11 +145,13 @@ int main(int argc, const char **argv) {
         graph_viewer->compress(); /* Verify compress works. */
         std::cout << "GV::compress() works, if everything is intact here." << std::endl;
 
+        graph_viewr->show(1, "COMPRESS_AND_SHOW_COMM_GRAPH_INITIAL_LAYOUT");
+
         graph_viewer->iterate_on_layout(max_iterations, true);
         std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
         // graph_viewer->show(max_iterations, "TEST_FULL_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
 
-        graph_viewer->show(max_iterations, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
+        graph_viewer->show(max_iterations, "COMPRESS_AND_SHOW_COMM_GRAPH_FINAL_LAYOUT"); /* TODO: Verify that community graph is laid out correctly. */
         std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
     };
 
@@ -166,24 +168,25 @@ int main(int argc, const char **argv) {
         graph_viewer->iterate_on_layout(comm_iters, true);
         std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
 
-        graph_viewer->show(comm_iters, "COMMUNITY_GRAPH"); /* TODO: Verify that community graph is laid out correctly. */
+        graph_viewer->show(comm_iters, "FULL_PIPELINE_COMM_LAYOUT_AFTER_ITERATION_PRE_EXPANSION"); /* TODO: Verify that community graph is laid out correctly. */
         std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
 
         graph_viewer->expand(); // Back to original graph
         std::cout << "GV::expand() works, if everything is intact here." << std::endl;
 
-        graph_viewer->show(comm_iters+1, "IMPORTANT_AFTER_EXPANSION_WITHOUT_ITERATION");
+        graph_viewer->show(comm_iters+1, "FULL_PIPELIN_POST_EXPANSION_FULL_LAYOUT");
         std::cout << "GV::show() of initial layout after expansion. " << std::endl;
 
         graph_viewer->iterate_on_layout(full_iters, false); // false for randomization.
         std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
 
-        graph_viewer->show(full_iters, "FINAL_FULL_PIPELINE_OUTPUT");
+        graph_viewer->show(full_iters, "FULL_PIPELINE_FINAL_LAYOUT");
         std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
     };
 
     like_original();
 
+    // TODO: Implement this type of showing only with more explanitory file names, for example initial, and half way, and final.
     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
     // {
     //     graph_viewer->show(iteration); // TODO: Refactor
