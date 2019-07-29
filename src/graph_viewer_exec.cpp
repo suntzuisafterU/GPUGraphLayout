@@ -137,7 +137,7 @@ int main(int argc, const char **argv) {
         std::cout << "Finished with simplified GV script.\n" << std::endl;
     };
 
-    auto compress_and_show_comm_graph = [&] () { /* TODO: Verify. */
+    auto compress_and_show_comm_graph = [&] () { /* Verified. */
         std::cout << "In lambda: compress_and_show_comm_graph " << std::endl;
         graph_viewer->init();
 
@@ -161,23 +161,16 @@ int main(int argc, const char **argv) {
         graph_viewer->compress(); /* Verify compress works. */
         std::cout << "GV::compress() works, if everything is intact here." << std::endl;
 
-        graph_viewer->iterate_on_layout(comm_iters, true);
-        std::cout << "GV::iterate_on_layout() works on community graph, if everything is intact here." << std::endl;
-
-        graph_viewer->show(comm_iters, "FULL_PIPELINE_COMM_LAYOUT_AFTER_ITERATION_PRE_EXPANSION"); /* TODO: Verify that community graph is laid out correctly. */
-        std::cout << "GV::show() works on community graph, if everything is intact here." << std::endl;
+        graph_viewer->iterate_and_periodically_show(comm_iters, true, "FULL_PIPELINE_COMM_LAYOUT_AFTER_ITERATION_PRE_EXPANSION");
+        std::cout << "GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here." << std::endl;
 
         graph_viewer->expand(); // Back to original graph
         std::cout << "GV::expand() works, if everything is intact here." << std::endl;
 
-        graph_viewer->show(comm_iters+1, "FULL_PIPELIN_POST_EXPANSION_FULL_LAYOUT"); // TODO: Verify that this is a valid state to show the layout in.
-        std::cout << "GV::show() of initial layout after expansion. " << std::endl;
+        graph_viewer->iterate_and_periodically_show(full_iters, false, "FULL_PIPELINE_POST_EXPANSION_FULL_LAYOUT");
+        std::cout << "GV::iterate_and_periodically_show works on expanded layout, if everything is intact here." << std::endl;
 
-        graph_viewer->iterate_on_layout(full_iters, false); // false for randomization.
-        std::cout << "GV::iterate_on_layout() works after expansion, if everything is intact here." << std::endl;
-
-        graph_viewer->show(full_iters, "FULL_PIPELINE_FINAL_LAYOUT");
-        std::cout << "GV::show() works after expansion, if everything is intact here." << std::endl;
+        std::cout << "Finished lambda: full_scoda_pipeline" << std::endl;
     };
 
     // like_original();
