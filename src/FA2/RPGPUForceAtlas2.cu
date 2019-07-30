@@ -59,10 +59,9 @@ namespace RPGraph
         fx_prev  = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
         fy_prev  = (float *)malloc(sizeof(float) * layout.graph.num_nodes());
 
-		// TODO: Why not just use memset?
         for (contiguous_nid_t n = 0; n < layout.graph.num_nodes(); ++n)
         {
-            body_pos[n] = {layout.getX(n), layout.getY(n)}; /// What type of initialization is this?
+            body_pos[n] = {layout.getX(n), layout.getY(n)}; /// Uniform initialization.  Allows a layout with pre-set locations to be used.  For example random.
             body_mass[n] = ForceAtlas2::mass(n);
             fx[n] = 0.0;
             fy[n] = 0.0;
@@ -285,9 +284,7 @@ namespace RPGraph
     }
 
 	/**
-	 * When is sync_layout() called?
-	 * 
-	 * This is host code, not implemented as a kernel.
+	 * Copies the modified layout back from the GPU.  Incures memory move overhead.
 	 */
     void CUDAForceAtlas2::sync_layout()
     {
