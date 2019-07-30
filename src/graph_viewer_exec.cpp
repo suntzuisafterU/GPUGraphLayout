@@ -151,7 +151,7 @@ int main(int argc, const char **argv) {
         std::cout << "Finished compress_and_show_comm_graph.\n" << std::endl;
     };
 
-    auto full_scoda_pipeline = [&] () { /* TODO: Verify. */
+    auto full_scoda_pipeline = [&] () { /* Verified. */
         std::cout << "In lambda: full_scoda_pipeline" << std::endl;
         graph_viewer->init();
         const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph));
@@ -174,9 +174,41 @@ int main(int argc, const char **argv) {
         std::cout << "Finished lambda: full_scoda_pipeline" << std::endl;
     };
 
+    auto full_with_stacked_compression= [&] () { /* TODO: Verify. */
+        std::cout << "In lambda: full_with_stacked_compression" << std::endl;
+        graph_viewer->init();
+        const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph));
+        const int full_iters = max_iterations - comm_iters;
+        std::cout << "comm_iters: " << comm_iters << ", full_iters: " << full_iters << "\nFrom max_iterations: " << max_iterations << ", and percentage_iterations_on_comm_graph" << percentage_iterations_on_comm_graph << std::endl;
+
+        // call SCoDA, compress.
+        graph_viewer->compress();
+        std::cout << "GV::compress() works, if everything is intact here." << std::endl;
+        
+        std::cout << "Testing stacked call to compress" << std::endl;
+        graph_viewer->compress(); // TODO: BUG HERE, we ended up running SCoDA on the original_dg twice.  The stack is not working properly.
+        std::cout << "Finished stacked compress call" << std::endl;
+
+        graph_viewer->iterate_and_periodically_show(comm_iters, true, "FULL_WITH_STACKED_MOST_COMPRESSED_COMM");
+        std::cout << "GV::iterate_and_periodically_show() works on most compressed layout, if everything is intact here." << std::endl;
+
+        graph_viewer->expand(); // Back to original graph
+        
+        graph_viewer->iterate_and_periodically_show(comm_iters, false, "FULL_WITH_STACKED_INTERMEDIATE_COMM_AFTER_EXPANSION");
+        std::cout << "GV::iterate_and_periodically_show() works on intermediate compressed layout, if everything is intact here." << std::endl;
+
+        graph_viewer->expand();
+
+        graph_viewer->iterate_and_periodically_show(full_iters, false, "FULL_WITH_STACKED_FINAL_LAYOUT");
+        std::cout << "GV::iterate_and_periodically_show works on expanded layout, if everything is intact here." << std::endl;
+
+        std::cout << "Finished lambda: full_with_stacked_compression" << std::endl;
+    };
+
     // like_original();
     // compress_and_show_comm_graph();
-    full_scoda_pipeline();
+    // full_scoda_pipeline();
+    full_with_stacked_compression();
 
     // TODO: Implement this type of showing only with more explanitory file names, for example initial, and half way, and final.
     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))

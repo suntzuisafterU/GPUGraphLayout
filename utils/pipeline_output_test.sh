@@ -1,4 +1,4 @@
-REASON=VERIFY_FULL_PIPELINE
+REASON=VERIFY_STACKED_COMPRESSION
 IN=../datasets/ca-AstroPh/out.ca-AstroPh
 # IN=../datasets/web-Google/out.web-Google
 OUT=../out/pipeline_output_tests/$REASON/

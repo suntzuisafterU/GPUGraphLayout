@@ -177,37 +177,40 @@ namespace RPGraph {
 				return dghe->nid_comm_map;
 			}
 
-			UGraph* GraphViewer::get_current_source_graph() {
+			UGraph* GraphViewer::get_current_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
 					return this->original_dg->get_graph();
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
-                    return dghe->source_dg->get_graph();
+                    return dghe->result_dg->get_graph();
                 }
 			}
 
-			UGraph* GraphViewer::get_current_result_graph() {
+			UGraph* GraphViewer::get_previous_graph() {
+                if(this->hyper_edges.size() == 0) {
+                    throw "Error, no compression has been used, so there is no previous graph.";
+                }
 				DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
-				return dghe->result_dg->get_graph();
+				return dghe->source_dg->get_graph();
 			}
 
-            DerivedGraph* GraphViewer::get_current_source_derived_graph() {
+            DerivedGraph* GraphViewer::get_current_derived_graph() {
                 // If no hyper edges have been made, then the original graph is the current graph.
                 if(this->hyper_edges.size() == 0) {
 					return this->original_dg;
                 } else {
                     // If a hyper edge has been made, then the current source is a comm graph.
                     DerivedGraphHyperEdge* dghe = get_current_hyper_edge();
-                    return dghe->source_dg;
+                    return dghe->result_dg;
                 }
             }
 
             void GraphViewer::compress() {
                 std::cout << "Compressing with SCoDA..." << std::endl;
                 // Create new comm_map and graph, add each to container.
-				UGraph* source_graph = get_current_source_graph(); // TODO: BUG: This does not return the correct value. It returns an invalid UG object.
+				UGraph* source_graph = get_current_graph();
 				// TODO: Will have to create a container for all the maps, reports, etc.
 				nid_comm_map_t nid_comm_map; /**< Map is used since node_ids are not necessarily sequentially complete. Stack allocation. */
 				// Can we use move semantics to deal with this?
@@ -223,7 +226,7 @@ namespace RPGraph {
 				HyperEdgeReports hyper_edge_reports{ scoda_report }; // TODO: DANGER::: This is dependent on ordering!
 
 				// Reference to original source DG.
-                DerivedGraph* source_derived_graph = get_current_source_derived_graph();
+                DerivedGraph* source_derived_graph = get_current_derived_graph();
 				// Create new DG, DGHE will manage this as the result_dg.
 				DerivedGraph* result_derived_graph = new RPGraph::DerivedGraph(comm_graph);
 				hyper_edges.push_back(new DerivedGraphHyperEdge(

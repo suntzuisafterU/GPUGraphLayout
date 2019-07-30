@@ -147,8 +147,6 @@ namespace RPGraph {
             void iterate_on_layout(int num_iters, bool randomize);
             void iterate_and_periodically_show(int num_iters, bool randomize, std::string explain) ; // TODO: Reorganize GVs concept of state.
 
-			RPGraph::UGraph* get_current_source_graph(); // TODO: Temp, move back to private?
-
             void compress();
             void expand();
 
@@ -165,8 +163,9 @@ namespace RPGraph {
 			RPGraph::GraphLayout* get_current_layout();
 			RPGraph::GraphLayout* get_previous_layout();
 			const RPGraph::nid_comm_map_t& get_current_comm_map();
-			RPGraph::UGraph* get_current_result_graph(); // Could be null?
-            RPGraph::DerivedGraph* get_current_source_derived_graph();
+			RPGraph::UGraph* get_current_graph(); // TODO: Temp, move back to private?
+			RPGraph::UGraph* get_previous_graph(); // Could be null?
+            RPGraph::DerivedGraph* get_current_derived_graph();
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;
