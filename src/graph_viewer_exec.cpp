@@ -154,8 +154,9 @@ int main(int argc, const char **argv) {
     auto full_scoda_pipeline = [&] () { /* TODO: Verify. */
         std::cout << "In lambda: full_scoda_pipeline" << std::endl;
         graph_viewer->init();
-        const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph/100));
+        const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph));
         const int full_iters = max_iterations - comm_iters;
+        std::cout << "comm_iters: " << comm_iters << ", full_iters: " << full_iters << "\nFrom max_iterations: " << max_iterations << ", and percentage_iterations_on_comm_graph" << percentage_iterations_on_comm_graph << std::endl;
 
         // call SCoDA, compress.
         graph_viewer->compress(); /* Verify compress works. */
@@ -174,8 +175,8 @@ int main(int argc, const char **argv) {
     };
 
     // like_original();
-
-    compress_and_show_comm_graph();
+    // compress_and_show_comm_graph();
+    full_scoda_pipeline();
 
     // TODO: Implement this type of showing only with more explanitory file names, for example initial, and half way, and final.
     // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
