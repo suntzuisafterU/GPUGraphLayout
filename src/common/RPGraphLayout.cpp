@@ -172,6 +172,9 @@ namespace RPGraph
 
     /**
      * Indexes into coordinates array. node_id MUST be mapped through the associated UGraph object.
+     * 
+     * TODO: Do better than zero initialization here.  This is curcial to the expansion stage.
+     *       IMPORTANT: Can't, we need to nid_comm_map to do that, so we will have to take care of this upstream.
      */
     Coordinate GraphLayout::getCoordinateFromCommNode(comm_id_t comm_node_id) const
     {
@@ -182,7 +185,7 @@ namespace RPGraph
 		}
 		else {
             // If graph does not contain an associated community node, return the origin as starting point.
-            // TODO: Upstream, record how many community nodes do not make it into the graph.
+            // TODO: IMPORTANT: Get rid of this, and upstream, do some handling to figure out a better seed location.
 			Coordinate result(0, 0);
 			return result;
 		}

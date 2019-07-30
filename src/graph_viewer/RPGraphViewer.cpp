@@ -248,14 +248,16 @@ namespace RPGraph {
 
 				const nid_comm_map_t& nid_comm_map = get_current_comm_map();
 				const GraphLayout* comm_layout = get_current_layout();
-				// TODO: This portion is easy to screw up.
-				// TODO: Technically NOT SAFE since we are storing the actual nid_comm_map inside of the hyper edge.
 				GraphLayout* full_layout = get_previous_layout();
 
                 for (const auto& nid_commid_pair : nid_comm_map) {
 					// The community graph is not complete.  We must check for community membership first.
                     contiguous_nid_t node = nid_commid_pair.first; // node is contiguous to the full_layouts associated graph.
                     comm_id_t comm = nid_commid_pair.second;
+                    // TODO: Here we need to do some additional checking, since the comm graph is not complete.
+                    //       We need to ensure that the layout contains the node, if not, then we look for the neighbors
+                    //       (or maybe just one neighbor) and place the node close to that one instead, rather than right on top.
+                    //     ALSO: We could add a small amount of randomness to all of these seeded locations.  This may or may not be necessary, depends on the underlying CUDA imp.
 					Coordinate comm_coordinate = comm_layout->getCoordinateFromCommNode(comm);
                     full_layout->setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }
