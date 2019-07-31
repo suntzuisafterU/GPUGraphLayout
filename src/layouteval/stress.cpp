@@ -144,7 +144,8 @@ StressReport stress_single_source(GraphLayout& layout, contiguous_nid_t source, 
 	double stress = 0;
 	std::cout << "Size of single source vector: " << ss_graph_shortest_distances.size() << ", number of nodes in graph: " << layout.graph.num_nodes() << ".  These should be equal." << std::endl;
 	uint32_t i = 0;
-	for(auto& dist_g: ss_graph_shortest_distances) { // TODO: Should this be a vector, or an unordered_map?
+	for(auto& _dist_g: ss_graph_shortest_distances) { // TODO: Should this be a vector, or an unordered_map?
+		contiguous_nid_t dist_g = static_cast<contiguous_nid_t>(_dist_g); // TODO: Verify if this is required or not.
 		// Vector is easier, must check for infinity distance or whatever OGDF returns here, in case of multiple components.
 		double dist_u{ layout.getDistance(source, i) }; /// Euclidean distance in the layout.
 		double k_ij{ k / std::pow(dist_g, 2) }; /// Value defined in original paper.
