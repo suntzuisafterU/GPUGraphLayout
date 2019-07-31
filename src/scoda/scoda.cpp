@@ -119,6 +119,7 @@ SCoDA_Report SCoDA::compute_partition(RPGraph::UGraph& original_graph, RPGraph::
 		degree_threshold,
         num_null_e, 
         num_duplicate_comm_edges, 
+        std::string("Not calculated yet.  Available after expansion."),
         num_original_nodes,
         num_comm_nodes,
         node_comp_ratio,

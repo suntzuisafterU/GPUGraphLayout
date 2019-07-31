@@ -166,6 +166,7 @@ namespace RPGraph {
 			RPGraph::UGraph* get_current_graph(); // TODO: Temp, move back to private?
 			RPGraph::UGraph* get_previous_graph(); // Could be null?
             RPGraph::DerivedGraph* get_current_derived_graph();
+            RPGraph::SCoDA_Report& get_current_SCoDA_Report();
 
             /// Parameters to layout algorithms. TODO: Turn this into a struct or something that lives in one place.
             const bool cuda_requested;

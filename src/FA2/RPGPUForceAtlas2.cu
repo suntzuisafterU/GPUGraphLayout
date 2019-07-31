@@ -266,7 +266,7 @@ namespace RPGraph
     void CUDAForceAtlas2::retrieveLayoutFromGPU()
     {
         cudaCatchError(cudaMemcpy(body_pos, body_posl, sizeof(float2) * nbodies, cudaMemcpyDeviceToHost));
-        cudaDeviceSynchronize();
+        cudaDeviceSynchronize(); // Why not cudaCatchError here?
     }
 
     void CUDAForceAtlas2::sendLayoutToGPU()

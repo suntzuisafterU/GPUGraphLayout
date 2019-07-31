@@ -124,7 +124,7 @@ namespace RPGraph {
                 {
                     fa2->doStep();
                     // If we need to, write the result to a png
-                    if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == num_iters 
+                    if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == num_iters
                             || iteration == 1))
                     {
                         if(iteration == 1) {
@@ -207,6 +207,15 @@ namespace RPGraph {
                 }
             }
 
+            SCoDA_Report& GraphViewer::get_current_SCoDA_Report() {
+                if(this->hyper_edges.size() == 0) {
+                    throw "Error, trying to access SCoDA report without running SCoDA.";
+                } else {
+                    DerivedGraphHyperEdge* dghe = this->get_current_hyper_edge();
+                    return dghe->reports.scoda_report;
+                }
+            }
+
             void GraphViewer::compress() {
                 std::cout << "Compressing with SCoDA..." << std::endl;
                 // Create new comm_map and graph, add each to container.
@@ -247,7 +256,7 @@ namespace RPGraph {
 				if (hyper_edges.size() == 0) throw "Error: No hyper edges to expand.";
 
 				const nid_comm_map_t& nid_comm_map = get_current_comm_map();
-				const GraphLayout* comm_layout = get_current_layout();
+				GraphLayout* comm_layout = get_current_layout();
 				GraphLayout* full_layout = get_previous_layout();
 
                 for (const auto& nid_commid_pair : nid_comm_map) {
@@ -258,9 +267,12 @@ namespace RPGraph {
                     //       We need to ensure that the layout contains the node, if not, then we look for the neighbors
                     //       (or maybe just one neighbor) and place the node close to that one instead, rather than right on top.
                     //     ALSO: We could add a small amount of randomness to all of these seeded locations.  This may or may not be necessary, depends on the underlying CUDA imp.
-					Coordinate comm_coordinate = comm_layout->getCoordinateFromCommNode(comm);
+					Coordinate comm_coordinate = comm_layout->getCoordinateFromCommNode(comm); // Calculates the number of full_layout nodes with non-resident communities for us.  To be added to SCoDA report.
                     full_layout->setCoordinates(node, comm_coordinate); /**< Set the nodes id to be that of it's community. */
                 }
+                get_current_SCoDA_Report().num_source_nodes_with_non_resident_communities = std::to_string(comm_layout->num_source_nodes_with_non_resident_communities);
+                // TEMP, show output here.  Is there a better way?
+                std::cout << "Updated SCoDA report: \n" << get_current_SCoDA_Report() << std::endl;
 				_discard_hyper_edge();
                 std::cout << "Finished expanding." << std::endl;
             }

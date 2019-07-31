@@ -66,6 +66,9 @@ namespace RPGraph {
      }
  
 
+     /**
+      * Preconditions: Layout MUST be initialized with a graph that was read from the same edgelist file that was initially used to create the layout file.
+      */
      void readFromCSV(RPGraph::GraphLayout& layout, std::string layout_path) {
 		std::cout << "Reading the layout file and setting all coordinates within the layout." << std::endl;
 		// TODO: Read layout file and update all coordinates in layout.

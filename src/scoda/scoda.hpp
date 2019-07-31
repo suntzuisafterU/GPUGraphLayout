@@ -35,6 +35,7 @@ namespace RPGraph {
 		uint32_t degree_threshold;
         uint32_t num_null_e;
         uint32_t num_duplicate_comm_edges;
+        std::string num_source_nodes_with_non_resident_communities;
         uint32_t num_full_nodes;
         uint32_t num_comm_nodes;
         float node_comp_ratio;
@@ -48,6 +49,7 @@ namespace RPGraph {
 			out << "# degree threshold: " << report.degree_threshold << std::endl;
 			out << "# num_null_e: " << report.num_null_e << std::endl;
 			out << "# num_duplicate_comm_edges: " << report.num_duplicate_comm_edges << std::endl;
+            out << "# num_source_nodes_with_non_resident_communities: " << report.num_source_nodes_with_non_resident_communities << std::endl;
 			out << "# num_full_nodes: " << report.num_full_nodes << std::endl;
 			out << "# num_comm_nodes: " << report.num_comm_nodes << std::endl;
 			out << "# node compression ratio: " << report.node_comp_ratio << std::endl;
