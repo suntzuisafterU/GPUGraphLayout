@@ -116,6 +116,12 @@ LO_EVAL_OBJS      := $(LO_EVAL_SRCS:$(LO_EVAL_SRC_DIR)/%.cpp=$(LO_EVAL_OBJ_DIR)/
 PNGWRITER_SRCS    := $(L_SRC_DIR)/pngwriter/src/pngwriter.cc
 PNGWRITER_OBJS    := $(PNGWRITER_SRCS:$(L_SRC_DIR)/%.cc=$(OBJ_DIR)/%.o)
 
+OGDF_DIR          := ../../ogdf
+OGDF_SRCS_DIR     := $(OGDF_DIR)/src
+OGDF_INCLUDE_DIR  := $(OGDF_DIR)/include
+OGDF_I_FLAGS      := -L$(OGDF_DIR) -I$(OGDF_SRCS_DIR) -I$(OGDF_INCLUDE_DIR)
+OGDF_LD_FLAGS     := -lOGDF -lCOIN
+
 IO_SRCS           := $(wildcard $(IO_SRC_DIR)/*.cpp)
 IO_OBJS           := $(IO_SRCS:$(IO_SRC_DIR)/%.cpp=$(IO_OBJ_DIR)/%.o)
 IO_OBJS           := $(IO_OBJS) $(PNGWRITER_OBJS)
@@ -156,7 +162,7 @@ depend: .depend
 
 include ./.depend
 
-all: scoda_exec graph_viewer_exec stress_exec stress_rand_sampling
+all: scoda_exec graph_viewer_exec stress_exec stress_rand_sampling all_pairs_exec
 
 scoda_exec: $(SCODA_EXE_OBJS) $(SCODA_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
@@ -168,7 +174,7 @@ stress_exec: $(STRESS_EXE_OBJS) $(STRESS_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 stress_rand_sampling: $(STRESS_RAND_OBJS) $(STRESS_RAND_SRC)
-	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CPPFLAGS) $(OGDF_I_FLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) $(OGDF_LD_FLAGS) -o $@ $^
 
 all_pairs_exec: $(ALL_PAIRS_EXE_OBJS) $(ALL_PAIRS_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^

@@ -2,7 +2,7 @@
 #include <string>
 
 #include "layouteval/stress.hpp"
-#include "utils/IO/RPGraphLayoutUtils.hpp" // readFromCSV
+#include "utils/IO/RPGraphLayoutRead.hpp" // readFromCSV
 #include "common/RPGraph.hpp"
 #include "common/RPGraphLayout.hpp"
 #include "common/RPCommon.hpp" // contiguous_nid_t
