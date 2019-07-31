@@ -176,7 +176,7 @@ namespace RPGraph
      * TODO: Do better than zero initialization here.  This is curcial to the expansion stage.
      *       IMPORTANT: Can't, we need to nid_comm_map to do that, so we will have to take care of this upstream.
      */
-    Coordinate GraphLayout::getCoordinateFromCommNode(comm_id_t comm_node_id) const
+    Coordinate GraphLayout::getCoordinateFromCommNode(comm_id_t comm_node_id)
     {
 		// Map through associated UGraph.
 		if (graph.contains(comm_node_id)) {
@@ -184,9 +184,11 @@ namespace RPGraph
 			return coordinates[safe_node_id];
 		}
 		else {
-            // If graph does not contain an associated community node, return the origin as starting point.
+            // If graph does not contain an associated community node, return random starting location.
             // TODO: IMPORTANT: Get rid of this, and upstream, do some handling to figure out a better seed location.
-			Coordinate result(0, 0);
+            num_source_nodes_with_non_resident_communities++; // TEMP: For keeping track of how many nodes on expansion do not have a related community that made it into the graph.
+            Coordinate result(get_random(-width/2.0, width/2.0), 
+                              get_random(-height/2.0, height/2.0));
 			return result;
 		}
     }
@@ -206,13 +208,13 @@ namespace RPGraph
      */
     void GraphLayout::setX(contiguous_nid_t node_id, float x_value)
     {
-		if (!std::isfinite(x_value)) throw "ERROR: Invalid x_value attempting to be assigned to coordinate.";
+		if (!std::isfinite(x_value)) throw "ERROR: Invalid x_value attempting to be assigned to coordinate."; // TODO: Remove after testing, not necessary in optimized code.
         coordinates[node_id].x = x_value;
     }
 
     void GraphLayout::setY(contiguous_nid_t node_id, float y_value)
     {
-		if (!std::isfinite(y_value)) throw "ERROR: Invalid y_value attempting to be assigned to coordinate.";
+		if (!std::isfinite(y_value)) throw "ERROR: Invalid y_value attempting to be assigned to coordinate."; // TODO: Remove after testing, not necessary in optimized code.
         coordinates[node_id].y = y_value;
     }
 

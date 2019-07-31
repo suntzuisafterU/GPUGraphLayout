@@ -49,6 +49,7 @@ namespace RPGraph
         ~GraphLayout();
 
         UGraph& graph; // to lay-out TODO: TESTING, new home for graph...
+        uint32_t num_source_nodes_with_non_resident_communities = 0;
 
         // randomize the layout position of all nodes.
         void randomizePositions();
@@ -59,7 +60,7 @@ namespace RPGraph
         Real2DVector getDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
         Real2DVector getNormalizedDistanceVector(contiguous_nid_t n1, contiguous_nid_t n2);
         Coordinate getCoordinateFromContig(contiguous_nid_t node_id) const; // TODO: Refactor to getCoordinateFromContig
-		Coordinate getCoordinateFromCommNode(comm_id_t node_id) const;
+		Coordinate getCoordinateFromCommNode(comm_id_t node_id);
         Coordinate getCenter();
 
         // TODO: Make as many methods private as possible.
