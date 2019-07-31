@@ -187,8 +187,10 @@ namespace RPGraph
             // If graph does not contain an associated community node, return random starting location.
             // TODO: IMPORTANT: Get rid of this, and upstream, do some handling to figure out a better seed location.
             num_source_nodes_with_non_resident_communities++; // TEMP: For keeping track of how many nodes on expansion do not have a related community that made it into the graph.
-            Coordinate result(get_random(-width/2.0, width/2.0), 
-                              get_random(-height/2.0, height/2.0));
+            Coordinate result(get_random(-getXRange()/2.0, getXRange()/2.0),
+                              get_random(-getYRange()/2.0, getYRange()/2.0));
+            // Coordinate result(get_random(-width/2.0, width/2.0), 
+            //                   get_random(-height/2.0, height/2.0));
 			return result;
 		}
     }

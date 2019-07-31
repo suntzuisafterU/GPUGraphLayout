@@ -130,7 +130,7 @@ namespace RPGraph {
                         if(iteration == 1) {
                             // Showing initial layout.  NOTE: Layout can not be shown before at least one iteration for some reason, the sync_layout() function fails to terminate and I am assuming that the first step of fa2->do_step() does some form of initialization.
                             fa2->sync_layout();
-                            show(iteration, explain.append("_INITIAL_LAYOUT"));
+                            show(iteration, std::string().append(explain).append("_INITIAL_LAYOUT"));
                         } else { // NOTE: The nested conditional statement is required since the condition (iteration % snap_period == 0) could be true for a snap period of 1.
                             fa2->sync_layout();
                             show(iteration, explain);

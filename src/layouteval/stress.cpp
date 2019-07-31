@@ -135,6 +135,9 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 	return results;
 }
 
+/**
+ * OGDF github installation instructions: https://github.com/ogdf/ogdf/blob/master/doc/build.md
+ */
 StressReport stress_single_source(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 
 	uint32_t n{ layout.graph.num_nodes() }; // Length of vector or something instead?
