@@ -19,6 +19,7 @@ SCoDA_GPU_FULL.code-workspace
 **/graph_viewer_exec
 **/scoda_exec
 **/stress_exec
+**/stress_rand_sampling
 **/all_pairs_exec
 
 ## Build generated
