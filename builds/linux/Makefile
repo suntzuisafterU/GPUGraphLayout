@@ -126,6 +126,8 @@ GV_EXE_SRC        := $(SRC_DIR)/graph_viewer_exec.cpp
 
 STRESS_EXE_SRC    := $(SRC_DIR)/stress_exec.cpp
 
+STRESS_RAND_SRC   := $(SRC_DIR)/stress_rand_sampling.cpp
+
 ALL_PAIRS_EXE_SRC := $(SRC_DIR)/all_pairs_exec.cpp
 
 CPP_SRCS          := $(COMMON_SRCS) $(UTILS_SRCS) $(IO_SRCS) $(SCODA_SRCS) \
@@ -136,6 +138,7 @@ SOURCES           := $(C_SRC) $(CPP_SRCS)
 GV_EXE_OBJS       := $(COMMON_OBJS) $(IO_OBJS) $(GV_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
 SCODA_EXE_OBJS    := $(COMMON_OBJS) $(SCODA_OBJS) $(IO_OBJS)
 STRESS_EXE_OBJS   := $(COMMON_OBJS) $(LO_EVAL_OBJS) $(IO_OBJS)
+STRESS_RAND_OBJS  := $(COMMON_OBJS) $(LO_EVAL_OBJS) $(IO_OBJS) # Might want to have an extra directory for ogdf.
 ALL_PAIRS_EXE_OBJS:= $(COMMON_OBJS) $(LO_EVAL_OBJS)
 CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
@@ -153,7 +156,7 @@ depend: .depend
 
 include ./.depend
 
-all: scoda_exec graph_viewer_exec stress_exec
+all: scoda_exec graph_viewer_exec stress_exec stress_rand_sampling
 
 scoda_exec: $(SCODA_EXE_OBJS) $(SCODA_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
@@ -162,6 +165,9 @@ graph_viewer_exec: $(GV_EXE_OBJS) $(GV_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 stress_exec: $(STRESS_EXE_OBJS) $(STRESS_EXE_SRC)
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
+
+stress_rand_sampling: $(STRESS_RAND_OBJS) $(STRESS_RAND_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 all_pairs_exec: $(ALL_PAIRS_EXE_OBJS) $(ALL_PAIRS_EXE_SRC)

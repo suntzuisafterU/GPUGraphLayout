@@ -60,5 +60,5 @@ fi
 
 make -k -C ../builds/linux CUDA_SUPPORT=$CUDA_SUPPORT DEBUG=$DEBUG FAST=$FAST PROFILE=$PROFILE $TARGET
 
-echo -e "\nExecutables exist(may have just been made):" \
-&& ls -1 --color=always ../builds/linux/graph_viewer_exec ../builds/linux/scoda_exec ../builds/linux/stress_exec
+echo -e "\nExecutables exist(may have just been made):";
+ls -1 --color=always ../builds/linux/graph_viewer_exec ../builds/linux/scoda_exec ../builds/linux/stress_exec ../builds/linux/stress_rand_sampling

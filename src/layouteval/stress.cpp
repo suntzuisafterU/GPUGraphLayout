@@ -103,8 +103,6 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 	uint32_t n{ layout.graph.num_nodes() };
 	// Calculate all pairs shortest paths.
 	
-	/* TODO: Implement random sampling based on check of how many nodes are in the associated graph. */
-
 	int k = 1; // TODO: TEMP: What is k supposed to be?
 	double stress = 0;
 	for (uint32_t i = 0; i < n; i++) {
@@ -133,6 +131,40 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 		num_edges,
 		stress_per_edge
 	};
+
+	return results;
+}
+
+StressReport stress_single_source(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
+
+	uint32_t n{ layout.graph.num_nodes() }; // Length of vector or something instead?
+	// Calculate all pairs shortest paths.
+	
+	int k = 1; // TODO: TEMP: What is k supposed to be?
+	double stress = 0;
+	for (uint32_t i = 0; i < n; i++) {
+		for (uint32_t j = 0; j < n; j++) {
+			if (i != j) {
+				/// Warning: narrowing conversion from unsigned int to double here.  Why would this be a narrowing conversion? Answer: https://stackoverflow.com/a/11521166/11385910
+				/// Even with a double it would technically be narrowing.  We should never get close to values that would be narrowing though.
+				uint32_t dist_g{ i < j ? all_pairs_shortest[i][j] : all_pairs_shortest[j][i] }; /// Result from Floyd-Warshal algorithm.
+				double dist_u{ layout.getDistance(i, j) }; /// Euclidean distance in the layout.
+				double k_ij{ k / std::pow(dist_g, 2) }; /// Value defined in original paper.
+				double current_stress{ k_ij * std::pow(dist_u - (L * dist_g), 2) };
+				stress += current_stress;
+			}
+		}
+	}
+
+// 	StressReport results = {
+// 		stress,
+// 		num_nodes,
+// 		stress_per_node,
+// 		num_edges,
+// 		stress_per_edge
+// 	};
+
+	StressReport results;
 
 	return results;
 }
