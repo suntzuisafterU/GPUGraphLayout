@@ -48,6 +48,10 @@ do op="$1"
       TARGET=stress_exec
       shift
       ;;
+    --stress-rand )
+      TARGET=stress_rand_sampling
+      shift
+      ;;
     * )
       echo "Unrecognized argument: $1"
       exit 1

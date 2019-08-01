@@ -26,25 +26,26 @@ LO_EVAL_OBJ_DIR   := $(OBJ_DIR)/layouteval
 # Compile with CUDA support by default
 CUDA_SUPPORT ?= 1
 ifeq ($(CUDA_SUPPORT), 1)
-	CC:=nvcc
-	MY_CXXFLAGS:=-Xcompiler -Wextra -Xcompiler -Wall
+	CC                   := nvcc
+	MY_CXXFLAGS          := -Xcompiler -Wextra -Xcompiler -Wall
+	OGDF_CXX_FLAGS       := -Xcompiler -Wno-class-memaccess -Xcompiler -Wno-unused-parameter -Xcompiler -Wno-unknown-pragmas
 	# Debug compilation, disable by default
 	DEBUG ?= 0
 	ifeq ($(DEBUG), 1)
-		MY_CXXFLAGS:=$(MY_CXXFLAGS) -Xcompiler -pg
-		CXXFLAGS:=-pg -g
-		NVCCFLAGS:=-G
-		O_LVL:=-O0
+		MY_CXXFLAGS      := $(MY_CXXFLAGS) -Xcompiler -pg
+		CXXFLAGS		 := -pg -g
+		NVCCFLAGS        := -G
+		O_LVL            := -O0
 	else
-		NVCCFLAGS:=-D NDEBUG
-		O_LVL:=-O3
+		NVCCFLAGS        := -D NDEBUG
+		O_LVL            := -O3
 	endif
 
 	PROFILE ?= 0
 	ifeq ($(PROFILE), 1)
 		# TODO: Do we need Xcompiler here? Does this even work with nvcc?
-		CXXFLAGS:=$(CXXFLAGS) -fprofile-arcs -ftest-coverage
-		LDFLAGS:=-lgcov --coverage
+		CXXFLAGS         := $(CXXFLAGS) -fprofile-arcs -ftest-coverage
+		LDFLAGS          := -lgcov --coverage
 	endif
 ########################################################
 ################# END CUDA SUPPORT FLAGS ###############
@@ -52,20 +53,21 @@ ifeq ($(CUDA_SUPPORT), 1)
 
 ###### NO CUDA SUPPORT FLAGS
 else
-	MY_CXXFLAGS:=-Wextra -Wall
+	MY_CXXFLAGS          := -Wextra -Wall
+	OGDF_CXX_FLAGS       := -Wno-class-memaccess -Wno-unused-parameter -Wno-unknown-pragmas
 	# Debug compilation, disable by default
 	DEBUG ?= 0
 	ifeq ($(DEBUG), 1)
-		CXXFLAGS:=-pg -g
-		O_LVL:=-O0
+		CXXFLAGS         := -pg -g
+		O_LVL            := -O0
 	else
-		O_LVL:=-O3
+		O_LVL            := -O3
 	endif
 
 	PROFILE ?= 0
 	ifeq ($(PROFILE), 1)
-		CXXFLAGS:=$(CXXFLAGS) -fprofile-arcs -ftest-coverage
-		LDFLAGS:=-lgcov --coverage
+		CXXFLAGS         := $(CXXFLAGS) -fprofile-arcs -ftest-coverage
+		LDFLAGS          := -lgcov --coverage
 	endif
 endif
 ###### END NO CUDA SUPPORT FLAGS
@@ -174,7 +176,7 @@ stress_exec: $(STRESS_EXE_OBJS) $(STRESS_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 stress_rand_sampling: $(STRESS_RAND_OBJS) $(STRESS_RAND_SRC)
-	$(CC) $(CPPFLAGS) $(OGDF_I_FLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) $(OGDF_LD_FLAGS) -o $@ $^
+	$(CC) $(CPPFLAGS) $(OGDF_I_FLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(OGDF_CXX_FLAGS) $(LDFLAGS) $(OGDF_LD_FLAGS) -o $@ $^
 
 all_pairs_exec: $(ALL_PAIRS_EXE_OBJS) $(ALL_PAIRS_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
@@ -216,6 +218,6 @@ $(PNGWRITER_OBJS): $(PNGWRITER_SRCS)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(L_SRC_DIR)/%.cc)
 
 clean:
-	rm -rf scoda_exec graph_viewer_exec stress_exec all_pairs_exec $(OBJ_DIR)/* ./.depend
+	rm -rf scoda_exec graph_viewer_exec stress_exec stress_rand_sampling all_pairs_exec $(OBJ_DIR)/* ./.depend
 
 .PHONY: all clean depend
