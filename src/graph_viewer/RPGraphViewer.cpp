@@ -125,9 +125,9 @@ namespace RPGraph {
                     fa2->doStep();
                     // If we need to, write the result to a png
                     if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == num_iters
-                            || iteration <= 10))
+                            || (iteration <= 100 && iteration % 10 == 0)))
                     {
-                        if(iteration <= 10) {
+                        if(iteration <= 100) {
                             // Showing initial layout.  NOTE: Layout can not be shown before at least one iteration for some reason, the sync_layout() function fails to terminate and I am assuming that the first step of fa2->do_step() does some form of initialization.
                             fa2->sync_layout();
                             show(iteration, std::string().append(explain).append("_FIRST_N_ITERATIONS"));
