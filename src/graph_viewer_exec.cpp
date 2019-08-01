@@ -205,9 +205,9 @@ int main(int argc, const char **argv) {
         std::cout << "Finished lambda: full_with_stacked_compression" << std::endl;
     };
 
-    // like_original();
+    like_original();
     // compress_and_show_comm_graph();
-    full_scoda_pipeline();
+    // full_scoda_pipeline();
     // full_with_stacked_compression();
 
     // TODO: Implement this type of showing only with more explanitory file names, for example initial, and half way, and final.
