@@ -140,7 +140,8 @@ ALL_PAIRS_EXE_SRC := $(SRC_DIR)/all_pairs_exec.cpp
 
 CPP_SRCS          := $(COMMON_SRCS) $(UTILS_SRCS) $(IO_SRCS) $(SCODA_SRCS) \
 					 $(FA2_SRCS) $(LO_EVAL_SRCS) $(GV_SRCS) $(SCODA_EXE_SRC) \
-					 $(GV_EXE_SRC) $(STRESS_EXE_SRC) $(PNGWRITER_SRCS) $(ALL_PAIRS_EXE_SRC)
+					 $(GV_EXE_SRC) $(STRESS_EXE_SRC) $(PNGWRITER_SRCS) $(ALL_PAIRS_EXE_SRC) \
+					 $(STRESS_RAND_SRC)
 CUDA_SRCS         := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRCS)
 GV_EXE_OBJS       := $(COMMON_OBJS) $(IO_OBJS) $(GV_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
@@ -160,7 +161,7 @@ endif
 depend: .depend
 .depend: $(SOURCES)
 	rm -f .depend
-	$(CC) $(CXXFLAGS) $(CPPFLAGS) -M $^ >> .depend
+	$(CC) $(OGDF_I_FLAGS) $(CXXFLAGS) $(OGDF_CXX_FLAGS) $(CPPFLAGS) -M $^ >> .depend
 
 include ./.depend
 
@@ -173,7 +174,7 @@ graph_viewer_exec: $(GV_EXE_OBJS) $(GV_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 stress_exec: $(STRESS_EXE_OBJS) $(STRESS_EXE_SRC)
-	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CPPFLAGS) $(OGDF_I_FLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(OGDF_CXX_FLAGS) $(LDFLAGS) $(OGDF_LD_FLAGS) -o $@ $^
 
 stress_rand_sampling: $(STRESS_RAND_OBJS) $(STRESS_RAND_SRC)
 	$(CC) $(CPPFLAGS) $(OGDF_I_FLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(OGDF_CXX_FLAGS) $(LDFLAGS) $(OGDF_LD_FLAGS) -o $@ $^
@@ -203,7 +204,7 @@ $(SCODA_OBJS): $(SCODA_SRCS)
 
 $(LO_EVAL_OBJS): $(LO_EVAL_SRCS)
 	@mkdir -p $(@D)
-	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) -o $@ $(@:$(LO_EVAL_OBJ_DIR)/%.o=$(LO_EVAL_SRC_DIR)/%.cpp)
+	$(CC) -c $(CPPFLAGS) $(OGDF_I_FLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(OGDF_CXX_FLAGS) -o $@ $(@:$(LO_EVAL_OBJ_DIR)/%.o=$(LO_EVAL_SRC_DIR)/%.cpp)
 
 $(FA2_OBJS): $(FA2_SRCS)
 	@mkdir -p $(@D)
