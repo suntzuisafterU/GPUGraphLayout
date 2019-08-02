@@ -100,6 +100,9 @@ int main(int argc, const char** argv) {
         }
     }
     std::cout << "membership_map.size() : " << membership_map.size() << std::endl;
+    for(auto& node : membership_map) {
+        std::cout << "node.first: " << node.first << ", node.second: " << node.second << std::endl;
+    }
 
     // If we end up having to use file formats, the most promising is the UCINET DL format so far:
     // https://gephi.org/users/supported-graph-formats/ucinet-dl-format/
@@ -133,6 +136,10 @@ int main(int argc, const char** argv) {
     ogdf::NodeArray<int> distanceArray(G, 0);
     int edgeCosts = 1;
     ogdf::node s = G.chooseNode();
+    /* Random sampling: Could use G.chooseNode() with a NodeSet until the NodeSet has 
+     * a predefined number of elements in it. */
+
+    std::cout << "Chose node: " << s << std::endl;
     // Lets see where the function fails...
     ogdf::NodeArray<bool> mark(G, false);
     ogdf::SListPure<ogdf::node> bfs;
@@ -157,6 +164,11 @@ int main(int argc, const char** argv) {
     }
 
     ogdf::bfs_SPSS<int> (s, G, distanceArray, edgeCosts);
+
+    // Try iterating over the NodeArray
+    for(auto& pair : distanceArray) {
+        std::cout << pair << std::endl;
+    }
 
     std::cout << "Finished, look at the distanceArray: " << std::endl;
     
