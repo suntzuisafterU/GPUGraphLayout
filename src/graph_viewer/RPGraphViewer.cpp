@@ -55,12 +55,18 @@ namespace RPGraph {
 
             void GraphViewer::show(int iteration, std::string explain) {
                 std::cout << "Showing... " << std::flush;
+
+                if (iteration > 9999) std::cout << "Warning: Please change the line below this one for large iterations numbers. " << std::endl;
+                int iteration_number_width = 4; /* Increase if using more than 9999 iterations. */
+                std::string temp = std::to_string(iteration);
+                std::string iteration_str = std::string(iteration_number_width - temp.length(), '0') + temp; /* Source: https://stackoverflow.com/a/26343947/11385910 */
+                
                 std::string png_path(this->out_path);
                 std::string csv_path(this->out_path);
                 if(png_path.back() != '/') png_path.append("/"); 
                 if(csv_path.back() != '/') csv_path.append("/");
-                png_path.append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
-                csv_path.append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append("csv");
+                png_path.append(explain).append(this->out_file_prefix).append(iteration_str).append(".").append(this->out_format);
+                csv_path.append(explain).append(this->out_file_prefix).append(iteration_str).append(".").append("csv");
                 // png_path.append(std::to_string(iteration)).append(".").append(this->out_format); /* Use this if you have errors with the line above for some reason. */
 
                 writeToCSV(this->get_current_layout(), csv_path); /* Always write a CSV, sometimes don't write a png. */
@@ -123,21 +129,20 @@ namespace RPGraph {
                 for (int iteration = 1; iteration <=num_iters; ++iteration)
                 {
                     fa2->doStep();
-                    // If we need to, write the result to a png
-                    if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == num_iters
-                            || (iteration <= 100 && iteration % 10 == 0) 
-                            || (iteration <= 300 && iteration % 25 == 0)
-                            || (iteration <= 450 && iteration % 50 == 0)))
+                    if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == num_iters || (iteration <= 100 && iteration % 10 == 0) || (iteration <= 300 && iteration % 25 == 0) || (iteration <= 450 && iteration % 50 == 0)))
 
                     {
-                        if(iteration <= 450) {
-                            // Showing initial layout.  NOTE: Layout can not be shown before at least one iteration for some reason, the sync_layout() function fails to terminate and I am assuming that the first step of fa2->do_step() does some form of initialization.
+                        if (iteration <= 450)
+                        {
+                            // Showing initial layout.  NOTE: Layout can not be shown before at least one iteration for some reason, the s    ync_layout() function fails to terminate and I am assuming that the first step of fa2->do_step() does some form of initialization.
                             fa2->sync_layout();
                             show(iteration, std::string().append(explain).append("_FIRST_N_ITERATIONS"));
-                        } else { // NOTE: The nested conditional statement is required since the condition (iteration % snap_period == 0) could be true for a snap period of 1.
+                        }
+                        else
+                        { // NOTE: The nested conditional statement is required since the condition (iteration % snap_period == 0)     could be true for a snap period of 1.
                             fa2->sync_layout();
                             show(iteration, explain);
-                        }
+                        } // If we need to, write the result to a png
                     }
 
                     // Else we print (if we need to)
