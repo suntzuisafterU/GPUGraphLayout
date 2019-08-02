@@ -55,12 +55,18 @@ namespace RPGraph {
 
             void GraphViewer::show(int iteration, std::string explain) {
                 std::cout << "Showing... " << std::flush;
+
+                if (iteration > 9999) std::cout << "Warning: Please change the line below this one for large iterations numbers. " << std::endl;
+                int iteration_number_width = 4; /* Increase if using more than 9999 iterations. */
+                std::string temp = std::to_string(iteration);
+                std::string iteration_str = std::string(iteration_number_width - temp.length(), '0') + temp; /* Source: https://stackoverflow.com/a/26343947/11385910 */
+                
                 std::string png_path(this->out_path);
                 std::string csv_path(this->out_path);
                 if(png_path.back() != '/') png_path.append("/"); 
                 if(csv_path.back() != '/') csv_path.append("/");
-                png_path.append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append(this->out_format);
-                csv_path.append(explain).append(this->out_file_prefix).append(std::to_string(iteration)).append(".").append("csv");
+                png_path.append(explain).append(this->out_file_prefix).append(iteration_str).append(".").append(this->out_format);
+                csv_path.append(explain).append(this->out_file_prefix).append(iteration_str).append(".").append("csv");
                 // png_path.append(std::to_string(iteration)).append(".").append(this->out_format); /* Use this if you have errors with the line above for some reason. */
 
                 writeToCSV(this->get_current_layout(), csv_path); /* Always write a CSV, sometimes don't write a png. */
