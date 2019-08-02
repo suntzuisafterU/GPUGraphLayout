@@ -1,12 +1,13 @@
 
 #include "layouteval/stress.hpp"
+#include "common/RPTypeDefs.hpp"
 #include "utils/IO/RPGraphLayoutRead.hpp"
 
 #include <ogdf/basic/Graph.h>
-#include <ogdf/basic/GraphAttributes.h>
-#include <ogdf/basic/List.h>
-#include <ogdf/fileformats/GraphIO.h>
-#include <ogdf/basic/graph_generators/deterministic.h>
+// #include <ogdf/basic/GraphAttributes.h>
+// #include <ogdf/basic/List.h>
+// #include <ogdf/fileformats/GraphIO.h>
+// #include <ogdf/basic/graph_generators/deterministic.h>
 #include <ogdf/graphalg/ShortestPathAlgorithms.h> // bfs_SPSS();
 
 #include <iostream>
@@ -81,6 +82,7 @@ int main(int argc, const char** argv) {
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     ogdf::Graph G;
 
+    // TODO: Move to something like `utils/ogdf_conversions` as a new file and a procedure. Would we need to keep the membership_map as a global variable?
     // Use our UGraph to initialize the ogdf::Graph
     // IMPORTANT: This is the same for loop structure that has been used many times throughout this
     //            project.  A very handy and simple improvement would be to add an iterator to the 
@@ -97,9 +99,8 @@ int main(int argc, const char** argv) {
             ogdf::node n2 = membership_map.count(dst_id) > 0 ? membership_map.at(dst_id) : G.newNode(dst_id);
             membership_map.insert({src_id, n1}); // insert will not reassign, will silently do nothing if index is already occupied.  Should always be trying to assign the same value to the specific index.
             membership_map.insert({dst_id, n2});
-            // edges.emplaceBack(src_id, dst_id);
-            auto e = G.newEdge(n1, n2);
-            std::cout << "Added edge: " << e << std::endl;
+            auto e = G.newEdge(n1, n2); // Adds edge even if we don't use the reference.
+            // std::cout << "Added edge: " << e << std::endl;
         }
     }
     std::cout << "membership_map.size() : " << membership_map.size() << std::endl;
@@ -115,6 +116,7 @@ int main(int argc, const char** argv) {
 
     // SPSS source code: https://ogdf.github.io/doc/ogdf-snapshot/_shortest_path_algorithms_8h_source.html#l00065
     // NodeArray docs: https://ogdf.github.io/doc/ogdf-snapshot/classogdf_1_1_node_array.html
+    // node docs: http://www.ogdf.net/doc-ogdf/classogdf_1_1_node_element.html
 
     // In for loop:
     //   randomly sample nodes (can use ogdf::Graph::chooseNode())
@@ -140,19 +142,41 @@ int main(int argc, const char** argv) {
         ogdf::NodeArray<int> distanceArray(G, 0); /* Array of all nodes in G, each associated with initial value 0. */
         int edgeCosts = 1;
 
-        ogdf::bfs_SPSS<int>(s, G, distanceArray, edgeCosts);
+        ogdf::bfs_SPSS<int>(s, G, distanceArray, edgeCosts); 
+        /* 
+         * Fills the distanceArray.  We can index this with nodes I think.  
+         */
+
+        std::vector< std::pair< RPGraph::contiguous_nid_t, int > > distance_vec;
+        for (auto& _node_QM : distanceArray ) { // IMPORTANT: Just realized that we can not guarantee that the node_id from our own UGraph corresponds to a node_id in the ogdf UGraph.  We will have to index this with nodes.
+            std::cout << "typeid(_node_QM).name(): " << typeid(_node_QM).name() << std::endl; 
+            break;
+        }
+
 
         int L = 1; /* TODO: Parameter tweaking.  See msc-graphstudy. */
-        sr_layout1 += RPGraph::stress_single_source(layout1, s, distanceArray, L); // TODO: Not sure if we are allowed to use `+=`...
-        sr_layout2 += RPGraph::stress_single_source(layout2, s, distanceArray, L);
+        auto sr_1_temp = RPGraph::stress_single_source(
+                                    layout1, 
+                                    static_cast<RPGraph::contiguous_nid_t>(s->index()), 
+                                    distance_vec, 
+                                    L); // TODO: Not sure if we are allowed to use `+=`...
+        sr_layout1 = sr_layout1 + sr_1_temp;
+
+        auto sr_2_temp = RPGraph::stress_single_source(
+                                    layout2, 
+                                    static_cast<RPGraph::contiguous_nid_t>(s->index()), 
+                                    distance_vec, 
+                                    L);
+        sr_layout2 = sr_layout2 + sr_2_temp;
     }
 
-    std::cout << "Stress of layout1: " << sr_layout1 << std::endl;
-    std::cout << "Stress of layout2: " << sr_layout2 << std::endl;
+    // std::cout << "Stress of layout1: " << sr_layout1 << std::endl;
+    // std::cout << "Stress of layout2: " << sr_layout2 << std::endl;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "Finished" << std::endl;
 
     return EXIT_SUCCESS;
 }

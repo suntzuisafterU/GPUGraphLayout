@@ -1,6 +1,9 @@
 #ifndef StressReport_hpp
 #define StressReport_hpp
 
+#include <stdint.h>
+#include <ostream>
+
 namespace RPGraph {
 
 struct StressReport {

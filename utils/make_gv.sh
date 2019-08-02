@@ -44,11 +44,11 @@ do op="$1"
       TARGET=scoda_exec
       shift
       ;;
-    --stress )
+    --st )
       TARGET=stress_exec
       shift
       ;;
-    --stress-rand )
+    --st-r )
       TARGET=stress_rand_sampling
       shift
       ;;

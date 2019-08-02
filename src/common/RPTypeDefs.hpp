@@ -2,6 +2,8 @@
 #define RPTypeDefs_hpp
 
 #include "RPStaticOnlyTypedefHelper.hpp"
+#include "unordered_map"
+
 namespace RPGraph {
 
 // TODO: Define a type for tracking data such as counts, degrees, etc.
