@@ -125,6 +125,8 @@ int main(int argc, const char** argv) {
 
     std::unordered_set<ogdf::node> sampled_nodes;
     int num_samples = 6; // TODO: Parameterize or infer from data.
+    RPGraph::StressReport sr_layout1;
+    RPGraph::StressReport sr_layout2;
 
     while(sampled_nodes.size() < num_samples) {
         ogdf::node s = G.chooseNode();
@@ -140,16 +142,14 @@ int main(int argc, const char** argv) {
 
         ogdf::bfs_SPSS<int>(s, G, distanceArray, edgeCosts);
 
-        // std::cout << "Size of distance Array: " << distanceArray.<< std::endl;
-
-        int temp = 0;
-        // Try iterating over the NodeArray
-        for (auto &dist_g : distanceArray)
-        {
-            // TODO: IMPORTANT: Verify the identities of all the nodes in the NodeArray. Do they come in the order we expect? What about infinities?
-            std::cout << "Index: " << temp++ << " node is distance " << dist_g << " from source node " << s << std::endl;
-        }
+        int L = 1; /* TODO: Parameter tweaking.  See msc-graphstudy. */
+        sr_layout1 += RPGraph::stress_single_source(layout1, s, distanceArray, L); // TODO: Not sure if we are allowed to use `+=`...
+        sr_layout2 += RPGraph::stress_single_source(layout2, s, distanceArray, L);
     }
+
+    std::cout << "Stress of layout1: " << sr_layout1 << std::endl;
+    std::cout << "Stress of layout2: " << sr_layout2 << std::endl;
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////

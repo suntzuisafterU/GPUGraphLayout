@@ -17,7 +17,7 @@
 #include "../scoda/DisjointPartitionAlgo.hpp"
 #include "../scoda/scoda.hpp"
 #include "../layouteval/PairwiseLayoutAnalysis.hpp"
-#include "../layouteval/stress.hpp"
+#include "../layouteval/StressReport.hpp"
 
 #ifdef __NVCC__
 #include <cuda_runtime_api.h>

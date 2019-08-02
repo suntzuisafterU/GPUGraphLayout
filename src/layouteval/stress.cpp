@@ -138,31 +138,35 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 /**
  * OGDF github installation instructions: https://github.com/ogdf/ogdf/blob/master/doc/build.md
  */
-StressReport stress_single_source(GraphLayout& layout, contiguous_nid_t source, std::vector<int>& ss_graph_shortest_distances, int L) {
+StressReport stress_single_source(GraphLayout& layout, ogdf::node s, ogdf::NodeArray<int>& spss, int L) {
 
 	int k = 1; // TODO: TEMP: What is k supposed to be?
 	double stress = 0;
-	std::cout << "Size of single source vector: " << ss_graph_shortest_distances.size() << ", number of nodes in graph: " << layout.graph.num_nodes() << ".  These should be equal." << std::endl;
+	std::cout << "Size of single source vector: " << "not available" << ", number of nodes in graph: " << layout.graph.num_nodes() << ".  These should be equal." << std::endl;
 	uint32_t i = 0;
-	for(auto& _dist_g: ss_graph_shortest_distances) { // TODO: Should this be a vector, or an unordered_map?
+	for(auto& _dist_g: spss) {
+		// TODO: Need the index here as well.
 		contiguous_nid_t dist_g = static_cast<contiguous_nid_t>(_dist_g); // TODO: Verify if this is required or not.
 		// Vector is easier, must check for infinity distance or whatever OGDF returns here, in case of multiple components.
-		double dist_u{ layout.getDistance(source, i) }; /// Euclidean distance in the layout.
+		double dist_u{ layout.getDistance(s, i) }; /// Euclidean distance in the layout.
 		double k_ij{ k / std::pow(dist_g, 2) }; /// Value defined in original paper.
 		double current_stress{ k_ij * std::pow(dist_u - (L * dist_g), 2) };
 		stress += current_stress;
 		++i;
 	}
 
-// 	StressReport results = {
-// 		stress,
-// 		num_nodes,
-// 		stress_per_node,
-// 		num_edges,
-// 		stress_per_edge
-// 	};
+	uint32_t num_nodes{ layout.graph.num_nodes() };
+	double stress_per_node{ stress/num_nodes };
+	uint32_t num_edges{ layout.graph.num_edges() };
+	double stress_per_edge{ stress/num_edges };
 
-	StressReport results;
+ 	StressReport results = {
+ 		stress,
+ 		num_nodes,
+ 		stress_per_node,
+ 		num_edges,
+ 		stress_per_edge
+ 	};
 
 	return results;
 }
