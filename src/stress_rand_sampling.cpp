@@ -8,23 +8,13 @@
 #include <ogdf/fileformats/GraphIO.h>
 #include <ogdf/basic/graph_generators/deterministic.h>
 #include <ogdf/graphalg/ShortestPathAlgorithms.h> // bfs_SPSS();
-#include <ogdf/basic/SList.h> // TEMP, DEBUGGING
 
 #include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
-
-typedef ogdf::List< std::pair< int,int > > Edgelist;
-
-// include ogdf, where ever and how ever it is installed.
-// void print_ogdf_graph(ogdf::Graph& G) {
-//     std::vector< std::pair< int,int > > edges;
-//     G.allEdges(edges);
-//     for(auto& e : edges) {
-//         std::cout << "Edge: " << e.first << ", " << e.second << std::endl;
-//     }
-// };
+#include <unordered_map>
+#include <unordered_set>
 
 /**
  * IMPORTANT: The correcteness of this implementation is currently entirely dependent on the assumption that the 
@@ -33,6 +23,10 @@ typedef ogdf::List< std::pair< int,int > > Edgelist;
  *            not modified between invocations.  If there is any doubt just regenerate the data all in one pipeline (bash scripts).
  */
 int main(int argc, const char** argv) {
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////// Commandline args and validation /////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
     // Read from the command line:
     //   edgelist file name,
     //   layout1 file name,
@@ -62,7 +56,14 @@ int main(int argc, const char** argv) {
 	 	exit(EXIT_FAILURE);
 	}
 
-	std::cout << "Reading the edgelist file and initializing graph and layouts." << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////// Initialize our UGraph and GraphLayout structures /////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
     // Initialize our UGraph
 	RPGraph::UGraph graph(edge_list);
 	RPGraph::GraphLayout layout1(graph);
@@ -70,13 +71,15 @@ int main(int argc, const char** argv) {
 
 	RPGraph::readFromCSV(layout1, layout_path1); // Read the provided layout file.
 	RPGraph::readFromCSV(layout2, layout_path2); // Read the provided layout file.
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Initialize OGDF Graph of some kind
-    ogdf::Graph G; // Shouldn't need GraphAttributes object, SPSS does not require it.
-    ogdf::GraphAttributes GA; // Do we need this???
-    // int n = static_cast<int>(graph.num_nodes());
-    // Edgelist edges;
-    // ogdf::Array< ogdf::node > nodes;
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////// Initialize ogdf::Graph using our UGraph /////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    ogdf::Graph G;
 
     // Use our UGraph to initialize the ogdf::Graph
     // IMPORTANT: This is the same for loop structure that has been used many times throughout this
@@ -100,21 +103,18 @@ int main(int argc, const char** argv) {
         }
     }
     std::cout << "membership_map.size() : " << membership_map.size() << std::endl;
-    for(auto& node : membership_map) {
-        std::cout << "node.first: " << node.first << ", node.second: " << node.second << std::endl;
-    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // If we end up having to use file formats, the most promising is the UCINET DL format so far:
-    // https://gephi.org/users/supported-graph-formats/ucinet-dl-format/
-    // (But what format is the original data in??)
 
-    // Populate the new ogdf::Graph G
-    // ogdf::customGraph(G, n, edges, nodes); // Getting incomplete type error.
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////// Random sampling, SPSS, and stress ////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    // TODO: Determine number of samples to take.
 
-    // std::cout << "G: " << G << std::endl;
-    std::cout << "Finished creating ogdf::Graph??" << std::endl;
-
-    // Determine number of samples to take.
+    // SPSS source code: https://ogdf.github.io/doc/ogdf-snapshot/_shortest_path_algorithms_8h_source.html#l00065
+    // NodeArray docs: https://ogdf.github.io/doc/ogdf-snapshot/classogdf_1_1_node_array.html
 
     // In for loop:
     //   randomly sample nodes (can use ogdf::Graph::chooseNode())
@@ -123,57 +123,36 @@ int main(int argc, const char** argv) {
     //   use this to calculate the stress of those specific nodes in each layout,
     //   and add this to the incremented layout values.
 
-    // Try to do the SSPS here...
-    // signature: 
-    // 
-    // template<typename TCost> /* For us TCost is int, and always is edgeCosts=1 */
-    // void bfs_SPSS(node s, const Graph& G, NodeArray<TCost> & distanceArray, TCost edgeCosts);
-    //
-    // documentation: https://ogdf.github.io/doc/ogdf-snapshot/group__ga-sp.html#ga900d113a4194675ba88c6aec52df0c27
-    // source code: https://ogdf.github.io/doc/ogdf-snapshot/_shortest_path_algorithms_8h_source.html#l00065
+    std::unordered_set<ogdf::node> sampled_nodes;
+    int num_samples = 6; // TODO: Parameterize or infer from data.
 
-    // NodeArray docs: https://ogdf.github.io/doc/ogdf-snapshot/classogdf_1_1_node_array.html
-    ogdf::NodeArray<int> distanceArray(G, 0);
-    int edgeCosts = 1;
-    ogdf::node s = G.chooseNode();
-    /* Random sampling: Could use G.chooseNode() with a NodeSet until the NodeSet has 
-     * a predefined number of elements in it. */
+    while(sampled_nodes.size() < num_samples) {
+        ogdf::node s = G.chooseNode();
+        std::cout << "Chose node: " << s << std::endl;
+        if(sampled_nodes.count(s) > 0) {
+            std::cout << "Resampled node!!" << std::endl;
+            continue;
+        }
+        sampled_nodes.insert(s);
 
-    std::cout << "Chose node: " << s << std::endl;
-    // Lets see where the function fails...
-    ogdf::NodeArray<bool> mark(G, false);
-    ogdf::SListPure<ogdf::node> bfs;
-    bfs.pushBack(s);
-    // mark s and set distance to itself 0
-    mark[s] = true;
-    distanceArray[s] = int(0); // seg fault here.  We need to initialize the node array.
-    while (!bfs.empty())
-    {
-        ogdf::node w = bfs.popFrontRet();
-        int d = distanceArray[w] + edgeCosts;
-        for (ogdf::adjEntry adj : w->adjEntries)
+        ogdf::NodeArray<int> distanceArray(G, 0); /* Array of all nodes in G, each associated with initial value 0. */
+        int edgeCosts = 1;
+
+        ogdf::bfs_SPSS<int>(s, G, distanceArray, edgeCosts);
+
+        // std::cout << "Size of distance Array: " << distanceArray.<< std::endl;
+
+        int temp = 0;
+        // Try iterating over the NodeArray
+        for (auto &dist_g : distanceArray)
         {
-            ogdf::node v = adj->twinNode();
-            if (!mark[v])
-            {
-                mark[v] = true;
-                bfs.pushBack(v);
-                distanceArray[v] = d;
-            }
+            // TODO: IMPORTANT: Verify the identities of all the nodes in the NodeArray. Do they come in the order we expect? What about infinities?
+            std::cout << "Index: " << temp++ << " node is distance " << dist_g << " from source node " << s << std::endl;
         }
     }
-
-    ogdf::bfs_SPSS<int> (s, G, distanceArray, edgeCosts);
-
-    // Try iterating over the NodeArray
-    for(auto& pair : distanceArray) {
-        std::cout << pair << std::endl;
-    }
-
-    std::cout << "Finished, look at the distanceArray: " << std::endl;
-    
-    // IMPORTANT: Will have to const_cast back and forth when indexing into layout??
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     return EXIT_SUCCESS;
 }
