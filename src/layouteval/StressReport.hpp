@@ -13,8 +13,9 @@ struct StressReport {
 	// override addition operator.
 	friend StressReport operator+(const StressReport& sr1, const StressReport& sr2) {
 		double combined_stress{ sr1.stress + sr2.stress };
-		uint32_t combined_num_nodes{ sr1.num_nodes + sr2.num_nodes };
-		double combined_stress_per_node{ combined_stress/combined_num_nodes };
+		/* NOTE: sr1.num_nodes should be the same as sr2.num_nodes */
+		uint32_t combined_num_nodes{ sr1.num_nodes /* + sr2.num_nodes */ }; // DON'T add the nodes together.  Should be the same.
+		double combined_stress_per_node{ sr1.stress_per_node + sr2.stress_per_node /* combined_stress/combined_num_nodes */ };
 		uint32_t combined_num_edges{ sr1.num_edges + sr2.num_edges };
 		double combined_stress_per_edge{ combined_stress/combined_num_edges };
 
