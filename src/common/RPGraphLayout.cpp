@@ -120,6 +120,9 @@ namespace RPGraph
         return maxY() - minY();
     } 
                      
+    /**
+     * Usage: ???
+     */
     float GraphLayout::getSpan()
     {
         return ceil(fmaxf(getXRange(), getYRange()));

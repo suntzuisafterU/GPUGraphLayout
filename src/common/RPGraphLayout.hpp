@@ -27,6 +27,7 @@
 #include "RPGraph.hpp" // Using UGraph
 #include "RPCommon.hpp" // Using Real2DVector
 #include <string>
+#include <iostream>
 
 namespace RPGraph
 {
@@ -41,10 +42,19 @@ namespace RPGraph
 
     public:
         GraphLayout(RPGraph::UGraph& graph,
-                    float width = 10000, float height = 10000); // TODO: Change to power of 2?
+                    float width = 10000, float height = 10000); // TODO: What is the difference between the height and width of the layout, and the span (as shown by getSpan)???
         
 		GraphLayout(const GraphLayout& other) = delete;
         GraphLayout & operator=(const GraphLayout& other) = delete; /// Disallow copy assignment.
+
+        friend std::ostream& operator<< (std::ostream& out, GraphLayout& layout) {
+            out << "######## Layout ##########" << std::endl;
+            out << "# From dataset file: " << layout.graph.get_dataset_source() << std::endl;
+            out << "# With span: " << layout.getSpan() << std::endl;
+            out << "# XRange: " << layout.getXRange() << std::endl;
+            out << "# YRange: " << layout.getYRange() << std::endl;
+            return out;
+        };
 
         ~GraphLayout();
 
