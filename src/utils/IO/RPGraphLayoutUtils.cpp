@@ -12,7 +12,7 @@ namespace RPGraph {
         const float xRange = layout->getXRange();
         const float yRange = layout->getYRange();
         const RPGraph::Coordinate center = layout->getCenter(); // Why do we need the center?
-        const float xCenter = center.x; // Probably to set the origin for layout.
+        const float xCenter = center.x;
         const float yCenter = center.y;
         const float minX = xCenter - xRange/2.0;
         const float minY = yCenter - yRange/2.0;
@@ -34,15 +34,25 @@ namespace RPGraph {
 
         for (contiguous_nid_t n1 = 0; n1 < layout->graph.num_nodes(); ++n1)
         {
+            int node_r = 0; /* red */
+            int node_g = 0; /* green */
+            int node_b = 0; /* blue */
+            int node_radius = 3;
             // Plot node,
             layout_png.filledcircle_blend((layout->getX(n1) - minX)*xScale,
                                           (layout->getY(n1) - minY)*yScale,
-                                          3, node_opacity, 0, 0, 0);
+                                          node_radius, node_opacity, 
+                                          node_r, node_b, node_g);
+            
+            int edge_r = 0;
+            int edge_b = 0;
+            int edge_g = 0;
             for (contiguous_nid_t n2 : layout->graph.neighbors_with_geq_id(n1)) {
                 // ... and edge.
                 layout_png.line_blend((layout->getX(n1) - minX)*xScale, (layout->getY(n1) - minY)*yScale,
                                       (layout->getX(n2) - minX)*xScale, (layout->getY(n2) - minY)*yScale,
-                                      edge_opacity, 0, 0, 0);
+                                      edge_opacity, 
+                                      edge_r, edge_b, edge_g);
             }
         }
         // Write it to disk.
