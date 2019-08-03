@@ -146,16 +146,19 @@ StressReport stress_single_source(GraphLayout& layout,
 
 	int k = 1; // TODO: TEMP: What is k supposed to be?
 	double stress = 0;
-	std::cout << "Size of single source vector: " << spss_vec.size() << ", number of nodes in graph: " << layout.graph.num_nodes() << ".  These should be equal." << std::endl;
 
 	for(auto& node_dg_pair : spss_vec) {
 		// Vector is easier, must check for infinity distance or whatever OGDF returns here, in case of multiple components.
 		contiguous_nid_t dst_id{ node_dg_pair.first };
 		int dist_g{ node_dg_pair.second };
-		double dist_u{ layout.getDistance(src_id, dst_id) }; /// Euclidean distance in the layout.
+		///////////////////////////////////////
+		if (dist_g == 0) { continue; } // IMPORTANT: 0 means no path.  Don't divide by zero or you'll get a -nan.
+		///////////////////////////////////////
+		double dist_u{ layout.getDistance(src_id, dst_id) }; /// Euclidean distance in the layout. Should we normalize?
 		double k_ij{ k / std::pow(dist_g, 2) }; /// Value defined in original paper.
 		double current_stress{ k_ij * std::pow(dist_u - (L * dist_g), 2) };
 		stress += current_stress;
+		std::cout << "current stress: " << current_stress << ", dist_g: " << dist_g << ", dist_u: " << dist_u << ", k_ij: " << k_ij << ", TOTAL stress: " << stress << std::endl;
 	}
 
 	uint32_t num_nodes{ layout.graph.num_nodes() }; /* TODO: Should be changed to spss_vec.size() if we do some form of duplicate node check. */

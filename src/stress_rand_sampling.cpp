@@ -4,6 +4,7 @@
 #include "utils/IO/RPGraphLayoutRead.hpp"
 
 #include <ogdf/basic/Graph.h>
+#include <ogdf/basic/Graph_d.h>
 // #include <ogdf/basic/GraphAttributes.h>
 // #include <ogdf/basic/List.h>
 // #include <ogdf/fileformats/GraphIO.h>
@@ -89,7 +90,6 @@ int main(int argc, const char** argv) {
     //            UGraph class.  I just ran out of time.
     std::unordered_map<  int, ogdf::node > membership_map;
     membership_map.reserve(graph.num_nodes());
-    std::cout << "membership_map.size() : " << membership_map.size() << std::endl;
     for (RPGraph::contiguous_nid_t _src_id = 0; _src_id < graph.num_nodes(); _src_id++) { // Iterate over source nodes
         for (RPGraph::contiguous_nid_t _dst_id : graph.neighbors_with_geq_id(_src_id)) { // Iterate over adjacency list of each source node. Contains ids of target nodes that are larger.
             /* Example of initializing a graph: http://www.ogdf.net/doku.php/tech:howto:manual */
@@ -103,7 +103,6 @@ int main(int argc, const char** argv) {
             // std::cout << "Added edge: " << e << std::endl;
         }
     }
-    std::cout << "membership_map.size() : " << membership_map.size() << std::endl;
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,9 +125,9 @@ int main(int argc, const char** argv) {
     //   and add this to the incremented layout values.
 
     std::unordered_set<ogdf::node> sampled_nodes;
-    int num_samples = 6; // TODO: Parameterize or infer from data.
-    RPGraph::StressReport sr_layout1;
-    RPGraph::StressReport sr_layout2;
+    int num_samples = 1; // TODO: Parameterize or infer from data.
+    RPGraph::StressReport sr_layout1{0, layout1.graph.num_nodes(), 0, layout1.graph.num_edges(), 0};
+    RPGraph::StressReport sr_layout2{0, layout2.graph.num_nodes(), 0, layout2.graph.num_edges(), 0}; // Does this zero initialize?
 
     while(sampled_nodes.size() < num_samples) {
         ogdf::node s = G.chooseNode();
@@ -142,36 +141,57 @@ int main(int argc, const char** argv) {
         ogdf::NodeArray<int> distanceArray(G, 0); /* Array of all nodes in G, each associated with initial value 0. */
         int edgeCosts = 1;
 
+        std::cout << "Starting shortest paths single source." << std::endl;
         ogdf::bfs_SPSS<int>(s, G, distanceArray, edgeCosts); 
         /* 
          * Fills the distanceArray.  We can index this with nodes I think.  
          */
 
         std::vector< std::pair< RPGraph::contiguous_nid_t, int > > distance_vec;
-        for (auto& _node_QM : distanceArray ) { // IMPORTANT: Just realized that we can not guarantee that the node_id from our own UGraph corresponds to a node_id in the ogdf UGraph.  We will have to index this with nodes.
-            std::cout << "typeid(_node_QM).name(): " << typeid(_node_QM).name() << std::endl; 
-            break;
+
+        #define forall_nodes(v,G) for((v)=(G).firstNode(); (v); (v)=(v)->succ()) // defined in the documentation but not in the latest version on master. Source: http://www.ogdf.net/doc-ogdf/_graph__d_8h_source.html#l00335
+        ogdf::node n;
+        forall_nodes(n, G) { /* MACRO, defined in Graph_d.h */
+            int index = n->index();
+            distance_vec.emplace_back(static_cast<RPGraph::contiguous_nid_t>(index), distanceArray[n]);
         }
 
+        // TEMP: Display the values saved in distance_vec.
+        // for (auto& pair : distance_vec) { std::cout << "Node id: " << pair.first << ", is distance: " << pair.second << " from source node: " << s->index() << std::endl; }
 
-        int L = 1; /* TODO: Parameter tweaking.  See msc-graphstudy. */
-        auto sr_1_temp = RPGraph::stress_single_source(
+
+        std::cout << "Calculating stress on first layout." << std::endl;
+        int L = 100; /* TODO: Parameter tweaking.  See msc-graphstudy. */
+        RPGraph::StressReport sr_1_temp = RPGraph::stress_single_source(
                                     layout1, 
                                     static_cast<RPGraph::contiguous_nid_t>(s->index()), 
                                     distance_vec, 
                                     L); // TODO: Not sure if we are allowed to use `+=`...
-        sr_layout1 = sr_layout1 + sr_1_temp;
+        // sr_layout1 = sr_layout1 + sr_1_temp;
 
-        auto sr_2_temp = RPGraph::stress_single_source(
+        std::cout << "Calculation stress on second layout." << std::endl;
+        RPGraph::StressReport sr_2_temp = RPGraph::stress_single_source(
                                     layout2, 
                                     static_cast<RPGraph::contiguous_nid_t>(s->index()), 
                                     distance_vec, 
                                     L);
-        sr_layout2 = sr_layout2 + sr_2_temp;
+        // sr_layout2 = sr_layout2 + sr_2_temp;
+
+        std::cout << sr_1_temp << std::endl; // Temp
+        std::cout << sr_2_temp << std::endl; // temp
+        // std::cout << sr_layout2 << std::endl; // Temp
+        sr_layout1.stress += sr_1_temp.stress; sr_layout1.stress_per_node += sr_1_temp.stress_per_node;
+        sr_layout2.stress += sr_2_temp.stress; sr_layout2.stress_per_node += sr_2_temp.stress_per_node;
     }
 
-    // std::cout << "Stress of layout1: " << sr_layout1 << std::endl;
-    // std::cout << "Stress of layout2: " << sr_layout2 << std::endl;
+    std::cout << "##########################################################################" << std::endl;
+
+    // Compare the layouts:
+    std::cout << layout1 << std::endl;
+    std::cout << layout2 << std::endl;
+
+    std::cout << "Stress of layout1: \n" << sr_layout1 << std::endl;
+    std::cout << "Stress of layout2: \n" << sr_layout2 << std::endl;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////

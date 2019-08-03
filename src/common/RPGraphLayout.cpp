@@ -38,6 +38,8 @@ namespace RPGraph
 	 * Mallocs an array for the coordinates.  width and height default to 10,000
 	 * 
      * Q: What are width and height for?  Size of image?
+     * A: They are only used to set the initial span of the layout.  see randomizePositions.  
+     *    Afterwards the layout can grow or shrink as much as necessary.
      */
     GraphLayout::GraphLayout(UGraph& graph, float width, float height)
         : width(width), height(height), graph(graph)
@@ -192,8 +194,6 @@ namespace RPGraph
             num_source_nodes_with_non_resident_communities++; // TEMP: For keeping track of how many nodes on expansion do not have a related community that made it into the graph.
             Coordinate result(get_random(-getXRange()/2.0, getXRange()/2.0),
                               get_random(-getYRange()/2.0, getYRange()/2.0));
-            // Coordinate result(get_random(-width/2.0, width/2.0), 
-            //                   get_random(-height/2.0, height/2.0));
 			return result;
 		}
     }
