@@ -158,7 +158,7 @@ StressReport stress_single_source(GraphLayout& layout,
 		double k_ij{ k / std::pow(dist_g, 2) }; /// Value defined in original paper.
 		double current_stress{ k_ij * std::pow(dist_u - (L * dist_g), 2) };
 		stress += current_stress;
-		std::cout << "current stress: " << current_stress << ", dist_g: " << dist_g << ", dist_u: " << dist_u << ", k_ij: " << k_ij << ", TOTAL stress: " << stress << std::endl;
+		// std::cout << "current stress: " << current_stress << ", dist_g: " << dist_g << ", dist_u: " << dist_u << ", k_ij: " << k_ij << ", TOTAL stress: " << stress << std::endl;
 	}
 
 	uint32_t num_nodes{ layout.graph.num_nodes() }; /* TODO: Should be changed to spss_vec.size() if we do some form of duplicate node check. */

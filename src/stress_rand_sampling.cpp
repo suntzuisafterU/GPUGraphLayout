@@ -5,12 +5,9 @@
 
 #include <ogdf/basic/Graph.h>
 #include <ogdf/basic/Graph_d.h>
-// #include <ogdf/basic/GraphAttributes.h>
-// #include <ogdf/basic/List.h>
-// #include <ogdf/fileformats/GraphIO.h>
-// #include <ogdf/basic/graph_generators/deterministic.h>
 #include <ogdf/graphalg/ShortestPathAlgorithms.h> // bfs_SPSS();
 
+#include <chrono>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -88,6 +85,7 @@ int main(int argc, const char** argv) {
     // IMPORTANT: This is the same for loop structure that has been used many times throughout this
     //            project.  A very handy and simple improvement would be to add an iterator to the 
     //            UGraph class.  I just ran out of time.
+    std::cout << "Populating ogdf::Graph." << std::endl;
     std::unordered_map<  int, ogdf::node > membership_map;
     membership_map.reserve(graph.num_nodes());
     for (RPGraph::contiguous_nid_t _src_id = 0; _src_id < graph.num_nodes(); _src_id++) { // Iterate over source nodes
@@ -125,15 +123,23 @@ int main(int argc, const char** argv) {
     //   and add this to the incremented layout values.
 
     std::unordered_set<ogdf::node> sampled_nodes;
-    int num_samples = 1; // TODO: Parameterize or infer from data.
+    int num_samples = 400; // TODO: Parameterize or infer from data.
+    int progress_print_period = 10;
     RPGraph::StressReport sr_layout1{0, layout1.graph.num_nodes(), 0, layout1.graph.num_edges(), 0};
     RPGraph::StressReport sr_layout2{0, layout2.graph.num_nodes(), 0, layout2.graph.num_edges(), 0}; // Does this zero initialize?
-
+    std::cout << "Starting stress calculation." << std::endl;
     while(sampled_nodes.size() < num_samples) {
+        //////////////////////
+        // TEMP: TIMING
+        auto start = std::chrono::steady_clock::now();
+        //////////////////////
+        int num_sampled = sampled_nodes.size();
+        if(num_sampled % progress_print_period == 0) std::cout << 100.0F * num_sampled/num_samples << "%" << std::endl;
+        // TODO: Should we seed the RNG?  From the documentation we don't even know if they use rand()...
         ogdf::node s = G.chooseNode();
-        std::cout << "Chose node: " << s << std::endl;
+        // std::cout << "Chose node: " << s << std::endl;
         if(sampled_nodes.count(s) > 0) {
-            std::cout << "Resampled node!!" << std::endl;
+            // std::cout << "Resampled node!!" << std::endl;
             continue;
         }
         sampled_nodes.insert(s);
@@ -141,7 +147,7 @@ int main(int argc, const char** argv) {
         ogdf::NodeArray<int> distanceArray(G, 0); /* Array of all nodes in G, each associated with initial value 0. */
         int edgeCosts = 1;
 
-        std::cout << "Starting shortest paths single source." << std::endl;
+        // std::cout << "Starting shortest paths single source." << std::endl;
         ogdf::bfs_SPSS<int>(s, G, distanceArray, edgeCosts); 
         /* 
          * Fills the distanceArray.  We can index this with nodes I think.  
@@ -160,28 +166,32 @@ int main(int argc, const char** argv) {
         // for (auto& pair : distance_vec) { std::cout << "Node id: " << pair.first << ", is distance: " << pair.second << " from source node: " << s->index() << std::endl; }
 
 
-        std::cout << "Calculating stress on first layout." << std::endl;
-        int L = 100; /* TODO: Parameter tweaking.  See msc-graphstudy. */
+        // std::cout << "Calculating stress on first layout." << std::endl;
+        int L = 1; /* TODO: Parameter tweaking.  See msc-graphstudy. For example a value of 100 will have a huge effect. */
         RPGraph::StressReport sr_1_temp = RPGraph::stress_single_source(
                                     layout1, 
                                     static_cast<RPGraph::contiguous_nid_t>(s->index()), 
                                     distance_vec, 
-                                    L); // TODO: Not sure if we are allowed to use `+=`...
-        // sr_layout1 = sr_layout1 + sr_1_temp;
+                                    L);
 
-        std::cout << "Calculation stress on second layout." << std::endl;
+        // std::cout << "Calculation stress on second layout." << std::endl;
         RPGraph::StressReport sr_2_temp = RPGraph::stress_single_source(
                                     layout2, 
                                     static_cast<RPGraph::contiguous_nid_t>(s->index()), 
                                     distance_vec, 
                                     L);
-        // sr_layout2 = sr_layout2 + sr_2_temp;
 
-        std::cout << sr_1_temp << std::endl; // Temp
-        std::cout << sr_2_temp << std::endl; // temp
-        // std::cout << sr_layout2 << std::endl; // Temp
         sr_layout1.stress += sr_1_temp.stress; sr_layout1.stress_per_node += sr_1_temp.stress_per_node;
         sr_layout2.stress += sr_2_temp.stress; sr_layout2.stress_per_node += sr_2_temp.stress_per_node;
+
+        // TEMP: TIMING
+        if(sampled_nodes.size() <= 1) {
+            auto end = std::chrono::steady_clock::now();
+            auto duration = end - start; // std::chrono::duration_cast<std::chrono::seconds>(end - start);
+            auto dur_seconds = duration.count() / 10e9;
+            std::cout << "durtion of one sample: " << dur_seconds << std::endl;
+            std::cout << "It will take approximately " << dur_seconds * num_samples << " seconds to finish this computation." << std::endl;
+        }
     }
 
     std::cout << "##########################################################################" << std::endl;
