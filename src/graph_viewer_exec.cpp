@@ -67,7 +67,11 @@ int main(int argc, const char **argv) {
         image_h = std::stoi(argv[arg_no+2]);
         std::cout << "Set image_w to " << image_w << " and image_h to " << image_h << std::endl;
         arg_no += 2;
-    }
+	}
+	else if(std::string(argv[arg_no]) == "csv") {
+		out_format = "csv";
+		std::cout << "Set out format to csv" << std::endl;
+	}
 
     if(cuda_requested and not approximate)
     {
