@@ -208,7 +208,10 @@ int main(int argc, const char **argv) {
 
 	if(pipeline_to_use == "original") like_original();
 	else if(pipeline_to_use == "single") full_scoda_pipeline();
-	else if(pipeline_to_use == "stacked") full_with_stacked_compression();
+	else if (pipeline_to_use == "stacked") {
+		std::cout << "WARNING: The commandline argument 'percentage_comm_iters is currently handled incorrectly for this pipeline.  You can still use it as is, just be aware of the way iterations are distributed." << std::endl;
+		full_with_stacked_compression();
+	}
 	else { /* Unrecognized option. */
 		std::cout << "ERROR: Unrecognized pipeline specifier: " << pipeline_to_use << std::endl;
 		return EXIT_FAILURE;
