@@ -32,8 +32,9 @@
 #include <memory>
 
 int main(int argc, const char **argv) {
-    // Seed random number generator, for reproducability.
+    // For reproducibility.
     srandom(1234);
+    // srandom( time(NULL) ); // TODO: Parameterize
 
     // Parse commandline arguments
     if (argc < 10)
@@ -106,8 +107,6 @@ int main(int argc, const char **argv) {
 
     fflush(stdout); // TODO: Why do this?
 
-    // return 
-    // TODO: TEMP
     std::unique_ptr<RPGraph::GraphViewer> graph_viewer (new RPGraph::GraphViewer(
         cuda_requested,
         max_iterations,
@@ -125,20 +124,14 @@ int main(int argc, const char **argv) {
         image_w,
         image_h));
 
-    // For reproducibility.
-    // srandom(1234);
-    srandom( time(NULL) ); // TODO: Parameterize
-
-    ////////////////TODO: JUST TESTING COMPILATION///////////////
-    // std::unique_ptr<GraphViewer> graph_viewer( parseCommandLine() ); // TODO: Easiest way to initialize??
-    ////////////////////////////////
-
-    // TODO: Using lambdas temporarily to run different configurations.
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////// Using lambdas to run various configurations. ////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     auto like_original = [&] () { /* Verified. */
         std::cout << "In lambda: like_original " << std::endl;
         graph_viewer->init(); // Required ?? since constructor would be to complex if it did all initialization.
-        graph_viewer->iterate_and_periodically_show(max_iterations, /* randomize = */true, "OLD_STYLE_GV_LOOP"); /* TODO: reVerify. */
+        graph_viewer->iterate_and_periodically_show(max_iterations, /* randomize = */true, "OLD_STYLE_GV_LOOP_FULL_LAYOUT"); /* Verify. */
         std::cout << "Finished with simplified GV script.\n" << std::endl;
     };
 
@@ -179,7 +172,7 @@ int main(int argc, const char **argv) {
         std::cout << "Finished lambda: full_scoda_pipeline" << std::endl;
     };
 
-    auto full_with_stacked_compression= [&] () { /* TODO: Verify. */
+    auto full_with_stacked_compression= [&] () { /* Verify. */
         std::cout << "In lambda: full_with_stacked_compression" << std::endl;
         graph_viewer->init();
         const int comm_iters = ceil((float)max_iterations * (percentage_iterations_on_comm_graph));
@@ -191,7 +184,7 @@ int main(int argc, const char **argv) {
         std::cout << "GV::compress() works, if everything is intact here." << std::endl;
         
         std::cout << "Testing stacked call to compress" << std::endl;
-        graph_viewer->compress(); // TODO: BUG HERE, we ended up running SCoDA on the original_dg twice.  The stack is not working properly.
+        graph_viewer->compress();
         std::cout << "Finished stacked compress call" << std::endl;
 
         graph_viewer->iterate_and_periodically_show(comm_iters, true, "FULL_WITH_STACKED_MOST_COMPRESSED_COMM");
@@ -209,6 +202,10 @@ int main(int argc, const char **argv) {
 
         std::cout << "Finished lambda: full_with_stacked_compression" << std::endl;
     };
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////// Run pipeline lambda specified on command line.  If not recognized do nothing. ////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	if(pipeline_to_use == "original") like_original();
 	else if(pipeline_to_use == "single") full_scoda_pipeline();
