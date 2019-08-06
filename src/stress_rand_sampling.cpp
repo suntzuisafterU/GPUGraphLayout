@@ -125,8 +125,8 @@ int main(int argc, const char** argv) {
     std::unordered_set<ogdf::node> sampled_nodes;
     int num_samples = 400; // TODO: Parameterize or infer from data.
     int progress_print_period = 10;
-    RPGraph::StressReport sr_layout1{0, layout1.graph.num_nodes(), 0, layout1.graph.num_edges(), 0};
-    RPGraph::StressReport sr_layout2{0, layout2.graph.num_nodes(), 0, layout2.graph.num_edges(), 0}; // Does this zero initialize?
+    RPGraph::StressReport sr_layout1{ 0, layout1.graph.num_nodes(), 0, layout1.graph.num_edges(), 0, num_samples };
+    RPGraph::StressReport sr_layout2{0, layout2.graph.num_nodes(), 0, layout2.graph.num_edges(), 0, num_samples}; // Does this zero initialize?
     std::cout << "Starting stress calculation." << std::endl;
     while(sampled_nodes.size() < static_cast<uint>(num_samples)) {
         //////////////////////
