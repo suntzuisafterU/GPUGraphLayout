@@ -38,11 +38,11 @@ int main(int argc, const char **argv) {
     // Parse commandline arguments
     if (argc < 10)
     {
-        fprintf(stderr, "Usage: graph_viewer gpu|cpu max_iterations num_snaps sg|wg scale gravity exact|approximate linlog|regular [percentage_iterations_on_comm_graph] edgelist_path out_path out_file_prefix [png image_w image_h|csv|bin]\n");
+        fprintf(stderr, "Usage: graph_viewer original|single|stacked gpu|cpu max_iterations num_snaps sg|wg scale gravity exact|approximate linlog|regular [percentage_iterations_on_comm_graph] edgelist_path out_path out_file_prefix [png image_w image_h|csv|bin]\n");
         exit(EXIT_FAILURE);
     }
 
-	const std::string pipeline_to_use = std::string(argv[1]); /* Will be one of options at bottom of file in switch statement. */
+	const std::string pipeline_to_use = std::string(argv[1]); /* See if statements at bottom of this file. */
     const bool cuda_requested = std::string(argv[2]) == "gpu" or std::string(argv[2]) == "cuda"; // using cuda
     const int max_iterations = std::stoi(argv[3]);
     const int num_screenshots = std::stoi(argv[4]); // aka: num_snaps
