@@ -206,16 +206,10 @@ int main(int argc, const char **argv) {
         std::cout << "Finished lambda: full_with_stacked_compression" << std::endl;
     };
 
-	switch (pipeline_to_use) {
-	case "original":
-		like_original();
-		// case "show-comm": /* Used for testing and development. */
-		// 	compress_and_show_comm_graph();
-	case "single":
-		full_scoda_pipeline();
-	case "stacked":
-		full_with_stacked_compression();
-	default:
+	if(pipeline_to_use == "original") like_original();
+	if(pipeline_to_use == "single") full_scoda_pipeline();
+	if(pipeline_to_use == "stacked") full_with_stacked_compression();
+	else { /* Unrecognized option. */
 		std::cout << "ERROR: Unrecognized pipeline specifier: " << pipeline_to_use << std::endl;
 		return EXIT_FAILURE;
 	}
