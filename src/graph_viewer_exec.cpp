@@ -42,23 +42,24 @@ int main(int argc, const char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    const bool cuda_requested = std::string(argv[1]) == "gpu" or std::string(argv[1]) == "cuda"; // using cuda
-    const int max_iterations = std::stoi(argv[2]);
-    const int num_screenshots = std::stoi(argv[3]); // aka: num_snaps
-    const bool strong_gravity = std::string(argv[4]) == "sg"; // strong gravity?  sg is not proportional to distance from origin.
-    const float scale = std::stof(argv[5]); // scaling for repulsion force.  paper used 80.
-    const float gravity = std::stof(argv[6]); // scaling for gravity. paper used 1.
-    const bool approximate = std::string(argv[7]) == "approximate"; // gpu only accepts BH approximation.
-    const bool use_linlog = std::string(argv[8]) == "linlog"; // Enable linlog
-    const float percentage_iterations_on_comm_graph = std::stof(argv[9])/100.0f;
-    const char *edgelist_path = argv[10]; // infile
-    const char *out_path = argv[11]; // output directory for images.
-    const char *out_file_prefix = argv[12]; // annotated outfile names
+	const std::string pipeline_to_use = std::string(argv[1]); /* Will be one of options at bottom of file in switch statement. */
+    const bool cuda_requested = std::string(argv[2]) == "gpu" or std::string(argv[2]) == "cuda"; // using cuda
+    const int max_iterations = std::stoi(argv[3]);
+    const int num_screenshots = std::stoi(argv[4]); // aka: num_snaps
+    const bool strong_gravity = std::string(argv[5]) == "sg"; // strong gravity?  sg is not proportional to distance from origin.
+    const float scale = std::stof(argv[6]); // scaling for repulsion force.  paper used 80.
+    const float gravity = std::stof(argv[7]); // scaling for gravity. paper used 1.
+    const bool approximate = std::string(argv[8]) == "approximate"; // gpu only accepts BH approximation.
+    const bool use_linlog = std::string(argv[9]) == "linlog"; // Enable linlog
+    const float percentage_iterations_on_comm_graph = std::stof(argv[10])/100.0f;
+    const char *edgelist_path = argv[11]; // infile
+    const char *out_path = argv[12]; // output directory for images.
+    const char *out_file_prefix = argv[13]; // annotated outfile names
     std::string out_format = "png"; // default make png that is 1250x1250
     int image_w = 1250;
     int image_h = 1250;
 
-    int arg_no = 13;
+    int arg_no = 14;
     if(std::string(argv[arg_no]) == "png")
     {
         out_format = "png";
@@ -205,16 +206,19 @@ int main(int argc, const char **argv) {
         std::cout << "Finished lambda: full_with_stacked_compression" << std::endl;
     };
 
-    like_original();
-    // compress_and_show_comm_graph();
-    // full_scoda_pipeline();
-    // full_with_stacked_compression();
-
-    // TODO: Implement this type of showing only with more explanitory file names, for example initial, and half way, and final.
-    // if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
-    // {
-    //     graph_viewer->show(iteration); // TODO: Refactor
-    // }
+	switch (pipeline_to_use) {
+	case "original":
+		like_original();
+		// case "show-comm": /* Used for testing and development. */
+		// 	compress_and_show_comm_graph();
+	case "single":
+		full_scoda_pipeline();
+	case "stacked":
+		full_with_stacked_compression();
+	default:
+		std::cout << "ERROR: Unrecognized pipeline specifier: " << pipeline_to_use << std::endl;
+		return EXIT_FAILURE;
+	}
 
     return EXIT_SUCCESS;
 }

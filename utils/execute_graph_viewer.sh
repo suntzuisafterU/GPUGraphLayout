@@ -6,6 +6,7 @@ Usage:
 $SCRIPT_NAME -f <in file path> -o <out file path> [other options to override defaults]]
     --default ) # Just run with all default args.
     -h | --help )
+    -p | --pipeline ) # original, single, or stacked
     -f ) INPATH
     -o ) OUTPATH_PREFIX # Will create a sub directory.
     --execution-mode ) [gpu|cpu]
@@ -34,6 +35,7 @@ fi
 
 
 # defaults
+PIPELINE="single"
 EXECUTION_MODE="gpu"
 INPATH='../datasets/ca-AstroPh/out.ca-AstroPh'
 OUTPATH_PREFIX='../out/'
@@ -55,6 +57,11 @@ do op="$1"
     -h | --help )
       echo -e "$USAGE"
       exit 0
+      ;;
+    -p | --pipeline )
+      PIPELINE="$2"
+      shift
+      shift
       ;;
     -f )
       INPATH="$2"
@@ -197,12 +204,12 @@ fi
 # export CUDA_VISIBLE_DEVICES=0,1,2 # doesn't seem to do anything
 
 if [ "$DEBUG" ]; then
-  echo "gdb --args ../builds/linux/graph_viewer_exec $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
+  echo "gdb --args ../builds/linux/graph_viewer_exec $PIPELINE $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
 
-  gdb --args ./graph_viewer_exec "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
+  gdb --args ./graph_viewer_exec "$PIPELINE" "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
 else
-  echo "../builds/linux/graph_viewer_exec $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
+  echo "../builds/linux/graph_viewer_exec $PIPELINE $EXECUTION_MODE $NUM_ITERATIONS $NUM_SNAPS $GRAVITY $F_R $F_G approximate $LINLOG $PERCENT_ITERS_ON_COMM $INPATH $OUTPATH $OUTFILE_PREFIX $OUTPUT_FORMAT $HEIGHT $WIDTH"
 
-  ./graph_viewer_exec "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
+  ./graph_viewer_exec "$PIPELINE" "$EXECUTION_MODE" "$NUM_ITERATIONS" "$NUM_SNAPS" "$GRAVITY" "$F_R" "$F_G" approximate "$LINLOG" "$PERCENT_ITERS_ON_COMM" "$INPATH" "$OUTPATH" "$OUTFILE_PREFIX" "$OUTPUT_FORMAT" "$HEIGHT" "$WIDTH"
 fi
 
