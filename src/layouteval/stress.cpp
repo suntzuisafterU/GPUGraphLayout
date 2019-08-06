@@ -130,7 +130,8 @@ StressReport stress(GraphLayout& layout, matrix& all_pairs_shortest, int L) {
 		num_nodes,
 		stress_per_node,
 		num_edges,
-		stress_per_edge
+		stress_per_edge,
+		0
 	};
 
 	return results;
