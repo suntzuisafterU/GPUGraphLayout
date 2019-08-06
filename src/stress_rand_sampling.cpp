@@ -181,8 +181,8 @@ int main(int argc, const char** argv) {
                                     distance_vec, 
                                     L);
 
-        sr_layout1.stress += sr_1_temp.stress; sr_layout1.stress_per_node += sr_1_temp.stress_per_node;
-        sr_layout2.stress += sr_2_temp.stress; sr_layout2.stress_per_node += sr_2_temp.stress_per_node;
+        sr_layout1.stress += sr_1_temp.stress;
+        sr_layout2.stress += sr_2_temp.stress;
 
         // TEMP: TIMING
         if(sampled_nodes.size() <= 1) {
@@ -193,6 +193,10 @@ int main(int argc, const char** argv) {
             std::cout << "It will take approximately " << dur_seconds * num_samples << " seconds to finish this computation." << std::endl;
         }
     }
+
+	/* Calculate stress_per_node as an estimate based on the number of samples taken. */
+	sr_layout1.stress_per_node = sr_layout1.stress / num_samples;
+	sr_layout2.stress_per_node = sr_layout2.stress / num_samples;
 
     std::cout << "##########################################################################" << std::endl;
 
