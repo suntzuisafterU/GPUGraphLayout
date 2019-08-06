@@ -207,8 +207,8 @@ int main(int argc, const char **argv) {
     };
 
 	if(pipeline_to_use == "original") like_original();
-	if(pipeline_to_use == "single") full_scoda_pipeline();
-	if(pipeline_to_use == "stacked") full_with_stacked_compression();
+	else if(pipeline_to_use == "single") full_scoda_pipeline();
+	else if(pipeline_to_use == "stacked") full_with_stacked_compression();
 	else { /* Unrecognized option. */
 		std::cout << "ERROR: Unrecognized pipeline specifier: " << pipeline_to_use << std::endl;
 		return EXIT_FAILURE;
