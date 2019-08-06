@@ -123,14 +123,16 @@ int main(int argc, const char** argv) {
     //   and add this to the incremented layout values.
 
     std::unordered_set<ogdf::node> sampled_nodes;
-    int num_samples = 400; // TODO: Parameterize or infer from data.
+	const float percentage_of_dataset_to_sample = 0.05F; /* 5% */
+	const int num_samples = ceil(static_cast<float>(graph.num_nodes()) * (percentage_of_dataset_to_sample));
+	std::cout << "Using " << num_samples << " sample nodes to calculate approximate stress." << std::endl;
+
     int progress_print_period = 10;
     RPGraph::StressReport sr_layout1{0, layout1.graph.num_nodes(), 0, layout1.graph.num_edges(), 0, num_samples};
     RPGraph::StressReport sr_layout2{0, layout2.graph.num_nodes(), 0, layout2.graph.num_edges(), 0, num_samples};
     std::cout << "Starting stress calculation." << std::endl;
     while(sampled_nodes.size() < static_cast<uint>(num_samples)) {
         //////////////////////
-        // TEMP: TIMING
         auto start = std::chrono::steady_clock::now();
         //////////////////////
         int num_sampled = sampled_nodes.size();
