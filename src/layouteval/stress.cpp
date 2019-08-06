@@ -172,7 +172,8 @@ StressReport stress_single_source(GraphLayout& layout,
  		num_nodes,
  		stress_per_node,
  		num_edges,
- 		stress_per_edge
+ 		stress_per_edge,
+		1 // num_samples
  	};
 
 	return results;
