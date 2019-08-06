@@ -12,7 +12,7 @@ struct StressReport {
 	double stress_per_node;
 	uint32_t num_edges;
 	double stress_per_edge;
-	int num_samples = 0;
+	int num_samples;
 
 	friend std::ostream& operator<<(std::ostream& out, StressReport& report) {
 		out << "##### Stress Report #####" << std::endl;
