@@ -131,7 +131,7 @@ int main(int argc, const char** argv) {
 	const int num_samples = ceil(static_cast<float>(graph.num_nodes()) * (percentage_of_dataset_to_sample));
 	std::cout << "Using " << num_samples << " sample nodes to calculate approximate stress." << std::endl;
 
-    int progress_print_period = 10;
+    int progress_print_period = ceil(num_samples * 0.05F); /* print every 5% ish. */
     RPGraph::StressReport sr_layout1{0, layout1.graph.num_nodes(), 0, layout1.graph.num_edges(), 0, num_samples};
     RPGraph::StressReport sr_layout2{0, layout2.graph.num_nodes(), 0, layout2.graph.num_edges(), 0, num_samples};
     std::cout << "Starting stress calculation." << std::endl;
