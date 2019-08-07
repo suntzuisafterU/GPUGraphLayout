@@ -8,8 +8,8 @@ int main(int argc, const char** argv) {
 	// Get path from command line.
 	std::string csv_path{ argv[1] };
 	std::string out_path{ argv[2] };
-	const int image_w{ argv[3] };
-	const int image_h{ argv[4] };
+	const int image_w{ *argv[3] };
+	const int image_h{ *argv[4] };
 
 	// Read layout csv file.
 	RPGraph::GraphLayout layout;
