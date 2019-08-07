@@ -3,10 +3,15 @@
 #include "utils/IO/RPGraphLayoutRead.hpp"
 #include "utils/IO/RPGraphLayoutUtils.hpp"
 
+#include <iostream>
 #include <string>
 
 int main(int argc, const char** argv) {
 	// Get path from command line.
+	if (argc < 6) {
+		std::cout << "Usage: edgelist_file csv_input_path png_output_path image_width image_height" << std::endl;
+		return EXIT_FAILURE;
+	}
 	std::string edgelist_file{ argv[1] };
 	std::string csv_path{ argv[2] };
 	std::string out_path{ argv[3] };
