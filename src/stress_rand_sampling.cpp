@@ -214,6 +214,7 @@ int main(int argc, const char** argv) {
     std::cout << "Stress of layout2: \n" << sr_layout2 << std::endl;
 
 	std::cout << "\nDifference in stress per node: " << sr_layout1.stress_per_node - sr_layout2.stress_per_node << std::endl;
+	std::cout << "Which is " << sr_layout1.stress_per_node / sr_layout2.stress_per_node << "% lower for layout2." << std::endl;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
