@@ -138,10 +138,12 @@ STRESS_RAND_SRC   := $(SRC_DIR)/stress_rand_sampling.cpp
 
 ALL_PAIRS_EXE_SRC := $(SRC_DIR)/all_pairs_exec.cpp
 
+CSV_TO_PNG_SRC    := $(SRC_DIR)/csv_to_png.cpp
+
 CPP_SRCS          := $(COMMON_SRCS) $(UTILS_SRCS) $(IO_SRCS) $(SCODA_SRCS) \
 					 $(FA2_SRCS) $(LO_EVAL_SRCS) $(GV_SRCS) $(SCODA_EXE_SRC) \
 					 $(GV_EXE_SRC) $(STRESS_EXE_SRC) $(PNGWRITER_SRCS) $(ALL_PAIRS_EXE_SRC) \
-					 $(STRESS_RAND_SRC)
+					 $(STRESS_RAND_SRC) $(CSV_TO_PNG_SRC)
 CUDA_SRCS         := $(CUDA_FA2_SRCS)
 SOURCES           := $(C_SRC) $(CPP_SRCS)
 GV_EXE_OBJS       := $(COMMON_OBJS) $(IO_OBJS) $(GV_OBJS) $(SCODA_OBJS) $(FA2_OBJS)
@@ -149,6 +151,7 @@ SCODA_EXE_OBJS    := $(COMMON_OBJS) $(SCODA_OBJS) $(IO_OBJS)
 STRESS_EXE_OBJS   := $(COMMON_OBJS) $(LO_EVAL_OBJS) $(IO_OBJS)
 STRESS_RAND_OBJS  := $(COMMON_OBJS) $(LO_EVAL_OBJS) $(IO_OBJS) # Might want to have an extra directory for ogdf.
 ALL_PAIRS_EXE_OBJS:= $(COMMON_OBJS) $(LO_EVAL_OBJS)
+CSV_TO_PNG_OBJS   := $(COMMON_OBJS) $(IO_OBJS)
 CUDA_OBJS         := $(CUDA_FA2_OBJS)
 
 ifeq ($(CUDA_SUPPORT), 1)
@@ -165,7 +168,7 @@ depend: .depend
 
 include ./.depend
 
-all: stress_rand_sampling scoda_exec graph_viewer_exec stress_exec all_pairs_exec
+all: stress_rand_sampling scoda_exec graph_viewer_exec stress_exec all_pairs_exec csv_to_png
 
 scoda_exec: $(SCODA_EXE_OBJS) $(SCODA_EXE_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
@@ -180,6 +183,9 @@ stress_rand_sampling: $(STRESS_RAND_OBJS) $(STRESS_RAND_SRC)
 	$(CC) $(CPPFLAGS) $(OGDF_I_FLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(OGDF_CXX_FLAGS) $(LDFLAGS) $(OGDF_LD_FLAGS) -o $@ $^
 
 all_pairs_exec: $(ALL_PAIRS_EXE_OBJS) $(ALL_PAIRS_EXE_SRC)
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
+
+csv_to_png: $(CSV_TO_PNG_OBJS) $(CSV_TO_PNG_SRC)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) $(MY_CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 $(COMMON_OBJS): $(COMMON_SRCS)
@@ -219,6 +225,6 @@ $(PNGWRITER_OBJS): $(PNGWRITER_SRCS)
 	$(CC) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $(@:$(OBJ_DIR)/%.o=$(L_SRC_DIR)/%.cc)
 
 clean:
-	rm -rf scoda_exec graph_viewer_exec stress_exec stress_rand_sampling all_pairs_exec $(OBJ_DIR)/* ./.depend
+	rm -rf scoda_exec graph_viewer_exec stress_exec stress_rand_sampling all_pairs_exec csv_to_png $(OBJ_DIR)/* ./.depend
 
 .PHONY: all clean depend
