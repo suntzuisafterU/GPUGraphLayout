@@ -4,8 +4,8 @@ Populating ogdf::Graph.
 Using 939 sample nodes to calculate approximate stress.
 Starting stress calculation.
 0%
-durtion of one sample: 0.00153964
-It will take approximately 1.44573 seconds to finish this computation.
+durtion of one sample: 0.00154001
+It will take approximately 1.44607 seconds to finish this computation.
 5.00532%
 10.0106%
 15.016%
@@ -28,35 +28,35 @@ It will take approximately 1.44573 seconds to finish this computation.
 ##########################################################################
 ######## Layout ##########
 # From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
-# With span: 49034
-# XRange: 49033.6
-# YRange: 48199.1
+# With span: 49008
+# XRange: 49007.1
+# YRange: 48192.1
 
 ######## Layout ##########
 # From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
-# With span: 49719
-# XRange: 49718.7
-# YRange: 46380.5
+# With span: 50703
+# XRange: 50702.8
+# YRange: 46539.1
 
 Stress of layout1: 
 ##### Stress Report #####
-# stress: 2.72084e+13
+# stress: 2.72034e+13
 # num nodes: 18771
-# stress per node: 2.89759e+10
+# stress per node: 2.89706e+10
 # num edges: 198050
 # stress per edge: 0
 # num samples: 939
 
 Stress of layout2: 
 ##### Stress Report #####
-# stress: 2.66619e+13
+# stress: 2.66899e+13
 # num nodes: 18771
-# stress per node: 2.83939e+10
+# stress per node: 2.84238e+10
 # num edges: 198050
 # stress per edge: 0
 # num samples: 939
 
 
-Difference in stress per node: 5.81975e+08
-Which is 1.0205% lower for layout2.
+Difference in stress per node: 5.46872e+08
+Which is 1.01924% lower for layout2.
 Finished

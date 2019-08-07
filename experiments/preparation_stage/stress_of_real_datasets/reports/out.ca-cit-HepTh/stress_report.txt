@@ -1,0 +1,64 @@
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 1146 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.0274641
+It will take approximately 31.4739 seconds to finish this computation.
+5.06108%
+10.1222%
+15.1832%
+20.2443%
+25.3054%
+30.3665%
+35.4276%
+40.4887%
+45.5497%
+50.6108%
+55.6719%
+60.733%
+65.7941%
+70.8551%
+75.9162%
+80.9773%
+80.9773%
+86.0384%
+86.0384%
+91.0995%
+96.1606%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepTh/out.ca-cit-HepTh
+# With span: 94171
+# XRange: 94170.7
+# YRange: 91091.2
+
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepTh/out.ca-cit-HepTh
+# With span: 90324
+# XRange: 86427.1
+# YRange: 90323.1
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 6.42703e+14
+# num nodes: 22908
+# stress per node: 5.60823e+11
+# num edges: 2673133
+# stress per edge: 0
+# num samples: 1146
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 6.40218e+14
+# num nodes: 22908
+# stress per node: 5.58654e+11
+# num edges: 2673133
+# stress per edge: 0
+# num samples: 1146
+
+
+Difference in stress per node: 2.1686e+09
+Which is 1.00388% lower for layout2.
+Finished
