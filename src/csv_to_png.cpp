@@ -1,4 +1,5 @@
 #include "common/RPGraphLayout.hpp"
+#include "common/RPGraph.hpp"
 #include "utils/IO/RPGraphLayoutRead.hpp"
 #include "utils/IO/RPGraphLayoutUtils.hpp"
 
@@ -6,13 +7,15 @@
 
 int main(int argc, const char** argv) {
 	// Get path from command line.
-	std::string csv_path{ argv[1] };
-	std::string out_path{ argv[2] };
-	const int image_w{ *argv[3] };
-	const int image_h{ *argv[4] };
+	std::string edgelist_file{ argv[1] };
+	std::string csv_path{ argv[2] };
+	std::string out_path{ argv[3] };
+	const int image_w{ *argv[4] };
+	const int image_h{ *argv[5] };
 
 	// Read layout csv file.
-	RPGraph::GraphLayout layout;
+	RPGraph::UGraph graph(edgelist_file);
+	RPGraph::GraphLayout layout(graph);
 	RPGraph::readFromCSV(layout, csv_path);
 
 	// Produce png with pngwriter.
