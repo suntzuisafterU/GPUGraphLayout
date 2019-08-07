@@ -21,6 +21,7 @@ builds/linux/scoda_exec
 builds/linux/stress_exec
 builds/linux/stress_rand_sampling
 builds/linux/all_pairs_exec
+builds/linux/csv_to_png
 
 ## Build generated
 build/
