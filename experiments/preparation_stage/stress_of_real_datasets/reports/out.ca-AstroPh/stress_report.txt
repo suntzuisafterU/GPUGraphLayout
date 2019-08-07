@@ -1,0 +1,62 @@
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 939 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.00153964
+It will take approximately 1.44573 seconds to finish this computation.
+5.00532%
+10.0106%
+15.016%
+20.0213%
+25.0266%
+30.0319%
+35.0373%
+40.0426%
+45.0479%
+50.0532%
+55.0586%
+60.0639%
+65.0692%
+70.0745%
+75.0799%
+80.0852%
+85.0905%
+90.0958%
+95.1012%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
+# With span: 49034
+# XRange: 49033.6
+# YRange: 48199.1
+
+######## Layout ##########
+# From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
+# With span: 49719
+# XRange: 49718.7
+# YRange: 46380.5
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 2.72084e+13
+# num nodes: 18771
+# stress per node: 2.89759e+10
+# num edges: 198050
+# stress per edge: 0
+# num samples: 939
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 2.66619e+13
+# num nodes: 18771
+# stress per node: 2.83939e+10
+# num edges: 198050
+# stress per edge: 0
+# num samples: 939
+
+
+Difference in stress per node: 5.81975e+08
+Which is 1.0205% lower for layout2.
+Finished
