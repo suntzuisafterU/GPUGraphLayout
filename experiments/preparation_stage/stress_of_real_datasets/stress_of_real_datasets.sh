@@ -37,8 +37,8 @@ do
   # Usage: stress_exec [edge list path] [first generated layout path] [second generated layout path]
   LAYOUT1=$OUT_ORIGINAL/*"$EXPERIMENT_TAG"* 
   LAYOUT2=$OUT_SCODA/*FULL_LAYOUT*"$EXPERIMENT_TAG"*
-  echo "./stress_rand_sampling $EDGELIST $LAYOUT1 $LAYOUT2 | tee reports/"$BASENAME"/stress_report.txt"
-  ./stress_rand_sampling $EDGELIST $LAYOUT1 $LAYOUT2 | tee reports/"$BASENAME"/stress_report.txt
+  echo "./stress_rand_sampling $EDGELIST $LAYOUT1 $LAYOUT2 | tee reports/${BASENAME}/stress_report_${TIMESTAMP}.txt" # TODO: Does this line work correctly? Not to important.
+  ./stress_rand_sampling $EDGELIST $LAYOUT1 $LAYOUT2 | tee reports/"$BASENAME"/stress_report_"$TIMESTAMP".txt
 
 done
 
