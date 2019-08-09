@@ -1,0 +1,19 @@
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 119720 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.0795273
+It will take approximately 9521.01 seconds to finish this computation.
+5%
+10%
+15%
+20%
+25%
+30%
+35%
+40%
+45%
+50%
+55%

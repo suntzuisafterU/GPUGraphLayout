@@ -6,16 +6,16 @@ Compressing with SCoDA...
 
 Starting scoda.
 ###### SCoDA report #######
-# degree threshold: 2
-# num_null_e: 1197195
-# num_duplicate_comm_edges: 99883
+# degree threshold: 3
+# num_null_e: 33345
+# num_duplicate_comm_edges: 453
 # num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
-# num_full_nodes: 1271422
-# num_comm_nodes: 857390
-# node compression ratio: 1.4829
-# num full graph edges: 13045696
-# num community graph edges: 11764293
-# edge compression ratio: 1.10892
+# num_full_nodes: 22015
+# num_comm_nodes: 10576
+# node compression ratio: 2.0816
+# num full graph edges: 58595
+# num community graph edges: 16472
+# edge compression ratio: 3.55725
 Finished compressing.
 GV::compress() works, if everything is intact here.
 Starting iteration 14 (2.80%).
@@ -42,16 +42,16 @@ GV::iterate_and_periodically_show() works on compressed layout, if everything is
 Expanding community layout back into source layout.
 Updated SCoDA report: 
 ###### SCoDA report #######
-# degree threshold: 2
-# num_null_e: 1197195
-# num_duplicate_comm_edges: 99883
-# num_source_nodes_with_non_resident_communities: 348692
-# num_full_nodes: 1271422
-# num_comm_nodes: 857390
-# node compression ratio: 1.4829
-# num full graph edges: 13045696
-# num community graph edges: 11764293
-# edge compression ratio: 1.10892
+# degree threshold: 3
+# num_null_e: 33345
+# num_duplicate_comm_edges: 453
+# num_source_nodes_with_non_resident_communities: 5567
+# num_full_nodes: 22015
+# num_comm_nodes: 10576
+# node compression ratio: 2.0816
+# num full graph edges: 58595
+# num community graph edges: 16472
+# edge compression ratio: 3.55725
 
 Finished expanding.
 GV::expand() works, if everything is intact here.

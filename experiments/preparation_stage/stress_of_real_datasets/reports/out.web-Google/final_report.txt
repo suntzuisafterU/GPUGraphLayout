@@ -1,0 +1,45 @@
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 843097
+# num_duplicate_comm_edges: 755243
+# num_source_nodes_with_non_resident_communities: 142099
+# num_full_nodes: 875713
+# num_comm_nodes: 698030
+# node compression ratio: 1.25455
+# num full graph edges: 5105039
+# num community graph edges: 4207597
+# edge compression ratio: 1.21329
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/web-Google/out.web-Google
+# With span: 295331
+# XRange: 295331
+# YRange: 285718
+
+######## Layout ##########
+# From dataset file: datasets/web-Google/out.web-Google
+# With span: 368859
+# XRange: 361501
+# YRange: 368859
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 9.18058e+18
+# num nodes: 875713
+# stress per node: 2.09669e+14
+# num edges: 5105039
+# stress per edge: 0
+# num samples: 43786
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 7.90514e+18
+# num nodes: 875713
+# stress per node: 1.8054e+14
+# num edges: 5105039
+# stress per edge: 0
+# num samples: 43786
+
+
+Difference in stress per node: 2.91289e+13
+Which is 1.16134% lower for layout2.
