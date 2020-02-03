@@ -1,6 +1,25 @@
 #README provided by the original authors
 CUDA Force Atlas2 original source: https://github.com/govertb/GPUGraphLayout
 
+## Instructions for making and running base executable
+```
+cd builds/linux
+make
+./graph_viewer_exec
+```
+
+## Instructions for making and executing workflow
+```
+cd utils
+./make_gv.sh
+./graph_viewer_exec
+./stress_exec
+# Or can use utility scripts to run executables
+./simple_stress_rand_test.sh
+./simple_gv_test.sh
+./execute_graph_viewer.sh
+```
+
 
 Our current implementation generally matches this description.  Any discrepencies are documented internally.  Simply run any executable with the -h or --help option to get a description of command line use.
 
