@@ -12,6 +12,11 @@ CUDA_SUPPORT=1
 while [[ $# -gt 0 ]]
 do op="$1"
   case $op in
+    -h | --help )
+      echo -ne "$USAGE"
+      exit 0
+      shift
+      ;;
     -g | --debug )
       DEBUG=1
       shift

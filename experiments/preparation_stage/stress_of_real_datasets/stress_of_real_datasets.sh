@@ -15,9 +15,11 @@ do
   # echo "rm -rf out/$BASENAME"
   # rm -rf out/$BASENAME
 
+  PERCENT_COMM=90
+
   echo "Creating $OUT_ORIGINAL and $OUT_SCODA if they don't already exist"
-  mkdir -p $OUT_ORIGINAL
-  mkdir -p $OUT_SCODA
+  mkdir -p $OUT_ORIGINAL"_percent_comm_"$PERCENT_COMM
+  mkdir -p $OUT_SCODA"_percent_comm_"$PERCENT_COMM
 
   # # write reports to reports directory. For now clean out first.
   # echo "Removing old reports with: "
@@ -31,8 +33,8 @@ do
   EXPERIMENT_TAG="_STRESS_EXPERIMENT_"
   # Usage: graph_viewer original|single|stacked gpu|cpu max_iterations num_snaps sg|wg scale gravity exact|approximate linlog|regular [percentage_iterations_on_comm_graph] edgelist_path out_path out_file_prefix [png image_w image_h|csv|bin]
 
-  ./graph_viewer_exec "original" gpu 500 1 wg 5.0 1.0 approximate regular 55 $EDGELIST $OUT_ORIGINAL "$EXPERIMENT_TAG" csv | tee reports/"$BASENAME"/gv_original_output_"$TIMESTAMP".txt 
-  ./graph_viewer_exec "single" gpu 500 1 wg 5.0 1.0 approximate regular 55 $EDGELIST $OUT_SCODA "$EXPERIMENT_TAG" csv | tee reports/"$BASENAME"/gv_scoda_pipeline_output_"$TIMESTAMP".txt
+  ./graph_viewer_exec "original" gpu 500 1 wg 5.0 1.0 approximate regular $PERCENT_COMM $EDGELIST $OUT_ORIGINAL "$EXPERIMENT_TAG" csv | tee reports/"$BASENAME"/gv_original_output_"$TIMESTAMP".txt 
+  ./graph_viewer_exec "single" gpu 500 1 wg 5.0 1.0 approximate regular $PERCENT_COM $EDGELIST $OUT_SCODA "$EXPERIMENT_TAG" csv | tee reports/"$BASENAME"/gv_scoda_pipeline_output_"$TIMESTAMP".txt
 
   # Usage: stress_exec [edge list path] [first generated layout path] [second generated layout path]
   LAYOUT1=$OUT_ORIGINAL/*"$EXPERIMENT_TAG"* 

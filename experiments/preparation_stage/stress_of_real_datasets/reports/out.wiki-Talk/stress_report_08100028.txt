@@ -4,8 +4,8 @@ Populating ogdf::Graph.
 Using 119720 sample nodes to calculate approximate stress.
 Starting stress calculation.
 0%
-durtion of one sample: 0.0795273
-It will take approximately 9521.01 seconds to finish this computation.
+durtion of one sample: 0.167416
+It will take approximately 20043.1 seconds to finish this computation.
 5%
 10%
 15%
@@ -30,9 +30,9 @@ It will take approximately 9521.01 seconds to finish this computation.
 ##########################################################################
 ######## Layout ##########
 # From dataset file: datasets/wiki-Talk/out.wiki-Talk
-# With span: 114966
-# XRange: 108535
-# YRange: 114965
+# With span: 117751
+# XRange: 111187
+# YRange: 117750
 
 ######## Layout ##########
 # From dataset file: datasets/wiki-Talk/out.wiki-Talk
@@ -42,9 +42,9 @@ It will take approximately 9521.01 seconds to finish this computation.
 
 Stress of layout1: 
 ##### Stress Report #####
-# stress: 1.25852e+19
+# stress: 1.2686e+19
 # num nodes: 2394385
-# stress per node: 1.05122e+14
+# stress per node: 1.05964e+14
 # num edges: 5021410
 # stress per edge: 0
 # num samples: 119720
@@ -59,6 +59,6 @@ Stress of layout2:
 # num samples: 119720
 
 
-Difference in stress per node: 3.60125e+13
-Which is 1.52109% lower for layout2.
+Difference in stress per node: 3.68544e+13
+Which is 1.53328% lower for layout2.
 Finished

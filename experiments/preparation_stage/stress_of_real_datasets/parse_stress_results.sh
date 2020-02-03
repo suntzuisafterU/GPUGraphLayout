@@ -1,1 +1,1 @@
-grep -B 35 'lower' nohup.out
+grep -B 33 'lower' nohup.out

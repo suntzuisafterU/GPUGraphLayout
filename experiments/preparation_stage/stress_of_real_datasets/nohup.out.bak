@@ -1,0 +1,1399 @@
+Removing any old output with: 
+rm -rf out/out.amazon0601
+Creating out/out.amazon0601/original and out/out.amazon0601/scoda if they don't already exist
+Removing old reports with: 
+rm -rf reports
+Creating reports directory...
+Set out format to csv
+In lambda: like_original 
+Found 3 cuda devices.
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 13
+# num_null_e: 2203994
+# num_duplicate_comm_edges: 13604
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 403394
+# num_comm_nodes: 6260
+# node compression ratio: 64.4399
+# num full graph edges: 3387388
+# num community graph edges: 21943
+# edge compression ratio: 154.372
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 13
+# num_null_e: 2203994
+# num_duplicate_comm_edges: 13604
+# num_source_nodes_with_non_resident_communities: 105033
+# num_full_nodes: 403394
+# num_comm_nodes: 6260
+# node compression ratio: 64.4399
+# num full graph edges: 3387388
+# num community graph edges: 21943
+# edge compression ratio: 154.372
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline
+./stress_rand_sampling datasets/amazon0601/out.amazon0601 out/out.amazon0601/original/*_STRESS_EXPERIMENT_* out/out.amazon0601/scoda/*FULL_LAYOUT*_STRESS_EXPERIMENT_* | tee reports/out.amazon0601/stress_report.txt
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 20170 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.0484985
+It will take approximately 978.215 seconds to finish this computation.
+5.00248%
+10.005%
+15.0074%
+20.0099%
+25.0124%
+30.0149%
+35.0174%
+40.0198%
+45.0223%
+50.0248%
+55.0273%
+60.0297%
+65.0322%
+70.0347%
+75.0372%
+80.0397%
+85.0421%
+90.0446%
+95.0471%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/amazon0601/out.amazon0601
+# With span: 314245
+# XRange: 277749
+# YRange: 314245
+
+######## Layout ##########
+# From dataset file: datasets/amazon0601/out.amazon0601
+# With span: 6361
+# XRange: 5980.89
+# YRange: 6360.75
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 9.23064e+17
+# num nodes: 403394
+# stress per node: 4.57642e+13
+# num edges: 3387388
+# stress per edge: 0
+# num samples: 20170
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 5.6999e+12
+# num nodes: 403394
+# stress per node: 2.82593e+08
+# num edges: 3387388
+# stress per edge: 0
+# num samples: 20170
+
+
+Difference in stress per node: 4.57639e+13
+Which is 161944% lower for layout2.
+Finished
+Removing any old output with: 
+rm -rf out/out.ca-AstroPh
+Creating out/out.ca-AstroPh/original and out/out.ca-AstroPh/scoda if they don't already exist
+Removing old reports with: 
+rm -rf reports
+Creating reports directory...
+Set out format to csv
+In lambda: like_original 
+Found 3 cuda devices.
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 17945
+# num_duplicate_comm_edges: 357
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 18771
+# num_comm_nodes: 16390
+# node compression ratio: 1.14527
+# num full graph edges: 198050
+# num community graph edges: 179021
+# edge compression ratio: 1.10629
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 17945
+# num_duplicate_comm_edges: 357
+# num_source_nodes_with_non_resident_communities: 2060
+# num_full_nodes: 18771
+# num_comm_nodes: 16390
+# node compression ratio: 1.14527
+# num full graph edges: 198050
+# num community graph edges: 179021
+# edge compression ratio: 1.10629
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline
+./stress_rand_sampling datasets/ca-AstroPh/out.ca-AstroPh out/out.ca-AstroPh/original/*_STRESS_EXPERIMENT_* out/out.ca-AstroPh/scoda/*FULL_LAYOUT*_STRESS_EXPERIMENT_* | tee reports/out.ca-AstroPh/stress_report.txt
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 939 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.00154001
+It will take approximately 1.44607 seconds to finish this computation.
+5.00532%
+10.0106%
+15.016%
+20.0213%
+25.0266%
+30.0319%
+35.0373%
+40.0426%
+45.0479%
+50.0532%
+55.0586%
+60.0639%
+65.0692%
+70.0745%
+75.0799%
+80.0852%
+85.0905%
+90.0958%
+95.1012%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
+# With span: 49008
+# XRange: 49007.1
+# YRange: 48192.1
+
+######## Layout ##########
+# From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
+# With span: 50703
+# XRange: 50702.8
+# YRange: 46539.1
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 2.72034e+13
+# num nodes: 18771
+# stress per node: 2.89706e+10
+# num edges: 198050
+# stress per edge: 0
+# num samples: 939
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 2.66899e+13
+# num nodes: 18771
+# stress per node: 2.84238e+10
+# num edges: 198050
+# stress per edge: 0
+# num samples: 939
+
+
+Difference in stress per node: 5.46872e+08
+Which is 1.01924% lower for layout2.
+Finished
+Removing any old output with: 
+rm -rf out/out.ca-cit-HepPh
+Creating out/out.ca-cit-HepPh/original and out/out.ca-cit-HepPh/scoda if they don't already exist
+Removing old reports with: 
+rm -rf reports
+Creating reports directory...
+Set out format to csv
+In lambda: like_original 
+Found 3 cuda devices.
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 6
+# num_null_e: 137990
+# num_duplicate_comm_edges: 1429835
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 28093
+# num_comm_nodes: 26914
+# node compression ratio: 1.04381
+# num full graph edges: 4596803
+# num community graph edges: 4458394
+# edge compression ratio: 1.03104
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 6
+# num_null_e: 137990
+# num_duplicate_comm_edges: 1429835
+# num_source_nodes_with_non_resident_communities: 1119
+# num_full_nodes: 28093
+# num_comm_nodes: 26914
+# node compression ratio: 1.04381
+# num full graph edges: 4596803
+# num community graph edges: 4458394
+# edge compression ratio: 1.03104
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline
+./stress_rand_sampling datasets/ca-cit-HepPh/out.ca-cit-HepPh out/out.ca-cit-HepPh/original/*_STRESS_EXPERIMENT_* out/out.ca-cit-HepPh/scoda/*FULL_LAYOUT*_STRESS_EXPERIMENT_* | tee reports/out.ca-cit-HepPh/stress_report.txt
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 1405 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.0434311
+It will take approximately 61.0206 seconds to finish this computation.
+5.05338%
+10.1068%
+15.1601%
+20.2135%
+25.2669%
+30.3203%
+35.3737%
+40.427%
+45.4804%
+50.5338%
+55.5872%
+60.6406%
+65.6939%
+70.7473%
+75.8007%
+80.8541%
+85.9075%
+90.9609%
+96.0142%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepPh/out.ca-cit-HepPh
+# With span: 83820
+# XRange: 70441.5
+# YRange: 83819.5
+
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepPh/out.ca-cit-HepPh
+# With span: 71400
+# XRange: 64554.7
+# YRange: 71399.2
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 2.7974e+15
+# num nodes: 28093
+# stress per node: 1.99103e+12
+# num edges: 4596803
+# stress per edge: 0
+# num samples: 1405
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 2.87856e+15
+# num nodes: 28093
+# stress per node: 2.0488e+12
+# num edges: 4596803
+# stress per edge: 0
+# num samples: 1405
+
+
+Difference in stress per node: -5.77689e+10
+Which is 0.971804% lower for layout2.
+Finished
+Removing any old output with: 
+rm -rf out/out.ca-cit-HepTh
+Creating out/out.ca-cit-HepTh/original and out/out.ca-cit-HepTh/scoda if they don't already exist
+Removing old reports with: 
+rm -rf reports
+Creating reports directory...
+Set out format to csv
+In lambda: like_original 
+Found 3 cuda devices.
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 22718
+# num_duplicate_comm_edges: 227572
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 22908
+# num_comm_nodes: 22417
+# node compression ratio: 1.0219
+# num full graph edges: 2673133
+# num community graph edges: 2650227
+# edge compression ratio: 1.00864
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 22718
+# num_duplicate_comm_edges: 227572
+# num_source_nodes_with_non_resident_communities: 452
+# num_full_nodes: 22908
+# num_comm_nodes: 22417
+# node compression ratio: 1.0219
+# num full graph edges: 2673133
+# num community graph edges: 2650227
+# edge compression ratio: 1.00864
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline
+./stress_rand_sampling datasets/ca-cit-HepTh/out.ca-cit-HepTh out/out.ca-cit-HepTh/original/*_STRESS_EXPERIMENT_* out/out.ca-cit-HepTh/scoda/*FULL_LAYOUT*_STRESS_EXPERIMENT_* | tee reports/out.ca-cit-HepTh/stress_report.txt
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 1146 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.0274641
+It will take approximately 31.4739 seconds to finish this computation.
+5.06108%
+10.1222%
+15.1832%
+20.2443%
+25.3054%
+30.3665%
+35.4276%
+40.4887%
+45.5497%
+50.6108%
+55.6719%
+60.733%
+65.7941%
+70.8551%
+75.9162%
+80.9773%
+80.9773%
+86.0384%
+86.0384%
+91.0995%
+96.1606%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepTh/out.ca-cit-HepTh
+# With span: 94171
+# XRange: 94170.7
+# YRange: 91091.2
+
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepTh/out.ca-cit-HepTh
+# With span: 90324
+# XRange: 86427.1
+# YRange: 90323.1
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 6.42703e+14
+# num nodes: 22908
+# stress per node: 5.60823e+11
+# num edges: 2673133
+# stress per edge: 0
+# num samples: 1146
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 6.40218e+14
+# num nodes: 22908
+# stress per node: 5.58654e+11
+# num edges: 2673133
+# stress per edge: 0
+# num samples: 1146
+
+
+Difference in stress per node: 2.1686e+09
+Which is 1.00388% lower for layout2.
+Finished
+Removing any old output with: 
+rm -rf out/out.gh.e
+Creating out/out.gh.e/original and out/out.gh.e/scoda if they don't already exist
+Removing old reports with: 
+rm -rf reports
+Creating reports directory...
+Set out format to csv
+In lambda: like_original 
+Found 3 cuda devices.
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 1197195
+# num_duplicate_comm_edges: 99883
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 1271422
+# num_comm_nodes: 857390
+# node compression ratio: 1.4829
+# num full graph edges: 13045696
+# num community graph edges: 11764293
+# edge compression ratio: 1.10892
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 1197195
+# num_duplicate_comm_edges: 99883
+# num_source_nodes_with_non_resident_communities: 348692
+# num_full_nodes: 1271422
+# num_comm_nodes: 857390
+# node compression ratio: 1.4829
+# num full graph edges: 13045696
+# num community graph edges: 11764293
+# edge compression ratio: 1.10892
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline
+./stress_rand_sampling datasets/gh.e/out.gh.e out/out.gh.e/original/*_STRESS_EXPERIMENT_* out/out.gh.e/scoda/*FULL_LAYOUT*_STRESS_EXPERIMENT_* | tee reports/out.gh.e/stress_report.txt
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 63572 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.0951804
+It will take approximately 6050.81 seconds to finish this computation.
+5.00063%
+10.0013%
+15.0019%
+20.0025%
+25.0031%
+30.0038%
+35.0044%
+40.005%
+45.0057%
+50.0063%
+55.0069%
+60.0075%
+65.0082%
+70.0088%
+75.0094%
+80.0101%
+85.0107%
+90.0113%
+95.012%
+95.012%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/gh.e/out.gh.e
+# With span: 728227
+# XRange: 707132
+# YRange: 728227
+
+######## Layout ##########
+# From dataset file: datasets/gh.e/out.gh.e
+# With span: 659688
+# XRange: 646451
+# YRange: 659688
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 9.7535e+18
+# num nodes: 1271422
+# stress per node: 1.53424e+14
+# num edges: 13045696
+# stress per edge: 0
+# num samples: 63572
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 6.87347e+18
+# num nodes: 1271422
+# stress per node: 1.08121e+14
+# num edges: 13045696
+# stress per edge: 0
+# num samples: 63572
+
+
+Difference in stress per node: 4.53034e+13
+Which is 1.41901% lower for layout2.
+Finished
+Removing any old output with: 
+rm -rf out/out.opsahl-collaboration
+Creating out/out.opsahl-collaboration/original and out/out.opsahl-collaboration/scoda if they don't already exist
+Removing old reports with: 
+rm -rf reports
+Creating reports directory...
+Set out format to csv
+In lambda: like_original 
+Found 3 cuda devices.
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 3
+# num_null_e: 33345
+# num_duplicate_comm_edges: 453
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 22015
+# num_comm_nodes: 10576
+# node compression ratio: 2.0816
+# num full graph edges: 58595
+# num community graph edges: 16472
+# edge compression ratio: 3.55725
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 3
+# num_null_e: 33345
+# num_duplicate_comm_edges: 453
+# num_source_nodes_with_non_resident_communities: 5567
+# num_full_nodes: 22015
+# num_comm_nodes: 10576
+# node compression ratio: 2.0816
+# num full graph edges: 58595
+# num community graph edges: 16472
+# edge compression ratio: 3.55725
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline
+./stress_rand_sampling datasets/opsahl-collaboration/out.opsahl-collaboration out/out.opsahl-collaboration/original/*_STRESS_EXPERIMENT_* out/out.opsahl-collaboration/scoda/*FULL_LAYOUT*_STRESS_EXPERIMENT_* | tee reports/out.opsahl-collaboration/stress_report.txt
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 1101 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.000459076
+It will take approximately 0.505443 seconds to finish this computation.
+5.08629%
+10.1726%
+15.2589%
+20.3451%
+20.3451%
+25.4314%
+30.5177%
+35.604%
+40.6903%
+45.7766%
+50.8629%
+55.9491%
+61.0354%
+66.1217%
+71.208%
+76.2943%
+81.3806%
+86.4669%
+91.5531%
+96.6394%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/opsahl-collaboration/out.opsahl-collaboration
+# With span: 12695
+# XRange: 12694.8
+# YRange: 8646.66
+
+######## Layout ##########
+# From dataset file: datasets/opsahl-collaboration/out.opsahl-collaboration
+# With span: 11665
+# XRange: 11664.7
+# YRange: 10050.5
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 5.5405e+12
+# num nodes: 22015
+# stress per node: 5.03225e+09
+# num edges: 58595
+# stress per edge: 0
+# num samples: 1101
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 5.37457e+12
+# num nodes: 22015
+# stress per node: 4.88154e+09
+# num edges: 58595
+# stress per edge: 0
+# num samples: 1101
+
+
+Difference in stress per node: 1.50707e+08
+Which is 1.03087% lower for layout2.
+Finished
+Removing any old output with: 
+rm -rf out/out.web-Google
+Creating out/out.web-Google/original and out/out.web-Google/scoda if they don't already exist
+Removing old reports with: 
+rm -rf reports
+Creating reports directory...
+Set out format to csv
+In lambda: like_original 
+Found 3 cuda devices.
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 843097
+# num_duplicate_comm_edges: 755243
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 875713
+# num_comm_nodes: 698030
+# node compression ratio: 1.25455
+# num full graph edges: 5105039
+# num community graph edges: 4207597
+# edge compression ratio: 1.21329
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 843097
+# num_duplicate_comm_edges: 755243
+# num_source_nodes_with_non_resident_communities: 142099
+# num_full_nodes: 875713
+# num_comm_nodes: 698030
+# node compression ratio: 1.25455
+# num full graph edges: 5105039
+# num community graph edges: 4207597
+# edge compression ratio: 1.21329
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline
+./stress_rand_sampling datasets/web-Google/out.web-Google out/out.web-Google/original/*_STRESS_EXPERIMENT_* out/out.web-Google/scoda/*FULL_LAYOUT*_STRESS_EXPERIMENT_* | tee reports/out.web-Google/stress_report.txt
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 43786 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.046223
+It will take approximately 2023.92 seconds to finish this computation.
+5.0016%
+10.0032%
+15.0048%
+20.0064%
+25.008%
+30.0096%
+35.0112%
+40.0128%
+45.0144%
+50.016%
+55.0176%
+60.0192%
+65.0208%
+70.0224%
+75.024%
+80.0256%
+85.0272%
+90.0288%
+95.0304%
+95.0304%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/web-Google/out.web-Google
+# With span: 295331
+# XRange: 295331
+# YRange: 285718
+
+######## Layout ##########
+# From dataset file: datasets/web-Google/out.web-Google
+# With span: 368859
+# XRange: 361501
+# YRange: 368859
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 9.18058e+18
+# num nodes: 875713
+# stress per node: 2.09669e+14
+# num edges: 5105039
+# stress per edge: 0
+# num samples: 43786
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 7.90514e+18
+# num nodes: 875713
+# stress per node: 1.8054e+14
+# num edges: 5105039
+# stress per edge: 0
+# num samples: 43786
+
+
+Difference in stress per node: 2.91289e+13
+Which is 1.16134% lower for layout2.
+Finished
+Removing any old output with: 
+rm -rf out/out.wiki-Talk
+Creating out/out.wiki-Talk/original and out/out.wiki-Talk/scoda if they don't already exist
+Removing old reports with: 
+rm -rf reports
+Creating reports directory...
+Set out format to csv
+In lambda: like_original 
+Found 3 cuda devices.
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 2385703
+# num_duplicate_comm_edges: 317735
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 2394385
+# num_comm_nodes: 636280
+# node compression ratio: 3.7631
+# num full graph edges: 5021410
+# num community graph edges: 2627933
+# edge compression ratio: 1.91078
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 2385703
+# num_duplicate_comm_edges: 317735
+# num_source_nodes_with_non_resident_communities: 1757545
+# num_full_nodes: 2394385
+# num_comm_nodes: 636280
+# node compression ratio: 3.7631
+# num full graph edges: 5021410
+# num community graph edges: 2627933
+# edge compression ratio: 1.91078
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Found 3 cuda devices.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline
+./stress_rand_sampling datasets/wiki-Talk/out.wiki-Talk out/out.wiki-Talk/original/*_STRESS_EXPERIMENT_* out/out.wiki-Talk/scoda/*FULL_LAYOUT*_STRESS_EXPERIMENT_* | tee reports/out.wiki-Talk/stress_report.txt
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 119720 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.0795273
+It will take approximately 9521.01 seconds to finish this computation.
+5%
+10%
+15%
+20%
+25%
+30%
+35%
+40%
+45%
+50%
+55%
+60%
+65%
+70%
+75%
+80%
+80%
+85%
+90%
+95%
+95%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/wiki-Talk/out.wiki-Talk
+# With span: 114966
+# XRange: 108535
+# YRange: 114965
+
+######## Layout ##########
+# From dataset file: datasets/wiki-Talk/out.wiki-Talk
+# With span: 99344
+# XRange: 99343.6
+# YRange: 89799.2
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 1.25852e+19
+# num nodes: 2394385
+# stress per node: 1.05122e+14
+# num edges: 5021410
+# stress per edge: 0
+# num samples: 119720
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 8.2738e+18
+# num nodes: 2394385
+# stress per node: 6.91096e+13
+# num edges: 5021410
+# stress per edge: 0
+# num samples: 119720
+
+
+Difference in stress per node: 3.60125e+13
+Which is 1.52109% lower for layout2.
+Finished
