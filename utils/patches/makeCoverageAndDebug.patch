@@ -1,0 +1,13 @@
+diff --git a/builds/linux/Makefile b/builds/linux/Makefile
+index 2d55ccc..142c899 100644
+--- a/builds/linux/Makefile
++++ b/builds/linux/Makefile
+@@ -14,7 +14,7 @@ endif
+ # Debug compilation, disable by default
+ DEBUG ?= 1
+ ifeq ($(DEBUG), 1)
+-	CXXFLAGS:=-pg -g
++	CXXFLAGS:=-Xcompiler -pg
+ 	NVCCFLAGS:=-G
+ 	O_LVL:=-O0
+ else

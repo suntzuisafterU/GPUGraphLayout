@@ -1,0 +1,45 @@
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 17945
+# num_duplicate_comm_edges: 357
+# num_source_nodes_with_non_resident_communities: 2060
+# num_full_nodes: 18771
+# num_comm_nodes: 16390
+# node compression ratio: 1.14527
+# num full graph edges: 198050
+# num community graph edges: 179021
+# edge compression ratio: 1.10629
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
+# With span: 49008
+# XRange: 49007.1
+# YRange: 48192.1
+
+######## Layout ##########
+# From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
+# With span: 50703
+# XRange: 50702.8
+# YRange: 46539.1
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 2.72034e+13
+# num nodes: 18771
+# stress per node: 2.89706e+10
+# num edges: 198050
+# stress per edge: 0
+# num samples: 939
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 2.66899e+13
+# num nodes: 18771
+# stress per node: 2.84238e+10
+# num edges: 198050
+# stress per edge: 0
+# num samples: 939
+
+
+Difference in stress per node: 5.46872e+08
+Which is 1.01924% lower for layout2.

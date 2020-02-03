@@ -1,0 +1,207 @@
+        -:    0:Source:../../src/graph_viewer.cpp
+        -:    0:Graph:obj/graph_viewer.gcno
+        -:    0:Data:obj/graph_viewer.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2: ==============================================================================
+        -:    3:
+        -:    4: graph_viewer.cpp
+        -:    5: Copyright © 2016, 2017, 2018  G. Brinkmann
+        -:    6:
+        -:    7: This file is part of graph_viewer.
+        -:    8:
+        -:    9: graph_viewer is free software: you can redistribute it and/or modify
+        -:   10: it under the terms of version 3 of the GNU Affero General Public License as
+        -:   11: published by the Free Software Foundation.
+        -:   12:
+        -:   13: graph_viewer is distributed in the hope that it will be useful,
+        -:   14: but WITHOUT ANY WARRANTY; without even the implied warranty of
+        -:   15: MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        -:   16: GNU Affero General Public License for more details.
+        -:   17:
+        -:   18: You should have received a copy of the GNU Affero General Public License
+        -:   19: along with graph_viewer.  If not, see <https://www.gnu.org/licenses/>.
+        -:   20:
+        -:   21:-------------------------------------------------------------------------------
+        -:   22:
+        -:   23: This code was written as part of a research project at the Leiden Institute of
+        -:   24: Advanced Computer Science (www.liacs.nl). For other resources related to this
+        -:   25: project, see https://liacs.leidenuniv.nl/~takesfw/GPUNetworkVis/.
+        -:   26:
+        -:   27: ==============================================================================
+        -:   28:*/
+        -:   29:
+        -:   30:// Reading
+        -:   31:
+        -:   32:#include <stdio.h>
+        -:   33:#include <stdlib.h>
+        -:   34:#include <string>
+        -:   35:#include <math.h>
+        -:   36:
+        -:   37:#include "RPCommon.hpp"
+        -:   38:#include "RPGraph.hpp"
+        -:   39:#include "RPGraphLayout.hpp"
+        -:   40:#include "RPCPUForceAtlas2.hpp"
+        -:   41:
+        -:   42:#ifdef __NVCC__
+        -:   43:#include <cuda_runtime_api.h>
+        -:   44:#include "RPGPUForceAtlas2.hpp"
+        -:   45:#endif
+        -:   46:
+        -:   47:/**
+        -:   48: * Entry point for executable.  CPU or GPU.
+        -:   49: */
+        1:   50:int main(int argc, const char **argv)
+        -:   51:{
+        -:   52:    // For reproducibility.
+        -:   53:    // srandom(1234);
+        1:   54:    srandom( time(NULL) );
+        -:   55:
+        -:   56:    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        -:   57:    ////////////////////////////////// Parse command line    //////////////////////////////////////////////
+        -:   58:    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        -:   59:
+        -:   60:    // Parse commandline arguments
+        1:   61:    if (argc < 10)
+        -:   62:    {
+    #####:   63:        fprintf(stderr, "Usage: graph_viewer gpu|cpu max_iterations num_snaps sg|wg scale gravity exact|approximate edgelist_path out_path [png image_w image_h|csv|bin]\n");
+    #####:   64:        exit(EXIT_FAILURE);
+        -:   65:    }
+        -:   66:
+        1:   67:    const bool cuda_requested = std::string(argv[1]) == "gpu" or std::string(argv[1]) == "cuda"; // using cuda
+        1:   68:    const int max_iterations = std::stoi(argv[2]);
+        1:   69:    const int num_screenshots = std::stoi(argv[3]); // aka: num_snaps
+        1:   70:    const bool strong_gravity = std::string(argv[4]) == "sg"; // strong gravity?  sg is not proportional to distance from origin.
+        1:   71:    const float scale = std::stof(argv[5]); // scaling for repulsion force.  paper used 80.
+        1:   72:    const float gravity = std::stof(argv[6]); // scaling for gravity. paper used 1.
+        1:   73:    const bool approximate = std::string(argv[7]) == "approximate"; // gpu only accepts BH approximation.
+        1:   74:    const char *edgelist_path = argv[8]; // infile
+        1:   75:    const char *out_path = argv[9]; // output directory for images.
+        1:   76:    std::string out_format = "png"; // default make png that is 1250x1250
+        1:   77:    int image_w = 1250;
+        1:   78:    int image_h = 1250;
+        -:   79:
+        -:   80:    // Minor, accept multiple png vs csv args.
+        1:   81:    for (int arg_no = 10; arg_no < argc; arg_no++)
+        -:   82:    {
+    #####:   83:        if(std::string(argv[arg_no]) == "png")
+        -:   84:        {
+    #####:   85:            out_format = "png";
+    #####:   86:            image_w = std::stoi(argv[arg_no+1]);
+    #####:   87:            image_h = std::stoi(argv[arg_no+2]);
+    #####:   88:            arg_no += 2;
+        -:   89:        }
+        -:   90:
+    #####:   91:        else if(std::string(argv[arg_no]) == "csv")
+        -:   92:        {
+    #####:   93:            out_format = "csv";
+        -:   94:        }
+        -:   95:
+    #####:   96:        else if(std::string(argv[arg_no]) == "bin")
+        -:   97:        {
+    #####:   98:            out_format = "bin";
+        -:   99:        }
+        -:  100:    }
+        -:  101:
+        -:  102:
+        1:  103:    if(cuda_requested and not approximate)
+        -:  104:    {
+    #####:  105:        fprintf(stderr, "error: The CUDA implementation (currently) requires Barnes-Hut approximation.\n");
+    #####:  106:        exit(EXIT_FAILURE);
+        -:  107:    }
+        -:  108:
+        -:  109:    // Check in_path and out_path
+        1:  110:    if (!is_file_exists(edgelist_path))
+        -:  111:    {
+    #####:  112:        fprintf(stderr, "error: No edgelist at %s\n", edgelist_path);
+    #####:  113:        exit(EXIT_FAILURE);
+        -:  114:    }
+        1:  115:    if (!is_file_exists(out_path))
+        -:  116:    {
+    #####:  117:        fprintf(stderr, "error: No output folder at %s\n", out_path);
+    #####:  118:        exit(EXIT_FAILURE);
+        -:  119:    }
+        -:  120:
+        -:  121:    // If not compiled with cuda support, check if cuda is requested.
+        -:  122:    #ifndef __NVCC__
+        1:  123:    if(cuda_requested)
+        -:  124:    {
+    #####:  125:        fprintf(stderr, "error: CUDA was requested, but not compiled for.\n");
+    #####:  126:        exit(EXIT_FAILURE);
+        -:  127:    }
+        -:  128:    #endif
+        -:  129:
+        -:  130:    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        -:  131:    ////////////////////////////////// End commandline args  //////////////////////////////////////////////
+        -:  132:    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        -:  133:
+        -:  134:    // Load graph.
+        1:  135:    printf("Loading edgelist at '%s'...", edgelist_path);
+        1:  136:    fflush(stdout);
+        -:  137:    /**
+        -:  138:     * UGraph object of adjaceny list format.
+        -:  139:     */
+        1:  140:    RPGraph::UGraph graph = RPGraph::UGraph(edgelist_path);
+        1:  141:    printf("done.\n");
+        1:  142:    printf("    fetched %d nodes and %d edges.\n", graph.num_nodes(), graph.num_edges());
+        -:  143:
+        -:  144:    // Create the GraphLayout and ForceAtlas2 objects.
+        1:  145:    RPGraph::GraphLayout layout(graph);
+        -:  146:    RPGraph::ForceAtlas2 *fa2; // Could be CPU or GPU object.
+        -:  147:    #ifdef __NVCC__
+        -:  148:    if(cuda_requested)
+        -:  149:        // GPU FA2
+        -:  150:        fa2 = new RPGraph::CUDAForceAtlas2(layout, approximate,
+        -:  151:                                           strong_gravity, gravity, scale);
+        -:  152:    else
+        -:  153:    #endif
+        -:  154:        fa2 = new RPGraph::CPUForceAtlas2(layout, approximate,
+        1:  155:                                          strong_gravity, gravity, scale);
+        -:  156:
+        1:  157:    printf("Started Layout algorithm...\n");
+        1:  158:    const int snap_period = ceil((float)max_iterations/num_screenshots);
+        1:  159:    const int print_period = ceil((float)max_iterations*0.05);
+        -:  160:
+        -:  161:    /**
+        -:  162:     * TODO: Wrap this in a function and use it twice, once for the comm layout and once for the full layout.
+        -:  163:     */
+       21:  164:    for (int iteration = 1; iteration <= max_iterations; ++iteration)
+        -:  165:    {
+        -:  166:        // BOOKMARK
+        -:  167:        /**
+        -:  168:         * Implementation in either RPGPUForceAtlas2.cpp or RPCPUForceAtlas2.cpp
+        -:  169:         */
+       20:  170:        fa2->doStep();
+        -:  171:        // If we need to, write the result to a png
+       20:  172:        if (num_screenshots > 0 && (iteration % snap_period == 0 || iteration == max_iterations))
+        -:  173:        {
+        -:  174:            /**
+        -:  175:             * Reverted to older version after multiple issues with the line intended to extract the basename of the network
+        -:  176:             */
+        1:  177:            std::string op(out_path);
+        1:  178:            op.append("/").append(std::to_string(iteration)).append(".").append(out_format);
+        1:  179:            printf("Starting iteration %d (%.2f%%), writing %s...", iteration, 100*(float)iteration/max_iterations, out_format.c_str());
+        1:  180:            fflush(stdout);
+        1:  181:            fa2->sync_layout();
+        -:  182:
+        1:  183:            if (out_format == "png")
+        1:  184:                layout.writeToPNG(image_w, image_h, op);
+    #####:  185:            else if (out_format == "csv")
+    #####:  186:                layout.writeToCSV(op);
+    #####:  187:            else if (out_format == "bin")
+    #####:  188:                layout.writeToBin(op);
+        -:  189:
+        1:  190:            printf("done.\n");
+        -:  191:        }
+        -:  192:
+        -:  193:        // Else we print (if we need to)
+       19:  194:        else if (iteration % print_period == 0)
+        -:  195:        {
+       19:  196:          printf("Starting iteration %d (%.2f%%).\n", iteration, 100*(float)iteration/max_iterations);
+        -:  197:        }
+        -:  198:    }
+        -:  199:
+        1:  200:    delete fa2;
+        1:  201:    exit(EXIT_SUCCESS);
+        -:  202:}

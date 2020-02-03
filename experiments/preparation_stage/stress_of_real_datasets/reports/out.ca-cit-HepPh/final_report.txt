@@ -1,0 +1,45 @@
+###### SCoDA report #######
+# degree threshold: 6
+# num_null_e: 137990
+# num_duplicate_comm_edges: 1429835
+# num_source_nodes_with_non_resident_communities: 1119
+# num_full_nodes: 28093
+# num_comm_nodes: 26914
+# node compression ratio: 1.04381
+# num full graph edges: 4596803
+# num community graph edges: 4458394
+# edge compression ratio: 1.03104
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepPh/out.ca-cit-HepPh
+# With span: 83820
+# XRange: 70441.5
+# YRange: 83819.5
+
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepPh/out.ca-cit-HepPh
+# With span: 71400
+# XRange: 64554.7
+# YRange: 71399.2
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 2.7974e+15
+# num nodes: 28093
+# stress per node: 1.99103e+12
+# num edges: 4596803
+# stress per edge: 0
+# num samples: 1405
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 2.87856e+15
+# num nodes: 28093
+# stress per node: 2.0488e+12
+# num edges: 4596803
+# stress per edge: 0
+# num samples: 1405
+
+
+Difference in stress per node: -5.77689e+10
+Which is 0.971804% lower for layout2.

@@ -1,0 +1,24 @@
+Set out format to csv
+In lambda: like_original 
+Starting iteration 25 (5.00%).
+Starting iteration 50 (10.00%).
+Starting iteration 75 (15.00%).
+Starting iteration 100 (20.00%).
+Starting iteration 125 (25.00%).
+Starting iteration 150 (30.00%).
+Starting iteration 175 (35.00%).
+Starting iteration 200 (40.00%).
+Starting iteration 225 (45.00%).
+Starting iteration 250 (50.00%).
+Starting iteration 275 (55.00%).
+Starting iteration 300 (60.00%).
+Starting iteration 325 (65.00%).
+Starting iteration 350 (70.00%).
+Starting iteration 375 (75.00%).
+Starting iteration 400 (80.00%).
+Starting iteration 425 (85.00%).
+Starting iteration 450 (90.00%).
+Starting iteration 475 (95.00%).
+Showing... done.
+Finished with simplified GV script.
+

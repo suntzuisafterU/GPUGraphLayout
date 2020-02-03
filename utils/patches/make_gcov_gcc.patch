@@ -1,0 +1,31 @@
+diff --git a/builds/linux/Makefile b/builds/linux/Makefile
+index 2d55ccc..bf4933c 100644
+--- a/builds/linux/Makefile
++++ b/builds/linux/Makefile
+@@ -6,7 +6,7 @@ SRC_DIR           := ../../src
+ OBJ_DIR           := obj
+ 
+ # Compile with CUDA support by default
+-CUDA_SUPPORT ?= 1
++CUDA_SUPPORT ?= 0
+ ifeq ($(CUDA_SUPPORT), 1)
+ 	CC:=nvcc
+ endif
+@@ -14,7 +14,7 @@ endif
+ # Debug compilation, disable by default
+ DEBUG ?= 1
+ ifeq ($(DEBUG), 1)
+-	CXXFLAGS:=-pg -g
++	CXXFLAGS:=-g -pg -fprofile-arcs -ftest-coverage
+ 	NVCCFLAGS:=-G
+ 	O_LVL:=-O0
+ else
+@@ -30,7 +30,7 @@ CFLAGS   :=$(O_LVL)
+ CXXFLAGS :=$(CXXFLAGS) $(O_LVL) -std=c++11
+ 
+ # Linker flags
+-LDFLAGS  :=-lc -lm -lstdc++ -lpng
++LDFLAGS  :=-lc -lm -lstdc++ -lpng -lgcov --coverage
+ 
+ # src./obj. files
+ GRAPH_VIEWER_SRCS := $(wildcard $(SRC_DIR)/*.cpp)

@@ -1,3 +1,6 @@
 [submodule "lib/pngwriter"]
 	path = lib/pngwriter
 	url = https://github.com/pngwriter/pngwriter.git
+[submodule "ogdf"]
+	path = ogdf
+	url = https://github.com/ogdf/ogdf.git

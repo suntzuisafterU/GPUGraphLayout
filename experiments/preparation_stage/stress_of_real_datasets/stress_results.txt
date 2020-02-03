@@ -1,0 +1,147 @@
+90.0446%
+95.0471%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/amazon0601/out.amazon0601
+# With span: 314245
+# XRange: 277749
+# YRange: 314245
+
+######## Layout ##########
+# From dataset file: datasets/amazon0601/out.amazon0601
+# With span: 6361
+# XRange: 5980.89
+# YRange: 6360.75
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 9.23064e+17
+# num nodes: 403394
+# stress per node: 4.57642e+13
+# num edges: 3387388
+# stress per edge: 0
+# num samples: 20170
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 5.6999e+12
+# num nodes: 403394
+# stress per node: 2.82593e+08
+# num edges: 3387388
+# stress per edge: 0
+# num samples: 20170
+
+
+Difference in stress per node: 4.57639e+13
+Which is 161944% [01;31m[Klower[m[K for layout2.
+[36m[K--[m[K
+90.0958%
+95.1012%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
+# With span: 49008
+# XRange: 49007.1
+# YRange: 48192.1
+
+######## Layout ##########
+# From dataset file: datasets/ca-AstroPh/out.ca-AstroPh
+# With span: 50703
+# XRange: 50702.8
+# YRange: 46539.1
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 2.72034e+13
+# num nodes: 18771
+# stress per node: 2.89706e+10
+# num edges: 198050
+# stress per edge: 0
+# num samples: 939
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 2.66899e+13
+# num nodes: 18771
+# stress per node: 2.84238e+10
+# num edges: 198050
+# stress per edge: 0
+# num samples: 939
+
+
+Difference in stress per node: 5.46872e+08
+Which is 1.01924% [01;31m[Klower[m[K for layout2.
+[36m[K--[m[K
+90.9609%
+96.0142%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepPh/out.ca-cit-HepPh
+# With span: 83820
+# XRange: 70441.5
+# YRange: 83819.5
+
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepPh/out.ca-cit-HepPh
+# With span: 71400
+# XRange: 64554.7
+# YRange: 71399.2
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 2.7974e+15
+# num nodes: 28093
+# stress per node: 1.99103e+12
+# num edges: 4596803
+# stress per edge: 0
+# num samples: 1405
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 2.87856e+15
+# num nodes: 28093
+# stress per node: 2.0488e+12
+# num edges: 4596803
+# stress per edge: 0
+# num samples: 1405
+
+
+Difference in stress per node: -5.77689e+10
+Which is 0.971804% [01;31m[Klower[m[K for layout2.
+[36m[K--[m[K
+91.0995%
+96.1606%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepTh/out.ca-cit-HepTh
+# With span: 94171
+# XRange: 94170.7
+# YRange: 91091.2
+
+######## Layout ##########
+# From dataset file: datasets/ca-cit-HepTh/out.ca-cit-HepTh
+# With span: 90324
+# XRange: 86427.1
+# YRange: 90323.1
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 6.42703e+14
+# num nodes: 22908
+# stress per node: 5.60823e+11
+# num edges: 2673133
+# stress per edge: 0
+# num samples: 1146
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 6.40218e+14
+# num nodes: 22908
+# stress per node: 5.58654e+11
+# num edges: 2673133
+# stress per edge: 0
+# num samples: 1146
+
+
+Difference in stress per node: 2.1686e+09
+Which is 1.00388% [01;31m[Klower[m[K for layout2.

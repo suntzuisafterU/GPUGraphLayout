@@ -1,0 +1,63 @@
+Reading the layout file and setting all coordinates within the layout.
+Reading the layout file and setting all coordinates within the layout.
+Populating ogdf::Graph.
+Using 43786 sample nodes to calculate approximate stress.
+Starting stress calculation.
+0%
+durtion of one sample: 0.046223
+It will take approximately 2023.92 seconds to finish this computation.
+5.0016%
+10.0032%
+15.0048%
+20.0064%
+25.008%
+30.0096%
+35.0112%
+40.0128%
+45.0144%
+50.016%
+55.0176%
+60.0192%
+65.0208%
+70.0224%
+75.024%
+80.0256%
+85.0272%
+90.0288%
+95.0304%
+95.0304%
+##########################################################################
+######## Layout ##########
+# From dataset file: datasets/web-Google/out.web-Google
+# With span: 295331
+# XRange: 295331
+# YRange: 285718
+
+######## Layout ##########
+# From dataset file: datasets/web-Google/out.web-Google
+# With span: 368859
+# XRange: 361501
+# YRange: 368859
+
+Stress of layout1: 
+##### Stress Report #####
+# stress: 9.18058e+18
+# num nodes: 875713
+# stress per node: 2.09669e+14
+# num edges: 5105039
+# stress per edge: 0
+# num samples: 43786
+
+Stress of layout2: 
+##### Stress Report #####
+# stress: 7.90514e+18
+# num nodes: 875713
+# stress per node: 1.8054e+14
+# num edges: 5105039
+# stress per edge: 0
+# num samples: 43786
+
+
+Difference in stress per node: 2.91289e+13
+Which is 1.16134% lower for layout2.
+Finished

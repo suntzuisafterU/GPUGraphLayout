@@ -1,0 +1,78 @@
+Set out format to csv
+In lambda: full_scoda_pipeline
+comm_iters: 275, full_iters: 225
+From max_iterations: 500, and percentage_iterations_on_comm_graph0.55
+Compressing with SCoDA...
+
+Starting scoda.
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 843097
+# num_duplicate_comm_edges: 755243
+# num_source_nodes_with_non_resident_communities: Not calculated yet.  Available after expansion.
+# num_full_nodes: 875713
+# num_comm_nodes: 698030
+# node compression ratio: 1.25455
+# num full graph edges: 5105039
+# num community graph edges: 4207597
+# edge compression ratio: 1.21329
+Finished compressing.
+GV::compress() works, if everything is intact here.
+Starting iteration 14 (2.80%).
+Starting iteration 28 (5.60%).
+Starting iteration 42 (8.40%).
+Starting iteration 56 (11.20%).
+Starting iteration 70 (14.00%).
+Starting iteration 84 (16.80%).
+Starting iteration 98 (19.60%).
+Starting iteration 112 (22.40%).
+Starting iteration 126 (25.20%).
+Starting iteration 140 (28.00%).
+Starting iteration 154 (30.80%).
+Starting iteration 168 (33.60%).
+Starting iteration 182 (36.40%).
+Starting iteration 196 (39.20%).
+Starting iteration 210 (42.00%).
+Starting iteration 224 (44.80%).
+Starting iteration 238 (47.60%).
+Starting iteration 252 (50.40%).
+Starting iteration 266 (53.20%).
+Showing... done.
+GV::iterate_and_periodically_show() works on compressed layout, if everything is intact here.
+Expanding community layout back into source layout.
+Updated SCoDA report: 
+###### SCoDA report #######
+# degree threshold: 2
+# num_null_e: 843097
+# num_duplicate_comm_edges: 755243
+# num_source_nodes_with_non_resident_communities: 142099
+# num_full_nodes: 875713
+# num_comm_nodes: 698030
+# node compression ratio: 1.25455
+# num full graph edges: 5105039
+# num community graph edges: 4207597
+# edge compression ratio: 1.21329
+
+Finished expanding.
+GV::expand() works, if everything is intact here.
+Starting iteration 12 (2.40%).
+Starting iteration 24 (4.80%).
+Starting iteration 36 (7.20%).
+Starting iteration 48 (9.60%).
+Starting iteration 60 (12.00%).
+Starting iteration 72 (14.40%).
+Starting iteration 84 (16.80%).
+Starting iteration 96 (19.20%).
+Starting iteration 108 (21.60%).
+Starting iteration 120 (24.00%).
+Starting iteration 132 (26.40%).
+Starting iteration 144 (28.80%).
+Starting iteration 156 (31.20%).
+Starting iteration 168 (33.60%).
+Starting iteration 180 (36.00%).
+Starting iteration 192 (38.40%).
+Starting iteration 204 (40.80%).
+Starting iteration 216 (43.20%).
+Showing... done.
+GV::iterate_and_periodically_show works on expanded layout, if everything is intact here.
+Finished lambda: full_scoda_pipeline

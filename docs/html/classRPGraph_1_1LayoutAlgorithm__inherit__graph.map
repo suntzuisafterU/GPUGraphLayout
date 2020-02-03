@@ -1,0 +1,6 @@
+<map id="RPGraph::LayoutAlgorithm" name="RPGraph::LayoutAlgorithm">
+<area shape="rect" id="node1" title=" " alt="" coords="112,5,307,112"/>
+<area shape="rect" id="node2" href="$classRPGraph_1_1ForceAtlas2.html" title=" " alt="" coords="128,160,291,545"/>
+<area shape="rect" id="node3" href="$classRPGraph_1_1CPUForceAtlas2.html" title=" " alt="" coords="5,784,195,1067"/>
+<area shape="rect" id="node4" href="$classRPGraph_1_1CUDAForceAtlas2.html" title=" " alt="" coords="219,593,419,1257"/>
+</map>

@@ -10,16 +10,27 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 **/datasets
+**/generated_datasets
+**/*.vs
 **/*.vscode
+SCoDA_GPU_FULL.code-workspace
+
+## builds
+builds/linux/graph_viewer_exec
+builds/linux/scoda_exec
+builds/linux/stress_exec
+builds/linux/stress_rand_sampling
+builds/linux/all_pairs_exec
+builds/linux/csv_to_png
 
 ## Build generated
-**/graph_viewer
 build/
-builds/linux/graph_viewer
 builds/linux/.depend
 out/
 DerivedData/
-**/temp.txt
+**/temp.*
+src/read_files.md
+**/__pycache__
 
 ## Various settings
 *.pbxuser
@@ -36,3 +47,17 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+
+# Windows stuff
+Debug/
+GPUGraphLayout_take2.sln
+GPUGraphLayout_take2.vcxproj
+GPUGraphLayout_take2.vcxproj.filters
+GPUGraphLayout_take2.vcxproj.user
+PropertySheet.props
+
+## Temp binaries and scripts
+**/.nfs*
+TEMP_ORIGINAL/
+utils/generate_output/
+utils/junk_out/
